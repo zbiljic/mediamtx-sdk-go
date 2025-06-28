@@ -1,0 +1,6 @@
+[tools]
+"ubi:mvdan/gofumpt" = "0.8.0"
+golangci-lint = "2.1.6"
+
+[settings]
+experimental = true
