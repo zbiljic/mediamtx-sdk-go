@@ -85,7 +85,7 @@ lint: ## Lint the source code
 		exit 1; fi
 
 .PHONY: generate
-generate: clean-gen
+generate: clean-gen ogen-generate
 generate: ## Generate code
 
 .PHONY: pre-commit
@@ -100,6 +100,7 @@ clean: ## Remove build artifacts
 .PHONY: clean-gen
 clean-gen: ## Remove generated code
 	@echo "==> Removing generated code ..."
+	@$(MAKE) ogen-clean
 
 .PHONY: clean-all
 clean-all: clean clean-gen

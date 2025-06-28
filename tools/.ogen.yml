@@ -1,0 +1,6 @@
+generator:
+  features:
+    enable:
+      - "paths/client"
+      - "client/request/validation"
+    disable_all: true
