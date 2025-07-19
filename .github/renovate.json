@@ -4,7 +4,8 @@
     "config:recommended",
     ":combinePatchMinorReleases",
     ":separateMultipleMajorReleases",
-    "customManagers:githubActionsVersions"
+    "customManagers:githubActionsVersions",
+    "customManagers:makefileVersions"
   ],
   "schedule": ["* 0-6 * * 1"],
   "enabledManagers": ["custom.regex", "github-actions", "gomod", "mise"],
