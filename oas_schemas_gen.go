@@ -288,6 +288,10 @@ type GlobalConf struct {
 	MulticastIPRange            OptString                         `json:"multicastIPRange"`
 	MulticastRTPPort            OptInt                            `json:"multicastRTPPort"`
 	MulticastRTCPPort           OptInt                            `json:"multicastRTCPPort"`
+	SrtpAddress                 OptString                         `json:"srtpAddress"`
+	SrtcpAddress                OptString                         `json:"srtcpAddress"`
+	MulticastSRTPPort           OptInt                            `json:"multicastSRTPPort"`
+	MulticastSRTCPPort          OptInt                            `json:"multicastSRTCPPort"`
 	RtspServerKey               OptString                         `json:"rtspServerKey"`
 	RtspServerCert              OptString                         `json:"rtspServerCert"`
 	RtspAuthMethods             []string                          `json:"rtspAuthMethods"`
@@ -620,6 +624,26 @@ func (s *GlobalConf) GetMulticastRTPPort() OptInt {
 // GetMulticastRTCPPort returns the value of MulticastRTCPPort.
 func (s *GlobalConf) GetMulticastRTCPPort() OptInt {
 	return s.MulticastRTCPPort
+}
+
+// GetSrtpAddress returns the value of SrtpAddress.
+func (s *GlobalConf) GetSrtpAddress() OptString {
+	return s.SrtpAddress
+}
+
+// GetSrtcpAddress returns the value of SrtcpAddress.
+func (s *GlobalConf) GetSrtcpAddress() OptString {
+	return s.SrtcpAddress
+}
+
+// GetMulticastSRTPPort returns the value of MulticastSRTPPort.
+func (s *GlobalConf) GetMulticastSRTPPort() OptInt {
+	return s.MulticastSRTPPort
+}
+
+// GetMulticastSRTCPPort returns the value of MulticastSRTCPPort.
+func (s *GlobalConf) GetMulticastSRTCPPort() OptInt {
+	return s.MulticastSRTCPPort
 }
 
 // GetRtspServerKey returns the value of RtspServerKey.
@@ -1120,6 +1144,26 @@ func (s *GlobalConf) SetMulticastRTPPort(val OptInt) {
 // SetMulticastRTCPPort sets the value of MulticastRTCPPort.
 func (s *GlobalConf) SetMulticastRTCPPort(val OptInt) {
 	s.MulticastRTCPPort = val
+}
+
+// SetSrtpAddress sets the value of SrtpAddress.
+func (s *GlobalConf) SetSrtpAddress(val OptString) {
+	s.SrtpAddress = val
+}
+
+// SetSrtcpAddress sets the value of SrtcpAddress.
+func (s *GlobalConf) SetSrtcpAddress(val OptString) {
+	s.SrtcpAddress = val
+}
+
+// SetMulticastSRTPPort sets the value of MulticastSRTPPort.
+func (s *GlobalConf) SetMulticastSRTPPort(val OptInt) {
+	s.MulticastSRTPPort = val
+}
+
+// SetMulticastSRTCPPort sets the value of MulticastSRTCPPort.
+func (s *GlobalConf) SetMulticastSRTCPPort(val OptInt) {
+	s.MulticastSRTCPPort = val
 }
 
 // SetRtspServerKey sets the value of RtspServerKey.

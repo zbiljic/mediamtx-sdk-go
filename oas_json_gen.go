@@ -1594,6 +1594,30 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.SrtpAddress.Set {
+			e.FieldStart("srtpAddress")
+			s.SrtpAddress.Encode(e)
+		}
+	}
+	{
+		if s.SrtcpAddress.Set {
+			e.FieldStart("srtcpAddress")
+			s.SrtcpAddress.Encode(e)
+		}
+	}
+	{
+		if s.MulticastSRTPPort.Set {
+			e.FieldStart("multicastSRTPPort")
+			s.MulticastSRTPPort.Encode(e)
+		}
+	}
+	{
+		if s.MulticastSRTCPPort.Set {
+			e.FieldStart("multicastSRTCPPort")
+			s.MulticastSRTCPPort.Encode(e)
+		}
+	}
+	{
 		if s.RtspServerKey.Set {
 			e.FieldStart("rtspServerKey")
 			s.RtspServerKey.Encode(e)
@@ -1871,107 +1895,111 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfGlobalConf = [100]string{
-	0:  "logLevel",
-	1:  "logDestinations",
-	2:  "logFile",
-	3:  "sysLogPrefix",
-	4:  "readTimeout",
-	5:  "writeTimeout",
-	6:  "writeQueueSize",
-	7:  "udpMaxPayloadSize",
-	8:  "runOnConnect",
-	9:  "runOnConnectRestart",
-	10: "runOnDisconnect",
-	11: "authMethod",
-	12: "authInternalUsers",
-	13: "authHTTPAddress",
-	14: "authHTTPExclude",
-	15: "authJWTJWKS",
-	16: "authJWTJWKSFingerprint",
-	17: "authJWTClaimKey",
-	18: "authJWTExclude",
-	19: "authJWTInHTTPQuery",
-	20: "api",
-	21: "apiAddress",
-	22: "apiEncryption",
-	23: "apiServerKey",
-	24: "apiServerCert",
-	25: "apiAllowOrigin",
-	26: "apiTrustedProxies",
-	27: "metrics",
-	28: "metricsAddress",
-	29: "metricsEncryption",
-	30: "metricsServerKey",
-	31: "metricsServerCert",
-	32: "metricsAllowOrigin",
-	33: "metricsTrustedProxies",
-	34: "pprof",
-	35: "pprofAddress",
-	36: "pprofEncryption",
-	37: "pprofServerKey",
-	38: "pprofServerCert",
-	39: "pprofAllowOrigin",
-	40: "pprofTrustedProxies",
-	41: "playback",
-	42: "playbackAddress",
-	43: "playbackEncryption",
-	44: "playbackServerKey",
-	45: "playbackServerCert",
-	46: "playbackAllowOrigin",
-	47: "playbackTrustedProxies",
-	48: "rtsp",
-	49: "rtspTransports",
-	50: "rtspEncryption",
-	51: "rtspAddress",
-	52: "rtspsAddress",
-	53: "rtpAddress",
-	54: "rtcpAddress",
-	55: "multicastIPRange",
-	56: "multicastRTPPort",
-	57: "multicastRTCPPort",
-	58: "rtspServerKey",
-	59: "rtspServerCert",
-	60: "rtspAuthMethods",
-	61: "rtmp",
-	62: "rtmpAddress",
-	63: "rtmpEncryption",
-	64: "rtmpsAddress",
-	65: "rtmpServerKey",
-	66: "rtmpServerCert",
-	67: "hls",
-	68: "hlsAddress",
-	69: "hlsEncryption",
-	70: "hlsServerKey",
-	71: "hlsServerCert",
-	72: "hlsAllowOrigin",
-	73: "hlsTrustedProxies",
-	74: "hlsAlwaysRemux",
-	75: "hlsVariant",
-	76: "hlsSegmentCount",
-	77: "hlsSegmentDuration",
-	78: "hlsPartDuration",
-	79: "hlsSegmentMaxSize",
-	80: "hlsDirectory",
-	81: "hlsMuxerCloseAfter",
-	82: "webrtc",
-	83: "webrtcAddress",
-	84: "webrtcEncryption",
-	85: "webrtcServerKey",
-	86: "webrtcServerCert",
-	87: "webrtcAllowOrigin",
-	88: "webrtcTrustedProxies",
-	89: "webrtcLocalUDPAddress",
-	90: "webrtcLocalTCPAddress",
-	91: "webrtcIPsFromInterfaces",
-	92: "webrtcIPsFromInterfacesList",
-	93: "webrtcAdditionalHosts",
-	94: "webrtcICEServers2",
-	95: "webrtcHandshakeTimeout",
-	96: "webrtcTrackGatherTimeout",
-	97: "webrtcSTUNGatherTimeout",
-	98: "srt",
-	99: "srtAddress",
+var jsonFieldsNameOfGlobalConf = [104]string{
+	0:   "logLevel",
+	1:   "logDestinations",
+	2:   "logFile",
+	3:   "sysLogPrefix",
+	4:   "readTimeout",
+	5:   "writeTimeout",
+	6:   "writeQueueSize",
+	7:   "udpMaxPayloadSize",
+	8:   "runOnConnect",
+	9:   "runOnConnectRestart",
+	10:  "runOnDisconnect",
+	11:  "authMethod",
+	12:  "authInternalUsers",
+	13:  "authHTTPAddress",
+	14:  "authHTTPExclude",
+	15:  "authJWTJWKS",
+	16:  "authJWTJWKSFingerprint",
+	17:  "authJWTClaimKey",
+	18:  "authJWTExclude",
+	19:  "authJWTInHTTPQuery",
+	20:  "api",
+	21:  "apiAddress",
+	22:  "apiEncryption",
+	23:  "apiServerKey",
+	24:  "apiServerCert",
+	25:  "apiAllowOrigin",
+	26:  "apiTrustedProxies",
+	27:  "metrics",
+	28:  "metricsAddress",
+	29:  "metricsEncryption",
+	30:  "metricsServerKey",
+	31:  "metricsServerCert",
+	32:  "metricsAllowOrigin",
+	33:  "metricsTrustedProxies",
+	34:  "pprof",
+	35:  "pprofAddress",
+	36:  "pprofEncryption",
+	37:  "pprofServerKey",
+	38:  "pprofServerCert",
+	39:  "pprofAllowOrigin",
+	40:  "pprofTrustedProxies",
+	41:  "playback",
+	42:  "playbackAddress",
+	43:  "playbackEncryption",
+	44:  "playbackServerKey",
+	45:  "playbackServerCert",
+	46:  "playbackAllowOrigin",
+	47:  "playbackTrustedProxies",
+	48:  "rtsp",
+	49:  "rtspTransports",
+	50:  "rtspEncryption",
+	51:  "rtspAddress",
+	52:  "rtspsAddress",
+	53:  "rtpAddress",
+	54:  "rtcpAddress",
+	55:  "multicastIPRange",
+	56:  "multicastRTPPort",
+	57:  "multicastRTCPPort",
+	58:  "srtpAddress",
+	59:  "srtcpAddress",
+	60:  "multicastSRTPPort",
+	61:  "multicastSRTCPPort",
+	62:  "rtspServerKey",
+	63:  "rtspServerCert",
+	64:  "rtspAuthMethods",
+	65:  "rtmp",
+	66:  "rtmpAddress",
+	67:  "rtmpEncryption",
+	68:  "rtmpsAddress",
+	69:  "rtmpServerKey",
+	70:  "rtmpServerCert",
+	71:  "hls",
+	72:  "hlsAddress",
+	73:  "hlsEncryption",
+	74:  "hlsServerKey",
+	75:  "hlsServerCert",
+	76:  "hlsAllowOrigin",
+	77:  "hlsTrustedProxies",
+	78:  "hlsAlwaysRemux",
+	79:  "hlsVariant",
+	80:  "hlsSegmentCount",
+	81:  "hlsSegmentDuration",
+	82:  "hlsPartDuration",
+	83:  "hlsSegmentMaxSize",
+	84:  "hlsDirectory",
+	85:  "hlsMuxerCloseAfter",
+	86:  "webrtc",
+	87:  "webrtcAddress",
+	88:  "webrtcEncryption",
+	89:  "webrtcServerKey",
+	90:  "webrtcServerCert",
+	91:  "webrtcAllowOrigin",
+	92:  "webrtcTrustedProxies",
+	93:  "webrtcLocalUDPAddress",
+	94:  "webrtcLocalTCPAddress",
+	95:  "webrtcIPsFromInterfaces",
+	96:  "webrtcIPsFromInterfacesList",
+	97:  "webrtcAdditionalHosts",
+	98:  "webrtcICEServers2",
+	99:  "webrtcHandshakeTimeout",
+	100: "webrtcTrackGatherTimeout",
+	101: "webrtcSTUNGatherTimeout",
+	102: "srt",
+	103: "srtAddress",
 }
 
 // Decode decodes GlobalConf from json.
@@ -2636,6 +2664,46 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"multicastRTCPPort\"")
+			}
+		case "srtpAddress":
+			if err := func() error {
+				s.SrtpAddress.Reset()
+				if err := s.SrtpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"srtpAddress\"")
+			}
+		case "srtcpAddress":
+			if err := func() error {
+				s.SrtcpAddress.Reset()
+				if err := s.SrtcpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"srtcpAddress\"")
+			}
+		case "multicastSRTPPort":
+			if err := func() error {
+				s.MulticastSRTPPort.Reset()
+				if err := s.MulticastSRTPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastSRTPPort\"")
+			}
+		case "multicastSRTCPPort":
+			if err := func() error {
+				s.MulticastSRTCPPort.Reset()
+				if err := s.MulticastSRTCPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastSRTCPPort\"")
 			}
 		case "rtspServerKey":
 			if err := func() error {
