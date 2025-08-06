@@ -76,6 +76,8 @@ lint: ## Lint the source code
 	@echo "==> Linting source code..."
 	@mise x -- golangci-lint run --fix
 
+.PHONY: check-mod
+check-mod:
 	@echo "==> Checking Go mod..."
 	@$(MAKE) tidy
 	@if (git status --porcelain | grep -Eq "go\.(mod|sum)"); then \
@@ -89,7 +91,7 @@ generate: clean-gen ogen-generate
 generate: ## Generate code
 
 .PHONY: pre-commit
-pre-commit: gofmt lint
+pre-commit: gofmt lint check-mod
 
 .PHONY: clean
 clean: ## Remove build artifacts
