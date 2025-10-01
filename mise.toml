@@ -1,7 +1,7 @@
 [tools]
 "go:github.com/ogen-go/ogen/cmd/ogen" = "1.14.0"
 "ubi:mvdan/gofumpt" = "0.9.1"
-golangci-lint = "2.4.0"
+golangci-lint = "2.5.0"
 
 [settings]
 experimental = true
