@@ -1,5 +1,5 @@
 [tools]
-"go:github.com/ogen-go/ogen/cmd/ogen" = "1.15.2"
+"go:github.com/ogen-go/ogen/cmd/ogen" = "1.16.0"
 "ubi:mvdan/gofumpt" = "0.9.1"
 golangci-lint = "2.5.0"
 
