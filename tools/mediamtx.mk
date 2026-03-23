@@ -1,5 +1,5 @@
 # renovate: datasource=github-releases depName=bluenviron/mediamtx
-MEDIAMTX_VERSION ?= v1.16.3
+MEDIAMTX_VERSION ?= v1.17.0
 
 tmp/mediamtx: tmp
 	mkdir -p $@
