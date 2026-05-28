@@ -14,6 +14,13 @@ run = '''
     --output "${spec_dir}/openapi.yaml"
   sed -i.bak 's/enum: \[no, optional, strict\]/enum: ["no", optional, strict]/' "${spec_dir}/openapi.yaml"
   rm -f "${spec_dir}/openapi.yaml.bak"
+
+  #
+  # ogen cannot infer a discriminator for this nested oneOf because multiple
+  # codec props variants share identical fields. Keep the endpoint typed and
+  # preserve codecProps as raw JSON instead of skipping the Paths operations.
+  #
+  perl -0pi -e 's/    PathTrackCodecProps:\n      oneOf:\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsAV1'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsVP9'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsH265'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsH264'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsOpus'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsMPEG4Audio'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsAC3'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsG711'\''\n      - \$ref: '\''#\/components\/schemas\/PathTrackCodecPropsLPCM'\''/    PathTrackCodecProps:\n      type: object\n      x-ogen-type: encoding\/json.RawMessage/' "${spec_dir}/openapi.yaml"
 '''
 
 [tasks."mediamtx:clean"]
