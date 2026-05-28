@@ -3,9 +3,227 @@
 package mediamtx
 
 import (
+	json2 "encoding/json"
+
 	"github.com/go-faster/errors"
 	"github.com/go-faster/jx"
+	"github.com/google/uuid"
+	"github.com/ogen-go/ogen/json"
 )
+
+// Encode implements json.Marshaler.
+func (s *AlwaysAvailableTrack) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *AlwaysAvailableTrack) encodeFields(e *jx.Encoder) {
+	{
+		if s.Codec.Set {
+			e.FieldStart("codec")
+			s.Codec.Encode(e)
+		}
+	}
+	{
+		if s.SampleRate.Set {
+			e.FieldStart("sampleRate")
+			s.SampleRate.Encode(e)
+		}
+	}
+	{
+		if s.ChannelCount.Set {
+			e.FieldStart("channelCount")
+			s.ChannelCount.Encode(e)
+		}
+	}
+	{
+		if s.MuLaw.Set {
+			e.FieldStart("muLaw")
+			s.MuLaw.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfAlwaysAvailableTrack = [4]string{
+	0: "codec",
+	1: "sampleRate",
+	2: "channelCount",
+	3: "muLaw",
+}
+
+// Decode decodes AlwaysAvailableTrack from json.
+func (s *AlwaysAvailableTrack) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AlwaysAvailableTrack to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "codec":
+			if err := func() error {
+				s.Codec.Reset()
+				if err := s.Codec.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"codec\"")
+			}
+		case "sampleRate":
+			if err := func() error {
+				s.SampleRate.Reset()
+				if err := s.SampleRate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sampleRate\"")
+			}
+		case "channelCount":
+			if err := func() error {
+				s.ChannelCount.Reset()
+				if err := s.ChannelCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"channelCount\"")
+			}
+		case "muLaw":
+			if err := func() error {
+				s.MuLaw.Reset()
+				if err := s.MuLaw.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"muLaw\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode AlwaysAvailableTrack")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *AlwaysAvailableTrack) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AlwaysAvailableTrack) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AlwaysAvailableTrackCodec as json.
+func (s AlwaysAvailableTrackCodec) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes AlwaysAvailableTrackCodec from json.
+func (s *AlwaysAvailableTrackCodec) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AlwaysAvailableTrackCodec to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch AlwaysAvailableTrackCodec(v) {
+	case AlwaysAvailableTrackCodecAV1:
+		*s = AlwaysAvailableTrackCodecAV1
+	case AlwaysAvailableTrackCodecVP9:
+		*s = AlwaysAvailableTrackCodecVP9
+	case AlwaysAvailableTrackCodecH265:
+		*s = AlwaysAvailableTrackCodecH265
+	case AlwaysAvailableTrackCodecH264:
+		*s = AlwaysAvailableTrackCodecH264
+	case AlwaysAvailableTrackCodecMPEG4Audio:
+		*s = AlwaysAvailableTrackCodecMPEG4Audio
+	case AlwaysAvailableTrackCodecOpus:
+		*s = AlwaysAvailableTrackCodecOpus
+	case AlwaysAvailableTrackCodecG711:
+		*s = AlwaysAvailableTrackCodecG711
+	case AlwaysAvailableTrackCodecLPCM:
+		*s = AlwaysAvailableTrackCodecLPCM
+	default:
+		*s = AlwaysAvailableTrackCodec(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s AlwaysAvailableTrackCodec) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AlwaysAvailableTrackCodec) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AuthAction as json.
+func (s AuthAction) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes AuthAction from json.
+func (s *AuthAction) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AuthAction to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch AuthAction(v) {
+	case AuthActionPublish:
+		*s = AuthActionPublish
+	case AuthActionRead:
+		*s = AuthActionRead
+	case AuthActionPlayback:
+		*s = AuthActionPlayback
+	case AuthActionAPI:
+		*s = AuthActionAPI
+	case AuthActionMetrics:
+		*s = AuthActionMetrics
+	case AuthActionPprof:
+		*s = AuthActionPprof
+	default:
+		*s = AuthAction(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s AuthAction) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AuthAction) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
 
 // Encode implements json.Marshaler.
 func (s *AuthInternalUser) Encode(e *jx.Encoder) {
@@ -221,6 +439,48 @@ func (s *AuthInternalUserPermission) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *AuthInternalUserPermission) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AuthMethod as json.
+func (s AuthMethod) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes AuthMethod from json.
+func (s *AuthMethod) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode AuthMethod to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch AuthMethod(v) {
+	case AuthMethodInternal:
+		*s = AuthMethodInternal
+	case AuthMethodHTTP:
+		*s = AuthMethodHTTP
+	case AuthMethodJwt:
+		*s = AuthMethodJwt
+	default:
+		*s = AuthMethod(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s AuthMethod) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *AuthMethod) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -1137,6 +1397,48 @@ func (s *ConfigPathsReplaceNotFound) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes Encryption as json.
+func (s Encryption) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes Encryption from json.
+func (s *Encryption) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode Encryption to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch Encryption(v) {
+	case EncryptionNo:
+		*s = EncryptionNo
+	case EncryptionOptional:
+		*s = EncryptionOptional
+	case EncryptionStrict:
+		*s = EncryptionStrict
+	default:
+		*s = Encryption(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s Encryption) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *Encryption) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode implements json.Marshaler.
 func (s *Error) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -1147,6 +1449,12 @@ func (s *Error) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *Error) encodeFields(e *jx.Encoder) {
 	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
+	{
 		if s.Error.Set {
 			e.FieldStart("error")
 			s.Error.Encode(e)
@@ -1154,8 +1462,9 @@ func (s *Error) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfError = [1]string{
-	0: "error",
+var jsonFieldsNameOfError = [2]string{
+	0: "status",
+	1: "error",
 }
 
 // Decode decodes Error from json.
@@ -1166,6 +1475,16 @@ func (s *Error) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
+			}
 		case "error":
 			if err := func() error {
 				s.Error.Reset()
@@ -1200,6 +1519,44 @@ func (s *Error) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes ErrorStatus as json.
+func (s ErrorStatus) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes ErrorStatus from json.
+func (s *ErrorStatus) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ErrorStatus to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch ErrorStatus(v) {
+	case ErrorStatusError:
+		*s = ErrorStatusError
+	default:
+		*s = ErrorStatus(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s ErrorStatus) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ErrorStatus) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode implements json.Marshaler.
 func (s *GlobalConf) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -1220,9 +1577,15 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 			e.FieldStart("logDestinations")
 			e.ArrStart()
 			for _, elem := range s.LogDestinations {
-				e.Str(elem)
+				elem.Encode(e)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.LogStructured.Set {
+			e.FieldStart("logStructured")
+			s.LogStructured.Encode(e)
 		}
 	}
 	{
@@ -1238,6 +1601,12 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.DumpPackets.Set {
+			e.FieldStart("dumpPackets")
+			s.DumpPackets.Encode(e)
+		}
+	}
+	{
 		if s.ReadTimeout.Set {
 			e.FieldStart("readTimeout")
 			s.ReadTimeout.Encode(e)
@@ -1250,6 +1619,12 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.ReadBufferCount.Set {
+			e.FieldStart("readBufferCount")
+			s.ReadBufferCount.Encode(e)
+		}
+	}
+	{
 		if s.WriteQueueSize.Set {
 			e.FieldStart("writeQueueSize")
 			s.WriteQueueSize.Encode(e)
@@ -1259,6 +1634,12 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.UdpMaxPayloadSize.Set {
 			e.FieldStart("udpMaxPayloadSize")
 			s.UdpMaxPayloadSize.Encode(e)
+		}
+	}
+	{
+		if s.UdpReadBufferSize.Set {
+			e.FieldStart("udpReadBufferSize")
+			s.UdpReadBufferSize.Encode(e)
 		}
 	}
 	{
@@ -1302,6 +1683,18 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.ExternalAuthenticationURL.Set {
+			e.FieldStart("externalAuthenticationURL")
+			s.ExternalAuthenticationURL.Encode(e)
+		}
+	}
+	{
+		if s.AuthHTTPFingerprint.Set {
+			e.FieldStart("authHTTPFingerprint")
+			s.AuthHTTPFingerprint.Encode(e)
+		}
+	}
+	{
 		if s.AuthHTTPExclude != nil {
 			e.FieldStart("authHTTPExclude")
 			e.ArrStart()
@@ -1330,6 +1723,24 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.AuthJWTInHTTPQuery.Set {
+			e.FieldStart("authJWTInHTTPQuery")
+			s.AuthJWTInHTTPQuery.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTIssuer.Set {
+			e.FieldStart("authJWTIssuer")
+			s.AuthJWTIssuer.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTAudience.Set {
+			e.FieldStart("authJWTAudience")
+			s.AuthJWTAudience.Encode(e)
+		}
+	}
+	{
 		if s.AuthJWTExclude != nil {
 			e.FieldStart("authJWTExclude")
 			e.ArrStart()
@@ -1337,12 +1748,6 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 				elem.Encode(e)
 			}
 			e.ArrEnd()
-		}
-	}
-	{
-		if s.AuthJWTInHTTPQuery.Set {
-			e.FieldStart("authJWTInHTTPQuery")
-			s.AuthJWTInHTTPQuery.Encode(e)
 		}
 	}
 	{
@@ -1379,6 +1784,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.ApiAllowOrigin.Set {
 			e.FieldStart("apiAllowOrigin")
 			s.ApiAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.ApiAllowOrigins != nil {
+			e.FieldStart("apiAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.ApiAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
@@ -1428,6 +1843,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.MetricsAllowOrigins != nil {
+			e.FieldStart("metricsAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.MetricsAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
 		if s.MetricsTrustedProxies != nil {
 			e.FieldStart("metricsTrustedProxies")
 			e.ArrStart()
@@ -1471,6 +1896,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.PprofAllowOrigin.Set {
 			e.FieldStart("pprofAllowOrigin")
 			s.PprofAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.PprofAllowOrigins != nil {
+			e.FieldStart("pprofAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.PprofAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
@@ -1520,6 +1955,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.PlaybackAllowOrigins != nil {
+			e.FieldStart("playbackAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.PlaybackAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
 		if s.PlaybackTrustedProxies != nil {
 			e.FieldStart("playbackTrustedProxies")
 			e.ArrStart()
@@ -1536,13 +1981,31 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.RtspDisable.Set {
+			e.FieldStart("rtspDisable")
+			s.RtspDisable.Encode(e)
+		}
+	}
+	{
+		if s.Protocols.Set {
+			e.FieldStart("protocols")
+			s.Protocols.Encode(e)
+		}
+	}
+	{
 		if s.RtspTransports != nil {
 			e.FieldStart("rtspTransports")
 			e.ArrStart()
 			for _, elem := range s.RtspTransports {
-				e.Str(elem)
+				elem.Encode(e)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.Encryption.Set {
+			e.FieldStart("encryption")
+			s.Encryption.Encode(e)
 		}
 	}
 	{
@@ -1630,13 +2093,25 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.AuthMethods.Set {
+			e.FieldStart("authMethods")
+			s.AuthMethods.Encode(e)
+		}
+	}
+	{
 		if s.RtspAuthMethods != nil {
 			e.FieldStart("rtspAuthMethods")
 			e.ArrStart()
 			for _, elem := range s.RtspAuthMethods {
-				e.Str(elem)
+				elem.Encode(e)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.RtspUDPReadBufferSize.Set {
+			e.FieldStart("rtspUDPReadBufferSize")
+			s.RtspUDPReadBufferSize.Encode(e)
 		}
 	}
 	{
@@ -1646,15 +2121,21 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RtmpAddress.Set {
-			e.FieldStart("rtmpAddress")
-			s.RtmpAddress.Encode(e)
+		if s.RtmpDisable.Set {
+			e.FieldStart("rtmpDisable")
+			s.RtmpDisable.Encode(e)
 		}
 	}
 	{
 		if s.RtmpEncryption.Set {
 			e.FieldStart("rtmpEncryption")
 			s.RtmpEncryption.Encode(e)
+		}
+	}
+	{
+		if s.RtmpAddress.Set {
+			e.FieldStart("rtmpAddress")
+			s.RtmpAddress.Encode(e)
 		}
 	}
 	{
@@ -1679,6 +2160,12 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.Hls.Set {
 			e.FieldStart("hls")
 			s.Hls.Encode(e)
+		}
+	}
+	{
+		if s.HlsDisable.Set {
+			e.FieldStart("hlsDisable")
+			s.HlsDisable.Encode(e)
 		}
 	}
 	{
@@ -1709,6 +2196,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.HlsAllowOrigin.Set {
 			e.FieldStart("hlsAllowOrigin")
 			s.HlsAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.HlsAllowOrigins != nil {
+			e.FieldStart("hlsAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.HlsAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
@@ -1770,9 +2267,21 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.HlsCDNSecret.Set {
+			e.FieldStart("hlsCDNSecret")
+			s.HlsCDNSecret.Encode(e)
+		}
+	}
+	{
 		if s.Webrtc.Set {
 			e.FieldStart("webrtc")
 			s.Webrtc.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcDisable.Set {
+			e.FieldStart("webrtcDisable")
+			s.WebrtcDisable.Encode(e)
 		}
 	}
 	{
@@ -1803,6 +2312,16 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		if s.WebrtcAllowOrigin.Set {
 			e.FieldStart("webrtcAllowOrigin")
 			s.WebrtcAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcAllowOrigins != nil {
+			e.FieldStart("webrtcAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.WebrtcAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
@@ -1864,6 +2383,12 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.WebrtcSTUNGatherTimeout.Set {
+			e.FieldStart("webrtcSTUNGatherTimeout")
+			s.WebrtcSTUNGatherTimeout.Encode(e)
+		}
+	}
+	{
 		if s.WebrtcHandshakeTimeout.Set {
 			e.FieldStart("webrtcHandshakeTimeout")
 			s.WebrtcHandshakeTimeout.Encode(e)
@@ -1876,9 +2401,27 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.WebrtcSTUNGatherTimeout.Set {
-			e.FieldStart("webrtcSTUNGatherTimeout")
-			s.WebrtcSTUNGatherTimeout.Encode(e)
+		if s.WebrtcICEUDPMuxAddress.Set {
+			e.FieldStart("webrtcICEUDPMuxAddress")
+			s.WebrtcICEUDPMuxAddress.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcICETCPMuxAddress.Set {
+			e.FieldStart("webrtcICETCPMuxAddress")
+			s.WebrtcICETCPMuxAddress.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcICEHostNAT1To1IPs.Set {
+			e.FieldStart("webrtcICEHostNAT1To1IPs")
+			s.WebrtcICEHostNAT1To1IPs.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcICEServers.Set {
+			e.FieldStart("webrtcICEServers")
+			s.WebrtcICEServers.Encode(e)
 		}
 	}
 	{
@@ -1893,113 +2436,182 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 			s.SrtAddress.Encode(e)
 		}
 	}
+	{
+		if s.Record.Set {
+			e.FieldStart("record")
+			s.Record.Encode(e)
+		}
+	}
+	{
+		if s.RecordPath.Set {
+			e.FieldStart("recordPath")
+			s.RecordPath.Encode(e)
+		}
+	}
+	{
+		if s.RecordFormat.Set {
+			e.FieldStart("recordFormat")
+			s.RecordFormat.Encode(e)
+		}
+	}
+	{
+		if s.RecordPartDuration.Set {
+			e.FieldStart("recordPartDuration")
+			s.RecordPartDuration.Encode(e)
+		}
+	}
+	{
+		if s.RecordSegmentDuration.Set {
+			e.FieldStart("recordSegmentDuration")
+			s.RecordSegmentDuration.Encode(e)
+		}
+	}
+	{
+		if s.RecordDeleteAfter.Set {
+			e.FieldStart("recordDeleteAfter")
+			s.RecordDeleteAfter.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfGlobalConf = [104]string{
+var jsonFieldsNameOfGlobalConf = [137]string{
 	0:   "logLevel",
 	1:   "logDestinations",
-	2:   "logFile",
-	3:   "sysLogPrefix",
-	4:   "readTimeout",
-	5:   "writeTimeout",
-	6:   "writeQueueSize",
-	7:   "udpMaxPayloadSize",
-	8:   "runOnConnect",
-	9:   "runOnConnectRestart",
-	10:  "runOnDisconnect",
-	11:  "authMethod",
-	12:  "authInternalUsers",
-	13:  "authHTTPAddress",
-	14:  "authHTTPExclude",
-	15:  "authJWTJWKS",
-	16:  "authJWTJWKSFingerprint",
-	17:  "authJWTClaimKey",
-	18:  "authJWTExclude",
-	19:  "authJWTInHTTPQuery",
-	20:  "api",
-	21:  "apiAddress",
-	22:  "apiEncryption",
-	23:  "apiServerKey",
-	24:  "apiServerCert",
-	25:  "apiAllowOrigin",
-	26:  "apiTrustedProxies",
-	27:  "metrics",
-	28:  "metricsAddress",
-	29:  "metricsEncryption",
-	30:  "metricsServerKey",
-	31:  "metricsServerCert",
-	32:  "metricsAllowOrigin",
-	33:  "metricsTrustedProxies",
-	34:  "pprof",
-	35:  "pprofAddress",
-	36:  "pprofEncryption",
-	37:  "pprofServerKey",
-	38:  "pprofServerCert",
-	39:  "pprofAllowOrigin",
-	40:  "pprofTrustedProxies",
-	41:  "playback",
-	42:  "playbackAddress",
-	43:  "playbackEncryption",
-	44:  "playbackServerKey",
-	45:  "playbackServerCert",
-	46:  "playbackAllowOrigin",
-	47:  "playbackTrustedProxies",
-	48:  "rtsp",
-	49:  "rtspTransports",
-	50:  "rtspEncryption",
-	51:  "rtspAddress",
-	52:  "rtspsAddress",
-	53:  "rtpAddress",
-	54:  "rtcpAddress",
-	55:  "multicastIPRange",
-	56:  "multicastRTPPort",
-	57:  "multicastRTCPPort",
-	58:  "srtpAddress",
-	59:  "srtcpAddress",
-	60:  "multicastSRTPPort",
-	61:  "multicastSRTCPPort",
-	62:  "rtspServerKey",
-	63:  "rtspServerCert",
-	64:  "rtspAuthMethods",
-	65:  "rtmp",
-	66:  "rtmpAddress",
-	67:  "rtmpEncryption",
-	68:  "rtmpsAddress",
-	69:  "rtmpServerKey",
-	70:  "rtmpServerCert",
-	71:  "hls",
-	72:  "hlsAddress",
-	73:  "hlsEncryption",
-	74:  "hlsServerKey",
-	75:  "hlsServerCert",
-	76:  "hlsAllowOrigin",
-	77:  "hlsTrustedProxies",
-	78:  "hlsAlwaysRemux",
-	79:  "hlsVariant",
-	80:  "hlsSegmentCount",
-	81:  "hlsSegmentDuration",
-	82:  "hlsPartDuration",
-	83:  "hlsSegmentMaxSize",
-	84:  "hlsDirectory",
-	85:  "hlsMuxerCloseAfter",
-	86:  "webrtc",
-	87:  "webrtcAddress",
-	88:  "webrtcEncryption",
-	89:  "webrtcServerKey",
-	90:  "webrtcServerCert",
-	91:  "webrtcAllowOrigin",
-	92:  "webrtcTrustedProxies",
-	93:  "webrtcLocalUDPAddress",
-	94:  "webrtcLocalTCPAddress",
-	95:  "webrtcIPsFromInterfaces",
-	96:  "webrtcIPsFromInterfacesList",
-	97:  "webrtcAdditionalHosts",
-	98:  "webrtcICEServers2",
-	99:  "webrtcHandshakeTimeout",
-	100: "webrtcTrackGatherTimeout",
-	101: "webrtcSTUNGatherTimeout",
-	102: "srt",
-	103: "srtAddress",
+	2:   "logStructured",
+	3:   "logFile",
+	4:   "sysLogPrefix",
+	5:   "dumpPackets",
+	6:   "readTimeout",
+	7:   "writeTimeout",
+	8:   "readBufferCount",
+	9:   "writeQueueSize",
+	10:  "udpMaxPayloadSize",
+	11:  "udpReadBufferSize",
+	12:  "runOnConnect",
+	13:  "runOnConnectRestart",
+	14:  "runOnDisconnect",
+	15:  "authMethod",
+	16:  "authInternalUsers",
+	17:  "authHTTPAddress",
+	18:  "externalAuthenticationURL",
+	19:  "authHTTPFingerprint",
+	20:  "authHTTPExclude",
+	21:  "authJWTJWKS",
+	22:  "authJWTJWKSFingerprint",
+	23:  "authJWTClaimKey",
+	24:  "authJWTInHTTPQuery",
+	25:  "authJWTIssuer",
+	26:  "authJWTAudience",
+	27:  "authJWTExclude",
+	28:  "api",
+	29:  "apiAddress",
+	30:  "apiEncryption",
+	31:  "apiServerKey",
+	32:  "apiServerCert",
+	33:  "apiAllowOrigin",
+	34:  "apiAllowOrigins",
+	35:  "apiTrustedProxies",
+	36:  "metrics",
+	37:  "metricsAddress",
+	38:  "metricsEncryption",
+	39:  "metricsServerKey",
+	40:  "metricsServerCert",
+	41:  "metricsAllowOrigin",
+	42:  "metricsAllowOrigins",
+	43:  "metricsTrustedProxies",
+	44:  "pprof",
+	45:  "pprofAddress",
+	46:  "pprofEncryption",
+	47:  "pprofServerKey",
+	48:  "pprofServerCert",
+	49:  "pprofAllowOrigin",
+	50:  "pprofAllowOrigins",
+	51:  "pprofTrustedProxies",
+	52:  "playback",
+	53:  "playbackAddress",
+	54:  "playbackEncryption",
+	55:  "playbackServerKey",
+	56:  "playbackServerCert",
+	57:  "playbackAllowOrigin",
+	58:  "playbackAllowOrigins",
+	59:  "playbackTrustedProxies",
+	60:  "rtsp",
+	61:  "rtspDisable",
+	62:  "protocols",
+	63:  "rtspTransports",
+	64:  "encryption",
+	65:  "rtspEncryption",
+	66:  "rtspAddress",
+	67:  "rtspsAddress",
+	68:  "rtpAddress",
+	69:  "rtcpAddress",
+	70:  "multicastIPRange",
+	71:  "multicastRTPPort",
+	72:  "multicastRTCPPort",
+	73:  "srtpAddress",
+	74:  "srtcpAddress",
+	75:  "multicastSRTPPort",
+	76:  "multicastSRTCPPort",
+	77:  "rtspServerKey",
+	78:  "rtspServerCert",
+	79:  "authMethods",
+	80:  "rtspAuthMethods",
+	81:  "rtspUDPReadBufferSize",
+	82:  "rtmp",
+	83:  "rtmpDisable",
+	84:  "rtmpEncryption",
+	85:  "rtmpAddress",
+	86:  "rtmpsAddress",
+	87:  "rtmpServerKey",
+	88:  "rtmpServerCert",
+	89:  "hls",
+	90:  "hlsDisable",
+	91:  "hlsAddress",
+	92:  "hlsEncryption",
+	93:  "hlsServerKey",
+	94:  "hlsServerCert",
+	95:  "hlsAllowOrigin",
+	96:  "hlsAllowOrigins",
+	97:  "hlsTrustedProxies",
+	98:  "hlsAlwaysRemux",
+	99:  "hlsVariant",
+	100: "hlsSegmentCount",
+	101: "hlsSegmentDuration",
+	102: "hlsPartDuration",
+	103: "hlsSegmentMaxSize",
+	104: "hlsDirectory",
+	105: "hlsMuxerCloseAfter",
+	106: "hlsCDNSecret",
+	107: "webrtc",
+	108: "webrtcDisable",
+	109: "webrtcAddress",
+	110: "webrtcEncryption",
+	111: "webrtcServerKey",
+	112: "webrtcServerCert",
+	113: "webrtcAllowOrigin",
+	114: "webrtcAllowOrigins",
+	115: "webrtcTrustedProxies",
+	116: "webrtcLocalUDPAddress",
+	117: "webrtcLocalTCPAddress",
+	118: "webrtcIPsFromInterfaces",
+	119: "webrtcIPsFromInterfacesList",
+	120: "webrtcAdditionalHosts",
+	121: "webrtcICEServers2",
+	122: "webrtcSTUNGatherTimeout",
+	123: "webrtcHandshakeTimeout",
+	124: "webrtcTrackGatherTimeout",
+	125: "webrtcICEUDPMuxAddress",
+	126: "webrtcICETCPMuxAddress",
+	127: "webrtcICEHostNAT1To1IPs",
+	128: "webrtcICEServers",
+	129: "srt",
+	130: "srtAddress",
+	131: "record",
+	132: "recordPath",
+	133: "recordFormat",
+	134: "recordPartDuration",
+	135: "recordSegmentDuration",
+	136: "recordDeleteAfter",
 }
 
 // Decode decodes GlobalConf from json.
@@ -2022,12 +2634,10 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}
 		case "logDestinations":
 			if err := func() error {
-				s.LogDestinations = make([]string, 0)
+				s.LogDestinations = make([]LogDestination, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
+					var elem LogDestination
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
 					s.LogDestinations = append(s.LogDestinations, elem)
@@ -2038,6 +2648,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"logDestinations\"")
+			}
+		case "logStructured":
+			if err := func() error {
+				s.LogStructured.Reset()
+				if err := s.LogStructured.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"logStructured\"")
 			}
 		case "logFile":
 			if err := func() error {
@@ -2059,6 +2679,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"sysLogPrefix\"")
 			}
+		case "dumpPackets":
+			if err := func() error {
+				s.DumpPackets.Reset()
+				if err := s.DumpPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"dumpPackets\"")
+			}
 		case "readTimeout":
 			if err := func() error {
 				s.ReadTimeout.Reset()
@@ -2079,6 +2709,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"writeTimeout\"")
 			}
+		case "readBufferCount":
+			if err := func() error {
+				s.ReadBufferCount.Reset()
+				if err := s.ReadBufferCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"readBufferCount\"")
+			}
 		case "writeQueueSize":
 			if err := func() error {
 				s.WriteQueueSize.Reset()
@@ -2098,6 +2738,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"udpMaxPayloadSize\"")
+			}
+		case "udpReadBufferSize":
+			if err := func() error {
+				s.UdpReadBufferSize.Reset()
+				if err := s.UdpReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"udpReadBufferSize\"")
 			}
 		case "runOnConnect":
 			if err := func() error {
@@ -2166,6 +2816,26 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"authHTTPAddress\"")
 			}
+		case "externalAuthenticationURL":
+			if err := func() error {
+				s.ExternalAuthenticationURL.Reset()
+				if err := s.ExternalAuthenticationURL.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"externalAuthenticationURL\"")
+			}
+		case "authHTTPFingerprint":
+			if err := func() error {
+				s.AuthHTTPFingerprint.Reset()
+				if err := s.AuthHTTPFingerprint.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authHTTPFingerprint\"")
+			}
 		case "authHTTPExclude":
 			if err := func() error {
 				s.AuthHTTPExclude = make([]AuthInternalUserPermission, 0)
@@ -2213,6 +2883,36 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"authJWTClaimKey\"")
 			}
+		case "authJWTInHTTPQuery":
+			if err := func() error {
+				s.AuthJWTInHTTPQuery.Reset()
+				if err := s.AuthJWTInHTTPQuery.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTInHTTPQuery\"")
+			}
+		case "authJWTIssuer":
+			if err := func() error {
+				s.AuthJWTIssuer.Reset()
+				if err := s.AuthJWTIssuer.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTIssuer\"")
+			}
+		case "authJWTAudience":
+			if err := func() error {
+				s.AuthJWTAudience.Reset()
+				if err := s.AuthJWTAudience.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTAudience\"")
+			}
 		case "authJWTExclude":
 			if err := func() error {
 				s.AuthJWTExclude = make([]AuthInternalUserPermission, 0)
@@ -2229,16 +2929,6 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"authJWTExclude\"")
-			}
-		case "authJWTInHTTPQuery":
-			if err := func() error {
-				s.AuthJWTInHTTPQuery.Reset()
-				if err := s.AuthJWTInHTTPQuery.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTInHTTPQuery\"")
 			}
 		case "api":
 			if err := func() error {
@@ -2299,6 +2989,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"apiAllowOrigin\"")
+			}
+		case "apiAllowOrigins":
+			if err := func() error {
+				s.ApiAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.ApiAllowOrigins = append(s.ApiAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiAllowOrigins\"")
 			}
 		case "apiTrustedProxies":
 			if err := func() error {
@@ -2379,6 +3088,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"metricsAllowOrigin\"")
 			}
+		case "metricsAllowOrigins":
+			if err := func() error {
+				s.MetricsAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.MetricsAllowOrigins = append(s.MetricsAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsAllowOrigins\"")
+			}
 		case "metricsTrustedProxies":
 			if err := func() error {
 				s.MetricsTrustedProxies = make([]string, 0)
@@ -2457,6 +3185,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"pprofAllowOrigin\"")
+			}
+		case "pprofAllowOrigins":
+			if err := func() error {
+				s.PprofAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PprofAllowOrigins = append(s.PprofAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofAllowOrigins\"")
 			}
 		case "pprofTrustedProxies":
 			if err := func() error {
@@ -2537,6 +3284,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"playbackAllowOrigin\"")
 			}
+		case "playbackAllowOrigins":
+			if err := func() error {
+				s.PlaybackAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PlaybackAllowOrigins = append(s.PlaybackAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackAllowOrigins\"")
+			}
 		case "playbackTrustedProxies":
 			if err := func() error {
 				s.PlaybackTrustedProxies = make([]string, 0)
@@ -2566,14 +3332,32 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtsp\"")
 			}
+		case "rtspDisable":
+			if err := func() error {
+				s.RtspDisable.Reset()
+				if err := s.RtspDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspDisable\"")
+			}
+		case "protocols":
+			if err := func() error {
+				s.Protocols.Reset()
+				if err := s.Protocols.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"protocols\"")
+			}
 		case "rtspTransports":
 			if err := func() error {
-				s.RtspTransports = make([]string, 0)
+				s.RtspTransports = make([]GlobalConfRtspTransportsItem, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
+					var elem GlobalConfRtspTransportsItem
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
 					s.RtspTransports = append(s.RtspTransports, elem)
@@ -2584,6 +3368,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtspTransports\"")
+			}
+		case "encryption":
+			if err := func() error {
+				s.Encryption.Reset()
+				if err := s.Encryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"encryption\"")
 			}
 		case "rtspEncryption":
 			if err := func() error {
@@ -2725,14 +3519,22 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtspServerCert\"")
 			}
+		case "authMethods":
+			if err := func() error {
+				s.AuthMethods.Reset()
+				if err := s.AuthMethods.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authMethods\"")
+			}
 		case "rtspAuthMethods":
 			if err := func() error {
-				s.RtspAuthMethods = make([]string, 0)
+				s.RtspAuthMethods = make([]RTSPAuthMethod, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
+					var elem RTSPAuthMethod
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
 					s.RtspAuthMethods = append(s.RtspAuthMethods, elem)
@@ -2744,6 +3546,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtspAuthMethods\"")
 			}
+		case "rtspUDPReadBufferSize":
+			if err := func() error {
+				s.RtspUDPReadBufferSize.Reset()
+				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
+			}
 		case "rtmp":
 			if err := func() error {
 				s.Rtmp.Reset()
@@ -2754,15 +3566,15 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtmp\"")
 			}
-		case "rtmpAddress":
+		case "rtmpDisable":
 			if err := func() error {
-				s.RtmpAddress.Reset()
-				if err := s.RtmpAddress.Decode(d); err != nil {
+				s.RtmpDisable.Reset()
+				if err := s.RtmpDisable.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpAddress\"")
+				return errors.Wrap(err, "decode field \"rtmpDisable\"")
 			}
 		case "rtmpEncryption":
 			if err := func() error {
@@ -2773,6 +3585,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtmpEncryption\"")
+			}
+		case "rtmpAddress":
+			if err := func() error {
+				s.RtmpAddress.Reset()
+				if err := s.RtmpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpAddress\"")
 			}
 		case "rtmpsAddress":
 			if err := func() error {
@@ -2813,6 +3635,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"hls\"")
+			}
+		case "hlsDisable":
+			if err := func() error {
+				s.HlsDisable.Reset()
+				if err := s.HlsDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsDisable\"")
 			}
 		case "hlsAddress":
 			if err := func() error {
@@ -2863,6 +3695,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"hlsAllowOrigin\"")
+			}
+		case "hlsAllowOrigins":
+			if err := func() error {
+				s.HlsAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.HlsAllowOrigins = append(s.HlsAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsAllowOrigins\"")
 			}
 		case "hlsTrustedProxies":
 			if err := func() error {
@@ -2963,6 +3814,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"hlsMuxerCloseAfter\"")
 			}
+		case "hlsCDNSecret":
+			if err := func() error {
+				s.HlsCDNSecret.Reset()
+				if err := s.HlsCDNSecret.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsCDNSecret\"")
+			}
 		case "webrtc":
 			if err := func() error {
 				s.Webrtc.Reset()
@@ -2972,6 +3833,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtc\"")
+			}
+		case "webrtcDisable":
+			if err := func() error {
+				s.WebrtcDisable.Reset()
+				if err := s.WebrtcDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcDisable\"")
 			}
 		case "webrtcAddress":
 			if err := func() error {
@@ -3022,6 +3893,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcAllowOrigin\"")
+			}
+		case "webrtcAllowOrigins":
+			if err := func() error {
+				s.WebrtcAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.WebrtcAllowOrigins = append(s.WebrtcAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcAllowOrigins\"")
 			}
 		case "webrtcTrustedProxies":
 			if err := func() error {
@@ -3112,9 +4002,9 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}
 		case "webrtcICEServers2":
 			if err := func() error {
-				s.WebrtcICEServers2 = make([]GlobalConfWebrtcICEServers2Item, 0)
+				s.WebrtcICEServers2 = make([]WebRTCICEServer, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem GlobalConfWebrtcICEServers2Item
+					var elem WebRTCICEServer
 					if err := elem.Decode(d); err != nil {
 						return err
 					}
@@ -3126,6 +4016,16 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcICEServers2\"")
+			}
+		case "webrtcSTUNGatherTimeout":
+			if err := func() error {
+				s.WebrtcSTUNGatherTimeout.Reset()
+				if err := s.WebrtcSTUNGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcSTUNGatherTimeout\"")
 			}
 		case "webrtcHandshakeTimeout":
 			if err := func() error {
@@ -3147,15 +4047,45 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcTrackGatherTimeout\"")
 			}
-		case "webrtcSTUNGatherTimeout":
+		case "webrtcICEUDPMuxAddress":
 			if err := func() error {
-				s.WebrtcSTUNGatherTimeout.Reset()
-				if err := s.WebrtcSTUNGatherTimeout.Decode(d); err != nil {
+				s.WebrtcICEUDPMuxAddress.Reset()
+				if err := s.WebrtcICEUDPMuxAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcSTUNGatherTimeout\"")
+				return errors.Wrap(err, "decode field \"webrtcICEUDPMuxAddress\"")
+			}
+		case "webrtcICETCPMuxAddress":
+			if err := func() error {
+				s.WebrtcICETCPMuxAddress.Reset()
+				if err := s.WebrtcICETCPMuxAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcICETCPMuxAddress\"")
+			}
+		case "webrtcICEHostNAT1To1IPs":
+			if err := func() error {
+				s.WebrtcICEHostNAT1To1IPs.Reset()
+				if err := s.WebrtcICEHostNAT1To1IPs.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcICEHostNAT1To1IPs\"")
+			}
+		case "webrtcICEServers":
+			if err := func() error {
+				s.WebrtcICEServers.Reset()
+				if err := s.WebrtcICEServers.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcICEServers\"")
 			}
 		case "srt":
 			if err := func() error {
@@ -3176,6 +4106,66 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"srtAddress\"")
+			}
+		case "record":
+			if err := func() error {
+				s.Record.Reset()
+				if err := s.Record.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"record\"")
+			}
+		case "recordPath":
+			if err := func() error {
+				s.RecordPath.Reset()
+				if err := s.RecordPath.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordPath\"")
+			}
+		case "recordFormat":
+			if err := func() error {
+				s.RecordFormat.Reset()
+				if err := s.RecordFormat.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordFormat\"")
+			}
+		case "recordPartDuration":
+			if err := func() error {
+				s.RecordPartDuration.Reset()
+				if err := s.RecordPartDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordPartDuration\"")
+			}
+		case "recordSegmentDuration":
+			if err := func() error {
+				s.RecordSegmentDuration.Reset()
+				if err := s.RecordSegmentDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordSegmentDuration\"")
+			}
+		case "recordDeleteAfter":
+			if err := func() error {
+				s.RecordDeleteAfter.Reset()
+				if err := s.RecordDeleteAfter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
 			}
 		default:
 			return d.Skip()
@@ -3201,116 +4191,86 @@ func (s *GlobalConf) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
-// Encode implements json.Marshaler.
-func (s *GlobalConfWebrtcICEServers2Item) Encode(e *jx.Encoder) {
-	e.ObjStart()
-	s.encodeFields(e)
-	e.ObjEnd()
+// Encode encodes GlobalConfProtocolsItem as json.
+func (s GlobalConfProtocolsItem) Encode(e *jx.Encoder) {
+	e.Str(string(s))
 }
 
-// encodeFields encodes fields.
-func (s *GlobalConfWebrtcICEServers2Item) encodeFields(e *jx.Encoder) {
-	{
-		if s.URL.Set {
-			e.FieldStart("url")
-			s.URL.Encode(e)
-		}
-	}
-	{
-		if s.Username.Set {
-			e.FieldStart("username")
-			s.Username.Encode(e)
-		}
-	}
-	{
-		if s.Password.Set {
-			e.FieldStart("password")
-			s.Password.Encode(e)
-		}
-	}
-	{
-		if s.ClientOnly.Set {
-			e.FieldStart("clientOnly")
-			s.ClientOnly.Encode(e)
-		}
-	}
-}
-
-var jsonFieldsNameOfGlobalConfWebrtcICEServers2Item = [4]string{
-	0: "url",
-	1: "username",
-	2: "password",
-	3: "clientOnly",
-}
-
-// Decode decodes GlobalConfWebrtcICEServers2Item from json.
-func (s *GlobalConfWebrtcICEServers2Item) Decode(d *jx.Decoder) error {
+// Decode decodes GlobalConfProtocolsItem from json.
+func (s *GlobalConfProtocolsItem) Decode(d *jx.Decoder) error {
 	if s == nil {
-		return errors.New("invalid: unable to decode GlobalConfWebrtcICEServers2Item to nil")
+		return errors.New("invalid: unable to decode GlobalConfProtocolsItem to nil")
 	}
-
-	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		switch string(k) {
-		case "url":
-			if err := func() error {
-				s.URL.Reset()
-				if err := s.URL.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"url\"")
-			}
-		case "username":
-			if err := func() error {
-				s.Username.Reset()
-				if err := s.Username.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"username\"")
-			}
-		case "password":
-			if err := func() error {
-				s.Password.Reset()
-				if err := s.Password.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"password\"")
-			}
-		case "clientOnly":
-			if err := func() error {
-				s.ClientOnly.Reset()
-				if err := s.ClientOnly.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"clientOnly\"")
-			}
-		default:
-			return d.Skip()
-		}
-		return nil
-	}); err != nil {
-		return errors.Wrap(err, "decode GlobalConfWebrtcICEServers2Item")
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch GlobalConfProtocolsItem(v) {
+	case GlobalConfProtocolsItemUDP:
+		*s = GlobalConfProtocolsItemUDP
+	case GlobalConfProtocolsItemMulticast:
+		*s = GlobalConfProtocolsItemMulticast
+	case GlobalConfProtocolsItemTCP:
+		*s = GlobalConfProtocolsItemTCP
+	default:
+		*s = GlobalConfProtocolsItem(v)
 	}
 
 	return nil
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s *GlobalConfWebrtcICEServers2Item) MarshalJSON() ([]byte, error) {
+func (s GlobalConfProtocolsItem) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *GlobalConfWebrtcICEServers2Item) UnmarshalJSON(data []byte) error {
+func (s *GlobalConfProtocolsItem) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes GlobalConfRtspTransportsItem as json.
+func (s GlobalConfRtspTransportsItem) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes GlobalConfRtspTransportsItem from json.
+func (s *GlobalConfRtspTransportsItem) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode GlobalConfRtspTransportsItem to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch GlobalConfRtspTransportsItem(v) {
+	case GlobalConfRtspTransportsItemUDP:
+		*s = GlobalConfRtspTransportsItemUDP
+	case GlobalConfRtspTransportsItemMulticast:
+		*s = GlobalConfRtspTransportsItemMulticast
+	case GlobalConfRtspTransportsItemTCP:
+		*s = GlobalConfRtspTransportsItemTCP
+	default:
+		*s = GlobalConfRtspTransportsItem(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s GlobalConfRtspTransportsItem) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *GlobalConfRtspTransportsItem) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -3343,6 +4303,18 @@ func (s *HLSMuxer) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
+	{
 		if s.BytesSent.Set {
 			e.FieldStart("bytesSent")
 			s.BytesSent.Encode(e)
@@ -3350,11 +4322,13 @@ func (s *HLSMuxer) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfHLSMuxer = [4]string{
+var jsonFieldsNameOfHLSMuxer = [6]string{
 	0: "path",
 	1: "created",
 	2: "lastRequest",
-	3: "bytesSent",
+	3: "outboundBytes",
+	4: "outboundFramesDiscarded",
+	5: "bytesSent",
 }
 
 // Decode decodes HLSMuxer from json.
@@ -3394,6 +4368,26 @@ func (s *HLSMuxer) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"lastRequest\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
 			}
 		case "bytesSent":
 			if err := func() error {
@@ -3533,6 +4527,338 @@ func (s *HLSMuxerList) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *HLSMuxerList) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *HLSSession) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *HLSSession) encodeFields(e *jx.Encoder) {
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
+		}
+	}
+	{
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
+		}
+	}
+	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
+		if s.IsCDN.Set {
+			e.FieldStart("isCDN")
+			s.IsCDN.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfHLSSession = [8]string{
+	0: "id",
+	1: "created",
+	2: "remoteAddr",
+	3: "path",
+	4: "query",
+	5: "user",
+	6: "isCDN",
+	7: "outboundBytes",
+}
+
+// Decode decodes HLSSession from json.
+func (s *HLSSession) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HLSSession to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "path":
+			if err := func() error {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"path\"")
+			}
+		case "query":
+			if err := func() error {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
+		case "isCDN":
+			if err := func() error {
+				s.IsCDN.Reset()
+				if err := s.IsCDN.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"isCDN\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode HLSSession")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HLSSession) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HLSSession) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *HLSSessionList) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *HLSSessionList) encodeFields(e *jx.Encoder) {
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
+	{
+		if s.ItemCount.Set {
+			e.FieldStart("itemCount")
+			s.ItemCount.Encode(e)
+		}
+	}
+	{
+		if s.Items != nil {
+			e.FieldStart("items")
+			e.ArrStart()
+			for _, elem := range s.Items {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+}
+
+var jsonFieldsNameOfHLSSessionList = [3]string{
+	0: "pageCount",
+	1: "itemCount",
+	2: "items",
+}
+
+// Decode decodes HLSSessionList from json.
+func (s *HLSSessionList) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HLSSessionList to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
+			}
+		case "itemCount":
+			if err := func() error {
+				s.ItemCount.Reset()
+				if err := s.ItemCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"itemCount\"")
+			}
+		case "items":
+			if err := func() error {
+				s.Items = make([]HLSSession, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem HLSSession
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Items = append(s.Items, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"items\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode HLSSessionList")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HLSSessionList) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HLSSessionList) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HLSVariant as json.
+func (s HLSVariant) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes HLSVariant from json.
+func (s *HLSVariant) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HLSVariant to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch HLSVariant(v) {
+	case HLSVariantMpegts:
+		*s = HLSVariantMpegts
+	case HLSVariantFmp4:
+		*s = HLSVariantFmp4
+	case HLSVariantLowLatency:
+		*s = HLSVariantLowLatency
+	default:
+		*s = HLSVariant(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s HLSVariant) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HLSVariant) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -3727,6 +5053,676 @@ func (s *HlsMuxersListInternalServerError) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes HlssessionsGetBadRequest as json.
+func (s *HlssessionsGetBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsGetBadRequest from json.
+func (s *HlssessionsGetBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsGetBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsGetBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsGetBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsGetBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsGetInternalServerError as json.
+func (s *HlssessionsGetInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsGetInternalServerError from json.
+func (s *HlssessionsGetInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsGetInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsGetInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsGetInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsGetInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsGetNotFound as json.
+func (s *HlssessionsGetNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsGetNotFound from json.
+func (s *HlssessionsGetNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsGetNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsGetNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsGetNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsGetNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsKickBadRequest as json.
+func (s *HlssessionsKickBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsKickBadRequest from json.
+func (s *HlssessionsKickBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsKickBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsKickBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsKickBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsKickBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsKickInternalServerError as json.
+func (s *HlssessionsKickInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsKickInternalServerError from json.
+func (s *HlssessionsKickInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsKickInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsKickInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsKickInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsKickInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsKickNotFound as json.
+func (s *HlssessionsKickNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsKickNotFound from json.
+func (s *HlssessionsKickNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsKickNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsKickNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsKickNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsKickNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsListBadRequest as json.
+func (s *HlssessionsListBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsListBadRequest from json.
+func (s *HlssessionsListBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsListBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsListBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsListBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsListBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes HlssessionsListInternalServerError as json.
+func (s *HlssessionsListInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes HlssessionsListInternalServerError from json.
+func (s *HlssessionsListInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode HlssessionsListInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = HlssessionsListInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *HlssessionsListInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *HlssessionsListInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *Info) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *Info) encodeFields(e *jx.Encoder) {
+	{
+		if s.Version.Set {
+			e.FieldStart("version")
+			s.Version.Encode(e)
+		}
+	}
+	{
+		if s.Started.Set {
+			e.FieldStart("started")
+			s.Started.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfInfo = [2]string{
+	0: "version",
+	1: "started",
+}
+
+// Decode decodes Info from json.
+func (s *Info) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode Info to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "version":
+			if err := func() error {
+				s.Version.Reset()
+				if err := s.Version.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"version\"")
+			}
+		case "started":
+			if err := func() error {
+				s.Started.Reset()
+				if err := s.Started.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"started\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode Info")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *Info) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *Info) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes LogDestination as json.
+func (s LogDestination) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes LogDestination from json.
+func (s *LogDestination) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode LogDestination to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch LogDestination(v) {
+	case LogDestinationStdout:
+		*s = LogDestinationStdout
+	case LogDestinationFile:
+		*s = LogDestinationFile
+	case LogDestinationSyslog:
+		*s = LogDestinationSyslog
+	default:
+		*s = LogDestination(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s LogDestination) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *LogDestination) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes LogLevel as json.
+func (s LogLevel) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes LogLevel from json.
+func (s *LogLevel) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode LogLevel to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch LogLevel(v) {
+	case LogLevelError:
+		*s = LogLevelError
+	case LogLevelWarn:
+		*s = LogLevelWarn
+	case LogLevelInfo:
+		*s = LogLevelInfo
+	case LogLevelDebug:
+		*s = LogLevelDebug
+	default:
+		*s = LogLevel(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s LogLevel) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *LogLevel) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *OK) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *OK) encodeFields(e *jx.Encoder) {
+	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfOK = [1]string{
+	0: "status",
+}
+
+// Decode decodes OK from json.
+func (s *OK) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode OK to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode OK")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *OK) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OK) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes OKStatus as json.
+func (s OKStatus) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes OKStatus from json.
+func (s *OKStatus) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode OKStatus to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch OKStatus(v) {
+	case OKStatusOk:
+		*s = OKStatusOk
+	default:
+		*s = OKStatus(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OKStatus) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OKStatus) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AlwaysAvailableTrackCodec as json.
+func (o OptAlwaysAvailableTrackCodec) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes AlwaysAvailableTrackCodec from json.
+func (o *OptAlwaysAvailableTrackCodec) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptAlwaysAvailableTrackCodec to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptAlwaysAvailableTrackCodec) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptAlwaysAvailableTrackCodec) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AuthAction as json.
+func (o OptAuthAction) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes AuthAction from json.
+func (o *OptAuthAction) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptAuthAction to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptAuthAction) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptAuthAction) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes AuthMethod as json.
+func (o OptAuthMethod) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes AuthMethod from json.
+func (o *OptAuthMethod) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptAuthMethod to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptAuthMethod) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptAuthMethod) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes bool as json.
 func (o OptBool) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -3758,6 +5754,72 @@ func (s OptBool) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptBool) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes Encryption as json.
+func (o OptEncryption) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes Encryption from json.
+func (o *OptEncryption) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptEncryption to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptEncryption) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptEncryption) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ErrorStatus as json.
+func (o OptErrorStatus) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes ErrorStatus from json.
+func (o *OptErrorStatus) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptErrorStatus to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptErrorStatus) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptErrorStatus) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -3797,37 +5859,35 @@ func (s *OptFloat64) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
-// Encode encodes int as json.
-func (o OptInt) Encode(e *jx.Encoder) {
+// Encode encodes HLSVariant as json.
+func (o OptHLSVariant) Encode(e *jx.Encoder) {
 	if !o.Set {
 		return
 	}
-	e.Int(int(o.Value))
+	e.Str(string(o.Value))
 }
 
-// Decode decodes int from json.
-func (o *OptInt) Decode(d *jx.Decoder) error {
+// Decode decodes HLSVariant from json.
+func (o *OptHLSVariant) Decode(d *jx.Decoder) error {
 	if o == nil {
-		return errors.New("invalid: unable to decode OptInt to nil")
+		return errors.New("invalid: unable to decode OptHLSVariant to nil")
 	}
 	o.Set = true
-	v, err := d.Int()
-	if err != nil {
+	if err := o.Value.Decode(d); err != nil {
 		return err
 	}
-	o.Value = int(v)
 	return nil
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s OptInt) MarshalJSON() ([]byte, error) {
+func (s OptHLSVariant) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *OptInt) UnmarshalJSON(data []byte) error {
+func (s *OptHLSVariant) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -3863,6 +5923,508 @@ func (s OptInt64) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptInt64) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes LogLevel as json.
+func (o OptLogLevel) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes LogLevel from json.
+func (o *OptLogLevel) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptLogLevel to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptLogLevel) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptLogLevel) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes bool as json.
+func (o OptNilBool) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.Bool(bool(o.Value))
+}
+
+// Decode decodes bool from json.
+func (o *OptNilBool) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilBool to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v bool
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	v, err := d.Bool()
+	if err != nil {
+		return err
+	}
+	o.Value = bool(v)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilBool) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilBool) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes Encryption as json.
+func (o OptNilEncryption) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes Encryption from json.
+func (o *OptNilEncryption) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilEncryption to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v Encryption
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilEncryption) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilEncryption) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes []GlobalConfProtocolsItem as json.
+func (o OptNilGlobalConfProtocolsItemArray) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.ArrStart()
+	for _, elem := range o.Value {
+		elem.Encode(e)
+	}
+	e.ArrEnd()
+}
+
+// Decode decodes []GlobalConfProtocolsItem from json.
+func (o *OptNilGlobalConfProtocolsItemArray) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilGlobalConfProtocolsItemArray to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v []GlobalConfProtocolsItem
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	o.Value = make([]GlobalConfProtocolsItem, 0)
+	if err := d.Arr(func(d *jx.Decoder) error {
+		var elem GlobalConfProtocolsItem
+		if err := elem.Decode(d); err != nil {
+			return err
+		}
+		o.Value = append(o.Value, elem)
+		return nil
+	}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilGlobalConfProtocolsItemArray) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilGlobalConfProtocolsItemArray) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes int64 as json.
+func (o OptNilInt64) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.Int64(int64(o.Value))
+}
+
+// Decode decodes int64 from json.
+func (o *OptNilInt64) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilInt64 to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v int64
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	v, err := d.Int64()
+	if err != nil {
+		return err
+	}
+	o.Value = int64(v)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilInt64) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilInt64) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathSource as json.
+func (o OptNilPathSource) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes PathSource from json.
+func (o *OptNilPathSource) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilPathSource to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v PathSource
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilPathSource) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilPathSource) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathTrackCodecProps as json.
+func (o OptNilPathTrackCodecProps) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes PathTrackCodecProps from json.
+func (o *OptNilPathTrackCodecProps) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilPathTrackCodecProps to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v PathTrackCodecProps
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilPathTrackCodecProps) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilPathTrackCodecProps) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes []RTSPAuthMethod as json.
+func (o OptNilRTSPAuthMethodArray) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.ArrStart()
+	for _, elem := range o.Value {
+		elem.Encode(e)
+	}
+	e.ArrEnd()
+}
+
+// Decode decodes []RTSPAuthMethod from json.
+func (o *OptNilRTSPAuthMethodArray) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilRTSPAuthMethodArray to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v []RTSPAuthMethod
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	o.Value = make([]RTSPAuthMethod, 0)
+	if err := d.Arr(func(d *jx.Decoder) error {
+		var elem RTSPAuthMethod
+		if err := elem.Decode(d); err != nil {
+			return err
+		}
+		o.Value = append(o.Value, elem)
+		return nil
+	}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilRTSPAuthMethodArray) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilRTSPAuthMethodArray) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RTSPTransport as json.
+func (o OptNilRTSPTransport) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes RTSPTransport from json.
+func (o *OptNilRTSPTransport) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilRTSPTransport to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v RTSPTransport
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilRTSPTransport) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilRTSPTransport) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordFormat as json.
+func (o OptNilRecordFormat) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes RecordFormat from json.
+func (o *OptNilRecordFormat) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilRecordFormat to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v RecordFormat
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilRecordFormat) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilRecordFormat) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -3918,6 +6480,204 @@ func (s *OptNilString) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes []string as json.
+func (o OptNilStringArray) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.ArrStart()
+	for _, elem := range o.Value {
+		e.Str(elem)
+	}
+	e.ArrEnd()
+}
+
+// Decode decodes []string from json.
+func (o *OptNilStringArray) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilStringArray to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v []string
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	o.Value = make([]string, 0)
+	if err := d.Arr(func(d *jx.Decoder) error {
+		var elem string
+		v, err := d.Str()
+		elem = string(v)
+		if err != nil {
+			return err
+		}
+		o.Value = append(o.Value, elem)
+		return nil
+	}); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilStringArray) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilStringArray) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes uuid.UUID as json.
+func (o OptNilUUID) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	json.EncodeUUID(e, o.Value)
+}
+
+// Decode decodes uuid.UUID from json.
+func (o *OptNilUUID) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilUUID to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v uuid.UUID
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	v, err := json.DecodeUUID(d)
+	if err != nil {
+		return err
+	}
+	o.Value = v
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilUUID) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilUUID) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes uint64 as json.
+func (o OptNilUint64) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	e.UInt64(uint64(o.Value))
+}
+
+// Decode decodes uint64 from json.
+func (o *OptNilUint64) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilUint64 to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v uint64
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	v, err := d.UInt64()
+	if err != nil {
+		return err
+	}
+	o.Value = uint64(v)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilUint64) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilUint64) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes OKStatus as json.
+func (o OptOKStatus) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes OKStatus from json.
+func (o *OptOKStatus) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptOKStatus to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptOKStatus) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptOKStatus) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes PathReaderType as json.
 func (o OptPathReaderType) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -3947,39 +6707,6 @@ func (s OptPathReaderType) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptPathReaderType) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode encodes PathSource as json.
-func (o OptPathSource) Encode(e *jx.Encoder) {
-	if !o.Set {
-		return
-	}
-	o.Value.Encode(e)
-}
-
-// Decode decodes PathSource from json.
-func (o *OptPathSource) Decode(d *jx.Decoder) error {
-	if o == nil {
-		return errors.New("invalid: unable to decode OptPathSource to nil")
-	}
-	o.Set = true
-	if err := o.Value.Decode(d); err != nil {
-		return err
-	}
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s OptPathSource) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *OptPathSource) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -4017,6 +6744,39 @@ func (s *OptPathSourceType) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes PathTrackCodec as json.
+func (o OptPathTrackCodec) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes PathTrackCodec from json.
+func (o *OptPathTrackCodec) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptPathTrackCodec to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptPathTrackCodec) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptPathTrackCodec) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes RTMPConnState as json.
 func (o OptRTMPConnState) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -4050,6 +6810,39 @@ func (s *OptRTMPConnState) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes RTSPRangeType as json.
+func (o OptRTSPRangeType) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes RTSPRangeType from json.
+func (o *OptRTSPRangeType) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptRTSPRangeType to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptRTSPRangeType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptRTSPRangeType) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes RTSPSessionState as json.
 func (o OptRTSPSessionState) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -4079,6 +6872,72 @@ func (s OptRTSPSessionState) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptRTSPSessionState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RTSPTransport as json.
+func (o OptRTSPTransport) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes RTSPTransport from json.
+func (o *OptRTSPTransport) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptRTSPTransport to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptRTSPTransport) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptRTSPTransport) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordFormat as json.
+func (o OptRecordFormat) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes RecordFormat from json.
+func (o *OptRecordFormat) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptRecordFormat to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptRecordFormat) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptRecordFormat) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -4147,6 +7006,76 @@ func (s OptString) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptString) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes uuid.UUID as json.
+func (o OptUUID) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	json.EncodeUUID(e, o.Value)
+}
+
+// Decode decodes uuid.UUID from json.
+func (o *OptUUID) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUUID to nil")
+	}
+	o.Set = true
+	v, err := json.DecodeUUID(d)
+	if err != nil {
+		return err
+	}
+	o.Value = v
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUUID) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUUID) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes uint64 as json.
+func (o OptUint64) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.UInt64(uint64(o.Value))
+}
+
+// Decode decodes uint64 from json.
+func (o *OptUint64) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptUint64 to nil")
+	}
+	o.Set = true
+	v, err := d.UInt64()
+	if err != nil {
+		return err
+	}
+	o.Value = uint64(v)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptUint64) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptUint64) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -4224,13 +7153,65 @@ func (s *Path) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.Available.Set {
+			e.FieldStart("available")
+			s.Available.Encode(e)
+		}
+	}
+	{
+		if s.AvailableTime.Set {
+			e.FieldStart("availableTime")
+			s.AvailableTime.Encode(e)
+		}
+	}
+	{
+		if s.Online.Set {
+			e.FieldStart("online")
+			s.Online.Encode(e)
+		}
+	}
+	{
+		if s.OnlineTime.Set {
+			e.FieldStart("onlineTime")
+			s.OnlineTime.Encode(e)
+		}
+	}
+	{
 		if s.Tracks != nil {
 			e.FieldStart("tracks")
 			e.ArrStart()
 			for _, elem := range s.Tracks {
-				e.Str(elem)
+				elem.Encode(e)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.Tracks2 != nil {
+			e.FieldStart("tracks2")
+			e.ArrStart()
+			for _, elem := range s.Tracks2 {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.InboundFramesInError.Set {
+			e.FieldStart("inboundFramesInError")
+			s.InboundFramesInError.Encode(e)
 		}
 	}
 	{
@@ -4257,16 +7238,24 @@ func (s *Path) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfPath = [9]string{
-	0: "name",
-	1: "confName",
-	2: "source",
-	3: "ready",
-	4: "readyTime",
-	5: "tracks",
-	6: "bytesReceived",
-	7: "bytesSent",
-	8: "readers",
+var jsonFieldsNameOfPath = [17]string{
+	0:  "name",
+	1:  "confName",
+	2:  "source",
+	3:  "ready",
+	4:  "readyTime",
+	5:  "available",
+	6:  "availableTime",
+	7:  "online",
+	8:  "onlineTime",
+	9:  "tracks",
+	10: "tracks2",
+	11: "inboundBytes",
+	12: "outboundBytes",
+	13: "inboundFramesInError",
+	14: "bytesReceived",
+	15: "bytesSent",
+	16: "readers",
 }
 
 // Decode decodes Path from json.
@@ -4327,14 +7316,52 @@ func (s *Path) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"readyTime\"")
 			}
+		case "available":
+			if err := func() error {
+				s.Available.Reset()
+				if err := s.Available.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"available\"")
+			}
+		case "availableTime":
+			if err := func() error {
+				s.AvailableTime.Reset()
+				if err := s.AvailableTime.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"availableTime\"")
+			}
+		case "online":
+			if err := func() error {
+				s.Online.Reset()
+				if err := s.Online.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"online\"")
+			}
+		case "onlineTime":
+			if err := func() error {
+				s.OnlineTime.Reset()
+				if err := s.OnlineTime.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"onlineTime\"")
+			}
 		case "tracks":
 			if err := func() error {
-				s.Tracks = make([]string, 0)
+				s.Tracks = make([]PathTrackCodec, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
+					var elem PathTrackCodec
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
 					s.Tracks = append(s.Tracks, elem)
@@ -4345,6 +7372,53 @@ func (s *Path) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"tracks\"")
+			}
+		case "tracks2":
+			if err := func() error {
+				s.Tracks2 = make([]PathTrack, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem PathTrack
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Tracks2 = append(s.Tracks2, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"tracks2\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "inboundFramesInError":
+			if err := func() error {
+				s.InboundFramesInError.Reset()
+				if err := s.InboundFramesInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundFramesInError\"")
 			}
 		case "bytesReceived":
 			if err := func() error {
@@ -4477,9 +7551,37 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.AlwaysAvailable.Set {
+			e.FieldStart("alwaysAvailable")
+			s.AlwaysAvailable.Encode(e)
+		}
+	}
+	{
+		if s.AlwaysAvailableTracks != nil {
+			e.FieldStart("alwaysAvailableTracks")
+			e.ArrStart()
+			for _, elem := range s.AlwaysAvailableTracks {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.AlwaysAvailableFile.Set {
+			e.FieldStart("alwaysAvailableFile")
+			s.AlwaysAvailableFile.Encode(e)
+		}
+	}
+	{
 		if s.Record.Set {
 			e.FieldStart("record")
 			s.Record.Encode(e)
+		}
+	}
+	{
+		if s.Playback.Set {
+			e.FieldStart("playback")
+			s.Playback.Encode(e)
 		}
 	}
 	{
@@ -4501,6 +7603,12 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.RecordMaxPartSize.Set {
+			e.FieldStart("recordMaxPartSize")
+			s.RecordMaxPartSize.Encode(e)
+		}
+	}
+	{
 		if s.RecordSegmentDuration.Set {
 			e.FieldStart("recordSegmentDuration")
 			s.RecordSegmentDuration.Encode(e)
@@ -4513,15 +7621,63 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.PublishUser.Set {
+			e.FieldStart("publishUser")
+			s.PublishUser.Encode(e)
+		}
+	}
+	{
+		if s.PublishPass.Set {
+			e.FieldStart("publishPass")
+			s.PublishPass.Encode(e)
+		}
+	}
+	{
+		if s.PublishIPs.Set {
+			e.FieldStart("publishIPs")
+			s.PublishIPs.Encode(e)
+		}
+	}
+	{
+		if s.ReadUser.Set {
+			e.FieldStart("readUser")
+			s.ReadUser.Encode(e)
+		}
+	}
+	{
+		if s.ReadPass.Set {
+			e.FieldStart("readPass")
+			s.ReadPass.Encode(e)
+		}
+	}
+	{
+		if s.ReadIPs.Set {
+			e.FieldStart("readIPs")
+			s.ReadIPs.Encode(e)
+		}
+	}
+	{
 		if s.OverridePublisher.Set {
 			e.FieldStart("overridePublisher")
 			s.OverridePublisher.Encode(e)
 		}
 	}
 	{
+		if s.DisablePublisherOverride.Set {
+			e.FieldStart("disablePublisherOverride")
+			s.DisablePublisherOverride.Encode(e)
+		}
+	}
+	{
 		if s.SrtPublishPassphrase.Set {
 			e.FieldStart("srtPublishPassphrase")
 			s.SrtPublishPassphrase.Encode(e)
+		}
+	}
+	{
+		if s.RtspDemuxMpegts.Set {
+			e.FieldStart("rtspDemuxMpegts")
+			s.RtspDemuxMpegts.Encode(e)
 		}
 	}
 	{
@@ -4537,6 +7693,18 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.SourceProtocol.Set {
+			e.FieldStart("sourceProtocol")
+			s.SourceProtocol.Encode(e)
+		}
+	}
+	{
+		if s.SourceAnyPortEnable.Set {
+			e.FieldStart("sourceAnyPortEnable")
+			s.SourceAnyPortEnable.Encode(e)
+		}
+	}
+	{
 		if s.RtspRangeType.Set {
 			e.FieldStart("rtspRangeType")
 			s.RtspRangeType.Encode(e)
@@ -4546,6 +7714,64 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		if s.RtspRangeStart.Set {
 			e.FieldStart("rtspRangeStart")
 			s.RtspRangeStart.Encode(e)
+		}
+	}
+	{
+		if s.RtspUDPReadBufferSize.Set {
+			e.FieldStart("rtspUDPReadBufferSize")
+			s.RtspUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.RtspUDPSourcePortRange != nil {
+			e.FieldStart("rtspUDPSourcePortRange")
+			e.ArrStart()
+			for _, elem := range s.RtspUDPSourcePortRange {
+				e.UInt64(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.MpegtsUDPReadBufferSize.Set {
+			e.FieldStart("mpegtsUDPReadBufferSize")
+			s.MpegtsUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.RtpSDP.Set {
+			e.FieldStart("rtpSDP")
+			s.RtpSDP.Encode(e)
+		}
+	}
+	{
+		if s.RtpUDPReadBufferSize.Set {
+			e.FieldStart("rtpUDPReadBufferSize")
+			s.RtpUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.WhepBearerToken.Set {
+			e.FieldStart("whepBearerToken")
+			s.WhepBearerToken.Encode(e)
+		}
+	}
+	{
+		if s.WhepSTUNGatherTimeout.Set {
+			e.FieldStart("whepSTUNGatherTimeout")
+			s.WhepSTUNGatherTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WhepHandshakeTimeout.Set {
+			e.FieldStart("whepHandshakeTimeout")
+			s.WhepHandshakeTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WhepTrackGatherTimeout.Set {
+			e.FieldStart("whepTrackGatherTimeout")
+			s.WhepTrackGatherTimeout.Encode(e)
 		}
 	}
 	{
@@ -4775,9 +8001,39 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.RpiCameraHardwareH264Profile.Set {
+			e.FieldStart("rpiCameraHardwareH264Profile")
+			s.RpiCameraHardwareH264Profile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraHardwareH264Level.Set {
+			e.FieldStart("rpiCameraHardwareH264Level")
+			s.RpiCameraHardwareH264Level.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSoftwareH264Profile.Set {
+			e.FieldStart("rpiCameraSoftwareH264Profile")
+			s.RpiCameraSoftwareH264Profile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSoftwareH264Level.Set {
+			e.FieldStart("rpiCameraSoftwareH264Level")
+			s.RpiCameraSoftwareH264Level.Encode(e)
+		}
+	}
+	{
 		if s.RpiCameraJPEGQuality.Set {
 			e.FieldStart("rpiCameraJPEGQuality")
 			s.RpiCameraJPEGQuality.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraMJPEGQuality.Set {
+			e.FieldStart("rpiCameraMJPEGQuality")
+			s.RpiCameraMJPEGQuality.Encode(e)
 		}
 	}
 	{
@@ -4872,82 +8128,111 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfPathConf = [75]string{
-	0:  "name",
-	1:  "source",
-	2:  "sourceFingerprint",
-	3:  "sourceOnDemand",
-	4:  "sourceOnDemandStartTimeout",
-	5:  "sourceOnDemandCloseAfter",
-	6:  "maxReaders",
-	7:  "srtReadPassphrase",
-	8:  "fallback",
-	9:  "useAbsoluteTimestamp",
-	10: "record",
-	11: "recordPath",
-	12: "recordFormat",
-	13: "recordPartDuration",
-	14: "recordSegmentDuration",
-	15: "recordDeleteAfter",
-	16: "overridePublisher",
-	17: "srtPublishPassphrase",
-	18: "rtspTransport",
-	19: "rtspAnyPort",
-	20: "rtspRangeType",
-	21: "rtspRangeStart",
-	22: "sourceRedirect",
-	23: "rpiCameraCamID",
-	24: "rpiCameraSecondary",
-	25: "rpiCameraWidth",
-	26: "rpiCameraHeight",
-	27: "rpiCameraHFlip",
-	28: "rpiCameraVFlip",
-	29: "rpiCameraBrightness",
-	30: "rpiCameraContrast",
-	31: "rpiCameraSaturation",
-	32: "rpiCameraSharpness",
-	33: "rpiCameraExposure",
-	34: "rpiCameraAWB",
-	35: "rpiCameraAWBGains",
-	36: "rpiCameraDenoise",
-	37: "rpiCameraShutter",
-	38: "rpiCameraMetering",
-	39: "rpiCameraGain",
-	40: "rpiCameraEV",
-	41: "rpiCameraROI",
-	42: "rpiCameraHDR",
-	43: "rpiCameraTuningFile",
-	44: "rpiCameraMode",
-	45: "rpiCameraFPS",
-	46: "rpiCameraAfMode",
-	47: "rpiCameraAfRange",
-	48: "rpiCameraAfSpeed",
-	49: "rpiCameraLensPosition",
-	50: "rpiCameraAfWindow",
-	51: "rpiCameraFlickerPeriod",
-	52: "rpiCameraTextOverlayEnable",
-	53: "rpiCameraTextOverlay",
-	54: "rpiCameraCodec",
-	55: "rpiCameraIDRPeriod",
-	56: "rpiCameraBitrate",
-	57: "rpiCameraProfile",
-	58: "rpiCameraLevel",
-	59: "rpiCameraJPEGQuality",
-	60: "runOnInit",
-	61: "runOnInitRestart",
-	62: "runOnDemand",
-	63: "runOnDemandRestart",
-	64: "runOnDemandStartTimeout",
-	65: "runOnDemandCloseAfter",
-	66: "runOnUnDemand",
-	67: "runOnReady",
-	68: "runOnReadyRestart",
-	69: "runOnNotReady",
-	70: "runOnRead",
-	71: "runOnReadRestart",
-	72: "runOnUnread",
-	73: "runOnRecordSegmentCreate",
-	74: "runOnRecordSegmentComplete",
+var jsonFieldsNameOfPathConf = [104]string{
+	0:   "name",
+	1:   "source",
+	2:   "sourceFingerprint",
+	3:   "sourceOnDemand",
+	4:   "sourceOnDemandStartTimeout",
+	5:   "sourceOnDemandCloseAfter",
+	6:   "maxReaders",
+	7:   "srtReadPassphrase",
+	8:   "fallback",
+	9:   "useAbsoluteTimestamp",
+	10:  "alwaysAvailable",
+	11:  "alwaysAvailableTracks",
+	12:  "alwaysAvailableFile",
+	13:  "record",
+	14:  "playback",
+	15:  "recordPath",
+	16:  "recordFormat",
+	17:  "recordPartDuration",
+	18:  "recordMaxPartSize",
+	19:  "recordSegmentDuration",
+	20:  "recordDeleteAfter",
+	21:  "publishUser",
+	22:  "publishPass",
+	23:  "publishIPs",
+	24:  "readUser",
+	25:  "readPass",
+	26:  "readIPs",
+	27:  "overridePublisher",
+	28:  "disablePublisherOverride",
+	29:  "srtPublishPassphrase",
+	30:  "rtspDemuxMpegts",
+	31:  "rtspTransport",
+	32:  "rtspAnyPort",
+	33:  "sourceProtocol",
+	34:  "sourceAnyPortEnable",
+	35:  "rtspRangeType",
+	36:  "rtspRangeStart",
+	37:  "rtspUDPReadBufferSize",
+	38:  "rtspUDPSourcePortRange",
+	39:  "mpegtsUDPReadBufferSize",
+	40:  "rtpSDP",
+	41:  "rtpUDPReadBufferSize",
+	42:  "whepBearerToken",
+	43:  "whepSTUNGatherTimeout",
+	44:  "whepHandshakeTimeout",
+	45:  "whepTrackGatherTimeout",
+	46:  "sourceRedirect",
+	47:  "rpiCameraCamID",
+	48:  "rpiCameraSecondary",
+	49:  "rpiCameraWidth",
+	50:  "rpiCameraHeight",
+	51:  "rpiCameraHFlip",
+	52:  "rpiCameraVFlip",
+	53:  "rpiCameraBrightness",
+	54:  "rpiCameraContrast",
+	55:  "rpiCameraSaturation",
+	56:  "rpiCameraSharpness",
+	57:  "rpiCameraExposure",
+	58:  "rpiCameraAWB",
+	59:  "rpiCameraAWBGains",
+	60:  "rpiCameraDenoise",
+	61:  "rpiCameraShutter",
+	62:  "rpiCameraMetering",
+	63:  "rpiCameraGain",
+	64:  "rpiCameraEV",
+	65:  "rpiCameraROI",
+	66:  "rpiCameraHDR",
+	67:  "rpiCameraTuningFile",
+	68:  "rpiCameraMode",
+	69:  "rpiCameraFPS",
+	70:  "rpiCameraAfMode",
+	71:  "rpiCameraAfRange",
+	72:  "rpiCameraAfSpeed",
+	73:  "rpiCameraLensPosition",
+	74:  "rpiCameraAfWindow",
+	75:  "rpiCameraFlickerPeriod",
+	76:  "rpiCameraTextOverlayEnable",
+	77:  "rpiCameraTextOverlay",
+	78:  "rpiCameraCodec",
+	79:  "rpiCameraIDRPeriod",
+	80:  "rpiCameraBitrate",
+	81:  "rpiCameraProfile",
+	82:  "rpiCameraLevel",
+	83:  "rpiCameraHardwareH264Profile",
+	84:  "rpiCameraHardwareH264Level",
+	85:  "rpiCameraSoftwareH264Profile",
+	86:  "rpiCameraSoftwareH264Level",
+	87:  "rpiCameraJPEGQuality",
+	88:  "rpiCameraMJPEGQuality",
+	89:  "runOnInit",
+	90:  "runOnInitRestart",
+	91:  "runOnDemand",
+	92:  "runOnDemandRestart",
+	93:  "runOnDemandStartTimeout",
+	94:  "runOnDemandCloseAfter",
+	95:  "runOnUnDemand",
+	96:  "runOnReady",
+	97:  "runOnReadyRestart",
+	98:  "runOnNotReady",
+	99:  "runOnRead",
+	100: "runOnReadRestart",
+	101: "runOnUnread",
+	102: "runOnRecordSegmentCreate",
+	103: "runOnRecordSegmentComplete",
 }
 
 // Decode decodes PathConf from json.
@@ -5058,6 +8343,43 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"useAbsoluteTimestamp\"")
 			}
+		case "alwaysAvailable":
+			if err := func() error {
+				s.AlwaysAvailable.Reset()
+				if err := s.AlwaysAvailable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alwaysAvailable\"")
+			}
+		case "alwaysAvailableTracks":
+			if err := func() error {
+				s.AlwaysAvailableTracks = make([]AlwaysAvailableTrack, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem AlwaysAvailableTrack
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.AlwaysAvailableTracks = append(s.AlwaysAvailableTracks, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alwaysAvailableTracks\"")
+			}
+		case "alwaysAvailableFile":
+			if err := func() error {
+				s.AlwaysAvailableFile.Reset()
+				if err := s.AlwaysAvailableFile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alwaysAvailableFile\"")
+			}
 		case "record":
 			if err := func() error {
 				s.Record.Reset()
@@ -5067,6 +8389,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"record\"")
+			}
+		case "playback":
+			if err := func() error {
+				s.Playback.Reset()
+				if err := s.Playback.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playback\"")
 			}
 		case "recordPath":
 			if err := func() error {
@@ -5098,6 +8430,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"recordPartDuration\"")
 			}
+		case "recordMaxPartSize":
+			if err := func() error {
+				s.RecordMaxPartSize.Reset()
+				if err := s.RecordMaxPartSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordMaxPartSize\"")
+			}
 		case "recordSegmentDuration":
 			if err := func() error {
 				s.RecordSegmentDuration.Reset()
@@ -5118,6 +8460,66 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
 			}
+		case "publishUser":
+			if err := func() error {
+				s.PublishUser.Reset()
+				if err := s.PublishUser.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"publishUser\"")
+			}
+		case "publishPass":
+			if err := func() error {
+				s.PublishPass.Reset()
+				if err := s.PublishPass.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"publishPass\"")
+			}
+		case "publishIPs":
+			if err := func() error {
+				s.PublishIPs.Reset()
+				if err := s.PublishIPs.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"publishIPs\"")
+			}
+		case "readUser":
+			if err := func() error {
+				s.ReadUser.Reset()
+				if err := s.ReadUser.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"readUser\"")
+			}
+		case "readPass":
+			if err := func() error {
+				s.ReadPass.Reset()
+				if err := s.ReadPass.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"readPass\"")
+			}
+		case "readIPs":
+			if err := func() error {
+				s.ReadIPs.Reset()
+				if err := s.ReadIPs.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"readIPs\"")
+			}
 		case "overridePublisher":
 			if err := func() error {
 				s.OverridePublisher.Reset()
@@ -5128,6 +8530,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"overridePublisher\"")
 			}
+		case "disablePublisherOverride":
+			if err := func() error {
+				s.DisablePublisherOverride.Reset()
+				if err := s.DisablePublisherOverride.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"disablePublisherOverride\"")
+			}
 		case "srtPublishPassphrase":
 			if err := func() error {
 				s.SrtPublishPassphrase.Reset()
@@ -5137,6 +8549,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"srtPublishPassphrase\"")
+			}
+		case "rtspDemuxMpegts":
+			if err := func() error {
+				s.RtspDemuxMpegts.Reset()
+				if err := s.RtspDemuxMpegts.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspDemuxMpegts\"")
 			}
 		case "rtspTransport":
 			if err := func() error {
@@ -5158,6 +8580,26 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtspAnyPort\"")
 			}
+		case "sourceProtocol":
+			if err := func() error {
+				s.SourceProtocol.Reset()
+				if err := s.SourceProtocol.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceProtocol\"")
+			}
+		case "sourceAnyPortEnable":
+			if err := func() error {
+				s.SourceAnyPortEnable.Reset()
+				if err := s.SourceAnyPortEnable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceAnyPortEnable\"")
+			}
 		case "rtspRangeType":
 			if err := func() error {
 				s.RtspRangeType.Reset()
@@ -5177,6 +8619,105 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtspRangeStart\"")
+			}
+		case "rtspUDPReadBufferSize":
+			if err := func() error {
+				s.RtspUDPReadBufferSize.Reset()
+				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
+			}
+		case "rtspUDPSourcePortRange":
+			if err := func() error {
+				s.RtspUDPSourcePortRange = make([]uint64, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem uint64
+					v, err := d.UInt64()
+					elem = uint64(v)
+					if err != nil {
+						return err
+					}
+					s.RtspUDPSourcePortRange = append(s.RtspUDPSourcePortRange, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPSourcePortRange\"")
+			}
+		case "mpegtsUDPReadBufferSize":
+			if err := func() error {
+				s.MpegtsUDPReadBufferSize.Reset()
+				if err := s.MpegtsUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mpegtsUDPReadBufferSize\"")
+			}
+		case "rtpSDP":
+			if err := func() error {
+				s.RtpSDP.Reset()
+				if err := s.RtpSDP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpSDP\"")
+			}
+		case "rtpUDPReadBufferSize":
+			if err := func() error {
+				s.RtpUDPReadBufferSize.Reset()
+				if err := s.RtpUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpUDPReadBufferSize\"")
+			}
+		case "whepBearerToken":
+			if err := func() error {
+				s.WhepBearerToken.Reset()
+				if err := s.WhepBearerToken.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepBearerToken\"")
+			}
+		case "whepSTUNGatherTimeout":
+			if err := func() error {
+				s.WhepSTUNGatherTimeout.Reset()
+				if err := s.WhepSTUNGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepSTUNGatherTimeout\"")
+			}
+		case "whepHandshakeTimeout":
+			if err := func() error {
+				s.WhepHandshakeTimeout.Reset()
+				if err := s.WhepHandshakeTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepHandshakeTimeout\"")
+			}
+		case "whepTrackGatherTimeout":
+			if err := func() error {
+				s.WhepTrackGatherTimeout.Reset()
+				if err := s.WhepTrackGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepTrackGatherTimeout\"")
 			}
 		case "sourceRedirect":
 			if err := func() error {
@@ -5557,6 +9098,46 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraLevel\"")
 			}
+		case "rpiCameraHardwareH264Profile":
+			if err := func() error {
+				s.RpiCameraHardwareH264Profile.Reset()
+				if err := s.RpiCameraHardwareH264Profile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraHardwareH264Profile\"")
+			}
+		case "rpiCameraHardwareH264Level":
+			if err := func() error {
+				s.RpiCameraHardwareH264Level.Reset()
+				if err := s.RpiCameraHardwareH264Level.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraHardwareH264Level\"")
+			}
+		case "rpiCameraSoftwareH264Profile":
+			if err := func() error {
+				s.RpiCameraSoftwareH264Profile.Reset()
+				if err := s.RpiCameraSoftwareH264Profile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Profile\"")
+			}
+		case "rpiCameraSoftwareH264Level":
+			if err := func() error {
+				s.RpiCameraSoftwareH264Level.Reset()
+				if err := s.RpiCameraSoftwareH264Level.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Level\"")
+			}
 		case "rpiCameraJPEGQuality":
 			if err := func() error {
 				s.RpiCameraJPEGQuality.Reset()
@@ -5566,6 +9147,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraJPEGQuality\"")
+			}
+		case "rpiCameraMJPEGQuality":
+			if err := func() error {
+				s.RpiCameraMJPEGQuality.Reset()
+				if err := s.RpiCameraMJPEGQuality.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraMJPEGQuality\"")
 			}
 		case "runOnInit":
 			if err := func() error {
@@ -6053,12 +9644,18 @@ func (s *PathReaderType) Decode(d *jx.Decoder) error {
 	}
 	// Try to use constant string.
 	switch PathReaderType(v) {
-	case PathReaderTypeHlsMuxer:
-		*s = PathReaderTypeHlsMuxer
+	case PathReaderTypeHlsSession:
+		*s = PathReaderTypeHlsSession
 	case PathReaderTypeRtmpConn:
 		*s = PathReaderTypeRtmpConn
+	case PathReaderTypeRtmpsConn:
+		*s = PathReaderTypeRtmpsConn
+	case PathReaderTypeRtspConn:
+		*s = PathReaderTypeRtspConn
 	case PathReaderTypeRtspSession:
 		*s = PathReaderTypeRtspSession
+	case PathReaderTypeRtspsConn:
+		*s = PathReaderTypeRtspsConn
 	case PathReaderTypeRtspsSession:
 		*s = PathReaderTypeRtspsSession
 	case PathReaderTypeSrtConn:
@@ -6189,6 +9786,8 @@ func (s *PathSourceType) Decode(d *jx.Decoder) error {
 		*s = PathSourceTypeRpiCameraSource
 	case PathSourceTypeRtmpConn:
 		*s = PathSourceTypeRtmpConn
+	case PathSourceTypeRtmpsConn:
+		*s = PathSourceTypeRtmpsConn
 	case PathSourceTypeRtmpSource:
 		*s = PathSourceTypeRtmpSource
 	case PathSourceTypeRtspSession:
@@ -6201,8 +9800,10 @@ func (s *PathSourceType) Decode(d *jx.Decoder) error {
 		*s = PathSourceTypeSrtConn
 	case PathSourceTypeSrtSource:
 		*s = PathSourceTypeSrtSource
-	case PathSourceTypeUdpSource:
-		*s = PathSourceTypeUdpSource
+	case PathSourceTypeMpegtsSource:
+		*s = PathSourceTypeMpegtsSource
+	case PathSourceTypeRtpSource:
+		*s = PathSourceTypeRtpSource
 	case PathSourceTypeWebRTCSession:
 		*s = PathSourceTypeWebRTCSession
 	case PathSourceTypeWebRTCSource:
@@ -6223,6 +9824,206 @@ func (s PathSourceType) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *PathSourceType) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *PathTrack) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *PathTrack) encodeFields(e *jx.Encoder) {
+	{
+		if s.Codec.Set {
+			e.FieldStart("codec")
+			s.Codec.Encode(e)
+		}
+	}
+	{
+		if s.CodecProps.Set {
+			e.FieldStart("codecProps")
+			s.CodecProps.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfPathTrack = [2]string{
+	0: "codec",
+	1: "codecProps",
+}
+
+// Decode decodes PathTrack from json.
+func (s *PathTrack) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathTrack to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "codec":
+			if err := func() error {
+				s.Codec.Reset()
+				if err := s.Codec.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"codec\"")
+			}
+		case "codecProps":
+			if err := func() error {
+				s.CodecProps.Reset()
+				if err := s.CodecProps.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"codecProps\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode PathTrack")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathTrack) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathTrack) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathTrackCodec as json.
+func (s PathTrackCodec) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes PathTrackCodec from json.
+func (s *PathTrackCodec) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathTrackCodec to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch PathTrackCodec(v) {
+	case PathTrackCodecAV1:
+		*s = PathTrackCodecAV1
+	case PathTrackCodecVP9:
+		*s = PathTrackCodecVP9
+	case PathTrackCodecVP8:
+		*s = PathTrackCodecVP8
+	case PathTrackCodecH265:
+		*s = PathTrackCodecH265
+	case PathTrackCodecH264:
+		*s = PathTrackCodecH264
+	case PathTrackCodecMPEG4Video:
+		*s = PathTrackCodecMPEG4Video
+	case PathTrackCodecMPEG12Video:
+		*s = PathTrackCodecMPEG12Video
+	case PathTrackCodecMJPEG:
+		*s = PathTrackCodecMJPEG
+	case PathTrackCodecOpus:
+		*s = PathTrackCodecOpus
+	case PathTrackCodecVorbis:
+		*s = PathTrackCodecVorbis
+	case PathTrackCodecMPEG4Audio:
+		*s = PathTrackCodecMPEG4Audio
+	case PathTrackCodecMPEG4AudioLATM:
+		*s = PathTrackCodecMPEG4AudioLATM
+	case PathTrackCodecMPEG12Audio:
+		*s = PathTrackCodecMPEG12Audio
+	case PathTrackCodecAC3:
+		*s = PathTrackCodecAC3
+	case PathTrackCodecSpeex:
+		*s = PathTrackCodecSpeex
+	case PathTrackCodecG726:
+		*s = PathTrackCodecG726
+	case PathTrackCodecG722:
+		*s = PathTrackCodecG722
+	case PathTrackCodecG711:
+		*s = PathTrackCodecG711
+	case PathTrackCodecLPCM:
+		*s = PathTrackCodecLPCM
+	case PathTrackCodecMPEGTS:
+		*s = PathTrackCodecMPEGTS
+	case PathTrackCodecKLV:
+		*s = PathTrackCodecKLV
+	case PathTrackCodecGeneric:
+		*s = PathTrackCodecGeneric
+	default:
+		*s = PathTrackCodec(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s PathTrackCodec) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathTrackCodec) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathTrackCodecProps as json.
+func (s PathTrackCodecProps) Encode(e *jx.Encoder) {
+	unwrapped := json2.RawMessage(s)
+
+	json.EncodeJSON(e, unwrapped)
+}
+
+// Decode decodes PathTrackCodecProps from json.
+func (s *PathTrackCodecProps) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathTrackCodecProps to nil")
+	}
+	var unwrapped json2.RawMessage
+	if err := func() error {
+		v, err := json.DecodeJSON[json2.RawMessage](d)
+		unwrapped = v
+		if err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathTrackCodecProps(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s PathTrackCodecProps) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathTrackCodecProps) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -6463,6 +10264,30 @@ func (s *RTMPConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
+	{
 		if s.BytesReceived.Set {
 			e.FieldStart("bytesReceived")
 			s.BytesReceived.Encode(e)
@@ -6476,15 +10301,19 @@ func (s *RTMPConn) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfRTMPConn = [8]string{
-	0: "id",
-	1: "created",
-	2: "remoteAddr",
-	3: "state",
-	4: "path",
-	5: "query",
-	6: "bytesReceived",
-	7: "bytesSent",
+var jsonFieldsNameOfRTMPConn = [12]string{
+	0:  "id",
+	1:  "created",
+	2:  "remoteAddr",
+	3:  "state",
+	4:  "path",
+	5:  "query",
+	6:  "user",
+	7:  "inboundBytes",
+	8:  "outboundBytes",
+	9:  "outboundFramesDiscarded",
+	10: "bytesReceived",
+	11: "bytesSent",
 }
 
 // Decode decodes RTMPConn from json.
@@ -6554,6 +10383,46 @@ func (s *RTMPConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
 			}
 		case "bytesReceived":
 			if err := func() error {
@@ -6749,6 +10618,46 @@ func (s *RTMPConnState) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes RTSPAuthMethod as json.
+func (s RTSPAuthMethod) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes RTSPAuthMethod from json.
+func (s *RTSPAuthMethod) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RTSPAuthMethod to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch RTSPAuthMethod(v) {
+	case RTSPAuthMethodBasic:
+		*s = RTSPAuthMethodBasic
+	case RTSPAuthMethodDigest:
+		*s = RTSPAuthMethodDigest
+	default:
+		*s = RTSPAuthMethod(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s RTSPAuthMethod) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RTSPAuthMethod) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode implements json.Marshaler.
 func (s *RTSPConn) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -6777,6 +10686,30 @@ func (s *RTSPConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.Session.Set {
+			e.FieldStart("session")
+			s.Session.Encode(e)
+		}
+	}
+	{
+		if s.Tunnel.Set {
+			e.FieldStart("tunnel")
+			s.Tunnel.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
 		if s.BytesReceived.Set {
 			e.FieldStart("bytesReceived")
 			s.BytesReceived.Encode(e)
@@ -6788,21 +10721,18 @@ func (s *RTSPConn) encodeFields(e *jx.Encoder) {
 			s.BytesSent.Encode(e)
 		}
 	}
-	{
-		if s.Session.Set {
-			e.FieldStart("session")
-			s.Session.Encode(e)
-		}
-	}
 }
 
-var jsonFieldsNameOfRTSPConn = [6]string{
+var jsonFieldsNameOfRTSPConn = [9]string{
 	0: "id",
 	1: "created",
 	2: "remoteAddr",
-	3: "bytesReceived",
-	4: "bytesSent",
-	5: "session",
+	3: "session",
+	4: "tunnel",
+	5: "inboundBytes",
+	6: "outboundBytes",
+	7: "bytesReceived",
+	8: "bytesSent",
 }
 
 // Decode decodes RTSPConn from json.
@@ -6843,6 +10773,46 @@ func (s *RTSPConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"remoteAddr\"")
 			}
+		case "session":
+			if err := func() error {
+				s.Session.Reset()
+				if err := s.Session.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"session\"")
+			}
+		case "tunnel":
+			if err := func() error {
+				s.Tunnel.Reset()
+				if err := s.Tunnel.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"tunnel\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
 		case "bytesReceived":
 			if err := func() error {
 				s.BytesReceived.Reset()
@@ -6862,16 +10832,6 @@ func (s *RTSPConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesSent\"")
-			}
-		case "session":
-			if err := func() error {
-				s.Session.Reset()
-				if err := s.Session.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"session\"")
 			}
 		default:
 			return d.Skip()
@@ -7005,6 +10965,50 @@ func (s *RTSPConnList) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes RTSPRangeType as json.
+func (s RTSPRangeType) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes RTSPRangeType from json.
+func (s *RTSPRangeType) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RTSPRangeType to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch RTSPRangeType(v) {
+	case RTSPRangeTypeEmpty:
+		*s = RTSPRangeTypeEmpty
+	case RTSPRangeTypeClock:
+		*s = RTSPRangeTypeClock
+	case RTSPRangeTypeNpt:
+		*s = RTSPRangeTypeNpt
+	case RTSPRangeTypeSmpte:
+		*s = RTSPRangeTypeSmpte
+	default:
+		*s = RTSPRangeType(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s RTSPRangeType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RTSPRangeType) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode implements json.Marshaler.
 func (s *RTSPSession) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -7051,9 +11055,103 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
 		if s.Transport.Set {
 			e.FieldStart("transport")
 			s.Transport.Encode(e)
+		}
+	}
+	{
+		if s.Profile.Set {
+			e.FieldStart("profile")
+			s.Profile.Encode(e)
+		}
+	}
+	{
+		if s.Conns != nil {
+			e.FieldStart("conns")
+			e.ArrStart()
+			for _, elem := range s.Conns {
+				json.EncodeUUID(e, elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPackets.Set {
+			e.FieldStart("inboundRTPPackets")
+			s.InboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsLost.Set {
+			e.FieldStart("inboundRTPPacketsLost")
+			s.InboundRTPPacketsLost.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsInError.Set {
+			e.FieldStart("inboundRTPPacketsInError")
+			s.InboundRTPPacketsInError.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsJitter.Set {
+			e.FieldStart("inboundRTPPacketsJitter")
+			s.InboundRTPPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTCPPackets.Set {
+			e.FieldStart("inboundRTCPPackets")
+			s.InboundRTCPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTCPPacketsInError.Set {
+			e.FieldStart("inboundRTCPPacketsInError")
+			s.InboundRTCPPacketsInError.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTPPackets.Set {
+			e.FieldStart("outboundRTPPackets")
+			s.OutboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTPPacketsReportedLost.Set {
+			e.FieldStart("outboundRTPPacketsReportedLost")
+			s.OutboundRTPPacketsReportedLost.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTPPacketsDiscarded.Set {
+			e.FieldStart("outboundRTPPacketsDiscarded")
+			s.OutboundRTPPacketsDiscarded.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTCPPackets.Set {
+			e.FieldStart("outboundRTCPPackets")
+			s.OutboundRTCPPackets.Encode(e)
 		}
 	}
 	{
@@ -7118,24 +11216,39 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfRTSPSession = [17]string{
+var jsonFieldsNameOfRTSPSession = [32]string{
 	0:  "id",
 	1:  "created",
 	2:  "remoteAddr",
 	3:  "state",
 	4:  "path",
 	5:  "query",
-	6:  "transport",
-	7:  "bytesReceived",
-	8:  "bytesSent",
-	9:  "rtpPacketsReceived",
-	10: "rtpPacketsSent",
-	11: "rtpPacketsLost",
-	12: "rtpPacketsInError",
-	13: "rtpPacketsJitter",
-	14: "rtcpPacketsReceived",
-	15: "rtcpPacketsSent",
-	16: "rtcpPacketsInError",
+	6:  "user",
+	7:  "transport",
+	8:  "profile",
+	9:  "conns",
+	10: "inboundBytes",
+	11: "inboundRTPPackets",
+	12: "inboundRTPPacketsLost",
+	13: "inboundRTPPacketsInError",
+	14: "inboundRTPPacketsJitter",
+	15: "inboundRTCPPackets",
+	16: "inboundRTCPPacketsInError",
+	17: "outboundBytes",
+	18: "outboundRTPPackets",
+	19: "outboundRTPPacketsReportedLost",
+	20: "outboundRTPPacketsDiscarded",
+	21: "outboundRTCPPackets",
+	22: "bytesReceived",
+	23: "bytesSent",
+	24: "rtpPacketsReceived",
+	25: "rtpPacketsSent",
+	26: "rtpPacketsLost",
+	27: "rtpPacketsInError",
+	28: "rtpPacketsJitter",
+	29: "rtcpPacketsReceived",
+	30: "rtcpPacketsSent",
+	31: "rtcpPacketsInError",
 }
 
 // Decode decodes RTSPSession from json.
@@ -7206,6 +11319,16 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"query\"")
 			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
 		case "transport":
 			if err := func() error {
 				s.Transport.Reset()
@@ -7215,6 +11338,155 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"transport\"")
+			}
+		case "profile":
+			if err := func() error {
+				s.Profile.Reset()
+				if err := s.Profile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"profile\"")
+			}
+		case "conns":
+			if err := func() error {
+				s.Conns = make([]uuid.UUID, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem uuid.UUID
+					v, err := json.DecodeUUID(d)
+					elem = v
+					if err != nil {
+						return err
+					}
+					s.Conns = append(s.Conns, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"conns\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "inboundRTPPackets":
+			if err := func() error {
+				s.InboundRTPPackets.Reset()
+				if err := s.InboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
+			}
+		case "inboundRTPPacketsLost":
+			if err := func() error {
+				s.InboundRTPPacketsLost.Reset()
+				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
+			}
+		case "inboundRTPPacketsInError":
+			if err := func() error {
+				s.InboundRTPPacketsInError.Reset()
+				if err := s.InboundRTPPacketsInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsInError\"")
+			}
+		case "inboundRTPPacketsJitter":
+			if err := func() error {
+				s.InboundRTPPacketsJitter.Reset()
+				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
+			}
+		case "inboundRTCPPackets":
+			if err := func() error {
+				s.InboundRTCPPackets.Reset()
+				if err := s.InboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTCPPackets\"")
+			}
+		case "inboundRTCPPacketsInError":
+			if err := func() error {
+				s.InboundRTCPPacketsInError.Reset()
+				if err := s.InboundRTCPPacketsInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTCPPacketsInError\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "outboundRTPPackets":
+			if err := func() error {
+				s.OutboundRTPPackets.Reset()
+				if err := s.OutboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
+			}
+		case "outboundRTPPacketsReportedLost":
+			if err := func() error {
+				s.OutboundRTPPacketsReportedLost.Reset()
+				if err := s.OutboundRTPPacketsReportedLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTPPacketsReportedLost\"")
+			}
+		case "outboundRTPPacketsDiscarded":
+			if err := func() error {
+				s.OutboundRTPPacketsDiscarded.Reset()
+				if err := s.OutboundRTPPacketsDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTPPacketsDiscarded\"")
+			}
+		case "outboundRTCPPackets":
+			if err := func() error {
+				s.OutboundRTCPPackets.Reset()
+				if err := s.OutboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTCPPackets\"")
 			}
 		case "bytesReceived":
 			if err := func() error {
@@ -7486,6 +11758,90 @@ func (s RTSPSessionState) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *RTSPSessionState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RTSPTransport as json.
+func (s RTSPTransport) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes RTSPTransport from json.
+func (s *RTSPTransport) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RTSPTransport to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch RTSPTransport(v) {
+	case RTSPTransportUDP:
+		*s = RTSPTransportUDP
+	case RTSPTransportMulticast:
+		*s = RTSPTransportMulticast
+	case RTSPTransportTCP:
+		*s = RTSPTransportTCP
+	case RTSPTransportAutomatic:
+		*s = RTSPTransportAutomatic
+	default:
+		*s = RTSPTransport(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s RTSPTransport) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RTSPTransport) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordFormat as json.
+func (s RecordFormat) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes RecordFormat from json.
+func (s *RecordFormat) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RecordFormat to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch RecordFormat(v) {
+	case RecordFormatFmp4:
+		*s = RecordFormatFmp4
+	case RecordFormatMpegts:
+		*s = RecordFormatMpegts
+	default:
+		*s = RecordFormat(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s RecordFormat) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RecordFormat) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -9698,6 +14054,12 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
 		if s.PacketsSent.Set {
 			e.FieldStart("packetsSent")
 			s.PacketsSent.Encode(e)
@@ -10015,68 +14377,76 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 			s.PacketsReceivedLossRate.Encode(e)
 		}
 	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfSRTConn = [59]string{
+var jsonFieldsNameOfSRTConn = [61]string{
 	0:  "id",
 	1:  "created",
 	2:  "remoteAddr",
 	3:  "state",
 	4:  "path",
 	5:  "query",
-	6:  "packetsSent",
-	7:  "packetsReceived",
-	8:  "packetsReceivedBelated",
-	9:  "packetsSentUnique",
-	10: "packetsReceivedUnique",
-	11: "packetsSendLoss",
-	12: "packetsReceivedLoss",
-	13: "packetsRetrans",
-	14: "packetsReceivedRetrans",
-	15: "packetsSentACK",
-	16: "packetsReceivedACK",
-	17: "packetsSentNAK",
-	18: "packetsReceivedNAK",
-	19: "packetsSentKM",
-	20: "packetsReceivedKM",
-	21: "usSndDuration",
-	22: "packetsSendDrop",
-	23: "packetsReceivedDrop",
-	24: "packetsReceivedUndecrypt",
-	25: "bytesSent",
-	26: "bytesReceived",
-	27: "bytesReceivedBelated",
-	28: "bytesSentUnique",
-	29: "bytesReceivedUnique",
-	30: "bytesReceivedLoss",
-	31: "bytesRetrans",
-	32: "bytesReceivedRetrans",
-	33: "bytesSendDrop",
-	34: "bytesReceivedDrop",
-	35: "bytesReceivedUndecrypt",
-	36: "usPacketsSendPeriod",
-	37: "packetsFlowWindow",
-	38: "packetsFlightSize",
-	39: "msRTT",
-	40: "mbpsSendRate",
-	41: "mbpsReceiveRate",
-	42: "mbpsLinkCapacity",
-	43: "bytesAvailSendBuf",
-	44: "bytesAvailReceiveBuf",
-	45: "mbpsMaxBW",
-	46: "byteMSS",
-	47: "packetsSendBuf",
-	48: "bytesSendBuf",
-	49: "msSendBuf",
-	50: "msSendTsbPdDelay",
-	51: "packetsReceiveBuf",
-	52: "bytesReceiveBuf",
-	53: "msReceiveBuf",
-	54: "msReceiveTsbPdDelay",
-	55: "packetsReorderTolerance",
-	56: "packetsReceivedAvgBelatedTime",
-	57: "packetsSendLossRate",
-	58: "packetsReceivedLossRate",
+	6:  "user",
+	7:  "packetsSent",
+	8:  "packetsReceived",
+	9:  "packetsReceivedBelated",
+	10: "packetsSentUnique",
+	11: "packetsReceivedUnique",
+	12: "packetsSendLoss",
+	13: "packetsReceivedLoss",
+	14: "packetsRetrans",
+	15: "packetsReceivedRetrans",
+	16: "packetsSentACK",
+	17: "packetsReceivedACK",
+	18: "packetsSentNAK",
+	19: "packetsReceivedNAK",
+	20: "packetsSentKM",
+	21: "packetsReceivedKM",
+	22: "usSndDuration",
+	23: "packetsSendDrop",
+	24: "packetsReceivedDrop",
+	25: "packetsReceivedUndecrypt",
+	26: "bytesSent",
+	27: "bytesReceived",
+	28: "bytesReceivedBelated",
+	29: "bytesSentUnique",
+	30: "bytesReceivedUnique",
+	31: "bytesReceivedLoss",
+	32: "bytesRetrans",
+	33: "bytesReceivedRetrans",
+	34: "bytesSendDrop",
+	35: "bytesReceivedDrop",
+	36: "bytesReceivedUndecrypt",
+	37: "usPacketsSendPeriod",
+	38: "packetsFlowWindow",
+	39: "packetsFlightSize",
+	40: "msRTT",
+	41: "mbpsSendRate",
+	42: "mbpsReceiveRate",
+	43: "mbpsLinkCapacity",
+	44: "bytesAvailSendBuf",
+	45: "bytesAvailReceiveBuf",
+	46: "mbpsMaxBW",
+	47: "byteMSS",
+	48: "packetsSendBuf",
+	49: "bytesSendBuf",
+	50: "msSendBuf",
+	51: "msSendTsbPdDelay",
+	52: "packetsReceiveBuf",
+	53: "bytesReceiveBuf",
+	54: "msReceiveBuf",
+	55: "msReceiveTsbPdDelay",
+	56: "packetsReorderTolerance",
+	57: "packetsReceivedAvgBelatedTime",
+	58: "packetsSendLossRate",
+	59: "packetsReceivedLossRate",
+	60: "outboundFramesDiscarded",
 }
 
 // Decode decodes SRTConn from json.
@@ -10146,6 +14516,16 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
 			}
 		case "packetsSent":
 			if err := func() error {
@@ -10677,6 +15057,16 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"packetsReceivedLossRate\"")
 			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
+			}
 		default:
 			return d.Skip()
 		}
@@ -11156,6 +15546,120 @@ func (s *SrtConnsListInternalServerError) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
+func (s *WebRTCICEServer) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *WebRTCICEServer) encodeFields(e *jx.Encoder) {
+	{
+		if s.URL.Set {
+			e.FieldStart("url")
+			s.URL.Encode(e)
+		}
+	}
+	{
+		if s.Username.Set {
+			e.FieldStart("username")
+			s.Username.Encode(e)
+		}
+	}
+	{
+		if s.Password.Set {
+			e.FieldStart("password")
+			s.Password.Encode(e)
+		}
+	}
+	{
+		if s.ClientOnly.Set {
+			e.FieldStart("clientOnly")
+			s.ClientOnly.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfWebRTCICEServer = [4]string{
+	0: "url",
+	1: "username",
+	2: "password",
+	3: "clientOnly",
+}
+
+// Decode decodes WebRTCICEServer from json.
+func (s *WebRTCICEServer) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode WebRTCICEServer to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "url":
+			if err := func() error {
+				s.URL.Reset()
+				if err := s.URL.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"url\"")
+			}
+		case "username":
+			if err := func() error {
+				s.Username.Reset()
+				if err := s.Username.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"username\"")
+			}
+		case "password":
+			if err := func() error {
+				s.Password.Reset()
+				if err := s.Password.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"password\"")
+			}
+		case "clientOnly":
+			if err := func() error {
+				s.ClientOnly.Reset()
+				if err := s.ClientOnly.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"clientOnly\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode WebRTCICEServer")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *WebRTCICEServer) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *WebRTCICEServer) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s *WebRTCSession) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -11219,6 +15723,66 @@ func (s *WebRTCSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPackets.Set {
+			e.FieldStart("inboundRTPPackets")
+			s.InboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsLost.Set {
+			e.FieldStart("inboundRTPPacketsLost")
+			s.InboundRTPPacketsLost.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsJitter.Set {
+			e.FieldStart("inboundRTPPacketsJitter")
+			s.InboundRTPPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTCPPackets.Set {
+			e.FieldStart("inboundRTCPPackets")
+			s.InboundRTCPPackets.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTPPackets.Set {
+			e.FieldStart("outboundRTPPackets")
+			s.OutboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTCPPackets.Set {
+			e.FieldStart("outboundRTCPPackets")
+			s.OutboundRTCPPackets.Encode(e)
+		}
+	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
+	{
 		if s.BytesReceived.Set {
 			e.FieldStart("bytesReceived")
 			s.BytesReceived.Encode(e)
@@ -11230,9 +15794,45 @@ func (s *WebRTCSession) encodeFields(e *jx.Encoder) {
 			s.BytesSent.Encode(e)
 		}
 	}
+	{
+		if s.RtpPacketsReceived.Set {
+			e.FieldStart("rtpPacketsReceived")
+			s.RtpPacketsReceived.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsSent.Set {
+			e.FieldStart("rtpPacketsSent")
+			s.RtpPacketsSent.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsLost.Set {
+			e.FieldStart("rtpPacketsLost")
+			s.RtpPacketsLost.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsJitter.Set {
+			e.FieldStart("rtpPacketsJitter")
+			s.RtpPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.RtcpPacketsReceived.Set {
+			e.FieldStart("rtcpPacketsReceived")
+			s.RtcpPacketsReceived.Encode(e)
+		}
+	}
+	{
+		if s.RtcpPacketsSent.Set {
+			e.FieldStart("rtcpPacketsSent")
+			s.RtcpPacketsSent.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfWebRTCSession = [11]string{
+var jsonFieldsNameOfWebRTCSession = [27]string{
 	0:  "id",
 	1:  "created",
 	2:  "remoteAddr",
@@ -11242,8 +15842,24 @@ var jsonFieldsNameOfWebRTCSession = [11]string{
 	6:  "state",
 	7:  "path",
 	8:  "query",
-	9:  "bytesReceived",
-	10: "bytesSent",
+	9:  "user",
+	10: "inboundBytes",
+	11: "inboundRTPPackets",
+	12: "inboundRTPPacketsLost",
+	13: "inboundRTPPacketsJitter",
+	14: "inboundRTCPPackets",
+	15: "outboundBytes",
+	16: "outboundRTPPackets",
+	17: "outboundRTCPPackets",
+	18: "outboundFramesDiscarded",
+	19: "bytesReceived",
+	20: "bytesSent",
+	21: "rtpPacketsReceived",
+	22: "rtpPacketsSent",
+	23: "rtpPacketsLost",
+	24: "rtpPacketsJitter",
+	25: "rtcpPacketsReceived",
+	26: "rtcpPacketsSent",
 }
 
 // Decode decodes WebRTCSession from json.
@@ -11344,6 +15960,106 @@ func (s *WebRTCSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"query\"")
 			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "inboundRTPPackets":
+			if err := func() error {
+				s.InboundRTPPackets.Reset()
+				if err := s.InboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
+			}
+		case "inboundRTPPacketsLost":
+			if err := func() error {
+				s.InboundRTPPacketsLost.Reset()
+				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
+			}
+		case "inboundRTPPacketsJitter":
+			if err := func() error {
+				s.InboundRTPPacketsJitter.Reset()
+				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
+			}
+		case "inboundRTCPPackets":
+			if err := func() error {
+				s.InboundRTCPPackets.Reset()
+				if err := s.InboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTCPPackets\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "outboundRTPPackets":
+			if err := func() error {
+				s.OutboundRTPPackets.Reset()
+				if err := s.OutboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
+			}
+		case "outboundRTCPPackets":
+			if err := func() error {
+				s.OutboundRTCPPackets.Reset()
+				if err := s.OutboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTCPPackets\"")
+			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
+			}
 		case "bytesReceived":
 			if err := func() error {
 				s.BytesReceived.Reset()
@@ -11363,6 +16079,66 @@ func (s *WebRTCSession) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesSent\"")
+			}
+		case "rtpPacketsReceived":
+			if err := func() error {
+				s.RtpPacketsReceived.Reset()
+				if err := s.RtpPacketsReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsReceived\"")
+			}
+		case "rtpPacketsSent":
+			if err := func() error {
+				s.RtpPacketsSent.Reset()
+				if err := s.RtpPacketsSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsSent\"")
+			}
+		case "rtpPacketsLost":
+			if err := func() error {
+				s.RtpPacketsLost.Reset()
+				if err := s.RtpPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsLost\"")
+			}
+		case "rtpPacketsJitter":
+			if err := func() error {
+				s.RtpPacketsJitter.Reset()
+				if err := s.RtpPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsJitter\"")
+			}
+		case "rtcpPacketsReceived":
+			if err := func() error {
+				s.RtcpPacketsReceived.Reset()
+				if err := s.RtcpPacketsReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpPacketsReceived\"")
+			}
+		case "rtcpPacketsSent":
+			if err := func() error {
+				s.RtcpPacketsSent.Reset()
+				if err := s.RtcpPacketsSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpPacketsSent\"")
 			}
 		default:
 			return d.Skip()

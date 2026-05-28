@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/go-faster/errors"
-
 	"github.com/ogen-go/ogen/conv"
 	ht "github.com/ogen-go/ogen/http"
 	"github.com/ogen-go/ogen/uri"
@@ -99,6 +98,30 @@ type Invoker interface {
 	//
 	// GET /v3/hlsmuxers/list
 	HlsMuxersList(ctx context.Context, params HlsMuxersListParams) (HlsMuxersListRes, error)
+	// HlssessionsGet invokes hlssessionsGet operation.
+	//
+	// Returns a HLS session.
+	//
+	// GET /v3/hlssessions/get/{id}
+	HlssessionsGet(ctx context.Context, params HlssessionsGetParams) (HlssessionsGetRes, error)
+	// HlssessionsKick invokes hlssessionsKick operation.
+	//
+	// Kicks out a HLS session from the server.
+	//
+	// POST /v3/hlssessions/kick/{id}
+	HlssessionsKick(ctx context.Context, params HlssessionsKickParams) (HlssessionsKickRes, error)
+	// HlssessionsList invokes hlssessionsList operation.
+	//
+	// Returns all HLS sessions.
+	//
+	// GET /v3/hlssessions/list
+	HlssessionsList(ctx context.Context, params HlssessionsListParams) (HlssessionsListRes, error)
+	// Info invokes info operation.
+	//
+	// Returns informations about the instance.
+	//
+	// GET /v3/info
+	Info(ctx context.Context) (InfoRes, error)
 	// PathsGet invokes pathsGet operation.
 	//
 	// Returns a path.
@@ -119,13 +142,13 @@ type Invoker interface {
 	RecordingsDeleteSegment(ctx context.Context, params RecordingsDeleteSegmentParams) (RecordingsDeleteSegmentRes, error)
 	// RecordingsGet invokes recordingsGet operation.
 	//
-	// Returns recordings for a path.
+	// Returns recordings of a path.
 	//
 	// GET /v3/recordings/get/{name}
 	RecordingsGet(ctx context.Context, params RecordingsGetParams) (RecordingsGetRes, error)
 	// RecordingsList invokes recordingsList operation.
 	//
-	// Returns all recordings.
+	// Returns all recordings, splitted by path.
 	//
 	// GET /v3/recordings/list
 	RecordingsList(ctx context.Context, params RecordingsListParams) (RecordingsListRes, error)
@@ -328,7 +351,8 @@ func (c *Client) sendAuthJwksRefresh(ctx context.Context) (res AuthJwksRefreshRe
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeAuthJwksRefreshResponse(resp)
 	if err != nil {
@@ -364,7 +388,8 @@ func (c *Client) sendConfigGlobalGet(ctx context.Context) (res ConfigGlobalGetRe
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigGlobalGetResponse(resp)
 	if err != nil {
@@ -385,6 +410,15 @@ func (c *Client) ConfigGlobalSet(ctx context.Context, request *GlobalConf) (Conf
 }
 
 func (c *Client) sendConfigGlobalSet(ctx context.Context, request *GlobalConf) (res ConfigGlobalSetRes, err error) {
+	// Validate request before sending.
+	if err := func() error {
+		if err := request.Validate(); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return res, errors.Wrap(err, "validate")
+	}
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
@@ -403,7 +437,8 @@ func (c *Client) sendConfigGlobalSet(ctx context.Context, request *GlobalConf) (
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigGlobalSetResponse(resp)
 	if err != nil {
@@ -439,7 +474,8 @@ func (c *Client) sendConfigPathDefaultsGet(ctx context.Context) (res ConfigPathD
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathDefaultsGetResponse(resp)
 	if err != nil {
@@ -487,7 +523,8 @@ func (c *Client) sendConfigPathDefaultsPatch(ctx context.Context, request *PathC
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathDefaultsPatchResponse(resp)
 	if err != nil {
@@ -553,7 +590,8 @@ func (c *Client) sendConfigPathsAdd(ctx context.Context, request *PathConf, para
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsAddResponse(resp)
 	if err != nil {
@@ -607,7 +645,8 @@ func (c *Client) sendConfigPathsDelete(ctx context.Context, params ConfigPathsDe
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsDeleteResponse(resp)
 	if err != nil {
@@ -661,7 +700,8 @@ func (c *Client) sendConfigPathsGet(ctx context.Context, params ConfigPathsGetPa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsGetResponse(resp)
 	if err != nil {
@@ -734,7 +774,8 @@ func (c *Client) sendConfigPathsList(ctx context.Context, params ConfigPathsList
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsListResponse(resp)
 	if err != nil {
@@ -800,7 +841,8 @@ func (c *Client) sendConfigPathsPatch(ctx context.Context, request *PathConf, pa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsPatchResponse(resp)
 	if err != nil {
@@ -866,7 +908,8 @@ func (c *Client) sendConfigPathsReplace(ctx context.Context, request *PathConf, 
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeConfigPathsReplaceResponse(resp)
 	if err != nil {
@@ -920,7 +963,8 @@ func (c *Client) sendHlsMuxersGet(ctx context.Context, params HlsMuxersGetParams
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeHlsMuxersGetResponse(resp)
 	if err != nil {
@@ -993,9 +1037,231 @@ func (c *Client) sendHlsMuxersList(ctx context.Context, params HlsMuxersListPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeHlsMuxersListResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// HlssessionsGet invokes hlssessionsGet operation.
+//
+// Returns a HLS session.
+//
+// GET /v3/hlssessions/get/{id}
+func (c *Client) HlssessionsGet(ctx context.Context, params HlssessionsGetParams) (HlssessionsGetRes, error) {
+	res, err := c.sendHlssessionsGet(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendHlssessionsGet(ctx context.Context, params HlssessionsGetParams) (res HlssessionsGetRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/v3/hlssessions/get/"
+	{
+		// Encode "id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	result, err := decodeHlssessionsGetResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// HlssessionsKick invokes hlssessionsKick operation.
+//
+// Kicks out a HLS session from the server.
+//
+// POST /v3/hlssessions/kick/{id}
+func (c *Client) HlssessionsKick(ctx context.Context, params HlssessionsKickParams) (HlssessionsKickRes, error) {
+	res, err := c.sendHlssessionsKick(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendHlssessionsKick(ctx context.Context, params HlssessionsKickParams) (res HlssessionsKickRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/v3/hlssessions/kick/"
+	{
+		// Encode "id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	result, err := decodeHlssessionsKickResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// HlssessionsList invokes hlssessionsList operation.
+//
+// Returns all HLS sessions.
+//
+// GET /v3/hlssessions/list
+func (c *Client) HlssessionsList(ctx context.Context, params HlssessionsListParams) (HlssessionsListRes, error) {
+	res, err := c.sendHlssessionsList(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendHlssessionsList(ctx context.Context, params HlssessionsListParams) (res HlssessionsListRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/hlssessions/list"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "page" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Page.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "itemsPerPage" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "itemsPerPage",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.ItemsPerPage.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	result, err := decodeHlssessionsListResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// Info invokes info operation.
+//
+// Returns informations about the instance.
+//
+// GET /v3/info
+func (c *Client) Info(ctx context.Context) (InfoRes, error) {
+	res, err := c.sendInfo(ctx)
+	return res, err
+}
+
+func (c *Client) sendInfo(ctx context.Context) (res InfoRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/info"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer body.Close()
+
+	result, err := decodeInfoResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -1047,7 +1313,8 @@ func (c *Client) sendPathsGet(ctx context.Context, params PathsGetParams) (res P
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodePathsGetResponse(resp)
 	if err != nil {
@@ -1120,7 +1387,8 @@ func (c *Client) sendPathsList(ctx context.Context, params PathsListParams) (res
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodePathsListResponse(resp)
 	if err != nil {
@@ -1187,7 +1455,8 @@ func (c *Client) sendRecordingsDeleteSegment(ctx context.Context, params Recordi
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRecordingsDeleteSegmentResponse(resp)
 	if err != nil {
@@ -1199,7 +1468,7 @@ func (c *Client) sendRecordingsDeleteSegment(ctx context.Context, params Recordi
 
 // RecordingsGet invokes recordingsGet operation.
 //
-// Returns recordings for a path.
+// Returns recordings of a path.
 //
 // GET /v3/recordings/get/{name}
 func (c *Client) RecordingsGet(ctx context.Context, params RecordingsGetParams) (RecordingsGetRes, error) {
@@ -1241,7 +1510,8 @@ func (c *Client) sendRecordingsGet(ctx context.Context, params RecordingsGetPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRecordingsGetResponse(resp)
 	if err != nil {
@@ -1253,7 +1523,7 @@ func (c *Client) sendRecordingsGet(ctx context.Context, params RecordingsGetPara
 
 // RecordingsList invokes recordingsList operation.
 //
-// Returns all recordings.
+// Returns all recordings, splitted by path.
 //
 // GET /v3/recordings/list
 func (c *Client) RecordingsList(ctx context.Context, params RecordingsListParams) (RecordingsListRes, error) {
@@ -1314,7 +1584,8 @@ func (c *Client) sendRecordingsList(ctx context.Context, params RecordingsListPa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRecordingsListResponse(resp)
 	if err != nil {
@@ -1368,7 +1639,8 @@ func (c *Client) sendRtmpConnectionsGet(ctx context.Context, params RtmpConnecti
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpConnectionsGetResponse(resp)
 	if err != nil {
@@ -1422,7 +1694,8 @@ func (c *Client) sendRtmpConnsKick(ctx context.Context, params RtmpConnsKickPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpConnsKickResponse(resp)
 	if err != nil {
@@ -1495,7 +1768,8 @@ func (c *Client) sendRtmpConnsList(ctx context.Context, params RtmpConnsListPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpConnsListResponse(resp)
 	if err != nil {
@@ -1549,7 +1823,8 @@ func (c *Client) sendRtmpsConnectionsGet(ctx context.Context, params RtmpsConnec
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpsConnectionsGetResponse(resp)
 	if err != nil {
@@ -1603,7 +1878,8 @@ func (c *Client) sendRtmpsConnsKick(ctx context.Context, params RtmpsConnsKickPa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpsConnsKickResponse(resp)
 	if err != nil {
@@ -1676,7 +1952,8 @@ func (c *Client) sendRtmpsConnsList(ctx context.Context, params RtmpsConnsListPa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtmpsConnsListResponse(resp)
 	if err != nil {
@@ -1730,7 +2007,8 @@ func (c *Client) sendRtspConnsGet(ctx context.Context, params RtspConnsGetParams
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspConnsGetResponse(resp)
 	if err != nil {
@@ -1803,7 +2081,8 @@ func (c *Client) sendRtspConnsList(ctx context.Context, params RtspConnsListPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspConnsListResponse(resp)
 	if err != nil {
@@ -1857,7 +2136,8 @@ func (c *Client) sendRtspSessionsGet(ctx context.Context, params RtspSessionsGet
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspSessionsGetResponse(resp)
 	if err != nil {
@@ -1911,7 +2191,8 @@ func (c *Client) sendRtspSessionsKick(ctx context.Context, params RtspSessionsKi
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspSessionsKickResponse(resp)
 	if err != nil {
@@ -1984,7 +2265,8 @@ func (c *Client) sendRtspSessionsList(ctx context.Context, params RtspSessionsLi
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspSessionsListResponse(resp)
 	if err != nil {
@@ -2038,7 +2320,8 @@ func (c *Client) sendRtspsConnsGet(ctx context.Context, params RtspsConnsGetPara
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspsConnsGetResponse(resp)
 	if err != nil {
@@ -2111,7 +2394,8 @@ func (c *Client) sendRtspsConnsList(ctx context.Context, params RtspsConnsListPa
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspsConnsListResponse(resp)
 	if err != nil {
@@ -2165,7 +2449,8 @@ func (c *Client) sendRtspsSessionsGet(ctx context.Context, params RtspsSessionsG
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspsSessionsGetResponse(resp)
 	if err != nil {
@@ -2219,7 +2504,8 @@ func (c *Client) sendRtspsSessionsKick(ctx context.Context, params RtspsSessions
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspsSessionsKickResponse(resp)
 	if err != nil {
@@ -2292,7 +2578,8 @@ func (c *Client) sendRtspsSessionsList(ctx context.Context, params RtspsSessions
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeRtspsSessionsListResponse(resp)
 	if err != nil {
@@ -2346,7 +2633,8 @@ func (c *Client) sendSrtConnsGet(ctx context.Context, params SrtConnsGetParams) 
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeSrtConnsGetResponse(resp)
 	if err != nil {
@@ -2400,7 +2688,8 @@ func (c *Client) sendSrtConnsKick(ctx context.Context, params SrtConnsKickParams
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeSrtConnsKickResponse(resp)
 	if err != nil {
@@ -2473,7 +2762,8 @@ func (c *Client) sendSrtConnsList(ctx context.Context, params SrtConnsListParams
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeSrtConnsListResponse(resp)
 	if err != nil {
@@ -2527,7 +2817,8 @@ func (c *Client) sendWebrtcSessionsGet(ctx context.Context, params WebrtcSession
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeWebrtcSessionsGetResponse(resp)
 	if err != nil {
@@ -2581,7 +2872,8 @@ func (c *Client) sendWebrtcSessionsKick(ctx context.Context, params WebrtcSessio
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeWebrtcSessionsKickResponse(resp)
 	if err != nil {
@@ -2654,7 +2946,8 @@ func (c *Client) sendWebrtcSessionsList(ctx context.Context, params WebrtcSessio
 	if err != nil {
 		return res, errors.Wrap(err, "do request")
 	}
-	defer resp.Body.Close()
+	body := resp.Body
+	defer body.Close()
 
 	result, err := decodeWebrtcSessionsListResponse(resp)
 	if err != nil {

@@ -3,8 +3,213 @@
 package mediamtx
 
 import (
+	json2 "encoding/json"
+
 	"github.com/go-faster/errors"
+	"github.com/google/uuid"
 )
+
+// Ref: #/components/schemas/AlwaysAvailableTrack
+type AlwaysAvailableTrack struct {
+	Codec        OptAlwaysAvailableTrackCodec `json:"codec"`
+	SampleRate   OptInt64                     `json:"sampleRate"`
+	ChannelCount OptInt64                     `json:"channelCount"`
+	MuLaw        OptBool                      `json:"muLaw"`
+}
+
+// GetCodec returns the value of Codec.
+func (s *AlwaysAvailableTrack) GetCodec() OptAlwaysAvailableTrackCodec {
+	return s.Codec
+}
+
+// GetSampleRate returns the value of SampleRate.
+func (s *AlwaysAvailableTrack) GetSampleRate() OptInt64 {
+	return s.SampleRate
+}
+
+// GetChannelCount returns the value of ChannelCount.
+func (s *AlwaysAvailableTrack) GetChannelCount() OptInt64 {
+	return s.ChannelCount
+}
+
+// GetMuLaw returns the value of MuLaw.
+func (s *AlwaysAvailableTrack) GetMuLaw() OptBool {
+	return s.MuLaw
+}
+
+// SetCodec sets the value of Codec.
+func (s *AlwaysAvailableTrack) SetCodec(val OptAlwaysAvailableTrackCodec) {
+	s.Codec = val
+}
+
+// SetSampleRate sets the value of SampleRate.
+func (s *AlwaysAvailableTrack) SetSampleRate(val OptInt64) {
+	s.SampleRate = val
+}
+
+// SetChannelCount sets the value of ChannelCount.
+func (s *AlwaysAvailableTrack) SetChannelCount(val OptInt64) {
+	s.ChannelCount = val
+}
+
+// SetMuLaw sets the value of MuLaw.
+func (s *AlwaysAvailableTrack) SetMuLaw(val OptBool) {
+	s.MuLaw = val
+}
+
+// Ref: #/components/schemas/AlwaysAvailableTrackCodec
+type AlwaysAvailableTrackCodec string
+
+const (
+	AlwaysAvailableTrackCodecAV1        AlwaysAvailableTrackCodec = "AV1"
+	AlwaysAvailableTrackCodecVP9        AlwaysAvailableTrackCodec = "VP9"
+	AlwaysAvailableTrackCodecH265       AlwaysAvailableTrackCodec = "H265"
+	AlwaysAvailableTrackCodecH264       AlwaysAvailableTrackCodec = "H264"
+	AlwaysAvailableTrackCodecMPEG4Audio AlwaysAvailableTrackCodec = "MPEG4Audio"
+	AlwaysAvailableTrackCodecOpus       AlwaysAvailableTrackCodec = "Opus"
+	AlwaysAvailableTrackCodecG711       AlwaysAvailableTrackCodec = "G711"
+	AlwaysAvailableTrackCodecLPCM       AlwaysAvailableTrackCodec = "LPCM"
+)
+
+// AllValues returns all AlwaysAvailableTrackCodec values.
+func (AlwaysAvailableTrackCodec) AllValues() []AlwaysAvailableTrackCodec {
+	return []AlwaysAvailableTrackCodec{
+		AlwaysAvailableTrackCodecAV1,
+		AlwaysAvailableTrackCodecVP9,
+		AlwaysAvailableTrackCodecH265,
+		AlwaysAvailableTrackCodecH264,
+		AlwaysAvailableTrackCodecMPEG4Audio,
+		AlwaysAvailableTrackCodecOpus,
+		AlwaysAvailableTrackCodecG711,
+		AlwaysAvailableTrackCodecLPCM,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s AlwaysAvailableTrackCodec) MarshalText() ([]byte, error) {
+	switch s {
+	case AlwaysAvailableTrackCodecAV1:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecVP9:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecH265:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecH264:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecMPEG4Audio:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecOpus:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecG711:
+		return []byte(s), nil
+	case AlwaysAvailableTrackCodecLPCM:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *AlwaysAvailableTrackCodec) UnmarshalText(data []byte) error {
+	switch AlwaysAvailableTrackCodec(data) {
+	case AlwaysAvailableTrackCodecAV1:
+		*s = AlwaysAvailableTrackCodecAV1
+		return nil
+	case AlwaysAvailableTrackCodecVP9:
+		*s = AlwaysAvailableTrackCodecVP9
+		return nil
+	case AlwaysAvailableTrackCodecH265:
+		*s = AlwaysAvailableTrackCodecH265
+		return nil
+	case AlwaysAvailableTrackCodecH264:
+		*s = AlwaysAvailableTrackCodecH264
+		return nil
+	case AlwaysAvailableTrackCodecMPEG4Audio:
+		*s = AlwaysAvailableTrackCodecMPEG4Audio
+		return nil
+	case AlwaysAvailableTrackCodecOpus:
+		*s = AlwaysAvailableTrackCodecOpus
+		return nil
+	case AlwaysAvailableTrackCodecG711:
+		*s = AlwaysAvailableTrackCodecG711
+		return nil
+	case AlwaysAvailableTrackCodecLPCM:
+		*s = AlwaysAvailableTrackCodecLPCM
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+// Ref: #/components/schemas/AuthAction
+type AuthAction string
+
+const (
+	AuthActionPublish  AuthAction = "publish"
+	AuthActionRead     AuthAction = "read"
+	AuthActionPlayback AuthAction = "playback"
+	AuthActionAPI      AuthAction = "api"
+	AuthActionMetrics  AuthAction = "metrics"
+	AuthActionPprof    AuthAction = "pprof"
+)
+
+// AllValues returns all AuthAction values.
+func (AuthAction) AllValues() []AuthAction {
+	return []AuthAction{
+		AuthActionPublish,
+		AuthActionRead,
+		AuthActionPlayback,
+		AuthActionAPI,
+		AuthActionMetrics,
+		AuthActionPprof,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s AuthAction) MarshalText() ([]byte, error) {
+	switch s {
+	case AuthActionPublish:
+		return []byte(s), nil
+	case AuthActionRead:
+		return []byte(s), nil
+	case AuthActionPlayback:
+		return []byte(s), nil
+	case AuthActionAPI:
+		return []byte(s), nil
+	case AuthActionMetrics:
+		return []byte(s), nil
+	case AuthActionPprof:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *AuthAction) UnmarshalText(data []byte) error {
+	switch AuthAction(data) {
+	case AuthActionPublish:
+		*s = AuthActionPublish
+		return nil
+	case AuthActionRead:
+		*s = AuthActionRead
+		return nil
+	case AuthActionPlayback:
+		*s = AuthActionPlayback
+		return nil
+	case AuthActionAPI:
+		*s = AuthActionAPI
+		return nil
+	case AuthActionMetrics:
+		*s = AuthActionMetrics
+		return nil
+	case AuthActionPprof:
+		*s = AuthActionPprof
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
 
 // Ref: #/components/schemas/AuthInternalUser
 type AuthInternalUser struct {
@@ -56,12 +261,12 @@ func (s *AuthInternalUser) SetPermissions(val []AuthInternalUserPermission) {
 
 // Ref: #/components/schemas/AuthInternalUserPermission
 type AuthInternalUserPermission struct {
-	Action OptString `json:"action"`
-	Path   OptString `json:"path"`
+	Action OptAuthAction `json:"action"`
+	Path   OptString     `json:"path"`
 }
 
 // GetAction returns the value of Action.
-func (s *AuthInternalUserPermission) GetAction() OptString {
+func (s *AuthInternalUserPermission) GetAction() OptAuthAction {
 	return s.Action
 }
 
@@ -71,7 +276,7 @@ func (s *AuthInternalUserPermission) GetPath() OptString {
 }
 
 // SetAction sets the value of Action.
-func (s *AuthInternalUserPermission) SetAction(val OptString) {
+func (s *AuthInternalUserPermission) SetAction(val OptAuthAction) {
 	s.Action = val
 }
 
@@ -80,10 +285,54 @@ func (s *AuthInternalUserPermission) SetPath(val OptString) {
 	s.Path = val
 }
 
-// AuthJwksRefreshOK is response for AuthJwksRefresh operation.
-type AuthJwksRefreshOK struct{}
+// Ref: #/components/schemas/AuthMethod
+type AuthMethod string
 
-func (*AuthJwksRefreshOK) authJwksRefreshRes() {}
+const (
+	AuthMethodInternal AuthMethod = "internal"
+	AuthMethodHTTP     AuthMethod = "http"
+	AuthMethodJwt      AuthMethod = "jwt"
+)
+
+// AllValues returns all AuthMethod values.
+func (AuthMethod) AllValues() []AuthMethod {
+	return []AuthMethod{
+		AuthMethodInternal,
+		AuthMethodHTTP,
+		AuthMethodJwt,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s AuthMethod) MarshalText() ([]byte, error) {
+	switch s {
+	case AuthMethodInternal:
+		return []byte(s), nil
+	case AuthMethodHTTP:
+		return []byte(s), nil
+	case AuthMethodJwt:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *AuthMethod) UnmarshalText(data []byte) error {
+	switch AuthMethod(data) {
+	case AuthMethodInternal:
+		*s = AuthMethodInternal
+		return nil
+	case AuthMethodHTTP:
+		*s = AuthMethodHTTP
+		return nil
+	case AuthMethodJwt:
+		*s = AuthMethodJwt
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
 
 type ConfigGlobalGetBadRequest Error
 
@@ -101,11 +350,6 @@ type ConfigGlobalSetInternalServerError Error
 
 func (*ConfigGlobalSetInternalServerError) configGlobalSetRes() {}
 
-// ConfigGlobalSetOK is response for ConfigGlobalSet operation.
-type ConfigGlobalSetOK struct{}
-
-func (*ConfigGlobalSetOK) configGlobalSetRes() {}
-
 type ConfigPathDefaultsGetBadRequest Error
 
 func (*ConfigPathDefaultsGetBadRequest) configPathDefaultsGetRes() {}
@@ -122,11 +366,6 @@ type ConfigPathDefaultsPatchInternalServerError Error
 
 func (*ConfigPathDefaultsPatchInternalServerError) configPathDefaultsPatchRes() {}
 
-// ConfigPathDefaultsPatchOK is response for ConfigPathDefaultsPatch operation.
-type ConfigPathDefaultsPatchOK struct{}
-
-func (*ConfigPathDefaultsPatchOK) configPathDefaultsPatchRes() {}
-
 type ConfigPathsAddBadRequest Error
 
 func (*ConfigPathsAddBadRequest) configPathsAddRes() {}
@@ -134,11 +373,6 @@ func (*ConfigPathsAddBadRequest) configPathsAddRes() {}
 type ConfigPathsAddInternalServerError Error
 
 func (*ConfigPathsAddInternalServerError) configPathsAddRes() {}
-
-// ConfigPathsAddOK is response for ConfigPathsAdd operation.
-type ConfigPathsAddOK struct{}
-
-func (*ConfigPathsAddOK) configPathsAddRes() {}
 
 type ConfigPathsDeleteBadRequest Error
 
@@ -151,11 +385,6 @@ func (*ConfigPathsDeleteInternalServerError) configPathsDeleteRes() {}
 type ConfigPathsDeleteNotFound Error
 
 func (*ConfigPathsDeleteNotFound) configPathsDeleteRes() {}
-
-// ConfigPathsDeleteOK is response for ConfigPathsDelete operation.
-type ConfigPathsDeleteOK struct{}
-
-func (*ConfigPathsDeleteOK) configPathsDeleteRes() {}
 
 type ConfigPathsGetBadRequest Error
 
@@ -189,11 +418,6 @@ type ConfigPathsPatchNotFound Error
 
 func (*ConfigPathsPatchNotFound) configPathsPatchRes() {}
 
-// ConfigPathsPatchOK is response for ConfigPathsPatch operation.
-type ConfigPathsPatchOK struct{}
-
-func (*ConfigPathsPatchOK) configPathsPatchRes() {}
-
 type ConfigPathsReplaceBadRequest Error
 
 func (*ConfigPathsReplaceBadRequest) configPathsReplaceRes() {}
@@ -206,19 +430,74 @@ type ConfigPathsReplaceNotFound Error
 
 func (*ConfigPathsReplaceNotFound) configPathsReplaceRes() {}
 
-// ConfigPathsReplaceOK is response for ConfigPathsReplace operation.
-type ConfigPathsReplaceOK struct{}
+// Ref: #/components/schemas/Encryption
+type Encryption string
 
-func (*ConfigPathsReplaceOK) configPathsReplaceRes() {}
+const (
+	EncryptionNo       Encryption = "no"
+	EncryptionOptional Encryption = "optional"
+	EncryptionStrict   Encryption = "strict"
+)
+
+// AllValues returns all Encryption values.
+func (Encryption) AllValues() []Encryption {
+	return []Encryption{
+		EncryptionNo,
+		EncryptionOptional,
+		EncryptionStrict,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s Encryption) MarshalText() ([]byte, error) {
+	switch s {
+	case EncryptionNo:
+		return []byte(s), nil
+	case EncryptionOptional:
+		return []byte(s), nil
+	case EncryptionStrict:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *Encryption) UnmarshalText(data []byte) error {
+	switch Encryption(data) {
+	case EncryptionNo:
+		*s = EncryptionNo
+		return nil
+	case EncryptionOptional:
+		*s = EncryptionOptional
+		return nil
+	case EncryptionStrict:
+		*s = EncryptionStrict
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
 
 // Ref: #/components/schemas/Error
 type Error struct {
-	Error OptString `json:"error"`
+	Status OptErrorStatus `json:"status"`
+	Error  OptString      `json:"error"`
+}
+
+// GetStatus returns the value of Status.
+func (s *Error) GetStatus() OptErrorStatus {
+	return s.Status
 }
 
 // GetError returns the value of Error.
 func (s *Error) GetError() OptString {
 	return s.Error
+}
+
+// SetStatus sets the value of Status.
+func (s *Error) SetStatus(val OptErrorStatus) {
+	s.Status = val
 }
 
 // SetError sets the value of Error.
@@ -227,123 +506,224 @@ func (s *Error) SetError(val OptString) {
 }
 
 func (*Error) authJwksRefreshRes() {}
+func (*Error) infoRes()            {}
+
+// Ref: #/components/schemas/ErrorStatus
+type ErrorStatus string
+
+const (
+	ErrorStatusError ErrorStatus = "error"
+)
+
+// AllValues returns all ErrorStatus values.
+func (ErrorStatus) AllValues() []ErrorStatus {
+	return []ErrorStatus{
+		ErrorStatusError,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s ErrorStatus) MarshalText() ([]byte, error) {
+	switch s {
+	case ErrorStatusError:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *ErrorStatus) UnmarshalText(data []byte) error {
+	switch ErrorStatus(data) {
+	case ErrorStatusError:
+		*s = ErrorStatusError
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
 
 // Ref: #/components/schemas/GlobalConf
 type GlobalConf struct {
-	LogLevel                    OptString                         `json:"logLevel"`
-	LogDestinations             []string                          `json:"logDestinations"`
-	LogFile                     OptString                         `json:"logFile"`
-	SysLogPrefix                OptString                         `json:"sysLogPrefix"`
-	ReadTimeout                 OptString                         `json:"readTimeout"`
-	WriteTimeout                OptString                         `json:"writeTimeout"`
-	WriteQueueSize              OptInt                            `json:"writeQueueSize"`
-	UdpMaxPayloadSize           OptInt                            `json:"udpMaxPayloadSize"`
-	RunOnConnect                OptString                         `json:"runOnConnect"`
-	RunOnConnectRestart         OptBool                           `json:"runOnConnectRestart"`
-	RunOnDisconnect             OptString                         `json:"runOnDisconnect"`
-	AuthMethod                  OptString                         `json:"authMethod"`
-	AuthInternalUsers           []AuthInternalUser                `json:"authInternalUsers"`
-	AuthHTTPAddress             OptString                         `json:"authHTTPAddress"`
-	AuthHTTPExclude             []AuthInternalUserPermission      `json:"authHTTPExclude"`
-	AuthJWTJWKS                 OptString                         `json:"authJWTJWKS"`
-	AuthJWTJWKSFingerprint      OptString                         `json:"authJWTJWKSFingerprint"`
-	AuthJWTClaimKey             OptString                         `json:"authJWTClaimKey"`
-	AuthJWTExclude              []AuthInternalUserPermission      `json:"authJWTExclude"`
-	AuthJWTInHTTPQuery          OptBool                           `json:"authJWTInHTTPQuery"`
-	API                         OptBool                           `json:"api"`
-	ApiAddress                  OptString                         `json:"apiAddress"`
-	ApiEncryption               OptBool                           `json:"apiEncryption"`
-	ApiServerKey                OptString                         `json:"apiServerKey"`
-	ApiServerCert               OptString                         `json:"apiServerCert"`
-	ApiAllowOrigin              OptString                         `json:"apiAllowOrigin"`
-	ApiTrustedProxies           []string                          `json:"apiTrustedProxies"`
-	Metrics                     OptBool                           `json:"metrics"`
-	MetricsAddress              OptString                         `json:"metricsAddress"`
-	MetricsEncryption           OptBool                           `json:"metricsEncryption"`
-	MetricsServerKey            OptString                         `json:"metricsServerKey"`
-	MetricsServerCert           OptString                         `json:"metricsServerCert"`
-	MetricsAllowOrigin          OptString                         `json:"metricsAllowOrigin"`
-	MetricsTrustedProxies       []string                          `json:"metricsTrustedProxies"`
-	Pprof                       OptBool                           `json:"pprof"`
-	PprofAddress                OptString                         `json:"pprofAddress"`
-	PprofEncryption             OptBool                           `json:"pprofEncryption"`
-	PprofServerKey              OptString                         `json:"pprofServerKey"`
-	PprofServerCert             OptString                         `json:"pprofServerCert"`
-	PprofAllowOrigin            OptString                         `json:"pprofAllowOrigin"`
-	PprofTrustedProxies         []string                          `json:"pprofTrustedProxies"`
-	Playback                    OptBool                           `json:"playback"`
-	PlaybackAddress             OptString                         `json:"playbackAddress"`
-	PlaybackEncryption          OptBool                           `json:"playbackEncryption"`
-	PlaybackServerKey           OptString                         `json:"playbackServerKey"`
-	PlaybackServerCert          OptString                         `json:"playbackServerCert"`
-	PlaybackAllowOrigin         OptString                         `json:"playbackAllowOrigin"`
-	PlaybackTrustedProxies      []string                          `json:"playbackTrustedProxies"`
-	Rtsp                        OptBool                           `json:"rtsp"`
-	RtspTransports              []string                          `json:"rtspTransports"`
-	RtspEncryption              OptString                         `json:"rtspEncryption"`
-	RtspAddress                 OptString                         `json:"rtspAddress"`
-	RtspsAddress                OptString                         `json:"rtspsAddress"`
-	RtpAddress                  OptString                         `json:"rtpAddress"`
-	RtcpAddress                 OptString                         `json:"rtcpAddress"`
-	MulticastIPRange            OptString                         `json:"multicastIPRange"`
-	MulticastRTPPort            OptInt                            `json:"multicastRTPPort"`
-	MulticastRTCPPort           OptInt                            `json:"multicastRTCPPort"`
-	SrtpAddress                 OptString                         `json:"srtpAddress"`
-	SrtcpAddress                OptString                         `json:"srtcpAddress"`
-	MulticastSRTPPort           OptInt                            `json:"multicastSRTPPort"`
-	MulticastSRTCPPort          OptInt                            `json:"multicastSRTCPPort"`
-	RtspServerKey               OptString                         `json:"rtspServerKey"`
-	RtspServerCert              OptString                         `json:"rtspServerCert"`
-	RtspAuthMethods             []string                          `json:"rtspAuthMethods"`
-	Rtmp                        OptBool                           `json:"rtmp"`
-	RtmpAddress                 OptString                         `json:"rtmpAddress"`
-	RtmpEncryption              OptString                         `json:"rtmpEncryption"`
-	RtmpsAddress                OptString                         `json:"rtmpsAddress"`
-	RtmpServerKey               OptString                         `json:"rtmpServerKey"`
-	RtmpServerCert              OptString                         `json:"rtmpServerCert"`
-	Hls                         OptBool                           `json:"hls"`
-	HlsAddress                  OptString                         `json:"hlsAddress"`
-	HlsEncryption               OptBool                           `json:"hlsEncryption"`
-	HlsServerKey                OptString                         `json:"hlsServerKey"`
-	HlsServerCert               OptString                         `json:"hlsServerCert"`
-	HlsAllowOrigin              OptString                         `json:"hlsAllowOrigin"`
-	HlsTrustedProxies           []string                          `json:"hlsTrustedProxies"`
-	HlsAlwaysRemux              OptBool                           `json:"hlsAlwaysRemux"`
-	HlsVariant                  OptString                         `json:"hlsVariant"`
-	HlsSegmentCount             OptInt                            `json:"hlsSegmentCount"`
-	HlsSegmentDuration          OptString                         `json:"hlsSegmentDuration"`
-	HlsPartDuration             OptString                         `json:"hlsPartDuration"`
-	HlsSegmentMaxSize           OptString                         `json:"hlsSegmentMaxSize"`
-	HlsDirectory                OptString                         `json:"hlsDirectory"`
-	HlsMuxerCloseAfter          OptString                         `json:"hlsMuxerCloseAfter"`
-	Webrtc                      OptBool                           `json:"webrtc"`
-	WebrtcAddress               OptString                         `json:"webrtcAddress"`
-	WebrtcEncryption            OptBool                           `json:"webrtcEncryption"`
-	WebrtcServerKey             OptString                         `json:"webrtcServerKey"`
-	WebrtcServerCert            OptString                         `json:"webrtcServerCert"`
-	WebrtcAllowOrigin           OptString                         `json:"webrtcAllowOrigin"`
-	WebrtcTrustedProxies        []string                          `json:"webrtcTrustedProxies"`
-	WebrtcLocalUDPAddress       OptString                         `json:"webrtcLocalUDPAddress"`
-	WebrtcLocalTCPAddress       OptString                         `json:"webrtcLocalTCPAddress"`
-	WebrtcIPsFromInterfaces     OptBool                           `json:"webrtcIPsFromInterfaces"`
-	WebrtcIPsFromInterfacesList []string                          `json:"webrtcIPsFromInterfacesList"`
-	WebrtcAdditionalHosts       []string                          `json:"webrtcAdditionalHosts"`
-	WebrtcICEServers2           []GlobalConfWebrtcICEServers2Item `json:"webrtcICEServers2"`
-	WebrtcHandshakeTimeout      OptString                         `json:"webrtcHandshakeTimeout"`
-	WebrtcTrackGatherTimeout    OptString                         `json:"webrtcTrackGatherTimeout"`
-	WebrtcSTUNGatherTimeout     OptString                         `json:"webrtcSTUNGatherTimeout"`
-	Srt                         OptBool                           `json:"srt"`
-	SrtAddress                  OptString                         `json:"srtAddress"`
+	LogLevel        OptLogLevel      `json:"logLevel"`
+	LogDestinations []LogDestination `json:"logDestinations"`
+	LogStructured   OptBool          `json:"logStructured"`
+	LogFile         OptString        `json:"logFile"`
+	SysLogPrefix    OptString        `json:"sysLogPrefix"`
+	DumpPackets     OptBool          `json:"dumpPackets"`
+	ReadTimeout     OptString        `json:"readTimeout"`
+	WriteTimeout    OptString        `json:"writeTimeout"`
+	// Deprecated: schema marks this property as deprecated.
+	ReadBufferCount     OptNilInt64        `json:"readBufferCount"`
+	WriteQueueSize      OptInt64           `json:"writeQueueSize"`
+	UdpMaxPayloadSize   OptInt64           `json:"udpMaxPayloadSize"`
+	UdpReadBufferSize   OptUint64          `json:"udpReadBufferSize"`
+	RunOnConnect        OptString          `json:"runOnConnect"`
+	RunOnConnectRestart OptBool            `json:"runOnConnectRestart"`
+	RunOnDisconnect     OptString          `json:"runOnDisconnect"`
+	AuthMethod          OptAuthMethod      `json:"authMethod"`
+	AuthInternalUsers   []AuthInternalUser `json:"authInternalUsers"`
+	AuthHTTPAddress     OptString          `json:"authHTTPAddress"`
+	// Deprecated: schema marks this property as deprecated.
+	ExternalAuthenticationURL OptNilString                 `json:"externalAuthenticationURL"`
+	AuthHTTPFingerprint       OptString                    `json:"authHTTPFingerprint"`
+	AuthHTTPExclude           []AuthInternalUserPermission `json:"authHTTPExclude"`
+	AuthJWTJWKS               OptString                    `json:"authJWTJWKS"`
+	AuthJWTJWKSFingerprint    OptString                    `json:"authJWTJWKSFingerprint"`
+	AuthJWTClaimKey           OptString                    `json:"authJWTClaimKey"`
+	// Deprecated: schema marks this property as deprecated.
+	AuthJWTInHTTPQuery OptNilBool                   `json:"authJWTInHTTPQuery"`
+	AuthJWTIssuer      OptString                    `json:"authJWTIssuer"`
+	AuthJWTAudience    OptString                    `json:"authJWTAudience"`
+	AuthJWTExclude     []AuthInternalUserPermission `json:"authJWTExclude"`
+	API                OptBool                      `json:"api"`
+	ApiAddress         OptString                    `json:"apiAddress"`
+	ApiEncryption      OptBool                      `json:"apiEncryption"`
+	ApiServerKey       OptString                    `json:"apiServerKey"`
+	ApiServerCert      OptString                    `json:"apiServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	ApiAllowOrigin    OptNilString `json:"apiAllowOrigin"`
+	ApiAllowOrigins   []string     `json:"apiAllowOrigins"`
+	ApiTrustedProxies []string     `json:"apiTrustedProxies"`
+	Metrics           OptBool      `json:"metrics"`
+	MetricsAddress    OptString    `json:"metricsAddress"`
+	MetricsEncryption OptBool      `json:"metricsEncryption"`
+	MetricsServerKey  OptString    `json:"metricsServerKey"`
+	MetricsServerCert OptString    `json:"metricsServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	MetricsAllowOrigin    OptNilString `json:"metricsAllowOrigin"`
+	MetricsAllowOrigins   []string     `json:"metricsAllowOrigins"`
+	MetricsTrustedProxies []string     `json:"metricsTrustedProxies"`
+	Pprof                 OptBool      `json:"pprof"`
+	PprofAddress          OptString    `json:"pprofAddress"`
+	PprofEncryption       OptBool      `json:"pprofEncryption"`
+	PprofServerKey        OptString    `json:"pprofServerKey"`
+	PprofServerCert       OptString    `json:"pprofServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	PprofAllowOrigin    OptNilString `json:"pprofAllowOrigin"`
+	PprofAllowOrigins   []string     `json:"pprofAllowOrigins"`
+	PprofTrustedProxies []string     `json:"pprofTrustedProxies"`
+	Playback            OptBool      `json:"playback"`
+	PlaybackAddress     OptString    `json:"playbackAddress"`
+	PlaybackEncryption  OptBool      `json:"playbackEncryption"`
+	PlaybackServerKey   OptString    `json:"playbackServerKey"`
+	PlaybackServerCert  OptString    `json:"playbackServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	PlaybackAllowOrigin    OptNilString `json:"playbackAllowOrigin"`
+	PlaybackAllowOrigins   []string     `json:"playbackAllowOrigins"`
+	PlaybackTrustedProxies []string     `json:"playbackTrustedProxies"`
+	Rtsp                   OptBool      `json:"rtsp"`
+	// Deprecated: schema marks this property as deprecated.
+	RtspDisable OptNilBool `json:"rtspDisable"`
+	// Deprecated: schema marks this property as deprecated.
+	Protocols      OptNilGlobalConfProtocolsItemArray `json:"protocols"`
+	RtspTransports []GlobalConfRtspTransportsItem     `json:"rtspTransports"`
+	// Deprecated: schema marks this property as deprecated.
+	Encryption         OptNilEncryption `json:"encryption"`
+	RtspEncryption     OptEncryption    `json:"rtspEncryption"`
+	RtspAddress        OptString        `json:"rtspAddress"`
+	RtspsAddress       OptString        `json:"rtspsAddress"`
+	RtpAddress         OptString        `json:"rtpAddress"`
+	RtcpAddress        OptString        `json:"rtcpAddress"`
+	MulticastIPRange   OptString        `json:"multicastIPRange"`
+	MulticastRTPPort   OptInt64         `json:"multicastRTPPort"`
+	MulticastRTCPPort  OptInt64         `json:"multicastRTCPPort"`
+	SrtpAddress        OptString        `json:"srtpAddress"`
+	SrtcpAddress       OptString        `json:"srtcpAddress"`
+	MulticastSRTPPort  OptInt64         `json:"multicastSRTPPort"`
+	MulticastSRTCPPort OptInt64         `json:"multicastSRTCPPort"`
+	RtspServerKey      OptString        `json:"rtspServerKey"`
+	RtspServerCert     OptString        `json:"rtspServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	AuthMethods     OptNilRTSPAuthMethodArray `json:"authMethods"`
+	RtspAuthMethods []RTSPAuthMethod          `json:"rtspAuthMethods"`
+	// Deprecated: schema marks this property as deprecated.
+	RtspUDPReadBufferSize OptNilUint64 `json:"rtspUDPReadBufferSize"`
+	Rtmp                  OptBool      `json:"rtmp"`
+	// Deprecated: schema marks this property as deprecated.
+	RtmpDisable    OptNilBool    `json:"rtmpDisable"`
+	RtmpEncryption OptEncryption `json:"rtmpEncryption"`
+	RtmpAddress    OptString     `json:"rtmpAddress"`
+	RtmpsAddress   OptString     `json:"rtmpsAddress"`
+	RtmpServerKey  OptString     `json:"rtmpServerKey"`
+	RtmpServerCert OptString     `json:"rtmpServerCert"`
+	Hls            OptBool       `json:"hls"`
+	// Deprecated: schema marks this property as deprecated.
+	HlsDisable    OptNilBool `json:"hlsDisable"`
+	HlsAddress    OptString  `json:"hlsAddress"`
+	HlsEncryption OptBool    `json:"hlsEncryption"`
+	HlsServerKey  OptString  `json:"hlsServerKey"`
+	HlsServerCert OptString  `json:"hlsServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	HlsAllowOrigin     OptNilString  `json:"hlsAllowOrigin"`
+	HlsAllowOrigins    []string      `json:"hlsAllowOrigins"`
+	HlsTrustedProxies  []string      `json:"hlsTrustedProxies"`
+	HlsAlwaysRemux     OptBool       `json:"hlsAlwaysRemux"`
+	HlsVariant         OptHLSVariant `json:"hlsVariant"`
+	HlsSegmentCount    OptInt64      `json:"hlsSegmentCount"`
+	HlsSegmentDuration OptString     `json:"hlsSegmentDuration"`
+	HlsPartDuration    OptString     `json:"hlsPartDuration"`
+	HlsSegmentMaxSize  OptString     `json:"hlsSegmentMaxSize"`
+	HlsDirectory       OptString     `json:"hlsDirectory"`
+	HlsMuxerCloseAfter OptString     `json:"hlsMuxerCloseAfter"`
+	HlsCDNSecret       OptString     `json:"hlsCDNSecret"`
+	Webrtc             OptBool       `json:"webrtc"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcDisable    OptNilBool `json:"webrtcDisable"`
+	WebrtcAddress    OptString  `json:"webrtcAddress"`
+	WebrtcEncryption OptBool    `json:"webrtcEncryption"`
+	WebrtcServerKey  OptString  `json:"webrtcServerKey"`
+	WebrtcServerCert OptString  `json:"webrtcServerCert"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcAllowOrigin           OptNilString      `json:"webrtcAllowOrigin"`
+	WebrtcAllowOrigins          []string          `json:"webrtcAllowOrigins"`
+	WebrtcTrustedProxies        []string          `json:"webrtcTrustedProxies"`
+	WebrtcLocalUDPAddress       OptString         `json:"webrtcLocalUDPAddress"`
+	WebrtcLocalTCPAddress       OptString         `json:"webrtcLocalTCPAddress"`
+	WebrtcIPsFromInterfaces     OptBool           `json:"webrtcIPsFromInterfaces"`
+	WebrtcIPsFromInterfacesList []string          `json:"webrtcIPsFromInterfacesList"`
+	WebrtcAdditionalHosts       []string          `json:"webrtcAdditionalHosts"`
+	WebrtcICEServers2           []WebRTCICEServer `json:"webrtcICEServers2"`
+	WebrtcSTUNGatherTimeout     OptString         `json:"webrtcSTUNGatherTimeout"`
+	WebrtcHandshakeTimeout      OptString         `json:"webrtcHandshakeTimeout"`
+	WebrtcTrackGatherTimeout    OptString         `json:"webrtcTrackGatherTimeout"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcICEUDPMuxAddress OptNilString `json:"webrtcICEUDPMuxAddress"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcICETCPMuxAddress OptNilString `json:"webrtcICETCPMuxAddress"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcICEHostNAT1To1IPs OptNilStringArray `json:"webrtcICEHostNAT1To1IPs"`
+	// Deprecated: schema marks this property as deprecated.
+	WebrtcICEServers OptNilStringArray `json:"webrtcICEServers"`
+	Srt              OptBool           `json:"srt"`
+	SrtAddress       OptString         `json:"srtAddress"`
+	// Deprecated: schema marks this property as deprecated.
+	Record OptNilBool `json:"record"`
+	// Deprecated: schema marks this property as deprecated.
+	RecordPath OptNilString `json:"recordPath"`
+	// Deprecated: schema marks this property as deprecated.
+	RecordFormat OptNilRecordFormat `json:"recordFormat"`
+	// Deprecated: schema marks this property as deprecated.
+	RecordPartDuration OptNilString `json:"recordPartDuration"`
+	// Deprecated: schema marks this property as deprecated.
+	RecordSegmentDuration OptNilString `json:"recordSegmentDuration"`
+	// Deprecated: schema marks this property as deprecated.
+	RecordDeleteAfter OptNilString `json:"recordDeleteAfter"`
 }
 
 // GetLogLevel returns the value of LogLevel.
-func (s *GlobalConf) GetLogLevel() OptString {
+func (s *GlobalConf) GetLogLevel() OptLogLevel {
 	return s.LogLevel
 }
 
 // GetLogDestinations returns the value of LogDestinations.
-func (s *GlobalConf) GetLogDestinations() []string {
+func (s *GlobalConf) GetLogDestinations() []LogDestination {
 	return s.LogDestinations
+}
+
+// GetLogStructured returns the value of LogStructured.
+func (s *GlobalConf) GetLogStructured() OptBool {
+	return s.LogStructured
 }
 
 // GetLogFile returns the value of LogFile.
@@ -356,6 +736,11 @@ func (s *GlobalConf) GetSysLogPrefix() OptString {
 	return s.SysLogPrefix
 }
 
+// GetDumpPackets returns the value of DumpPackets.
+func (s *GlobalConf) GetDumpPackets() OptBool {
+	return s.DumpPackets
+}
+
 // GetReadTimeout returns the value of ReadTimeout.
 func (s *GlobalConf) GetReadTimeout() OptString {
 	return s.ReadTimeout
@@ -366,14 +751,24 @@ func (s *GlobalConf) GetWriteTimeout() OptString {
 	return s.WriteTimeout
 }
 
+// GetReadBufferCount returns the value of ReadBufferCount.
+func (s *GlobalConf) GetReadBufferCount() OptNilInt64 {
+	return s.ReadBufferCount
+}
+
 // GetWriteQueueSize returns the value of WriteQueueSize.
-func (s *GlobalConf) GetWriteQueueSize() OptInt {
+func (s *GlobalConf) GetWriteQueueSize() OptInt64 {
 	return s.WriteQueueSize
 }
 
 // GetUdpMaxPayloadSize returns the value of UdpMaxPayloadSize.
-func (s *GlobalConf) GetUdpMaxPayloadSize() OptInt {
+func (s *GlobalConf) GetUdpMaxPayloadSize() OptInt64 {
 	return s.UdpMaxPayloadSize
+}
+
+// GetUdpReadBufferSize returns the value of UdpReadBufferSize.
+func (s *GlobalConf) GetUdpReadBufferSize() OptUint64 {
+	return s.UdpReadBufferSize
 }
 
 // GetRunOnConnect returns the value of RunOnConnect.
@@ -392,7 +787,7 @@ func (s *GlobalConf) GetRunOnDisconnect() OptString {
 }
 
 // GetAuthMethod returns the value of AuthMethod.
-func (s *GlobalConf) GetAuthMethod() OptString {
+func (s *GlobalConf) GetAuthMethod() OptAuthMethod {
 	return s.AuthMethod
 }
 
@@ -404,6 +799,16 @@ func (s *GlobalConf) GetAuthInternalUsers() []AuthInternalUser {
 // GetAuthHTTPAddress returns the value of AuthHTTPAddress.
 func (s *GlobalConf) GetAuthHTTPAddress() OptString {
 	return s.AuthHTTPAddress
+}
+
+// GetExternalAuthenticationURL returns the value of ExternalAuthenticationURL.
+func (s *GlobalConf) GetExternalAuthenticationURL() OptNilString {
+	return s.ExternalAuthenticationURL
+}
+
+// GetAuthHTTPFingerprint returns the value of AuthHTTPFingerprint.
+func (s *GlobalConf) GetAuthHTTPFingerprint() OptString {
+	return s.AuthHTTPFingerprint
 }
 
 // GetAuthHTTPExclude returns the value of AuthHTTPExclude.
@@ -426,14 +831,24 @@ func (s *GlobalConf) GetAuthJWTClaimKey() OptString {
 	return s.AuthJWTClaimKey
 }
 
+// GetAuthJWTInHTTPQuery returns the value of AuthJWTInHTTPQuery.
+func (s *GlobalConf) GetAuthJWTInHTTPQuery() OptNilBool {
+	return s.AuthJWTInHTTPQuery
+}
+
+// GetAuthJWTIssuer returns the value of AuthJWTIssuer.
+func (s *GlobalConf) GetAuthJWTIssuer() OptString {
+	return s.AuthJWTIssuer
+}
+
+// GetAuthJWTAudience returns the value of AuthJWTAudience.
+func (s *GlobalConf) GetAuthJWTAudience() OptString {
+	return s.AuthJWTAudience
+}
+
 // GetAuthJWTExclude returns the value of AuthJWTExclude.
 func (s *GlobalConf) GetAuthJWTExclude() []AuthInternalUserPermission {
 	return s.AuthJWTExclude
-}
-
-// GetAuthJWTInHTTPQuery returns the value of AuthJWTInHTTPQuery.
-func (s *GlobalConf) GetAuthJWTInHTTPQuery() OptBool {
-	return s.AuthJWTInHTTPQuery
 }
 
 // GetAPI returns the value of API.
@@ -462,8 +877,13 @@ func (s *GlobalConf) GetApiServerCert() OptString {
 }
 
 // GetApiAllowOrigin returns the value of ApiAllowOrigin.
-func (s *GlobalConf) GetApiAllowOrigin() OptString {
+func (s *GlobalConf) GetApiAllowOrigin() OptNilString {
 	return s.ApiAllowOrigin
+}
+
+// GetApiAllowOrigins returns the value of ApiAllowOrigins.
+func (s *GlobalConf) GetApiAllowOrigins() []string {
+	return s.ApiAllowOrigins
 }
 
 // GetApiTrustedProxies returns the value of ApiTrustedProxies.
@@ -497,8 +917,13 @@ func (s *GlobalConf) GetMetricsServerCert() OptString {
 }
 
 // GetMetricsAllowOrigin returns the value of MetricsAllowOrigin.
-func (s *GlobalConf) GetMetricsAllowOrigin() OptString {
+func (s *GlobalConf) GetMetricsAllowOrigin() OptNilString {
 	return s.MetricsAllowOrigin
+}
+
+// GetMetricsAllowOrigins returns the value of MetricsAllowOrigins.
+func (s *GlobalConf) GetMetricsAllowOrigins() []string {
+	return s.MetricsAllowOrigins
 }
 
 // GetMetricsTrustedProxies returns the value of MetricsTrustedProxies.
@@ -532,8 +957,13 @@ func (s *GlobalConf) GetPprofServerCert() OptString {
 }
 
 // GetPprofAllowOrigin returns the value of PprofAllowOrigin.
-func (s *GlobalConf) GetPprofAllowOrigin() OptString {
+func (s *GlobalConf) GetPprofAllowOrigin() OptNilString {
 	return s.PprofAllowOrigin
+}
+
+// GetPprofAllowOrigins returns the value of PprofAllowOrigins.
+func (s *GlobalConf) GetPprofAllowOrigins() []string {
+	return s.PprofAllowOrigins
 }
 
 // GetPprofTrustedProxies returns the value of PprofTrustedProxies.
@@ -567,8 +997,13 @@ func (s *GlobalConf) GetPlaybackServerCert() OptString {
 }
 
 // GetPlaybackAllowOrigin returns the value of PlaybackAllowOrigin.
-func (s *GlobalConf) GetPlaybackAllowOrigin() OptString {
+func (s *GlobalConf) GetPlaybackAllowOrigin() OptNilString {
 	return s.PlaybackAllowOrigin
+}
+
+// GetPlaybackAllowOrigins returns the value of PlaybackAllowOrigins.
+func (s *GlobalConf) GetPlaybackAllowOrigins() []string {
+	return s.PlaybackAllowOrigins
 }
 
 // GetPlaybackTrustedProxies returns the value of PlaybackTrustedProxies.
@@ -581,13 +1016,28 @@ func (s *GlobalConf) GetRtsp() OptBool {
 	return s.Rtsp
 }
 
+// GetRtspDisable returns the value of RtspDisable.
+func (s *GlobalConf) GetRtspDisable() OptNilBool {
+	return s.RtspDisable
+}
+
+// GetProtocols returns the value of Protocols.
+func (s *GlobalConf) GetProtocols() OptNilGlobalConfProtocolsItemArray {
+	return s.Protocols
+}
+
 // GetRtspTransports returns the value of RtspTransports.
-func (s *GlobalConf) GetRtspTransports() []string {
+func (s *GlobalConf) GetRtspTransports() []GlobalConfRtspTransportsItem {
 	return s.RtspTransports
 }
 
+// GetEncryption returns the value of Encryption.
+func (s *GlobalConf) GetEncryption() OptNilEncryption {
+	return s.Encryption
+}
+
 // GetRtspEncryption returns the value of RtspEncryption.
-func (s *GlobalConf) GetRtspEncryption() OptString {
+func (s *GlobalConf) GetRtspEncryption() OptEncryption {
 	return s.RtspEncryption
 }
 
@@ -617,12 +1067,12 @@ func (s *GlobalConf) GetMulticastIPRange() OptString {
 }
 
 // GetMulticastRTPPort returns the value of MulticastRTPPort.
-func (s *GlobalConf) GetMulticastRTPPort() OptInt {
+func (s *GlobalConf) GetMulticastRTPPort() OptInt64 {
 	return s.MulticastRTPPort
 }
 
 // GetMulticastRTCPPort returns the value of MulticastRTCPPort.
-func (s *GlobalConf) GetMulticastRTCPPort() OptInt {
+func (s *GlobalConf) GetMulticastRTCPPort() OptInt64 {
 	return s.MulticastRTCPPort
 }
 
@@ -637,12 +1087,12 @@ func (s *GlobalConf) GetSrtcpAddress() OptString {
 }
 
 // GetMulticastSRTPPort returns the value of MulticastSRTPPort.
-func (s *GlobalConf) GetMulticastSRTPPort() OptInt {
+func (s *GlobalConf) GetMulticastSRTPPort() OptInt64 {
 	return s.MulticastSRTPPort
 }
 
 // GetMulticastSRTCPPort returns the value of MulticastSRTCPPort.
-func (s *GlobalConf) GetMulticastSRTCPPort() OptInt {
+func (s *GlobalConf) GetMulticastSRTCPPort() OptInt64 {
 	return s.MulticastSRTCPPort
 }
 
@@ -656,9 +1106,19 @@ func (s *GlobalConf) GetRtspServerCert() OptString {
 	return s.RtspServerCert
 }
 
+// GetAuthMethods returns the value of AuthMethods.
+func (s *GlobalConf) GetAuthMethods() OptNilRTSPAuthMethodArray {
+	return s.AuthMethods
+}
+
 // GetRtspAuthMethods returns the value of RtspAuthMethods.
-func (s *GlobalConf) GetRtspAuthMethods() []string {
+func (s *GlobalConf) GetRtspAuthMethods() []RTSPAuthMethod {
 	return s.RtspAuthMethods
+}
+
+// GetRtspUDPReadBufferSize returns the value of RtspUDPReadBufferSize.
+func (s *GlobalConf) GetRtspUDPReadBufferSize() OptNilUint64 {
+	return s.RtspUDPReadBufferSize
 }
 
 // GetRtmp returns the value of Rtmp.
@@ -666,14 +1126,19 @@ func (s *GlobalConf) GetRtmp() OptBool {
 	return s.Rtmp
 }
 
-// GetRtmpAddress returns the value of RtmpAddress.
-func (s *GlobalConf) GetRtmpAddress() OptString {
-	return s.RtmpAddress
+// GetRtmpDisable returns the value of RtmpDisable.
+func (s *GlobalConf) GetRtmpDisable() OptNilBool {
+	return s.RtmpDisable
 }
 
 // GetRtmpEncryption returns the value of RtmpEncryption.
-func (s *GlobalConf) GetRtmpEncryption() OptString {
+func (s *GlobalConf) GetRtmpEncryption() OptEncryption {
 	return s.RtmpEncryption
+}
+
+// GetRtmpAddress returns the value of RtmpAddress.
+func (s *GlobalConf) GetRtmpAddress() OptString {
+	return s.RtmpAddress
 }
 
 // GetRtmpsAddress returns the value of RtmpsAddress.
@@ -694,6 +1159,11 @@ func (s *GlobalConf) GetRtmpServerCert() OptString {
 // GetHls returns the value of Hls.
 func (s *GlobalConf) GetHls() OptBool {
 	return s.Hls
+}
+
+// GetHlsDisable returns the value of HlsDisable.
+func (s *GlobalConf) GetHlsDisable() OptNilBool {
+	return s.HlsDisable
 }
 
 // GetHlsAddress returns the value of HlsAddress.
@@ -717,8 +1187,13 @@ func (s *GlobalConf) GetHlsServerCert() OptString {
 }
 
 // GetHlsAllowOrigin returns the value of HlsAllowOrigin.
-func (s *GlobalConf) GetHlsAllowOrigin() OptString {
+func (s *GlobalConf) GetHlsAllowOrigin() OptNilString {
 	return s.HlsAllowOrigin
+}
+
+// GetHlsAllowOrigins returns the value of HlsAllowOrigins.
+func (s *GlobalConf) GetHlsAllowOrigins() []string {
+	return s.HlsAllowOrigins
 }
 
 // GetHlsTrustedProxies returns the value of HlsTrustedProxies.
@@ -732,12 +1207,12 @@ func (s *GlobalConf) GetHlsAlwaysRemux() OptBool {
 }
 
 // GetHlsVariant returns the value of HlsVariant.
-func (s *GlobalConf) GetHlsVariant() OptString {
+func (s *GlobalConf) GetHlsVariant() OptHLSVariant {
 	return s.HlsVariant
 }
 
 // GetHlsSegmentCount returns the value of HlsSegmentCount.
-func (s *GlobalConf) GetHlsSegmentCount() OptInt {
+func (s *GlobalConf) GetHlsSegmentCount() OptInt64 {
 	return s.HlsSegmentCount
 }
 
@@ -766,9 +1241,19 @@ func (s *GlobalConf) GetHlsMuxerCloseAfter() OptString {
 	return s.HlsMuxerCloseAfter
 }
 
+// GetHlsCDNSecret returns the value of HlsCDNSecret.
+func (s *GlobalConf) GetHlsCDNSecret() OptString {
+	return s.HlsCDNSecret
+}
+
 // GetWebrtc returns the value of Webrtc.
 func (s *GlobalConf) GetWebrtc() OptBool {
 	return s.Webrtc
+}
+
+// GetWebrtcDisable returns the value of WebrtcDisable.
+func (s *GlobalConf) GetWebrtcDisable() OptNilBool {
+	return s.WebrtcDisable
 }
 
 // GetWebrtcAddress returns the value of WebrtcAddress.
@@ -792,8 +1277,13 @@ func (s *GlobalConf) GetWebrtcServerCert() OptString {
 }
 
 // GetWebrtcAllowOrigin returns the value of WebrtcAllowOrigin.
-func (s *GlobalConf) GetWebrtcAllowOrigin() OptString {
+func (s *GlobalConf) GetWebrtcAllowOrigin() OptNilString {
 	return s.WebrtcAllowOrigin
+}
+
+// GetWebrtcAllowOrigins returns the value of WebrtcAllowOrigins.
+func (s *GlobalConf) GetWebrtcAllowOrigins() []string {
+	return s.WebrtcAllowOrigins
 }
 
 // GetWebrtcTrustedProxies returns the value of WebrtcTrustedProxies.
@@ -827,8 +1317,13 @@ func (s *GlobalConf) GetWebrtcAdditionalHosts() []string {
 }
 
 // GetWebrtcICEServers2 returns the value of WebrtcICEServers2.
-func (s *GlobalConf) GetWebrtcICEServers2() []GlobalConfWebrtcICEServers2Item {
+func (s *GlobalConf) GetWebrtcICEServers2() []WebRTCICEServer {
 	return s.WebrtcICEServers2
+}
+
+// GetWebrtcSTUNGatherTimeout returns the value of WebrtcSTUNGatherTimeout.
+func (s *GlobalConf) GetWebrtcSTUNGatherTimeout() OptString {
+	return s.WebrtcSTUNGatherTimeout
 }
 
 // GetWebrtcHandshakeTimeout returns the value of WebrtcHandshakeTimeout.
@@ -841,9 +1336,24 @@ func (s *GlobalConf) GetWebrtcTrackGatherTimeout() OptString {
 	return s.WebrtcTrackGatherTimeout
 }
 
-// GetWebrtcSTUNGatherTimeout returns the value of WebrtcSTUNGatherTimeout.
-func (s *GlobalConf) GetWebrtcSTUNGatherTimeout() OptString {
-	return s.WebrtcSTUNGatherTimeout
+// GetWebrtcICEUDPMuxAddress returns the value of WebrtcICEUDPMuxAddress.
+func (s *GlobalConf) GetWebrtcICEUDPMuxAddress() OptNilString {
+	return s.WebrtcICEUDPMuxAddress
+}
+
+// GetWebrtcICETCPMuxAddress returns the value of WebrtcICETCPMuxAddress.
+func (s *GlobalConf) GetWebrtcICETCPMuxAddress() OptNilString {
+	return s.WebrtcICETCPMuxAddress
+}
+
+// GetWebrtcICEHostNAT1To1IPs returns the value of WebrtcICEHostNAT1To1IPs.
+func (s *GlobalConf) GetWebrtcICEHostNAT1To1IPs() OptNilStringArray {
+	return s.WebrtcICEHostNAT1To1IPs
+}
+
+// GetWebrtcICEServers returns the value of WebrtcICEServers.
+func (s *GlobalConf) GetWebrtcICEServers() OptNilStringArray {
+	return s.WebrtcICEServers
 }
 
 // GetSrt returns the value of Srt.
@@ -856,14 +1366,49 @@ func (s *GlobalConf) GetSrtAddress() OptString {
 	return s.SrtAddress
 }
 
+// GetRecord returns the value of Record.
+func (s *GlobalConf) GetRecord() OptNilBool {
+	return s.Record
+}
+
+// GetRecordPath returns the value of RecordPath.
+func (s *GlobalConf) GetRecordPath() OptNilString {
+	return s.RecordPath
+}
+
+// GetRecordFormat returns the value of RecordFormat.
+func (s *GlobalConf) GetRecordFormat() OptNilRecordFormat {
+	return s.RecordFormat
+}
+
+// GetRecordPartDuration returns the value of RecordPartDuration.
+func (s *GlobalConf) GetRecordPartDuration() OptNilString {
+	return s.RecordPartDuration
+}
+
+// GetRecordSegmentDuration returns the value of RecordSegmentDuration.
+func (s *GlobalConf) GetRecordSegmentDuration() OptNilString {
+	return s.RecordSegmentDuration
+}
+
+// GetRecordDeleteAfter returns the value of RecordDeleteAfter.
+func (s *GlobalConf) GetRecordDeleteAfter() OptNilString {
+	return s.RecordDeleteAfter
+}
+
 // SetLogLevel sets the value of LogLevel.
-func (s *GlobalConf) SetLogLevel(val OptString) {
+func (s *GlobalConf) SetLogLevel(val OptLogLevel) {
 	s.LogLevel = val
 }
 
 // SetLogDestinations sets the value of LogDestinations.
-func (s *GlobalConf) SetLogDestinations(val []string) {
+func (s *GlobalConf) SetLogDestinations(val []LogDestination) {
 	s.LogDestinations = val
+}
+
+// SetLogStructured sets the value of LogStructured.
+func (s *GlobalConf) SetLogStructured(val OptBool) {
+	s.LogStructured = val
 }
 
 // SetLogFile sets the value of LogFile.
@@ -876,6 +1421,11 @@ func (s *GlobalConf) SetSysLogPrefix(val OptString) {
 	s.SysLogPrefix = val
 }
 
+// SetDumpPackets sets the value of DumpPackets.
+func (s *GlobalConf) SetDumpPackets(val OptBool) {
+	s.DumpPackets = val
+}
+
 // SetReadTimeout sets the value of ReadTimeout.
 func (s *GlobalConf) SetReadTimeout(val OptString) {
 	s.ReadTimeout = val
@@ -886,14 +1436,24 @@ func (s *GlobalConf) SetWriteTimeout(val OptString) {
 	s.WriteTimeout = val
 }
 
+// SetReadBufferCount sets the value of ReadBufferCount.
+func (s *GlobalConf) SetReadBufferCount(val OptNilInt64) {
+	s.ReadBufferCount = val
+}
+
 // SetWriteQueueSize sets the value of WriteQueueSize.
-func (s *GlobalConf) SetWriteQueueSize(val OptInt) {
+func (s *GlobalConf) SetWriteQueueSize(val OptInt64) {
 	s.WriteQueueSize = val
 }
 
 // SetUdpMaxPayloadSize sets the value of UdpMaxPayloadSize.
-func (s *GlobalConf) SetUdpMaxPayloadSize(val OptInt) {
+func (s *GlobalConf) SetUdpMaxPayloadSize(val OptInt64) {
 	s.UdpMaxPayloadSize = val
+}
+
+// SetUdpReadBufferSize sets the value of UdpReadBufferSize.
+func (s *GlobalConf) SetUdpReadBufferSize(val OptUint64) {
+	s.UdpReadBufferSize = val
 }
 
 // SetRunOnConnect sets the value of RunOnConnect.
@@ -912,7 +1472,7 @@ func (s *GlobalConf) SetRunOnDisconnect(val OptString) {
 }
 
 // SetAuthMethod sets the value of AuthMethod.
-func (s *GlobalConf) SetAuthMethod(val OptString) {
+func (s *GlobalConf) SetAuthMethod(val OptAuthMethod) {
 	s.AuthMethod = val
 }
 
@@ -924,6 +1484,16 @@ func (s *GlobalConf) SetAuthInternalUsers(val []AuthInternalUser) {
 // SetAuthHTTPAddress sets the value of AuthHTTPAddress.
 func (s *GlobalConf) SetAuthHTTPAddress(val OptString) {
 	s.AuthHTTPAddress = val
+}
+
+// SetExternalAuthenticationURL sets the value of ExternalAuthenticationURL.
+func (s *GlobalConf) SetExternalAuthenticationURL(val OptNilString) {
+	s.ExternalAuthenticationURL = val
+}
+
+// SetAuthHTTPFingerprint sets the value of AuthHTTPFingerprint.
+func (s *GlobalConf) SetAuthHTTPFingerprint(val OptString) {
+	s.AuthHTTPFingerprint = val
 }
 
 // SetAuthHTTPExclude sets the value of AuthHTTPExclude.
@@ -946,14 +1516,24 @@ func (s *GlobalConf) SetAuthJWTClaimKey(val OptString) {
 	s.AuthJWTClaimKey = val
 }
 
+// SetAuthJWTInHTTPQuery sets the value of AuthJWTInHTTPQuery.
+func (s *GlobalConf) SetAuthJWTInHTTPQuery(val OptNilBool) {
+	s.AuthJWTInHTTPQuery = val
+}
+
+// SetAuthJWTIssuer sets the value of AuthJWTIssuer.
+func (s *GlobalConf) SetAuthJWTIssuer(val OptString) {
+	s.AuthJWTIssuer = val
+}
+
+// SetAuthJWTAudience sets the value of AuthJWTAudience.
+func (s *GlobalConf) SetAuthJWTAudience(val OptString) {
+	s.AuthJWTAudience = val
+}
+
 // SetAuthJWTExclude sets the value of AuthJWTExclude.
 func (s *GlobalConf) SetAuthJWTExclude(val []AuthInternalUserPermission) {
 	s.AuthJWTExclude = val
-}
-
-// SetAuthJWTInHTTPQuery sets the value of AuthJWTInHTTPQuery.
-func (s *GlobalConf) SetAuthJWTInHTTPQuery(val OptBool) {
-	s.AuthJWTInHTTPQuery = val
 }
 
 // SetAPI sets the value of API.
@@ -982,8 +1562,13 @@ func (s *GlobalConf) SetApiServerCert(val OptString) {
 }
 
 // SetApiAllowOrigin sets the value of ApiAllowOrigin.
-func (s *GlobalConf) SetApiAllowOrigin(val OptString) {
+func (s *GlobalConf) SetApiAllowOrigin(val OptNilString) {
 	s.ApiAllowOrigin = val
+}
+
+// SetApiAllowOrigins sets the value of ApiAllowOrigins.
+func (s *GlobalConf) SetApiAllowOrigins(val []string) {
+	s.ApiAllowOrigins = val
 }
 
 // SetApiTrustedProxies sets the value of ApiTrustedProxies.
@@ -1017,8 +1602,13 @@ func (s *GlobalConf) SetMetricsServerCert(val OptString) {
 }
 
 // SetMetricsAllowOrigin sets the value of MetricsAllowOrigin.
-func (s *GlobalConf) SetMetricsAllowOrigin(val OptString) {
+func (s *GlobalConf) SetMetricsAllowOrigin(val OptNilString) {
 	s.MetricsAllowOrigin = val
+}
+
+// SetMetricsAllowOrigins sets the value of MetricsAllowOrigins.
+func (s *GlobalConf) SetMetricsAllowOrigins(val []string) {
+	s.MetricsAllowOrigins = val
 }
 
 // SetMetricsTrustedProxies sets the value of MetricsTrustedProxies.
@@ -1052,8 +1642,13 @@ func (s *GlobalConf) SetPprofServerCert(val OptString) {
 }
 
 // SetPprofAllowOrigin sets the value of PprofAllowOrigin.
-func (s *GlobalConf) SetPprofAllowOrigin(val OptString) {
+func (s *GlobalConf) SetPprofAllowOrigin(val OptNilString) {
 	s.PprofAllowOrigin = val
+}
+
+// SetPprofAllowOrigins sets the value of PprofAllowOrigins.
+func (s *GlobalConf) SetPprofAllowOrigins(val []string) {
+	s.PprofAllowOrigins = val
 }
 
 // SetPprofTrustedProxies sets the value of PprofTrustedProxies.
@@ -1087,8 +1682,13 @@ func (s *GlobalConf) SetPlaybackServerCert(val OptString) {
 }
 
 // SetPlaybackAllowOrigin sets the value of PlaybackAllowOrigin.
-func (s *GlobalConf) SetPlaybackAllowOrigin(val OptString) {
+func (s *GlobalConf) SetPlaybackAllowOrigin(val OptNilString) {
 	s.PlaybackAllowOrigin = val
+}
+
+// SetPlaybackAllowOrigins sets the value of PlaybackAllowOrigins.
+func (s *GlobalConf) SetPlaybackAllowOrigins(val []string) {
+	s.PlaybackAllowOrigins = val
 }
 
 // SetPlaybackTrustedProxies sets the value of PlaybackTrustedProxies.
@@ -1101,13 +1701,28 @@ func (s *GlobalConf) SetRtsp(val OptBool) {
 	s.Rtsp = val
 }
 
+// SetRtspDisable sets the value of RtspDisable.
+func (s *GlobalConf) SetRtspDisable(val OptNilBool) {
+	s.RtspDisable = val
+}
+
+// SetProtocols sets the value of Protocols.
+func (s *GlobalConf) SetProtocols(val OptNilGlobalConfProtocolsItemArray) {
+	s.Protocols = val
+}
+
 // SetRtspTransports sets the value of RtspTransports.
-func (s *GlobalConf) SetRtspTransports(val []string) {
+func (s *GlobalConf) SetRtspTransports(val []GlobalConfRtspTransportsItem) {
 	s.RtspTransports = val
 }
 
+// SetEncryption sets the value of Encryption.
+func (s *GlobalConf) SetEncryption(val OptNilEncryption) {
+	s.Encryption = val
+}
+
 // SetRtspEncryption sets the value of RtspEncryption.
-func (s *GlobalConf) SetRtspEncryption(val OptString) {
+func (s *GlobalConf) SetRtspEncryption(val OptEncryption) {
 	s.RtspEncryption = val
 }
 
@@ -1137,12 +1752,12 @@ func (s *GlobalConf) SetMulticastIPRange(val OptString) {
 }
 
 // SetMulticastRTPPort sets the value of MulticastRTPPort.
-func (s *GlobalConf) SetMulticastRTPPort(val OptInt) {
+func (s *GlobalConf) SetMulticastRTPPort(val OptInt64) {
 	s.MulticastRTPPort = val
 }
 
 // SetMulticastRTCPPort sets the value of MulticastRTCPPort.
-func (s *GlobalConf) SetMulticastRTCPPort(val OptInt) {
+func (s *GlobalConf) SetMulticastRTCPPort(val OptInt64) {
 	s.MulticastRTCPPort = val
 }
 
@@ -1157,12 +1772,12 @@ func (s *GlobalConf) SetSrtcpAddress(val OptString) {
 }
 
 // SetMulticastSRTPPort sets the value of MulticastSRTPPort.
-func (s *GlobalConf) SetMulticastSRTPPort(val OptInt) {
+func (s *GlobalConf) SetMulticastSRTPPort(val OptInt64) {
 	s.MulticastSRTPPort = val
 }
 
 // SetMulticastSRTCPPort sets the value of MulticastSRTCPPort.
-func (s *GlobalConf) SetMulticastSRTCPPort(val OptInt) {
+func (s *GlobalConf) SetMulticastSRTCPPort(val OptInt64) {
 	s.MulticastSRTCPPort = val
 }
 
@@ -1176,9 +1791,19 @@ func (s *GlobalConf) SetRtspServerCert(val OptString) {
 	s.RtspServerCert = val
 }
 
+// SetAuthMethods sets the value of AuthMethods.
+func (s *GlobalConf) SetAuthMethods(val OptNilRTSPAuthMethodArray) {
+	s.AuthMethods = val
+}
+
 // SetRtspAuthMethods sets the value of RtspAuthMethods.
-func (s *GlobalConf) SetRtspAuthMethods(val []string) {
+func (s *GlobalConf) SetRtspAuthMethods(val []RTSPAuthMethod) {
 	s.RtspAuthMethods = val
+}
+
+// SetRtspUDPReadBufferSize sets the value of RtspUDPReadBufferSize.
+func (s *GlobalConf) SetRtspUDPReadBufferSize(val OptNilUint64) {
+	s.RtspUDPReadBufferSize = val
 }
 
 // SetRtmp sets the value of Rtmp.
@@ -1186,14 +1811,19 @@ func (s *GlobalConf) SetRtmp(val OptBool) {
 	s.Rtmp = val
 }
 
-// SetRtmpAddress sets the value of RtmpAddress.
-func (s *GlobalConf) SetRtmpAddress(val OptString) {
-	s.RtmpAddress = val
+// SetRtmpDisable sets the value of RtmpDisable.
+func (s *GlobalConf) SetRtmpDisable(val OptNilBool) {
+	s.RtmpDisable = val
 }
 
 // SetRtmpEncryption sets the value of RtmpEncryption.
-func (s *GlobalConf) SetRtmpEncryption(val OptString) {
+func (s *GlobalConf) SetRtmpEncryption(val OptEncryption) {
 	s.RtmpEncryption = val
+}
+
+// SetRtmpAddress sets the value of RtmpAddress.
+func (s *GlobalConf) SetRtmpAddress(val OptString) {
+	s.RtmpAddress = val
 }
 
 // SetRtmpsAddress sets the value of RtmpsAddress.
@@ -1214,6 +1844,11 @@ func (s *GlobalConf) SetRtmpServerCert(val OptString) {
 // SetHls sets the value of Hls.
 func (s *GlobalConf) SetHls(val OptBool) {
 	s.Hls = val
+}
+
+// SetHlsDisable sets the value of HlsDisable.
+func (s *GlobalConf) SetHlsDisable(val OptNilBool) {
+	s.HlsDisable = val
 }
 
 // SetHlsAddress sets the value of HlsAddress.
@@ -1237,8 +1872,13 @@ func (s *GlobalConf) SetHlsServerCert(val OptString) {
 }
 
 // SetHlsAllowOrigin sets the value of HlsAllowOrigin.
-func (s *GlobalConf) SetHlsAllowOrigin(val OptString) {
+func (s *GlobalConf) SetHlsAllowOrigin(val OptNilString) {
 	s.HlsAllowOrigin = val
+}
+
+// SetHlsAllowOrigins sets the value of HlsAllowOrigins.
+func (s *GlobalConf) SetHlsAllowOrigins(val []string) {
+	s.HlsAllowOrigins = val
 }
 
 // SetHlsTrustedProxies sets the value of HlsTrustedProxies.
@@ -1252,12 +1892,12 @@ func (s *GlobalConf) SetHlsAlwaysRemux(val OptBool) {
 }
 
 // SetHlsVariant sets the value of HlsVariant.
-func (s *GlobalConf) SetHlsVariant(val OptString) {
+func (s *GlobalConf) SetHlsVariant(val OptHLSVariant) {
 	s.HlsVariant = val
 }
 
 // SetHlsSegmentCount sets the value of HlsSegmentCount.
-func (s *GlobalConf) SetHlsSegmentCount(val OptInt) {
+func (s *GlobalConf) SetHlsSegmentCount(val OptInt64) {
 	s.HlsSegmentCount = val
 }
 
@@ -1286,9 +1926,19 @@ func (s *GlobalConf) SetHlsMuxerCloseAfter(val OptString) {
 	s.HlsMuxerCloseAfter = val
 }
 
+// SetHlsCDNSecret sets the value of HlsCDNSecret.
+func (s *GlobalConf) SetHlsCDNSecret(val OptString) {
+	s.HlsCDNSecret = val
+}
+
 // SetWebrtc sets the value of Webrtc.
 func (s *GlobalConf) SetWebrtc(val OptBool) {
 	s.Webrtc = val
+}
+
+// SetWebrtcDisable sets the value of WebrtcDisable.
+func (s *GlobalConf) SetWebrtcDisable(val OptNilBool) {
+	s.WebrtcDisable = val
 }
 
 // SetWebrtcAddress sets the value of WebrtcAddress.
@@ -1312,8 +1962,13 @@ func (s *GlobalConf) SetWebrtcServerCert(val OptString) {
 }
 
 // SetWebrtcAllowOrigin sets the value of WebrtcAllowOrigin.
-func (s *GlobalConf) SetWebrtcAllowOrigin(val OptString) {
+func (s *GlobalConf) SetWebrtcAllowOrigin(val OptNilString) {
 	s.WebrtcAllowOrigin = val
+}
+
+// SetWebrtcAllowOrigins sets the value of WebrtcAllowOrigins.
+func (s *GlobalConf) SetWebrtcAllowOrigins(val []string) {
+	s.WebrtcAllowOrigins = val
 }
 
 // SetWebrtcTrustedProxies sets the value of WebrtcTrustedProxies.
@@ -1347,8 +2002,13 @@ func (s *GlobalConf) SetWebrtcAdditionalHosts(val []string) {
 }
 
 // SetWebrtcICEServers2 sets the value of WebrtcICEServers2.
-func (s *GlobalConf) SetWebrtcICEServers2(val []GlobalConfWebrtcICEServers2Item) {
+func (s *GlobalConf) SetWebrtcICEServers2(val []WebRTCICEServer) {
 	s.WebrtcICEServers2 = val
+}
+
+// SetWebrtcSTUNGatherTimeout sets the value of WebrtcSTUNGatherTimeout.
+func (s *GlobalConf) SetWebrtcSTUNGatherTimeout(val OptString) {
+	s.WebrtcSTUNGatherTimeout = val
 }
 
 // SetWebrtcHandshakeTimeout sets the value of WebrtcHandshakeTimeout.
@@ -1361,9 +2021,24 @@ func (s *GlobalConf) SetWebrtcTrackGatherTimeout(val OptString) {
 	s.WebrtcTrackGatherTimeout = val
 }
 
-// SetWebrtcSTUNGatherTimeout sets the value of WebrtcSTUNGatherTimeout.
-func (s *GlobalConf) SetWebrtcSTUNGatherTimeout(val OptString) {
-	s.WebrtcSTUNGatherTimeout = val
+// SetWebrtcICEUDPMuxAddress sets the value of WebrtcICEUDPMuxAddress.
+func (s *GlobalConf) SetWebrtcICEUDPMuxAddress(val OptNilString) {
+	s.WebrtcICEUDPMuxAddress = val
+}
+
+// SetWebrtcICETCPMuxAddress sets the value of WebrtcICETCPMuxAddress.
+func (s *GlobalConf) SetWebrtcICETCPMuxAddress(val OptNilString) {
+	s.WebrtcICETCPMuxAddress = val
+}
+
+// SetWebrtcICEHostNAT1To1IPs sets the value of WebrtcICEHostNAT1To1IPs.
+func (s *GlobalConf) SetWebrtcICEHostNAT1To1IPs(val OptNilStringArray) {
+	s.WebrtcICEHostNAT1To1IPs = val
+}
+
+// SetWebrtcICEServers sets the value of WebrtcICEServers.
+func (s *GlobalConf) SetWebrtcICEServers(val OptNilStringArray) {
+	s.WebrtcICEServers = val
 }
 
 // SetSrt sets the value of Srt.
@@ -1376,61 +2051,143 @@ func (s *GlobalConf) SetSrtAddress(val OptString) {
 	s.SrtAddress = val
 }
 
+// SetRecord sets the value of Record.
+func (s *GlobalConf) SetRecord(val OptNilBool) {
+	s.Record = val
+}
+
+// SetRecordPath sets the value of RecordPath.
+func (s *GlobalConf) SetRecordPath(val OptNilString) {
+	s.RecordPath = val
+}
+
+// SetRecordFormat sets the value of RecordFormat.
+func (s *GlobalConf) SetRecordFormat(val OptNilRecordFormat) {
+	s.RecordFormat = val
+}
+
+// SetRecordPartDuration sets the value of RecordPartDuration.
+func (s *GlobalConf) SetRecordPartDuration(val OptNilString) {
+	s.RecordPartDuration = val
+}
+
+// SetRecordSegmentDuration sets the value of RecordSegmentDuration.
+func (s *GlobalConf) SetRecordSegmentDuration(val OptNilString) {
+	s.RecordSegmentDuration = val
+}
+
+// SetRecordDeleteAfter sets the value of RecordDeleteAfter.
+func (s *GlobalConf) SetRecordDeleteAfter(val OptNilString) {
+	s.RecordDeleteAfter = val
+}
+
 func (*GlobalConf) configGlobalGetRes() {}
 
-type GlobalConfWebrtcICEServers2Item struct {
-	URL        OptString `json:"url"`
-	Username   OptString `json:"username"`
-	Password   OptString `json:"password"`
-	ClientOnly OptBool   `json:"clientOnly"`
+type GlobalConfProtocolsItem string
+
+const (
+	GlobalConfProtocolsItemUDP       GlobalConfProtocolsItem = "udp"
+	GlobalConfProtocolsItemMulticast GlobalConfProtocolsItem = "multicast"
+	GlobalConfProtocolsItemTCP       GlobalConfProtocolsItem = "tcp"
+)
+
+// AllValues returns all GlobalConfProtocolsItem values.
+func (GlobalConfProtocolsItem) AllValues() []GlobalConfProtocolsItem {
+	return []GlobalConfProtocolsItem{
+		GlobalConfProtocolsItemUDP,
+		GlobalConfProtocolsItemMulticast,
+		GlobalConfProtocolsItemTCP,
+	}
 }
 
-// GetURL returns the value of URL.
-func (s *GlobalConfWebrtcICEServers2Item) GetURL() OptString {
-	return s.URL
+// MarshalText implements encoding.TextMarshaler.
+func (s GlobalConfProtocolsItem) MarshalText() ([]byte, error) {
+	switch s {
+	case GlobalConfProtocolsItemUDP:
+		return []byte(s), nil
+	case GlobalConfProtocolsItemMulticast:
+		return []byte(s), nil
+	case GlobalConfProtocolsItemTCP:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
 }
 
-// GetUsername returns the value of Username.
-func (s *GlobalConfWebrtcICEServers2Item) GetUsername() OptString {
-	return s.Username
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *GlobalConfProtocolsItem) UnmarshalText(data []byte) error {
+	switch GlobalConfProtocolsItem(data) {
+	case GlobalConfProtocolsItemUDP:
+		*s = GlobalConfProtocolsItemUDP
+		return nil
+	case GlobalConfProtocolsItemMulticast:
+		*s = GlobalConfProtocolsItemMulticast
+		return nil
+	case GlobalConfProtocolsItemTCP:
+		*s = GlobalConfProtocolsItemTCP
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
 }
 
-// GetPassword returns the value of Password.
-func (s *GlobalConfWebrtcICEServers2Item) GetPassword() OptString {
-	return s.Password
+type GlobalConfRtspTransportsItem string
+
+const (
+	GlobalConfRtspTransportsItemUDP       GlobalConfRtspTransportsItem = "udp"
+	GlobalConfRtspTransportsItemMulticast GlobalConfRtspTransportsItem = "multicast"
+	GlobalConfRtspTransportsItemTCP       GlobalConfRtspTransportsItem = "tcp"
+)
+
+// AllValues returns all GlobalConfRtspTransportsItem values.
+func (GlobalConfRtspTransportsItem) AllValues() []GlobalConfRtspTransportsItem {
+	return []GlobalConfRtspTransportsItem{
+		GlobalConfRtspTransportsItemUDP,
+		GlobalConfRtspTransportsItemMulticast,
+		GlobalConfRtspTransportsItemTCP,
+	}
 }
 
-// GetClientOnly returns the value of ClientOnly.
-func (s *GlobalConfWebrtcICEServers2Item) GetClientOnly() OptBool {
-	return s.ClientOnly
+// MarshalText implements encoding.TextMarshaler.
+func (s GlobalConfRtspTransportsItem) MarshalText() ([]byte, error) {
+	switch s {
+	case GlobalConfRtspTransportsItemUDP:
+		return []byte(s), nil
+	case GlobalConfRtspTransportsItemMulticast:
+		return []byte(s), nil
+	case GlobalConfRtspTransportsItemTCP:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
 }
 
-// SetURL sets the value of URL.
-func (s *GlobalConfWebrtcICEServers2Item) SetURL(val OptString) {
-	s.URL = val
-}
-
-// SetUsername sets the value of Username.
-func (s *GlobalConfWebrtcICEServers2Item) SetUsername(val OptString) {
-	s.Username = val
-}
-
-// SetPassword sets the value of Password.
-func (s *GlobalConfWebrtcICEServers2Item) SetPassword(val OptString) {
-	s.Password = val
-}
-
-// SetClientOnly sets the value of ClientOnly.
-func (s *GlobalConfWebrtcICEServers2Item) SetClientOnly(val OptBool) {
-	s.ClientOnly = val
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *GlobalConfRtspTransportsItem) UnmarshalText(data []byte) error {
+	switch GlobalConfRtspTransportsItem(data) {
+	case GlobalConfRtspTransportsItemUDP:
+		*s = GlobalConfRtspTransportsItemUDP
+		return nil
+	case GlobalConfRtspTransportsItemMulticast:
+		*s = GlobalConfRtspTransportsItemMulticast
+		return nil
+	case GlobalConfRtspTransportsItemTCP:
+		*s = GlobalConfRtspTransportsItemTCP
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
 }
 
 // Ref: #/components/schemas/HLSMuxer
 type HLSMuxer struct {
-	Path        OptString `json:"path"`
-	Created     OptString `json:"created"`
-	LastRequest OptString `json:"lastRequest"`
-	BytesSent   OptInt64  `json:"bytesSent"`
+	Path                    OptString `json:"path"`
+	Created                 OptString `json:"created"`
+	LastRequest             OptString `json:"lastRequest"`
+	OutboundBytes           OptUint64 `json:"outboundBytes"`
+	OutboundFramesDiscarded OptUint64 `json:"outboundFramesDiscarded"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64 `json:"bytesSent"`
 }
 
 // GetPath returns the value of Path.
@@ -1448,8 +2205,18 @@ func (s *HLSMuxer) GetLastRequest() OptString {
 	return s.LastRequest
 }
 
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *HLSMuxer) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// GetOutboundFramesDiscarded returns the value of OutboundFramesDiscarded.
+func (s *HLSMuxer) GetOutboundFramesDiscarded() OptUint64 {
+	return s.OutboundFramesDiscarded
+}
+
 // GetBytesSent returns the value of BytesSent.
-func (s *HLSMuxer) GetBytesSent() OptInt64 {
+func (s *HLSMuxer) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
@@ -1468,8 +2235,18 @@ func (s *HLSMuxer) SetLastRequest(val OptString) {
 	s.LastRequest = val
 }
 
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *HLSMuxer) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+// SetOutboundFramesDiscarded sets the value of OutboundFramesDiscarded.
+func (s *HLSMuxer) SetOutboundFramesDiscarded(val OptUint64) {
+	s.OutboundFramesDiscarded = val
+}
+
 // SetBytesSent sets the value of BytesSent.
-func (s *HLSMuxer) SetBytesSent(val OptInt64) {
+func (s *HLSMuxer) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
 }
 
@@ -1477,18 +2254,18 @@ func (*HLSMuxer) hlsMuxersGetRes() {}
 
 // Ref: #/components/schemas/HLSMuxerList
 type HLSMuxerList struct {
-	PageCount OptInt     `json:"pageCount"`
-	ItemCount OptInt     `json:"itemCount"`
+	PageCount OptInt64   `json:"pageCount"`
+	ItemCount OptInt64   `json:"itemCount"`
 	Items     []HLSMuxer `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *HLSMuxerList) GetPageCount() OptInt {
+func (s *HLSMuxerList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *HLSMuxerList) GetItemCount() OptInt {
+func (s *HLSMuxerList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -1498,12 +2275,12 @@ func (s *HLSMuxerList) GetItems() []HLSMuxer {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *HLSMuxerList) SetPageCount(val OptInt) {
+func (s *HLSMuxerList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *HLSMuxerList) SetItemCount(val OptInt) {
+func (s *HLSMuxerList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -1513,6 +2290,188 @@ func (s *HLSMuxerList) SetItems(val []HLSMuxer) {
 }
 
 func (*HLSMuxerList) hlsMuxersListRes() {}
+
+// Ref: #/components/schemas/HLSSession
+type HLSSession struct {
+	ID            OptUUID   `json:"id"`
+	Created       OptString `json:"created"`
+	RemoteAddr    OptString `json:"remoteAddr"`
+	Path          OptString `json:"path"`
+	Query         OptString `json:"query"`
+	User          OptString `json:"user"`
+	IsCDN         OptBool   `json:"isCDN"`
+	OutboundBytes OptUint64 `json:"outboundBytes"`
+}
+
+// GetID returns the value of ID.
+func (s *HLSSession) GetID() OptUUID {
+	return s.ID
+}
+
+// GetCreated returns the value of Created.
+func (s *HLSSession) GetCreated() OptString {
+	return s.Created
+}
+
+// GetRemoteAddr returns the value of RemoteAddr.
+func (s *HLSSession) GetRemoteAddr() OptString {
+	return s.RemoteAddr
+}
+
+// GetPath returns the value of Path.
+func (s *HLSSession) GetPath() OptString {
+	return s.Path
+}
+
+// GetQuery returns the value of Query.
+func (s *HLSSession) GetQuery() OptString {
+	return s.Query
+}
+
+// GetUser returns the value of User.
+func (s *HLSSession) GetUser() OptString {
+	return s.User
+}
+
+// GetIsCDN returns the value of IsCDN.
+func (s *HLSSession) GetIsCDN() OptBool {
+	return s.IsCDN
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *HLSSession) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// SetID sets the value of ID.
+func (s *HLSSession) SetID(val OptUUID) {
+	s.ID = val
+}
+
+// SetCreated sets the value of Created.
+func (s *HLSSession) SetCreated(val OptString) {
+	s.Created = val
+}
+
+// SetRemoteAddr sets the value of RemoteAddr.
+func (s *HLSSession) SetRemoteAddr(val OptString) {
+	s.RemoteAddr = val
+}
+
+// SetPath sets the value of Path.
+func (s *HLSSession) SetPath(val OptString) {
+	s.Path = val
+}
+
+// SetQuery sets the value of Query.
+func (s *HLSSession) SetQuery(val OptString) {
+	s.Query = val
+}
+
+// SetUser sets the value of User.
+func (s *HLSSession) SetUser(val OptString) {
+	s.User = val
+}
+
+// SetIsCDN sets the value of IsCDN.
+func (s *HLSSession) SetIsCDN(val OptBool) {
+	s.IsCDN = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *HLSSession) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+func (*HLSSession) hlssessionsGetRes() {}
+
+// Ref: #/components/schemas/HLSSessionList
+type HLSSessionList struct {
+	PageCount OptInt64     `json:"pageCount"`
+	ItemCount OptInt64     `json:"itemCount"`
+	Items     []HLSSession `json:"items"`
+}
+
+// GetPageCount returns the value of PageCount.
+func (s *HLSSessionList) GetPageCount() OptInt64 {
+	return s.PageCount
+}
+
+// GetItemCount returns the value of ItemCount.
+func (s *HLSSessionList) GetItemCount() OptInt64 {
+	return s.ItemCount
+}
+
+// GetItems returns the value of Items.
+func (s *HLSSessionList) GetItems() []HLSSession {
+	return s.Items
+}
+
+// SetPageCount sets the value of PageCount.
+func (s *HLSSessionList) SetPageCount(val OptInt64) {
+	s.PageCount = val
+}
+
+// SetItemCount sets the value of ItemCount.
+func (s *HLSSessionList) SetItemCount(val OptInt64) {
+	s.ItemCount = val
+}
+
+// SetItems sets the value of Items.
+func (s *HLSSessionList) SetItems(val []HLSSession) {
+	s.Items = val
+}
+
+func (*HLSSessionList) hlssessionsListRes() {}
+
+// Ref: #/components/schemas/HLSVariant
+type HLSVariant string
+
+const (
+	HLSVariantMpegts     HLSVariant = "mpegts"
+	HLSVariantFmp4       HLSVariant = "fmp4"
+	HLSVariantLowLatency HLSVariant = "lowLatency"
+)
+
+// AllValues returns all HLSVariant values.
+func (HLSVariant) AllValues() []HLSVariant {
+	return []HLSVariant{
+		HLSVariantMpegts,
+		HLSVariantFmp4,
+		HLSVariantLowLatency,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s HLSVariant) MarshalText() ([]byte, error) {
+	switch s {
+	case HLSVariantMpegts:
+		return []byte(s), nil
+	case HLSVariantFmp4:
+		return []byte(s), nil
+	case HLSVariantLowLatency:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *HLSVariant) UnmarshalText(data []byte) error {
+	switch HLSVariant(data) {
+	case HLSVariantMpegts:
+		*s = HLSVariantMpegts
+		return nil
+	case HLSVariantFmp4:
+		*s = HLSVariantFmp4
+		return nil
+	case HLSVariantLowLatency:
+		*s = HLSVariantLowLatency
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
 
 type HlsMuxersGetBadRequest Error
 
@@ -1533,6 +2492,375 @@ func (*HlsMuxersListBadRequest) hlsMuxersListRes() {}
 type HlsMuxersListInternalServerError Error
 
 func (*HlsMuxersListInternalServerError) hlsMuxersListRes() {}
+
+type HlssessionsGetBadRequest Error
+
+func (*HlssessionsGetBadRequest) hlssessionsGetRes() {}
+
+type HlssessionsGetInternalServerError Error
+
+func (*HlssessionsGetInternalServerError) hlssessionsGetRes() {}
+
+type HlssessionsGetNotFound Error
+
+func (*HlssessionsGetNotFound) hlssessionsGetRes() {}
+
+type HlssessionsKickBadRequest Error
+
+func (*HlssessionsKickBadRequest) hlssessionsKickRes() {}
+
+type HlssessionsKickInternalServerError Error
+
+func (*HlssessionsKickInternalServerError) hlssessionsKickRes() {}
+
+type HlssessionsKickNotFound Error
+
+func (*HlssessionsKickNotFound) hlssessionsKickRes() {}
+
+type HlssessionsListBadRequest Error
+
+func (*HlssessionsListBadRequest) hlssessionsListRes() {}
+
+type HlssessionsListInternalServerError Error
+
+func (*HlssessionsListInternalServerError) hlssessionsListRes() {}
+
+// Ref: #/components/schemas/Info
+type Info struct {
+	Version OptString `json:"version"`
+	Started OptString `json:"started"`
+}
+
+// GetVersion returns the value of Version.
+func (s *Info) GetVersion() OptString {
+	return s.Version
+}
+
+// GetStarted returns the value of Started.
+func (s *Info) GetStarted() OptString {
+	return s.Started
+}
+
+// SetVersion sets the value of Version.
+func (s *Info) SetVersion(val OptString) {
+	s.Version = val
+}
+
+// SetStarted sets the value of Started.
+func (s *Info) SetStarted(val OptString) {
+	s.Started = val
+}
+
+func (*Info) infoRes() {}
+
+// Ref: #/components/schemas/LogDestination
+type LogDestination string
+
+const (
+	LogDestinationStdout LogDestination = "stdout"
+	LogDestinationFile   LogDestination = "file"
+	LogDestinationSyslog LogDestination = "syslog"
+)
+
+// AllValues returns all LogDestination values.
+func (LogDestination) AllValues() []LogDestination {
+	return []LogDestination{
+		LogDestinationStdout,
+		LogDestinationFile,
+		LogDestinationSyslog,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s LogDestination) MarshalText() ([]byte, error) {
+	switch s {
+	case LogDestinationStdout:
+		return []byte(s), nil
+	case LogDestinationFile:
+		return []byte(s), nil
+	case LogDestinationSyslog:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *LogDestination) UnmarshalText(data []byte) error {
+	switch LogDestination(data) {
+	case LogDestinationStdout:
+		*s = LogDestinationStdout
+		return nil
+	case LogDestinationFile:
+		*s = LogDestinationFile
+		return nil
+	case LogDestinationSyslog:
+		*s = LogDestinationSyslog
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+// Ref: #/components/schemas/LogLevel
+type LogLevel string
+
+const (
+	LogLevelError LogLevel = "error"
+	LogLevelWarn  LogLevel = "warn"
+	LogLevelInfo  LogLevel = "info"
+	LogLevelDebug LogLevel = "debug"
+)
+
+// AllValues returns all LogLevel values.
+func (LogLevel) AllValues() []LogLevel {
+	return []LogLevel{
+		LogLevelError,
+		LogLevelWarn,
+		LogLevelInfo,
+		LogLevelDebug,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s LogLevel) MarshalText() ([]byte, error) {
+	switch s {
+	case LogLevelError:
+		return []byte(s), nil
+	case LogLevelWarn:
+		return []byte(s), nil
+	case LogLevelInfo:
+		return []byte(s), nil
+	case LogLevelDebug:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *LogLevel) UnmarshalText(data []byte) error {
+	switch LogLevel(data) {
+	case LogLevelError:
+		*s = LogLevelError
+		return nil
+	case LogLevelWarn:
+		*s = LogLevelWarn
+		return nil
+	case LogLevelInfo:
+		*s = LogLevelInfo
+		return nil
+	case LogLevelDebug:
+		*s = LogLevelDebug
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+// Ref: #/components/schemas/OK
+type OK struct {
+	Status OptOKStatus `json:"status"`
+}
+
+// GetStatus returns the value of Status.
+func (s *OK) GetStatus() OptOKStatus {
+	return s.Status
+}
+
+// SetStatus sets the value of Status.
+func (s *OK) SetStatus(val OptOKStatus) {
+	s.Status = val
+}
+
+func (*OK) authJwksRefreshRes()         {}
+func (*OK) configGlobalSetRes()         {}
+func (*OK) configPathDefaultsPatchRes() {}
+func (*OK) configPathsAddRes()          {}
+func (*OK) configPathsDeleteRes()       {}
+func (*OK) configPathsPatchRes()        {}
+func (*OK) configPathsReplaceRes()      {}
+func (*OK) hlssessionsKickRes()         {}
+func (*OK) recordingsDeleteSegmentRes() {}
+func (*OK) rtmpConnsKickRes()           {}
+func (*OK) rtmpsConnsKickRes()          {}
+func (*OK) rtspSessionsKickRes()        {}
+func (*OK) rtspsSessionsKickRes()       {}
+func (*OK) srtConnsKickRes()            {}
+func (*OK) webrtcSessionsKickRes()      {}
+
+// Ref: #/components/schemas/OKStatus
+type OKStatus string
+
+const (
+	OKStatusOk OKStatus = "ok"
+)
+
+// AllValues returns all OKStatus values.
+func (OKStatus) AllValues() []OKStatus {
+	return []OKStatus{
+		OKStatusOk,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s OKStatus) MarshalText() ([]byte, error) {
+	switch s {
+	case OKStatusOk:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *OKStatus) UnmarshalText(data []byte) error {
+	switch OKStatus(data) {
+	case OKStatusOk:
+		*s = OKStatusOk
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+// NewOptAlwaysAvailableTrackCodec returns new OptAlwaysAvailableTrackCodec with value set to v.
+func NewOptAlwaysAvailableTrackCodec(v AlwaysAvailableTrackCodec) OptAlwaysAvailableTrackCodec {
+	return OptAlwaysAvailableTrackCodec{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAlwaysAvailableTrackCodec is optional AlwaysAvailableTrackCodec.
+type OptAlwaysAvailableTrackCodec struct {
+	Value AlwaysAvailableTrackCodec
+	Set   bool
+}
+
+// IsSet returns true if OptAlwaysAvailableTrackCodec was set.
+func (o OptAlwaysAvailableTrackCodec) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAlwaysAvailableTrackCodec) Reset() {
+	var v AlwaysAvailableTrackCodec
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAlwaysAvailableTrackCodec) SetTo(v AlwaysAvailableTrackCodec) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAlwaysAvailableTrackCodec) Get() (v AlwaysAvailableTrackCodec, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAlwaysAvailableTrackCodec) Or(d AlwaysAvailableTrackCodec) AlwaysAvailableTrackCodec {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAuthAction returns new OptAuthAction with value set to v.
+func NewOptAuthAction(v AuthAction) OptAuthAction {
+	return OptAuthAction{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAuthAction is optional AuthAction.
+type OptAuthAction struct {
+	Value AuthAction
+	Set   bool
+}
+
+// IsSet returns true if OptAuthAction was set.
+func (o OptAuthAction) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAuthAction) Reset() {
+	var v AuthAction
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAuthAction) SetTo(v AuthAction) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAuthAction) Get() (v AuthAction, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAuthAction) Or(d AuthAction) AuthAction {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptAuthMethod returns new OptAuthMethod with value set to v.
+func NewOptAuthMethod(v AuthMethod) OptAuthMethod {
+	return OptAuthMethod{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptAuthMethod is optional AuthMethod.
+type OptAuthMethod struct {
+	Value AuthMethod
+	Set   bool
+}
+
+// IsSet returns true if OptAuthMethod was set.
+func (o OptAuthMethod) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptAuthMethod) Reset() {
+	var v AuthMethod
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptAuthMethod) SetTo(v AuthMethod) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptAuthMethod) Get() (v AuthMethod, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptAuthMethod) Or(d AuthMethod) AuthMethod {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
 
 // NewOptBool returns new OptBool with value set to v.
 func NewOptBool(v bool) OptBool {
@@ -1580,6 +2908,98 @@ func (o OptBool) Or(d bool) bool {
 	return d
 }
 
+// NewOptEncryption returns new OptEncryption with value set to v.
+func NewOptEncryption(v Encryption) OptEncryption {
+	return OptEncryption{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptEncryption is optional Encryption.
+type OptEncryption struct {
+	Value Encryption
+	Set   bool
+}
+
+// IsSet returns true if OptEncryption was set.
+func (o OptEncryption) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptEncryption) Reset() {
+	var v Encryption
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptEncryption) SetTo(v Encryption) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptEncryption) Get() (v Encryption, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptEncryption) Or(d Encryption) Encryption {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptErrorStatus returns new OptErrorStatus with value set to v.
+func NewOptErrorStatus(v ErrorStatus) OptErrorStatus {
+	return OptErrorStatus{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptErrorStatus is optional ErrorStatus.
+type OptErrorStatus struct {
+	Value ErrorStatus
+	Set   bool
+}
+
+// IsSet returns true if OptErrorStatus was set.
+func (o OptErrorStatus) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptErrorStatus) Reset() {
+	var v ErrorStatus
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptErrorStatus) SetTo(v ErrorStatus) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptErrorStatus) Get() (v ErrorStatus, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptErrorStatus) Or(d ErrorStatus) ErrorStatus {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptFloat64 returns new OptFloat64 with value set to v.
 func NewOptFloat64(v float64) OptFloat64 {
 	return OptFloat64{
@@ -1620,6 +3040,52 @@ func (o OptFloat64) Get() (v float64, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptFloat64) Or(d float64) float64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptHLSVariant returns new OptHLSVariant with value set to v.
+func NewOptHLSVariant(v HLSVariant) OptHLSVariant {
+	return OptHLSVariant{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptHLSVariant is optional HLSVariant.
+type OptHLSVariant struct {
+	Value HLSVariant
+	Set   bool
+}
+
+// IsSet returns true if OptHLSVariant was set.
+func (o OptHLSVariant) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptHLSVariant) Reset() {
+	var v HLSVariant
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptHLSVariant) SetTo(v HLSVariant) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptHLSVariant) Get() (v HLSVariant, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptHLSVariant) Or(d HLSVariant) HLSVariant {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -1718,6 +3184,619 @@ func (o OptInt64) Or(d int64) int64 {
 	return d
 }
 
+// NewOptLogLevel returns new OptLogLevel with value set to v.
+func NewOptLogLevel(v LogLevel) OptLogLevel {
+	return OptLogLevel{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptLogLevel is optional LogLevel.
+type OptLogLevel struct {
+	Value LogLevel
+	Set   bool
+}
+
+// IsSet returns true if OptLogLevel was set.
+func (o OptLogLevel) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptLogLevel) Reset() {
+	var v LogLevel
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptLogLevel) SetTo(v LogLevel) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptLogLevel) Get() (v LogLevel, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptLogLevel) Or(d LogLevel) LogLevel {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilBool returns new OptNilBool with value set to v.
+func NewOptNilBool(v bool) OptNilBool {
+	return OptNilBool{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilBool is optional nullable bool.
+type OptNilBool struct {
+	Value bool
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilBool was set.
+func (o OptNilBool) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilBool) Reset() {
+	var v bool
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilBool) SetTo(v bool) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilBool) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilBool) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v bool
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilBool) Get() (v bool, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilBool) Or(d bool) bool {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilEncryption returns new OptNilEncryption with value set to v.
+func NewOptNilEncryption(v Encryption) OptNilEncryption {
+	return OptNilEncryption{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilEncryption is optional nullable Encryption.
+type OptNilEncryption struct {
+	Value Encryption
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilEncryption was set.
+func (o OptNilEncryption) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilEncryption) Reset() {
+	var v Encryption
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilEncryption) SetTo(v Encryption) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilEncryption) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilEncryption) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v Encryption
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilEncryption) Get() (v Encryption, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilEncryption) Or(d Encryption) Encryption {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilGlobalConfProtocolsItemArray returns new OptNilGlobalConfProtocolsItemArray with value set to v.
+func NewOptNilGlobalConfProtocolsItemArray(v []GlobalConfProtocolsItem) OptNilGlobalConfProtocolsItemArray {
+	return OptNilGlobalConfProtocolsItemArray{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilGlobalConfProtocolsItemArray is optional nullable []GlobalConfProtocolsItem.
+type OptNilGlobalConfProtocolsItemArray struct {
+	Value []GlobalConfProtocolsItem
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilGlobalConfProtocolsItemArray was set.
+func (o OptNilGlobalConfProtocolsItemArray) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilGlobalConfProtocolsItemArray) Reset() {
+	var v []GlobalConfProtocolsItem
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilGlobalConfProtocolsItemArray) SetTo(v []GlobalConfProtocolsItem) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilGlobalConfProtocolsItemArray) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilGlobalConfProtocolsItemArray) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v []GlobalConfProtocolsItem
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilGlobalConfProtocolsItemArray) Get() (v []GlobalConfProtocolsItem, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilGlobalConfProtocolsItemArray) Or(d []GlobalConfProtocolsItem) []GlobalConfProtocolsItem {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilInt64 returns new OptNilInt64 with value set to v.
+func NewOptNilInt64(v int64) OptNilInt64 {
+	return OptNilInt64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilInt64 is optional nullable int64.
+type OptNilInt64 struct {
+	Value int64
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilInt64 was set.
+func (o OptNilInt64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilInt64) Reset() {
+	var v int64
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilInt64) SetTo(v int64) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilInt64) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilInt64) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v int64
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilInt64) Get() (v int64, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilInt64) Or(d int64) int64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilPathSource returns new OptNilPathSource with value set to v.
+func NewOptNilPathSource(v PathSource) OptNilPathSource {
+	return OptNilPathSource{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilPathSource is optional nullable PathSource.
+type OptNilPathSource struct {
+	Value PathSource
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilPathSource was set.
+func (o OptNilPathSource) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilPathSource) Reset() {
+	var v PathSource
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilPathSource) SetTo(v PathSource) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilPathSource) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilPathSource) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v PathSource
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilPathSource) Get() (v PathSource, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilPathSource) Or(d PathSource) PathSource {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilPathTrackCodecProps returns new OptNilPathTrackCodecProps with value set to v.
+func NewOptNilPathTrackCodecProps(v PathTrackCodecProps) OptNilPathTrackCodecProps {
+	return OptNilPathTrackCodecProps{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilPathTrackCodecProps is optional nullable PathTrackCodecProps.
+type OptNilPathTrackCodecProps struct {
+	Value PathTrackCodecProps
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilPathTrackCodecProps was set.
+func (o OptNilPathTrackCodecProps) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilPathTrackCodecProps) Reset() {
+	var v PathTrackCodecProps
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilPathTrackCodecProps) SetTo(v PathTrackCodecProps) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilPathTrackCodecProps) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilPathTrackCodecProps) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v PathTrackCodecProps
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilPathTrackCodecProps) Get() (v PathTrackCodecProps, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilPathTrackCodecProps) Or(d PathTrackCodecProps) PathTrackCodecProps {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilRTSPAuthMethodArray returns new OptNilRTSPAuthMethodArray with value set to v.
+func NewOptNilRTSPAuthMethodArray(v []RTSPAuthMethod) OptNilRTSPAuthMethodArray {
+	return OptNilRTSPAuthMethodArray{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilRTSPAuthMethodArray is optional nullable []RTSPAuthMethod.
+type OptNilRTSPAuthMethodArray struct {
+	Value []RTSPAuthMethod
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilRTSPAuthMethodArray was set.
+func (o OptNilRTSPAuthMethodArray) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilRTSPAuthMethodArray) Reset() {
+	var v []RTSPAuthMethod
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilRTSPAuthMethodArray) SetTo(v []RTSPAuthMethod) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilRTSPAuthMethodArray) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilRTSPAuthMethodArray) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v []RTSPAuthMethod
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilRTSPAuthMethodArray) Get() (v []RTSPAuthMethod, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilRTSPAuthMethodArray) Or(d []RTSPAuthMethod) []RTSPAuthMethod {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilRTSPTransport returns new OptNilRTSPTransport with value set to v.
+func NewOptNilRTSPTransport(v RTSPTransport) OptNilRTSPTransport {
+	return OptNilRTSPTransport{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilRTSPTransport is optional nullable RTSPTransport.
+type OptNilRTSPTransport struct {
+	Value RTSPTransport
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilRTSPTransport was set.
+func (o OptNilRTSPTransport) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilRTSPTransport) Reset() {
+	var v RTSPTransport
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilRTSPTransport) SetTo(v RTSPTransport) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilRTSPTransport) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilRTSPTransport) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v RTSPTransport
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilRTSPTransport) Get() (v RTSPTransport, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilRTSPTransport) Or(d RTSPTransport) RTSPTransport {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilRecordFormat returns new OptNilRecordFormat with value set to v.
+func NewOptNilRecordFormat(v RecordFormat) OptNilRecordFormat {
+	return OptNilRecordFormat{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilRecordFormat is optional nullable RecordFormat.
+type OptNilRecordFormat struct {
+	Value RecordFormat
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilRecordFormat was set.
+func (o OptNilRecordFormat) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilRecordFormat) Reset() {
+	var v RecordFormat
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilRecordFormat) SetTo(v RecordFormat) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilRecordFormat) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilRecordFormat) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v RecordFormat
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilRecordFormat) Get() (v RecordFormat, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilRecordFormat) Or(d RecordFormat) RecordFormat {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptNilString returns new OptNilString with value set to v.
 func NewOptNilString(v string) OptNilString {
 	return OptNilString{
@@ -1781,6 +3860,241 @@ func (o OptNilString) Or(d string) string {
 	return d
 }
 
+// NewOptNilStringArray returns new OptNilStringArray with value set to v.
+func NewOptNilStringArray(v []string) OptNilStringArray {
+	return OptNilStringArray{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilStringArray is optional nullable []string.
+type OptNilStringArray struct {
+	Value []string
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilStringArray was set.
+func (o OptNilStringArray) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilStringArray) Reset() {
+	var v []string
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilStringArray) SetTo(v []string) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilStringArray) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilStringArray) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v []string
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilStringArray) Get() (v []string, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilStringArray) Or(d []string) []string {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilUUID returns new OptNilUUID with value set to v.
+func NewOptNilUUID(v uuid.UUID) OptNilUUID {
+	return OptNilUUID{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilUUID is optional nullable uuid.UUID.
+type OptNilUUID struct {
+	Value uuid.UUID
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilUUID was set.
+func (o OptNilUUID) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilUUID) Reset() {
+	var v uuid.UUID
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilUUID) SetTo(v uuid.UUID) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilUUID) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilUUID) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v uuid.UUID
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilUUID) Get() (v uuid.UUID, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilUUID) Or(d uuid.UUID) uuid.UUID {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptNilUint64 returns new OptNilUint64 with value set to v.
+func NewOptNilUint64(v uint64) OptNilUint64 {
+	return OptNilUint64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptNilUint64 is optional nullable uint64.
+type OptNilUint64 struct {
+	Value uint64
+	Set   bool
+	Null  bool
+}
+
+// IsSet returns true if OptNilUint64 was set.
+func (o OptNilUint64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptNilUint64) Reset() {
+	var v uint64
+	o.Value = v
+	o.Set = false
+	o.Null = false
+}
+
+// SetTo sets value to v.
+func (o *OptNilUint64) SetTo(v uint64) {
+	o.Set = true
+	o.Null = false
+	o.Value = v
+}
+
+// IsNull returns true if value is Null.
+func (o OptNilUint64) IsNull() bool { return o.Null }
+
+// SetToNull sets value to null.
+func (o *OptNilUint64) SetToNull() {
+	o.Set = true
+	o.Null = true
+	var v uint64
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptNilUint64) Get() (v uint64, ok bool) {
+	if o.Null {
+		return v, false
+	}
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptNilUint64) Or(d uint64) uint64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptOKStatus returns new OptOKStatus with value set to v.
+func NewOptOKStatus(v OKStatus) OptOKStatus {
+	return OptOKStatus{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptOKStatus is optional OKStatus.
+type OptOKStatus struct {
+	Value OKStatus
+	Set   bool
+}
+
+// IsSet returns true if OptOKStatus was set.
+func (o OptOKStatus) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptOKStatus) Reset() {
+	var v OKStatus
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptOKStatus) SetTo(v OKStatus) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptOKStatus) Get() (v OKStatus, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptOKStatus) Or(d OKStatus) OKStatus {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptPathReaderType returns new OptPathReaderType with value set to v.
 func NewOptPathReaderType(v PathReaderType) OptPathReaderType {
 	return OptPathReaderType{
@@ -1821,52 +4135,6 @@ func (o OptPathReaderType) Get() (v PathReaderType, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptPathReaderType) Or(d PathReaderType) PathReaderType {
-	if v, ok := o.Get(); ok {
-		return v
-	}
-	return d
-}
-
-// NewOptPathSource returns new OptPathSource with value set to v.
-func NewOptPathSource(v PathSource) OptPathSource {
-	return OptPathSource{
-		Value: v,
-		Set:   true,
-	}
-}
-
-// OptPathSource is optional PathSource.
-type OptPathSource struct {
-	Value PathSource
-	Set   bool
-}
-
-// IsSet returns true if OptPathSource was set.
-func (o OptPathSource) IsSet() bool { return o.Set }
-
-// Reset unsets value.
-func (o *OptPathSource) Reset() {
-	var v PathSource
-	o.Value = v
-	o.Set = false
-}
-
-// SetTo sets value to v.
-func (o *OptPathSource) SetTo(v PathSource) {
-	o.Set = true
-	o.Value = v
-}
-
-// Get returns value and boolean that denotes whether value was set.
-func (o OptPathSource) Get() (v PathSource, ok bool) {
-	if !o.Set {
-		return v, false
-	}
-	return o.Value, true
-}
-
-// Or returns value if set, or given parameter if does not.
-func (o OptPathSource) Or(d PathSource) PathSource {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -1919,6 +4187,52 @@ func (o OptPathSourceType) Or(d PathSourceType) PathSourceType {
 	return d
 }
 
+// NewOptPathTrackCodec returns new OptPathTrackCodec with value set to v.
+func NewOptPathTrackCodec(v PathTrackCodec) OptPathTrackCodec {
+	return OptPathTrackCodec{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptPathTrackCodec is optional PathTrackCodec.
+type OptPathTrackCodec struct {
+	Value PathTrackCodec
+	Set   bool
+}
+
+// IsSet returns true if OptPathTrackCodec was set.
+func (o OptPathTrackCodec) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptPathTrackCodec) Reset() {
+	var v PathTrackCodec
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptPathTrackCodec) SetTo(v PathTrackCodec) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptPathTrackCodec) Get() (v PathTrackCodec, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptPathTrackCodec) Or(d PathTrackCodec) PathTrackCodec {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptRTMPConnState returns new OptRTMPConnState with value set to v.
 func NewOptRTMPConnState(v RTMPConnState) OptRTMPConnState {
 	return OptRTMPConnState{
@@ -1965,6 +4279,52 @@ func (o OptRTMPConnState) Or(d RTMPConnState) RTMPConnState {
 	return d
 }
 
+// NewOptRTSPRangeType returns new OptRTSPRangeType with value set to v.
+func NewOptRTSPRangeType(v RTSPRangeType) OptRTSPRangeType {
+	return OptRTSPRangeType{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptRTSPRangeType is optional RTSPRangeType.
+type OptRTSPRangeType struct {
+	Value RTSPRangeType
+	Set   bool
+}
+
+// IsSet returns true if OptRTSPRangeType was set.
+func (o OptRTSPRangeType) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptRTSPRangeType) Reset() {
+	var v RTSPRangeType
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptRTSPRangeType) SetTo(v RTSPRangeType) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptRTSPRangeType) Get() (v RTSPRangeType, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptRTSPRangeType) Or(d RTSPRangeType) RTSPRangeType {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptRTSPSessionState returns new OptRTSPSessionState with value set to v.
 func NewOptRTSPSessionState(v RTSPSessionState) OptRTSPSessionState {
 	return OptRTSPSessionState{
@@ -2005,6 +4365,98 @@ func (o OptRTSPSessionState) Get() (v RTSPSessionState, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptRTSPSessionState) Or(d RTSPSessionState) RTSPSessionState {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptRTSPTransport returns new OptRTSPTransport with value set to v.
+func NewOptRTSPTransport(v RTSPTransport) OptRTSPTransport {
+	return OptRTSPTransport{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptRTSPTransport is optional RTSPTransport.
+type OptRTSPTransport struct {
+	Value RTSPTransport
+	Set   bool
+}
+
+// IsSet returns true if OptRTSPTransport was set.
+func (o OptRTSPTransport) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptRTSPTransport) Reset() {
+	var v RTSPTransport
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptRTSPTransport) SetTo(v RTSPTransport) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptRTSPTransport) Get() (v RTSPTransport, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptRTSPTransport) Or(d RTSPTransport) RTSPTransport {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptRecordFormat returns new OptRecordFormat with value set to v.
+func NewOptRecordFormat(v RecordFormat) OptRecordFormat {
+	return OptRecordFormat{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptRecordFormat is optional RecordFormat.
+type OptRecordFormat struct {
+	Value RecordFormat
+	Set   bool
+}
+
+// IsSet returns true if OptRecordFormat was set.
+func (o OptRecordFormat) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptRecordFormat) Reset() {
+	var v RecordFormat
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptRecordFormat) SetTo(v RecordFormat) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptRecordFormat) Get() (v RecordFormat, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptRecordFormat) Or(d RecordFormat) RecordFormat {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -2103,6 +4555,98 @@ func (o OptString) Or(d string) string {
 	return d
 }
 
+// NewOptUUID returns new OptUUID with value set to v.
+func NewOptUUID(v uuid.UUID) OptUUID {
+	return OptUUID{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUUID is optional uuid.UUID.
+type OptUUID struct {
+	Value uuid.UUID
+	Set   bool
+}
+
+// IsSet returns true if OptUUID was set.
+func (o OptUUID) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUUID) Reset() {
+	var v uuid.UUID
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUUID) SetTo(v uuid.UUID) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUUID) Get() (v uuid.UUID, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUUID) Or(d uuid.UUID) uuid.UUID {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
+// NewOptUint64 returns new OptUint64 with value set to v.
+func NewOptUint64(v uint64) OptUint64 {
+	return OptUint64{
+		Value: v,
+		Set:   true,
+	}
+}
+
+// OptUint64 is optional uint64.
+type OptUint64 struct {
+	Value uint64
+	Set   bool
+}
+
+// IsSet returns true if OptUint64 was set.
+func (o OptUint64) IsSet() bool { return o.Set }
+
+// Reset unsets value.
+func (o *OptUint64) Reset() {
+	var v uint64
+	o.Value = v
+	o.Set = false
+}
+
+// SetTo sets value to v.
+func (o *OptUint64) SetTo(v uint64) {
+	o.Set = true
+	o.Value = v
+}
+
+// Get returns value and boolean that denotes whether value was set.
+func (o OptUint64) Get() (v uint64, ok bool) {
+	if !o.Set {
+		return v, false
+	}
+	return o.Value, true
+}
+
+// Or returns value if set, or given parameter if does not.
+func (o OptUint64) Or(d uint64) uint64 {
+	if v, ok := o.Get(); ok {
+		return v
+	}
+	return d
+}
+
 // NewOptWebRTCSessionState returns new OptWebRTCSessionState with value set to v.
 func NewOptWebRTCSessionState(v WebRTCSessionState) OptWebRTCSessionState {
 	return OptWebRTCSessionState{
@@ -2151,15 +4695,28 @@ func (o OptWebRTCSessionState) Or(d WebRTCSessionState) WebRTCSessionState {
 
 // Ref: #/components/schemas/Path
 type Path struct {
-	Name          OptString     `json:"name"`
-	ConfName      OptString     `json:"confName"`
-	Source        OptPathSource `json:"source"`
-	Ready         OptBool       `json:"ready"`
-	ReadyTime     OptNilString  `json:"readyTime"`
-	Tracks        []string      `json:"tracks"`
-	BytesReceived OptInt64      `json:"bytesReceived"`
-	BytesSent     OptInt64      `json:"bytesSent"`
-	Readers       []PathReader  `json:"readers"`
+	Name     OptString        `json:"name"`
+	ConfName OptString        `json:"confName"`
+	Source   OptNilPathSource `json:"source"`
+	// Deprecated: schema marks this property as deprecated.
+	Ready OptBool `json:"ready"`
+	// Deprecated: schema marks this property as deprecated.
+	ReadyTime     OptNilString `json:"readyTime"`
+	Available     OptBool      `json:"available"`
+	AvailableTime OptNilString `json:"availableTime"`
+	Online        OptBool      `json:"online"`
+	OnlineTime    OptNilString `json:"onlineTime"`
+	// Deprecated: schema marks this property as deprecated.
+	Tracks               []PathTrackCodec `json:"tracks"`
+	Tracks2              []PathTrack      `json:"tracks2"`
+	InboundBytes         OptUint64        `json:"inboundBytes"`
+	OutboundBytes        OptUint64        `json:"outboundBytes"`
+	InboundFramesInError OptUint64        `json:"inboundFramesInError"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesReceived OptUint64 `json:"bytesReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64    `json:"bytesSent"`
+	Readers   []PathReader `json:"readers"`
 }
 
 // GetName returns the value of Name.
@@ -2173,7 +4730,7 @@ func (s *Path) GetConfName() OptString {
 }
 
 // GetSource returns the value of Source.
-func (s *Path) GetSource() OptPathSource {
+func (s *Path) GetSource() OptNilPathSource {
 	return s.Source
 }
 
@@ -2187,18 +4744,58 @@ func (s *Path) GetReadyTime() OptNilString {
 	return s.ReadyTime
 }
 
+// GetAvailable returns the value of Available.
+func (s *Path) GetAvailable() OptBool {
+	return s.Available
+}
+
+// GetAvailableTime returns the value of AvailableTime.
+func (s *Path) GetAvailableTime() OptNilString {
+	return s.AvailableTime
+}
+
+// GetOnline returns the value of Online.
+func (s *Path) GetOnline() OptBool {
+	return s.Online
+}
+
+// GetOnlineTime returns the value of OnlineTime.
+func (s *Path) GetOnlineTime() OptNilString {
+	return s.OnlineTime
+}
+
 // GetTracks returns the value of Tracks.
-func (s *Path) GetTracks() []string {
+func (s *Path) GetTracks() []PathTrackCodec {
 	return s.Tracks
 }
 
+// GetTracks2 returns the value of Tracks2.
+func (s *Path) GetTracks2() []PathTrack {
+	return s.Tracks2
+}
+
+// GetInboundBytes returns the value of InboundBytes.
+func (s *Path) GetInboundBytes() OptUint64 {
+	return s.InboundBytes
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *Path) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// GetInboundFramesInError returns the value of InboundFramesInError.
+func (s *Path) GetInboundFramesInError() OptUint64 {
+	return s.InboundFramesInError
+}
+
 // GetBytesReceived returns the value of BytesReceived.
-func (s *Path) GetBytesReceived() OptInt64 {
+func (s *Path) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *Path) GetBytesSent() OptInt64 {
+func (s *Path) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
@@ -2218,7 +4815,7 @@ func (s *Path) SetConfName(val OptString) {
 }
 
 // SetSource sets the value of Source.
-func (s *Path) SetSource(val OptPathSource) {
+func (s *Path) SetSource(val OptNilPathSource) {
 	s.Source = val
 }
 
@@ -2232,18 +4829,58 @@ func (s *Path) SetReadyTime(val OptNilString) {
 	s.ReadyTime = val
 }
 
+// SetAvailable sets the value of Available.
+func (s *Path) SetAvailable(val OptBool) {
+	s.Available = val
+}
+
+// SetAvailableTime sets the value of AvailableTime.
+func (s *Path) SetAvailableTime(val OptNilString) {
+	s.AvailableTime = val
+}
+
+// SetOnline sets the value of Online.
+func (s *Path) SetOnline(val OptBool) {
+	s.Online = val
+}
+
+// SetOnlineTime sets the value of OnlineTime.
+func (s *Path) SetOnlineTime(val OptNilString) {
+	s.OnlineTime = val
+}
+
 // SetTracks sets the value of Tracks.
-func (s *Path) SetTracks(val []string) {
+func (s *Path) SetTracks(val []PathTrackCodec) {
 	s.Tracks = val
 }
 
+// SetTracks2 sets the value of Tracks2.
+func (s *Path) SetTracks2(val []PathTrack) {
+	s.Tracks2 = val
+}
+
+// SetInboundBytes sets the value of InboundBytes.
+func (s *Path) SetInboundBytes(val OptUint64) {
+	s.InboundBytes = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *Path) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+// SetInboundFramesInError sets the value of InboundFramesInError.
+func (s *Path) SetInboundFramesInError(val OptUint64) {
+	s.InboundFramesInError = val
+}
+
 // SetBytesReceived sets the value of BytesReceived.
-func (s *Path) SetBytesReceived(val OptInt64) {
+func (s *Path) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *Path) SetBytesSent(val OptInt64) {
+func (s *Path) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
 }
 
@@ -2256,81 +4893,127 @@ func (*Path) pathsGetRes() {}
 
 // Ref: #/components/schemas/PathConf
 type PathConf struct {
-	Name                       OptString  `json:"name"`
-	Source                     OptString  `json:"source"`
-	SourceFingerprint          OptString  `json:"sourceFingerprint"`
-	SourceOnDemand             OptBool    `json:"sourceOnDemand"`
-	SourceOnDemandStartTimeout OptString  `json:"sourceOnDemandStartTimeout"`
-	SourceOnDemandCloseAfter   OptString  `json:"sourceOnDemandCloseAfter"`
-	MaxReaders                 OptInt     `json:"maxReaders"`
-	SrtReadPassphrase          OptString  `json:"srtReadPassphrase"`
-	Fallback                   OptString  `json:"fallback"`
-	UseAbsoluteTimestamp       OptBool    `json:"useAbsoluteTimestamp"`
-	Record                     OptBool    `json:"record"`
-	RecordPath                 OptString  `json:"recordPath"`
-	RecordFormat               OptString  `json:"recordFormat"`
-	RecordPartDuration         OptString  `json:"recordPartDuration"`
-	RecordSegmentDuration      OptString  `json:"recordSegmentDuration"`
-	RecordDeleteAfter          OptString  `json:"recordDeleteAfter"`
-	OverridePublisher          OptBool    `json:"overridePublisher"`
-	SrtPublishPassphrase       OptString  `json:"srtPublishPassphrase"`
-	RtspTransport              OptString  `json:"rtspTransport"`
-	RtspAnyPort                OptBool    `json:"rtspAnyPort"`
-	RtspRangeType              OptString  `json:"rtspRangeType"`
-	RtspRangeStart             OptString  `json:"rtspRangeStart"`
-	SourceRedirect             OptString  `json:"sourceRedirect"`
-	RpiCameraCamID             OptInt     `json:"rpiCameraCamID"`
-	RpiCameraSecondary         OptBool    `json:"rpiCameraSecondary"`
-	RpiCameraWidth             OptInt     `json:"rpiCameraWidth"`
-	RpiCameraHeight            OptInt     `json:"rpiCameraHeight"`
-	RpiCameraHFlip             OptBool    `json:"rpiCameraHFlip"`
-	RpiCameraVFlip             OptBool    `json:"rpiCameraVFlip"`
-	RpiCameraBrightness        OptFloat64 `json:"rpiCameraBrightness"`
-	RpiCameraContrast          OptFloat64 `json:"rpiCameraContrast"`
-	RpiCameraSaturation        OptFloat64 `json:"rpiCameraSaturation"`
-	RpiCameraSharpness         OptFloat64 `json:"rpiCameraSharpness"`
-	RpiCameraExposure          OptString  `json:"rpiCameraExposure"`
-	RpiCameraAWB               OptString  `json:"rpiCameraAWB"`
-	RpiCameraAWBGains          []float64  `json:"rpiCameraAWBGains"`
-	RpiCameraDenoise           OptString  `json:"rpiCameraDenoise"`
-	RpiCameraShutter           OptInt     `json:"rpiCameraShutter"`
-	RpiCameraMetering          OptString  `json:"rpiCameraMetering"`
-	RpiCameraGain              OptFloat64 `json:"rpiCameraGain"`
-	RpiCameraEV                OptFloat64 `json:"rpiCameraEV"`
-	RpiCameraROI               OptString  `json:"rpiCameraROI"`
-	RpiCameraHDR               OptBool    `json:"rpiCameraHDR"`
-	RpiCameraTuningFile        OptString  `json:"rpiCameraTuningFile"`
-	RpiCameraMode              OptString  `json:"rpiCameraMode"`
-	RpiCameraFPS               OptFloat64 `json:"rpiCameraFPS"`
-	RpiCameraAfMode            OptString  `json:"rpiCameraAfMode"`
-	RpiCameraAfRange           OptString  `json:"rpiCameraAfRange"`
-	RpiCameraAfSpeed           OptString  `json:"rpiCameraAfSpeed"`
-	RpiCameraLensPosition      OptFloat64 `json:"rpiCameraLensPosition"`
-	RpiCameraAfWindow          OptString  `json:"rpiCameraAfWindow"`
-	RpiCameraFlickerPeriod     OptInt     `json:"rpiCameraFlickerPeriod"`
-	RpiCameraTextOverlayEnable OptBool    `json:"rpiCameraTextOverlayEnable"`
-	RpiCameraTextOverlay       OptString  `json:"rpiCameraTextOverlay"`
-	RpiCameraCodec             OptString  `json:"rpiCameraCodec"`
-	RpiCameraIDRPeriod         OptInt     `json:"rpiCameraIDRPeriod"`
-	RpiCameraBitrate           OptInt     `json:"rpiCameraBitrate"`
-	RpiCameraProfile           OptString  `json:"rpiCameraProfile"`
-	RpiCameraLevel             OptString  `json:"rpiCameraLevel"`
-	RpiCameraJPEGQuality       OptInt     `json:"rpiCameraJPEGQuality"`
-	RunOnInit                  OptString  `json:"runOnInit"`
-	RunOnInitRestart           OptBool    `json:"runOnInitRestart"`
-	RunOnDemand                OptString  `json:"runOnDemand"`
-	RunOnDemandRestart         OptBool    `json:"runOnDemandRestart"`
-	RunOnDemandStartTimeout    OptString  `json:"runOnDemandStartTimeout"`
-	RunOnDemandCloseAfter      OptString  `json:"runOnDemandCloseAfter"`
-	RunOnUnDemand              OptString  `json:"runOnUnDemand"`
-	RunOnReady                 OptString  `json:"runOnReady"`
-	RunOnReadyRestart          OptBool    `json:"runOnReadyRestart"`
-	RunOnNotReady              OptString  `json:"runOnNotReady"`
-	RunOnRead                  OptString  `json:"runOnRead"`
-	RunOnReadRestart           OptBool    `json:"runOnReadRestart"`
-	RunOnUnread                OptString  `json:"runOnUnread"`
-	RunOnRecordSegmentCreate   OptString  `json:"runOnRecordSegmentCreate"`
-	RunOnRecordSegmentComplete OptString  `json:"runOnRecordSegmentComplete"`
+	Name                       OptString `json:"name"`
+	Source                     OptString `json:"source"`
+	SourceFingerprint          OptString `json:"sourceFingerprint"`
+	SourceOnDemand             OptBool   `json:"sourceOnDemand"`
+	SourceOnDemandStartTimeout OptString `json:"sourceOnDemandStartTimeout"`
+	SourceOnDemandCloseAfter   OptString `json:"sourceOnDemandCloseAfter"`
+	MaxReaders                 OptInt64  `json:"maxReaders"`
+	SrtReadPassphrase          OptString `json:"srtReadPassphrase"`
+	// Deprecated: schema marks this property as deprecated.
+	Fallback              OptNilString           `json:"fallback"`
+	UseAbsoluteTimestamp  OptBool                `json:"useAbsoluteTimestamp"`
+	AlwaysAvailable       OptBool                `json:"alwaysAvailable"`
+	AlwaysAvailableTracks []AlwaysAvailableTrack `json:"alwaysAvailableTracks"`
+	AlwaysAvailableFile   OptString              `json:"alwaysAvailableFile"`
+	Record                OptBool                `json:"record"`
+	// Deprecated: schema marks this property as deprecated.
+	Playback              OptNilBool      `json:"playback"`
+	RecordPath            OptString       `json:"recordPath"`
+	RecordFormat          OptRecordFormat `json:"recordFormat"`
+	RecordPartDuration    OptString       `json:"recordPartDuration"`
+	RecordMaxPartSize     OptString       `json:"recordMaxPartSize"`
+	RecordSegmentDuration OptString       `json:"recordSegmentDuration"`
+	RecordDeleteAfter     OptString       `json:"recordDeleteAfter"`
+	// Deprecated: schema marks this property as deprecated.
+	PublishUser OptNilString `json:"publishUser"`
+	// Deprecated: schema marks this property as deprecated.
+	PublishPass OptNilString `json:"publishPass"`
+	// Deprecated: schema marks this property as deprecated.
+	PublishIPs OptNilStringArray `json:"publishIPs"`
+	// Deprecated: schema marks this property as deprecated.
+	ReadUser OptNilString `json:"readUser"`
+	// Deprecated: schema marks this property as deprecated.
+	ReadPass OptNilString `json:"readPass"`
+	// Deprecated: schema marks this property as deprecated.
+	ReadIPs           OptNilStringArray `json:"readIPs"`
+	OverridePublisher OptBool           `json:"overridePublisher"`
+	// Deprecated: schema marks this property as deprecated.
+	DisablePublisherOverride OptNilBool       `json:"disablePublisherOverride"`
+	SrtPublishPassphrase     OptString        `json:"srtPublishPassphrase"`
+	RtspDemuxMpegts          OptBool          `json:"rtspDemuxMpegts"`
+	RtspTransport            OptRTSPTransport `json:"rtspTransport"`
+	RtspAnyPort              OptBool          `json:"rtspAnyPort"`
+	// Deprecated: schema marks this property as deprecated.
+	SourceProtocol OptNilRTSPTransport `json:"sourceProtocol"`
+	// Deprecated: schema marks this property as deprecated.
+	SourceAnyPortEnable OptNilBool       `json:"sourceAnyPortEnable"`
+	RtspRangeType       OptRTSPRangeType `json:"rtspRangeType"`
+	RtspRangeStart      OptString        `json:"rtspRangeStart"`
+	// Deprecated: schema marks this property as deprecated.
+	RtspUDPReadBufferSize  OptNilUint64 `json:"rtspUDPReadBufferSize"`
+	RtspUDPSourcePortRange []uint64     `json:"rtspUDPSourcePortRange"`
+	// Deprecated: schema marks this property as deprecated.
+	MpegtsUDPReadBufferSize OptNilUint64 `json:"mpegtsUDPReadBufferSize"`
+	RtpSDP                  OptString    `json:"rtpSDP"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpUDPReadBufferSize       OptNilUint64 `json:"rtpUDPReadBufferSize"`
+	WhepBearerToken            OptString    `json:"whepBearerToken"`
+	WhepSTUNGatherTimeout      OptString    `json:"whepSTUNGatherTimeout"`
+	WhepHandshakeTimeout       OptString    `json:"whepHandshakeTimeout"`
+	WhepTrackGatherTimeout     OptString    `json:"whepTrackGatherTimeout"`
+	SourceRedirect             OptString    `json:"sourceRedirect"`
+	RpiCameraCamID             OptUint64    `json:"rpiCameraCamID"`
+	RpiCameraSecondary         OptBool      `json:"rpiCameraSecondary"`
+	RpiCameraWidth             OptUint64    `json:"rpiCameraWidth"`
+	RpiCameraHeight            OptUint64    `json:"rpiCameraHeight"`
+	RpiCameraHFlip             OptBool      `json:"rpiCameraHFlip"`
+	RpiCameraVFlip             OptBool      `json:"rpiCameraVFlip"`
+	RpiCameraBrightness        OptFloat64   `json:"rpiCameraBrightness"`
+	RpiCameraContrast          OptFloat64   `json:"rpiCameraContrast"`
+	RpiCameraSaturation        OptFloat64   `json:"rpiCameraSaturation"`
+	RpiCameraSharpness         OptFloat64   `json:"rpiCameraSharpness"`
+	RpiCameraExposure          OptString    `json:"rpiCameraExposure"`
+	RpiCameraAWB               OptString    `json:"rpiCameraAWB"`
+	RpiCameraAWBGains          []float64    `json:"rpiCameraAWBGains"`
+	RpiCameraDenoise           OptString    `json:"rpiCameraDenoise"`
+	RpiCameraShutter           OptUint64    `json:"rpiCameraShutter"`
+	RpiCameraMetering          OptString    `json:"rpiCameraMetering"`
+	RpiCameraGain              OptFloat64   `json:"rpiCameraGain"`
+	RpiCameraEV                OptFloat64   `json:"rpiCameraEV"`
+	RpiCameraROI               OptString    `json:"rpiCameraROI"`
+	RpiCameraHDR               OptBool      `json:"rpiCameraHDR"`
+	RpiCameraTuningFile        OptString    `json:"rpiCameraTuningFile"`
+	RpiCameraMode              OptString    `json:"rpiCameraMode"`
+	RpiCameraFPS               OptFloat64   `json:"rpiCameraFPS"`
+	RpiCameraAfMode            OptString    `json:"rpiCameraAfMode"`
+	RpiCameraAfRange           OptString    `json:"rpiCameraAfRange"`
+	RpiCameraAfSpeed           OptString    `json:"rpiCameraAfSpeed"`
+	RpiCameraLensPosition      OptFloat64   `json:"rpiCameraLensPosition"`
+	RpiCameraAfWindow          OptString    `json:"rpiCameraAfWindow"`
+	RpiCameraFlickerPeriod     OptUint64    `json:"rpiCameraFlickerPeriod"`
+	RpiCameraTextOverlayEnable OptBool      `json:"rpiCameraTextOverlayEnable"`
+	RpiCameraTextOverlay       OptString    `json:"rpiCameraTextOverlay"`
+	RpiCameraCodec             OptString    `json:"rpiCameraCodec"`
+	RpiCameraIDRPeriod         OptUint64    `json:"rpiCameraIDRPeriod"`
+	RpiCameraBitrate           OptUint64    `json:"rpiCameraBitrate"`
+	// Deprecated: schema marks this property as deprecated.
+	RpiCameraProfile OptNilString `json:"rpiCameraProfile"`
+	// Deprecated: schema marks this property as deprecated.
+	RpiCameraLevel               OptNilString `json:"rpiCameraLevel"`
+	RpiCameraHardwareH264Profile OptString    `json:"rpiCameraHardwareH264Profile"`
+	RpiCameraHardwareH264Level   OptString    `json:"rpiCameraHardwareH264Level"`
+	RpiCameraSoftwareH264Profile OptString    `json:"rpiCameraSoftwareH264Profile"`
+	RpiCameraSoftwareH264Level   OptString    `json:"rpiCameraSoftwareH264Level"`
+	// Deprecated: schema marks this property as deprecated.
+	RpiCameraJPEGQuality       OptNilUint64 `json:"rpiCameraJPEGQuality"`
+	RpiCameraMJPEGQuality      OptUint64    `json:"rpiCameraMJPEGQuality"`
+	RunOnInit                  OptString    `json:"runOnInit"`
+	RunOnInitRestart           OptBool      `json:"runOnInitRestart"`
+	RunOnDemand                OptString    `json:"runOnDemand"`
+	RunOnDemandRestart         OptBool      `json:"runOnDemandRestart"`
+	RunOnDemandStartTimeout    OptString    `json:"runOnDemandStartTimeout"`
+	RunOnDemandCloseAfter      OptString    `json:"runOnDemandCloseAfter"`
+	RunOnUnDemand              OptString    `json:"runOnUnDemand"`
+	RunOnReady                 OptString    `json:"runOnReady"`
+	RunOnReadyRestart          OptBool      `json:"runOnReadyRestart"`
+	RunOnNotReady              OptString    `json:"runOnNotReady"`
+	RunOnRead                  OptString    `json:"runOnRead"`
+	RunOnReadRestart           OptBool      `json:"runOnReadRestart"`
+	RunOnUnread                OptString    `json:"runOnUnread"`
+	RunOnRecordSegmentCreate   OptString    `json:"runOnRecordSegmentCreate"`
+	RunOnRecordSegmentComplete OptString    `json:"runOnRecordSegmentComplete"`
 }
 
 // GetName returns the value of Name.
@@ -2364,7 +5047,7 @@ func (s *PathConf) GetSourceOnDemandCloseAfter() OptString {
 }
 
 // GetMaxReaders returns the value of MaxReaders.
-func (s *PathConf) GetMaxReaders() OptInt {
+func (s *PathConf) GetMaxReaders() OptInt64 {
 	return s.MaxReaders
 }
 
@@ -2374,7 +5057,7 @@ func (s *PathConf) GetSrtReadPassphrase() OptString {
 }
 
 // GetFallback returns the value of Fallback.
-func (s *PathConf) GetFallback() OptString {
+func (s *PathConf) GetFallback() OptNilString {
 	return s.Fallback
 }
 
@@ -2383,9 +5066,29 @@ func (s *PathConf) GetUseAbsoluteTimestamp() OptBool {
 	return s.UseAbsoluteTimestamp
 }
 
+// GetAlwaysAvailable returns the value of AlwaysAvailable.
+func (s *PathConf) GetAlwaysAvailable() OptBool {
+	return s.AlwaysAvailable
+}
+
+// GetAlwaysAvailableTracks returns the value of AlwaysAvailableTracks.
+func (s *PathConf) GetAlwaysAvailableTracks() []AlwaysAvailableTrack {
+	return s.AlwaysAvailableTracks
+}
+
+// GetAlwaysAvailableFile returns the value of AlwaysAvailableFile.
+func (s *PathConf) GetAlwaysAvailableFile() OptString {
+	return s.AlwaysAvailableFile
+}
+
 // GetRecord returns the value of Record.
 func (s *PathConf) GetRecord() OptBool {
 	return s.Record
+}
+
+// GetPlayback returns the value of Playback.
+func (s *PathConf) GetPlayback() OptNilBool {
+	return s.Playback
 }
 
 // GetRecordPath returns the value of RecordPath.
@@ -2394,13 +5097,18 @@ func (s *PathConf) GetRecordPath() OptString {
 }
 
 // GetRecordFormat returns the value of RecordFormat.
-func (s *PathConf) GetRecordFormat() OptString {
+func (s *PathConf) GetRecordFormat() OptRecordFormat {
 	return s.RecordFormat
 }
 
 // GetRecordPartDuration returns the value of RecordPartDuration.
 func (s *PathConf) GetRecordPartDuration() OptString {
 	return s.RecordPartDuration
+}
+
+// GetRecordMaxPartSize returns the value of RecordMaxPartSize.
+func (s *PathConf) GetRecordMaxPartSize() OptString {
+	return s.RecordMaxPartSize
 }
 
 // GetRecordSegmentDuration returns the value of RecordSegmentDuration.
@@ -2413,9 +5121,44 @@ func (s *PathConf) GetRecordDeleteAfter() OptString {
 	return s.RecordDeleteAfter
 }
 
+// GetPublishUser returns the value of PublishUser.
+func (s *PathConf) GetPublishUser() OptNilString {
+	return s.PublishUser
+}
+
+// GetPublishPass returns the value of PublishPass.
+func (s *PathConf) GetPublishPass() OptNilString {
+	return s.PublishPass
+}
+
+// GetPublishIPs returns the value of PublishIPs.
+func (s *PathConf) GetPublishIPs() OptNilStringArray {
+	return s.PublishIPs
+}
+
+// GetReadUser returns the value of ReadUser.
+func (s *PathConf) GetReadUser() OptNilString {
+	return s.ReadUser
+}
+
+// GetReadPass returns the value of ReadPass.
+func (s *PathConf) GetReadPass() OptNilString {
+	return s.ReadPass
+}
+
+// GetReadIPs returns the value of ReadIPs.
+func (s *PathConf) GetReadIPs() OptNilStringArray {
+	return s.ReadIPs
+}
+
 // GetOverridePublisher returns the value of OverridePublisher.
 func (s *PathConf) GetOverridePublisher() OptBool {
 	return s.OverridePublisher
+}
+
+// GetDisablePublisherOverride returns the value of DisablePublisherOverride.
+func (s *PathConf) GetDisablePublisherOverride() OptNilBool {
+	return s.DisablePublisherOverride
 }
 
 // GetSrtPublishPassphrase returns the value of SrtPublishPassphrase.
@@ -2423,8 +5166,13 @@ func (s *PathConf) GetSrtPublishPassphrase() OptString {
 	return s.SrtPublishPassphrase
 }
 
+// GetRtspDemuxMpegts returns the value of RtspDemuxMpegts.
+func (s *PathConf) GetRtspDemuxMpegts() OptBool {
+	return s.RtspDemuxMpegts
+}
+
 // GetRtspTransport returns the value of RtspTransport.
-func (s *PathConf) GetRtspTransport() OptString {
+func (s *PathConf) GetRtspTransport() OptRTSPTransport {
 	return s.RtspTransport
 }
 
@@ -2433,8 +5181,18 @@ func (s *PathConf) GetRtspAnyPort() OptBool {
 	return s.RtspAnyPort
 }
 
+// GetSourceProtocol returns the value of SourceProtocol.
+func (s *PathConf) GetSourceProtocol() OptNilRTSPTransport {
+	return s.SourceProtocol
+}
+
+// GetSourceAnyPortEnable returns the value of SourceAnyPortEnable.
+func (s *PathConf) GetSourceAnyPortEnable() OptNilBool {
+	return s.SourceAnyPortEnable
+}
+
 // GetRtspRangeType returns the value of RtspRangeType.
-func (s *PathConf) GetRtspRangeType() OptString {
+func (s *PathConf) GetRtspRangeType() OptRTSPRangeType {
 	return s.RtspRangeType
 }
 
@@ -2443,13 +5201,58 @@ func (s *PathConf) GetRtspRangeStart() OptString {
 	return s.RtspRangeStart
 }
 
+// GetRtspUDPReadBufferSize returns the value of RtspUDPReadBufferSize.
+func (s *PathConf) GetRtspUDPReadBufferSize() OptNilUint64 {
+	return s.RtspUDPReadBufferSize
+}
+
+// GetRtspUDPSourcePortRange returns the value of RtspUDPSourcePortRange.
+func (s *PathConf) GetRtspUDPSourcePortRange() []uint64 {
+	return s.RtspUDPSourcePortRange
+}
+
+// GetMpegtsUDPReadBufferSize returns the value of MpegtsUDPReadBufferSize.
+func (s *PathConf) GetMpegtsUDPReadBufferSize() OptNilUint64 {
+	return s.MpegtsUDPReadBufferSize
+}
+
+// GetRtpSDP returns the value of RtpSDP.
+func (s *PathConf) GetRtpSDP() OptString {
+	return s.RtpSDP
+}
+
+// GetRtpUDPReadBufferSize returns the value of RtpUDPReadBufferSize.
+func (s *PathConf) GetRtpUDPReadBufferSize() OptNilUint64 {
+	return s.RtpUDPReadBufferSize
+}
+
+// GetWhepBearerToken returns the value of WhepBearerToken.
+func (s *PathConf) GetWhepBearerToken() OptString {
+	return s.WhepBearerToken
+}
+
+// GetWhepSTUNGatherTimeout returns the value of WhepSTUNGatherTimeout.
+func (s *PathConf) GetWhepSTUNGatherTimeout() OptString {
+	return s.WhepSTUNGatherTimeout
+}
+
+// GetWhepHandshakeTimeout returns the value of WhepHandshakeTimeout.
+func (s *PathConf) GetWhepHandshakeTimeout() OptString {
+	return s.WhepHandshakeTimeout
+}
+
+// GetWhepTrackGatherTimeout returns the value of WhepTrackGatherTimeout.
+func (s *PathConf) GetWhepTrackGatherTimeout() OptString {
+	return s.WhepTrackGatherTimeout
+}
+
 // GetSourceRedirect returns the value of SourceRedirect.
 func (s *PathConf) GetSourceRedirect() OptString {
 	return s.SourceRedirect
 }
 
 // GetRpiCameraCamID returns the value of RpiCameraCamID.
-func (s *PathConf) GetRpiCameraCamID() OptInt {
+func (s *PathConf) GetRpiCameraCamID() OptUint64 {
 	return s.RpiCameraCamID
 }
 
@@ -2459,12 +5262,12 @@ func (s *PathConf) GetRpiCameraSecondary() OptBool {
 }
 
 // GetRpiCameraWidth returns the value of RpiCameraWidth.
-func (s *PathConf) GetRpiCameraWidth() OptInt {
+func (s *PathConf) GetRpiCameraWidth() OptUint64 {
 	return s.RpiCameraWidth
 }
 
 // GetRpiCameraHeight returns the value of RpiCameraHeight.
-func (s *PathConf) GetRpiCameraHeight() OptInt {
+func (s *PathConf) GetRpiCameraHeight() OptUint64 {
 	return s.RpiCameraHeight
 }
 
@@ -2519,7 +5322,7 @@ func (s *PathConf) GetRpiCameraDenoise() OptString {
 }
 
 // GetRpiCameraShutter returns the value of RpiCameraShutter.
-func (s *PathConf) GetRpiCameraShutter() OptInt {
+func (s *PathConf) GetRpiCameraShutter() OptUint64 {
 	return s.RpiCameraShutter
 }
 
@@ -2589,7 +5392,7 @@ func (s *PathConf) GetRpiCameraAfWindow() OptString {
 }
 
 // GetRpiCameraFlickerPeriod returns the value of RpiCameraFlickerPeriod.
-func (s *PathConf) GetRpiCameraFlickerPeriod() OptInt {
+func (s *PathConf) GetRpiCameraFlickerPeriod() OptUint64 {
 	return s.RpiCameraFlickerPeriod
 }
 
@@ -2609,28 +5412,53 @@ func (s *PathConf) GetRpiCameraCodec() OptString {
 }
 
 // GetRpiCameraIDRPeriod returns the value of RpiCameraIDRPeriod.
-func (s *PathConf) GetRpiCameraIDRPeriod() OptInt {
+func (s *PathConf) GetRpiCameraIDRPeriod() OptUint64 {
 	return s.RpiCameraIDRPeriod
 }
 
 // GetRpiCameraBitrate returns the value of RpiCameraBitrate.
-func (s *PathConf) GetRpiCameraBitrate() OptInt {
+func (s *PathConf) GetRpiCameraBitrate() OptUint64 {
 	return s.RpiCameraBitrate
 }
 
 // GetRpiCameraProfile returns the value of RpiCameraProfile.
-func (s *PathConf) GetRpiCameraProfile() OptString {
+func (s *PathConf) GetRpiCameraProfile() OptNilString {
 	return s.RpiCameraProfile
 }
 
 // GetRpiCameraLevel returns the value of RpiCameraLevel.
-func (s *PathConf) GetRpiCameraLevel() OptString {
+func (s *PathConf) GetRpiCameraLevel() OptNilString {
 	return s.RpiCameraLevel
 }
 
+// GetRpiCameraHardwareH264Profile returns the value of RpiCameraHardwareH264Profile.
+func (s *PathConf) GetRpiCameraHardwareH264Profile() OptString {
+	return s.RpiCameraHardwareH264Profile
+}
+
+// GetRpiCameraHardwareH264Level returns the value of RpiCameraHardwareH264Level.
+func (s *PathConf) GetRpiCameraHardwareH264Level() OptString {
+	return s.RpiCameraHardwareH264Level
+}
+
+// GetRpiCameraSoftwareH264Profile returns the value of RpiCameraSoftwareH264Profile.
+func (s *PathConf) GetRpiCameraSoftwareH264Profile() OptString {
+	return s.RpiCameraSoftwareH264Profile
+}
+
+// GetRpiCameraSoftwareH264Level returns the value of RpiCameraSoftwareH264Level.
+func (s *PathConf) GetRpiCameraSoftwareH264Level() OptString {
+	return s.RpiCameraSoftwareH264Level
+}
+
 // GetRpiCameraJPEGQuality returns the value of RpiCameraJPEGQuality.
-func (s *PathConf) GetRpiCameraJPEGQuality() OptInt {
+func (s *PathConf) GetRpiCameraJPEGQuality() OptNilUint64 {
 	return s.RpiCameraJPEGQuality
+}
+
+// GetRpiCameraMJPEGQuality returns the value of RpiCameraMJPEGQuality.
+func (s *PathConf) GetRpiCameraMJPEGQuality() OptUint64 {
+	return s.RpiCameraMJPEGQuality
 }
 
 // GetRunOnInit returns the value of RunOnInit.
@@ -2739,7 +5567,7 @@ func (s *PathConf) SetSourceOnDemandCloseAfter(val OptString) {
 }
 
 // SetMaxReaders sets the value of MaxReaders.
-func (s *PathConf) SetMaxReaders(val OptInt) {
+func (s *PathConf) SetMaxReaders(val OptInt64) {
 	s.MaxReaders = val
 }
 
@@ -2749,7 +5577,7 @@ func (s *PathConf) SetSrtReadPassphrase(val OptString) {
 }
 
 // SetFallback sets the value of Fallback.
-func (s *PathConf) SetFallback(val OptString) {
+func (s *PathConf) SetFallback(val OptNilString) {
 	s.Fallback = val
 }
 
@@ -2758,9 +5586,29 @@ func (s *PathConf) SetUseAbsoluteTimestamp(val OptBool) {
 	s.UseAbsoluteTimestamp = val
 }
 
+// SetAlwaysAvailable sets the value of AlwaysAvailable.
+func (s *PathConf) SetAlwaysAvailable(val OptBool) {
+	s.AlwaysAvailable = val
+}
+
+// SetAlwaysAvailableTracks sets the value of AlwaysAvailableTracks.
+func (s *PathConf) SetAlwaysAvailableTracks(val []AlwaysAvailableTrack) {
+	s.AlwaysAvailableTracks = val
+}
+
+// SetAlwaysAvailableFile sets the value of AlwaysAvailableFile.
+func (s *PathConf) SetAlwaysAvailableFile(val OptString) {
+	s.AlwaysAvailableFile = val
+}
+
 // SetRecord sets the value of Record.
 func (s *PathConf) SetRecord(val OptBool) {
 	s.Record = val
+}
+
+// SetPlayback sets the value of Playback.
+func (s *PathConf) SetPlayback(val OptNilBool) {
+	s.Playback = val
 }
 
 // SetRecordPath sets the value of RecordPath.
@@ -2769,13 +5617,18 @@ func (s *PathConf) SetRecordPath(val OptString) {
 }
 
 // SetRecordFormat sets the value of RecordFormat.
-func (s *PathConf) SetRecordFormat(val OptString) {
+func (s *PathConf) SetRecordFormat(val OptRecordFormat) {
 	s.RecordFormat = val
 }
 
 // SetRecordPartDuration sets the value of RecordPartDuration.
 func (s *PathConf) SetRecordPartDuration(val OptString) {
 	s.RecordPartDuration = val
+}
+
+// SetRecordMaxPartSize sets the value of RecordMaxPartSize.
+func (s *PathConf) SetRecordMaxPartSize(val OptString) {
+	s.RecordMaxPartSize = val
 }
 
 // SetRecordSegmentDuration sets the value of RecordSegmentDuration.
@@ -2788,9 +5641,44 @@ func (s *PathConf) SetRecordDeleteAfter(val OptString) {
 	s.RecordDeleteAfter = val
 }
 
+// SetPublishUser sets the value of PublishUser.
+func (s *PathConf) SetPublishUser(val OptNilString) {
+	s.PublishUser = val
+}
+
+// SetPublishPass sets the value of PublishPass.
+func (s *PathConf) SetPublishPass(val OptNilString) {
+	s.PublishPass = val
+}
+
+// SetPublishIPs sets the value of PublishIPs.
+func (s *PathConf) SetPublishIPs(val OptNilStringArray) {
+	s.PublishIPs = val
+}
+
+// SetReadUser sets the value of ReadUser.
+func (s *PathConf) SetReadUser(val OptNilString) {
+	s.ReadUser = val
+}
+
+// SetReadPass sets the value of ReadPass.
+func (s *PathConf) SetReadPass(val OptNilString) {
+	s.ReadPass = val
+}
+
+// SetReadIPs sets the value of ReadIPs.
+func (s *PathConf) SetReadIPs(val OptNilStringArray) {
+	s.ReadIPs = val
+}
+
 // SetOverridePublisher sets the value of OverridePublisher.
 func (s *PathConf) SetOverridePublisher(val OptBool) {
 	s.OverridePublisher = val
+}
+
+// SetDisablePublisherOverride sets the value of DisablePublisherOverride.
+func (s *PathConf) SetDisablePublisherOverride(val OptNilBool) {
+	s.DisablePublisherOverride = val
 }
 
 // SetSrtPublishPassphrase sets the value of SrtPublishPassphrase.
@@ -2798,8 +5686,13 @@ func (s *PathConf) SetSrtPublishPassphrase(val OptString) {
 	s.SrtPublishPassphrase = val
 }
 
+// SetRtspDemuxMpegts sets the value of RtspDemuxMpegts.
+func (s *PathConf) SetRtspDemuxMpegts(val OptBool) {
+	s.RtspDemuxMpegts = val
+}
+
 // SetRtspTransport sets the value of RtspTransport.
-func (s *PathConf) SetRtspTransport(val OptString) {
+func (s *PathConf) SetRtspTransport(val OptRTSPTransport) {
 	s.RtspTransport = val
 }
 
@@ -2808,8 +5701,18 @@ func (s *PathConf) SetRtspAnyPort(val OptBool) {
 	s.RtspAnyPort = val
 }
 
+// SetSourceProtocol sets the value of SourceProtocol.
+func (s *PathConf) SetSourceProtocol(val OptNilRTSPTransport) {
+	s.SourceProtocol = val
+}
+
+// SetSourceAnyPortEnable sets the value of SourceAnyPortEnable.
+func (s *PathConf) SetSourceAnyPortEnable(val OptNilBool) {
+	s.SourceAnyPortEnable = val
+}
+
 // SetRtspRangeType sets the value of RtspRangeType.
-func (s *PathConf) SetRtspRangeType(val OptString) {
+func (s *PathConf) SetRtspRangeType(val OptRTSPRangeType) {
 	s.RtspRangeType = val
 }
 
@@ -2818,13 +5721,58 @@ func (s *PathConf) SetRtspRangeStart(val OptString) {
 	s.RtspRangeStart = val
 }
 
+// SetRtspUDPReadBufferSize sets the value of RtspUDPReadBufferSize.
+func (s *PathConf) SetRtspUDPReadBufferSize(val OptNilUint64) {
+	s.RtspUDPReadBufferSize = val
+}
+
+// SetRtspUDPSourcePortRange sets the value of RtspUDPSourcePortRange.
+func (s *PathConf) SetRtspUDPSourcePortRange(val []uint64) {
+	s.RtspUDPSourcePortRange = val
+}
+
+// SetMpegtsUDPReadBufferSize sets the value of MpegtsUDPReadBufferSize.
+func (s *PathConf) SetMpegtsUDPReadBufferSize(val OptNilUint64) {
+	s.MpegtsUDPReadBufferSize = val
+}
+
+// SetRtpSDP sets the value of RtpSDP.
+func (s *PathConf) SetRtpSDP(val OptString) {
+	s.RtpSDP = val
+}
+
+// SetRtpUDPReadBufferSize sets the value of RtpUDPReadBufferSize.
+func (s *PathConf) SetRtpUDPReadBufferSize(val OptNilUint64) {
+	s.RtpUDPReadBufferSize = val
+}
+
+// SetWhepBearerToken sets the value of WhepBearerToken.
+func (s *PathConf) SetWhepBearerToken(val OptString) {
+	s.WhepBearerToken = val
+}
+
+// SetWhepSTUNGatherTimeout sets the value of WhepSTUNGatherTimeout.
+func (s *PathConf) SetWhepSTUNGatherTimeout(val OptString) {
+	s.WhepSTUNGatherTimeout = val
+}
+
+// SetWhepHandshakeTimeout sets the value of WhepHandshakeTimeout.
+func (s *PathConf) SetWhepHandshakeTimeout(val OptString) {
+	s.WhepHandshakeTimeout = val
+}
+
+// SetWhepTrackGatherTimeout sets the value of WhepTrackGatherTimeout.
+func (s *PathConf) SetWhepTrackGatherTimeout(val OptString) {
+	s.WhepTrackGatherTimeout = val
+}
+
 // SetSourceRedirect sets the value of SourceRedirect.
 func (s *PathConf) SetSourceRedirect(val OptString) {
 	s.SourceRedirect = val
 }
 
 // SetRpiCameraCamID sets the value of RpiCameraCamID.
-func (s *PathConf) SetRpiCameraCamID(val OptInt) {
+func (s *PathConf) SetRpiCameraCamID(val OptUint64) {
 	s.RpiCameraCamID = val
 }
 
@@ -2834,12 +5782,12 @@ func (s *PathConf) SetRpiCameraSecondary(val OptBool) {
 }
 
 // SetRpiCameraWidth sets the value of RpiCameraWidth.
-func (s *PathConf) SetRpiCameraWidth(val OptInt) {
+func (s *PathConf) SetRpiCameraWidth(val OptUint64) {
 	s.RpiCameraWidth = val
 }
 
 // SetRpiCameraHeight sets the value of RpiCameraHeight.
-func (s *PathConf) SetRpiCameraHeight(val OptInt) {
+func (s *PathConf) SetRpiCameraHeight(val OptUint64) {
 	s.RpiCameraHeight = val
 }
 
@@ -2894,7 +5842,7 @@ func (s *PathConf) SetRpiCameraDenoise(val OptString) {
 }
 
 // SetRpiCameraShutter sets the value of RpiCameraShutter.
-func (s *PathConf) SetRpiCameraShutter(val OptInt) {
+func (s *PathConf) SetRpiCameraShutter(val OptUint64) {
 	s.RpiCameraShutter = val
 }
 
@@ -2964,7 +5912,7 @@ func (s *PathConf) SetRpiCameraAfWindow(val OptString) {
 }
 
 // SetRpiCameraFlickerPeriod sets the value of RpiCameraFlickerPeriod.
-func (s *PathConf) SetRpiCameraFlickerPeriod(val OptInt) {
+func (s *PathConf) SetRpiCameraFlickerPeriod(val OptUint64) {
 	s.RpiCameraFlickerPeriod = val
 }
 
@@ -2984,28 +5932,53 @@ func (s *PathConf) SetRpiCameraCodec(val OptString) {
 }
 
 // SetRpiCameraIDRPeriod sets the value of RpiCameraIDRPeriod.
-func (s *PathConf) SetRpiCameraIDRPeriod(val OptInt) {
+func (s *PathConf) SetRpiCameraIDRPeriod(val OptUint64) {
 	s.RpiCameraIDRPeriod = val
 }
 
 // SetRpiCameraBitrate sets the value of RpiCameraBitrate.
-func (s *PathConf) SetRpiCameraBitrate(val OptInt) {
+func (s *PathConf) SetRpiCameraBitrate(val OptUint64) {
 	s.RpiCameraBitrate = val
 }
 
 // SetRpiCameraProfile sets the value of RpiCameraProfile.
-func (s *PathConf) SetRpiCameraProfile(val OptString) {
+func (s *PathConf) SetRpiCameraProfile(val OptNilString) {
 	s.RpiCameraProfile = val
 }
 
 // SetRpiCameraLevel sets the value of RpiCameraLevel.
-func (s *PathConf) SetRpiCameraLevel(val OptString) {
+func (s *PathConf) SetRpiCameraLevel(val OptNilString) {
 	s.RpiCameraLevel = val
 }
 
+// SetRpiCameraHardwareH264Profile sets the value of RpiCameraHardwareH264Profile.
+func (s *PathConf) SetRpiCameraHardwareH264Profile(val OptString) {
+	s.RpiCameraHardwareH264Profile = val
+}
+
+// SetRpiCameraHardwareH264Level sets the value of RpiCameraHardwareH264Level.
+func (s *PathConf) SetRpiCameraHardwareH264Level(val OptString) {
+	s.RpiCameraHardwareH264Level = val
+}
+
+// SetRpiCameraSoftwareH264Profile sets the value of RpiCameraSoftwareH264Profile.
+func (s *PathConf) SetRpiCameraSoftwareH264Profile(val OptString) {
+	s.RpiCameraSoftwareH264Profile = val
+}
+
+// SetRpiCameraSoftwareH264Level sets the value of RpiCameraSoftwareH264Level.
+func (s *PathConf) SetRpiCameraSoftwareH264Level(val OptString) {
+	s.RpiCameraSoftwareH264Level = val
+}
+
 // SetRpiCameraJPEGQuality sets the value of RpiCameraJPEGQuality.
-func (s *PathConf) SetRpiCameraJPEGQuality(val OptInt) {
+func (s *PathConf) SetRpiCameraJPEGQuality(val OptNilUint64) {
 	s.RpiCameraJPEGQuality = val
+}
+
+// SetRpiCameraMJPEGQuality sets the value of RpiCameraMJPEGQuality.
+func (s *PathConf) SetRpiCameraMJPEGQuality(val OptUint64) {
+	s.RpiCameraMJPEGQuality = val
 }
 
 // SetRunOnInit sets the value of RunOnInit.
@@ -3088,18 +6061,18 @@ func (*PathConf) configPathsGetRes()        {}
 
 // Ref: #/components/schemas/PathConfList
 type PathConfList struct {
-	PageCount OptInt     `json:"pageCount"`
-	ItemCount OptInt     `json:"itemCount"`
+	PageCount OptInt64   `json:"pageCount"`
+	ItemCount OptInt64   `json:"itemCount"`
 	Items     []PathConf `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *PathConfList) GetPageCount() OptInt {
+func (s *PathConfList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *PathConfList) GetItemCount() OptInt {
+func (s *PathConfList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -3109,12 +6082,12 @@ func (s *PathConfList) GetItems() []PathConf {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *PathConfList) SetPageCount(val OptInt) {
+func (s *PathConfList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *PathConfList) SetItemCount(val OptInt) {
+func (s *PathConfList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -3127,18 +6100,18 @@ func (*PathConfList) configPathsListRes() {}
 
 // Ref: #/components/schemas/PathList
 type PathList struct {
-	PageCount OptInt `json:"pageCount"`
-	ItemCount OptInt `json:"itemCount"`
-	Items     []Path `json:"items"`
+	PageCount OptInt64 `json:"pageCount"`
+	ItemCount OptInt64 `json:"itemCount"`
+	Items     []Path   `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *PathList) GetPageCount() OptInt {
+func (s *PathList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *PathList) GetItemCount() OptInt {
+func (s *PathList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -3148,12 +6121,12 @@ func (s *PathList) GetItems() []Path {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *PathList) SetPageCount(val OptInt) {
+func (s *PathList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *PathList) SetItemCount(val OptInt) {
+func (s *PathList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -3190,12 +6163,16 @@ func (s *PathReader) SetID(val OptString) {
 	s.ID = val
 }
 
+// Ref: #/components/schemas/PathReaderType
 type PathReaderType string
 
 const (
-	PathReaderTypeHlsMuxer      PathReaderType = "hlsMuxer"
+	PathReaderTypeHlsSession    PathReaderType = "hlsSession"
 	PathReaderTypeRtmpConn      PathReaderType = "rtmpConn"
+	PathReaderTypeRtmpsConn     PathReaderType = "rtmpsConn"
+	PathReaderTypeRtspConn      PathReaderType = "rtspConn"
 	PathReaderTypeRtspSession   PathReaderType = "rtspSession"
+	PathReaderTypeRtspsConn     PathReaderType = "rtspsConn"
 	PathReaderTypeRtspsSession  PathReaderType = "rtspsSession"
 	PathReaderTypeSrtConn       PathReaderType = "srtConn"
 	PathReaderTypeWebRTCSession PathReaderType = "webRTCSession"
@@ -3204,9 +6181,12 @@ const (
 // AllValues returns all PathReaderType values.
 func (PathReaderType) AllValues() []PathReaderType {
 	return []PathReaderType{
-		PathReaderTypeHlsMuxer,
+		PathReaderTypeHlsSession,
 		PathReaderTypeRtmpConn,
+		PathReaderTypeRtmpsConn,
+		PathReaderTypeRtspConn,
 		PathReaderTypeRtspSession,
+		PathReaderTypeRtspsConn,
 		PathReaderTypeRtspsSession,
 		PathReaderTypeSrtConn,
 		PathReaderTypeWebRTCSession,
@@ -3216,11 +6196,17 @@ func (PathReaderType) AllValues() []PathReaderType {
 // MarshalText implements encoding.TextMarshaler.
 func (s PathReaderType) MarshalText() ([]byte, error) {
 	switch s {
-	case PathReaderTypeHlsMuxer:
+	case PathReaderTypeHlsSession:
 		return []byte(s), nil
 	case PathReaderTypeRtmpConn:
 		return []byte(s), nil
+	case PathReaderTypeRtmpsConn:
+		return []byte(s), nil
+	case PathReaderTypeRtspConn:
+		return []byte(s), nil
 	case PathReaderTypeRtspSession:
+		return []byte(s), nil
+	case PathReaderTypeRtspsConn:
 		return []byte(s), nil
 	case PathReaderTypeRtspsSession:
 		return []byte(s), nil
@@ -3236,14 +6222,23 @@ func (s PathReaderType) MarshalText() ([]byte, error) {
 // UnmarshalText implements encoding.TextUnmarshaler.
 func (s *PathReaderType) UnmarshalText(data []byte) error {
 	switch PathReaderType(data) {
-	case PathReaderTypeHlsMuxer:
-		*s = PathReaderTypeHlsMuxer
+	case PathReaderTypeHlsSession:
+		*s = PathReaderTypeHlsSession
 		return nil
 	case PathReaderTypeRtmpConn:
 		*s = PathReaderTypeRtmpConn
 		return nil
+	case PathReaderTypeRtmpsConn:
+		*s = PathReaderTypeRtmpsConn
+		return nil
+	case PathReaderTypeRtspConn:
+		*s = PathReaderTypeRtspConn
+		return nil
 	case PathReaderTypeRtspSession:
 		*s = PathReaderTypeRtspSession
+		return nil
+	case PathReaderTypeRtspsConn:
+		*s = PathReaderTypeRtspsConn
 		return nil
 	case PathReaderTypeRtspsSession:
 		*s = PathReaderTypeRtspsSession
@@ -3285,6 +6280,7 @@ func (s *PathSource) SetID(val OptString) {
 	s.ID = val
 }
 
+// Ref: #/components/schemas/PathSourceType
 type PathSourceType string
 
 const (
@@ -3292,13 +6288,15 @@ const (
 	PathSourceTypeRedirect        PathSourceType = "redirect"
 	PathSourceTypeRpiCameraSource PathSourceType = "rpiCameraSource"
 	PathSourceTypeRtmpConn        PathSourceType = "rtmpConn"
+	PathSourceTypeRtmpsConn       PathSourceType = "rtmpsConn"
 	PathSourceTypeRtmpSource      PathSourceType = "rtmpSource"
 	PathSourceTypeRtspSession     PathSourceType = "rtspSession"
 	PathSourceTypeRtspSource      PathSourceType = "rtspSource"
 	PathSourceTypeRtspsSession    PathSourceType = "rtspsSession"
 	PathSourceTypeSrtConn         PathSourceType = "srtConn"
 	PathSourceTypeSrtSource       PathSourceType = "srtSource"
-	PathSourceTypeUdpSource       PathSourceType = "udpSource"
+	PathSourceTypeMpegtsSource    PathSourceType = "mpegtsSource"
+	PathSourceTypeRtpSource       PathSourceType = "rtpSource"
 	PathSourceTypeWebRTCSession   PathSourceType = "webRTCSession"
 	PathSourceTypeWebRTCSource    PathSourceType = "webRTCSource"
 )
@@ -3310,13 +6308,15 @@ func (PathSourceType) AllValues() []PathSourceType {
 		PathSourceTypeRedirect,
 		PathSourceTypeRpiCameraSource,
 		PathSourceTypeRtmpConn,
+		PathSourceTypeRtmpsConn,
 		PathSourceTypeRtmpSource,
 		PathSourceTypeRtspSession,
 		PathSourceTypeRtspSource,
 		PathSourceTypeRtspsSession,
 		PathSourceTypeSrtConn,
 		PathSourceTypeSrtSource,
-		PathSourceTypeUdpSource,
+		PathSourceTypeMpegtsSource,
+		PathSourceTypeRtpSource,
 		PathSourceTypeWebRTCSession,
 		PathSourceTypeWebRTCSource,
 	}
@@ -3333,6 +6333,8 @@ func (s PathSourceType) MarshalText() ([]byte, error) {
 		return []byte(s), nil
 	case PathSourceTypeRtmpConn:
 		return []byte(s), nil
+	case PathSourceTypeRtmpsConn:
+		return []byte(s), nil
 	case PathSourceTypeRtmpSource:
 		return []byte(s), nil
 	case PathSourceTypeRtspSession:
@@ -3345,7 +6347,9 @@ func (s PathSourceType) MarshalText() ([]byte, error) {
 		return []byte(s), nil
 	case PathSourceTypeSrtSource:
 		return []byte(s), nil
-	case PathSourceTypeUdpSource:
+	case PathSourceTypeMpegtsSource:
+		return []byte(s), nil
+	case PathSourceTypeRtpSource:
 		return []byte(s), nil
 	case PathSourceTypeWebRTCSession:
 		return []byte(s), nil
@@ -3371,6 +6375,9 @@ func (s *PathSourceType) UnmarshalText(data []byte) error {
 	case PathSourceTypeRtmpConn:
 		*s = PathSourceTypeRtmpConn
 		return nil
+	case PathSourceTypeRtmpsConn:
+		*s = PathSourceTypeRtmpsConn
+		return nil
 	case PathSourceTypeRtmpSource:
 		*s = PathSourceTypeRtmpSource
 		return nil
@@ -3389,8 +6396,11 @@ func (s *PathSourceType) UnmarshalText(data []byte) error {
 	case PathSourceTypeSrtSource:
 		*s = PathSourceTypeSrtSource
 		return nil
-	case PathSourceTypeUdpSource:
-		*s = PathSourceTypeUdpSource
+	case PathSourceTypeMpegtsSource:
+		*s = PathSourceTypeMpegtsSource
+		return nil
+	case PathSourceTypeRtpSource:
+		*s = PathSourceTypeRtpSource
 		return nil
 	case PathSourceTypeWebRTCSession:
 		*s = PathSourceTypeWebRTCSession
@@ -3402,6 +6412,216 @@ func (s *PathSourceType) UnmarshalText(data []byte) error {
 		return errors.Errorf("invalid value: %q", data)
 	}
 }
+
+// Ref: #/components/schemas/PathTrack
+type PathTrack struct {
+	Codec      OptPathTrackCodec         `json:"codec"`
+	CodecProps OptNilPathTrackCodecProps `json:"codecProps"`
+}
+
+// GetCodec returns the value of Codec.
+func (s *PathTrack) GetCodec() OptPathTrackCodec {
+	return s.Codec
+}
+
+// GetCodecProps returns the value of CodecProps.
+func (s *PathTrack) GetCodecProps() OptNilPathTrackCodecProps {
+	return s.CodecProps
+}
+
+// SetCodec sets the value of Codec.
+func (s *PathTrack) SetCodec(val OptPathTrackCodec) {
+	s.Codec = val
+}
+
+// SetCodecProps sets the value of CodecProps.
+func (s *PathTrack) SetCodecProps(val OptNilPathTrackCodecProps) {
+	s.CodecProps = val
+}
+
+// Ref: #/components/schemas/PathTrackCodec
+type PathTrackCodec string
+
+const (
+	PathTrackCodecAV1            PathTrackCodec = "AV1"
+	PathTrackCodecVP9            PathTrackCodec = "VP9"
+	PathTrackCodecVP8            PathTrackCodec = "VP8"
+	PathTrackCodecH265           PathTrackCodec = "H265"
+	PathTrackCodecH264           PathTrackCodec = "H264"
+	PathTrackCodecMPEG4Video     PathTrackCodec = "MPEG-4 Video"
+	PathTrackCodecMPEG12Video    PathTrackCodec = "MPEG-1/2 Video"
+	PathTrackCodecMJPEG          PathTrackCodec = "M-JPEG"
+	PathTrackCodecOpus           PathTrackCodec = "Opus"
+	PathTrackCodecVorbis         PathTrackCodec = "Vorbis"
+	PathTrackCodecMPEG4Audio     PathTrackCodec = "MPEG-4 Audio"
+	PathTrackCodecMPEG4AudioLATM PathTrackCodec = "MPEG-4 Audio LATM"
+	PathTrackCodecMPEG12Audio    PathTrackCodec = "MPEG-1/2 Audio"
+	PathTrackCodecAC3            PathTrackCodec = "AC3"
+	PathTrackCodecSpeex          PathTrackCodec = "Speex"
+	PathTrackCodecG726           PathTrackCodec = "G726"
+	PathTrackCodecG722           PathTrackCodec = "G722"
+	PathTrackCodecG711           PathTrackCodec = "G711"
+	PathTrackCodecLPCM           PathTrackCodec = "LPCM"
+	PathTrackCodecMPEGTS         PathTrackCodec = "MPEG-TS"
+	PathTrackCodecKLV            PathTrackCodec = "KLV"
+	PathTrackCodecGeneric        PathTrackCodec = "Generic"
+)
+
+// AllValues returns all PathTrackCodec values.
+func (PathTrackCodec) AllValues() []PathTrackCodec {
+	return []PathTrackCodec{
+		PathTrackCodecAV1,
+		PathTrackCodecVP9,
+		PathTrackCodecVP8,
+		PathTrackCodecH265,
+		PathTrackCodecH264,
+		PathTrackCodecMPEG4Video,
+		PathTrackCodecMPEG12Video,
+		PathTrackCodecMJPEG,
+		PathTrackCodecOpus,
+		PathTrackCodecVorbis,
+		PathTrackCodecMPEG4Audio,
+		PathTrackCodecMPEG4AudioLATM,
+		PathTrackCodecMPEG12Audio,
+		PathTrackCodecAC3,
+		PathTrackCodecSpeex,
+		PathTrackCodecG726,
+		PathTrackCodecG722,
+		PathTrackCodecG711,
+		PathTrackCodecLPCM,
+		PathTrackCodecMPEGTS,
+		PathTrackCodecKLV,
+		PathTrackCodecGeneric,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s PathTrackCodec) MarshalText() ([]byte, error) {
+	switch s {
+	case PathTrackCodecAV1:
+		return []byte(s), nil
+	case PathTrackCodecVP9:
+		return []byte(s), nil
+	case PathTrackCodecVP8:
+		return []byte(s), nil
+	case PathTrackCodecH265:
+		return []byte(s), nil
+	case PathTrackCodecH264:
+		return []byte(s), nil
+	case PathTrackCodecMPEG4Video:
+		return []byte(s), nil
+	case PathTrackCodecMPEG12Video:
+		return []byte(s), nil
+	case PathTrackCodecMJPEG:
+		return []byte(s), nil
+	case PathTrackCodecOpus:
+		return []byte(s), nil
+	case PathTrackCodecVorbis:
+		return []byte(s), nil
+	case PathTrackCodecMPEG4Audio:
+		return []byte(s), nil
+	case PathTrackCodecMPEG4AudioLATM:
+		return []byte(s), nil
+	case PathTrackCodecMPEG12Audio:
+		return []byte(s), nil
+	case PathTrackCodecAC3:
+		return []byte(s), nil
+	case PathTrackCodecSpeex:
+		return []byte(s), nil
+	case PathTrackCodecG726:
+		return []byte(s), nil
+	case PathTrackCodecG722:
+		return []byte(s), nil
+	case PathTrackCodecG711:
+		return []byte(s), nil
+	case PathTrackCodecLPCM:
+		return []byte(s), nil
+	case PathTrackCodecMPEGTS:
+		return []byte(s), nil
+	case PathTrackCodecKLV:
+		return []byte(s), nil
+	case PathTrackCodecGeneric:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *PathTrackCodec) UnmarshalText(data []byte) error {
+	switch PathTrackCodec(data) {
+	case PathTrackCodecAV1:
+		*s = PathTrackCodecAV1
+		return nil
+	case PathTrackCodecVP9:
+		*s = PathTrackCodecVP9
+		return nil
+	case PathTrackCodecVP8:
+		*s = PathTrackCodecVP8
+		return nil
+	case PathTrackCodecH265:
+		*s = PathTrackCodecH265
+		return nil
+	case PathTrackCodecH264:
+		*s = PathTrackCodecH264
+		return nil
+	case PathTrackCodecMPEG4Video:
+		*s = PathTrackCodecMPEG4Video
+		return nil
+	case PathTrackCodecMPEG12Video:
+		*s = PathTrackCodecMPEG12Video
+		return nil
+	case PathTrackCodecMJPEG:
+		*s = PathTrackCodecMJPEG
+		return nil
+	case PathTrackCodecOpus:
+		*s = PathTrackCodecOpus
+		return nil
+	case PathTrackCodecVorbis:
+		*s = PathTrackCodecVorbis
+		return nil
+	case PathTrackCodecMPEG4Audio:
+		*s = PathTrackCodecMPEG4Audio
+		return nil
+	case PathTrackCodecMPEG4AudioLATM:
+		*s = PathTrackCodecMPEG4AudioLATM
+		return nil
+	case PathTrackCodecMPEG12Audio:
+		*s = PathTrackCodecMPEG12Audio
+		return nil
+	case PathTrackCodecAC3:
+		*s = PathTrackCodecAC3
+		return nil
+	case PathTrackCodecSpeex:
+		*s = PathTrackCodecSpeex
+		return nil
+	case PathTrackCodecG726:
+		*s = PathTrackCodecG726
+		return nil
+	case PathTrackCodecG722:
+		*s = PathTrackCodecG722
+		return nil
+	case PathTrackCodecG711:
+		*s = PathTrackCodecG711
+		return nil
+	case PathTrackCodecLPCM:
+		*s = PathTrackCodecLPCM
+		return nil
+	case PathTrackCodecMPEGTS:
+		*s = PathTrackCodecMPEGTS
+		return nil
+	case PathTrackCodecKLV:
+		*s = PathTrackCodecKLV
+		return nil
+	case PathTrackCodecGeneric:
+		*s = PathTrackCodecGeneric
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+type PathTrackCodecProps json2.RawMessage
 
 type PathsGetBadRequest Error
 
@@ -3425,18 +6645,24 @@ func (*PathsListInternalServerError) pathsListRes() {}
 
 // Ref: #/components/schemas/RTMPConn
 type RTMPConn struct {
-	ID            OptString        `json:"id"`
-	Created       OptString        `json:"created"`
-	RemoteAddr    OptString        `json:"remoteAddr"`
-	State         OptRTMPConnState `json:"state"`
-	Path          OptString        `json:"path"`
-	Query         OptString        `json:"query"`
-	BytesReceived OptInt64         `json:"bytesReceived"`
-	BytesSent     OptInt64         `json:"bytesSent"`
+	ID                      OptUUID          `json:"id"`
+	Created                 OptString        `json:"created"`
+	RemoteAddr              OptString        `json:"remoteAddr"`
+	State                   OptRTMPConnState `json:"state"`
+	Path                    OptString        `json:"path"`
+	Query                   OptString        `json:"query"`
+	User                    OptString        `json:"user"`
+	InboundBytes            OptUint64        `json:"inboundBytes"`
+	OutboundBytes           OptUint64        `json:"outboundBytes"`
+	OutboundFramesDiscarded OptUint64        `json:"outboundFramesDiscarded"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesReceived OptUint64 `json:"bytesReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64 `json:"bytesSent"`
 }
 
 // GetID returns the value of ID.
-func (s *RTMPConn) GetID() OptString {
+func (s *RTMPConn) GetID() OptUUID {
 	return s.ID
 }
 
@@ -3465,18 +6691,38 @@ func (s *RTMPConn) GetQuery() OptString {
 	return s.Query
 }
 
+// GetUser returns the value of User.
+func (s *RTMPConn) GetUser() OptString {
+	return s.User
+}
+
+// GetInboundBytes returns the value of InboundBytes.
+func (s *RTMPConn) GetInboundBytes() OptUint64 {
+	return s.InboundBytes
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *RTMPConn) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// GetOutboundFramesDiscarded returns the value of OutboundFramesDiscarded.
+func (s *RTMPConn) GetOutboundFramesDiscarded() OptUint64 {
+	return s.OutboundFramesDiscarded
+}
+
 // GetBytesReceived returns the value of BytesReceived.
-func (s *RTMPConn) GetBytesReceived() OptInt64 {
+func (s *RTMPConn) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *RTMPConn) GetBytesSent() OptInt64 {
+func (s *RTMPConn) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
 // SetID sets the value of ID.
-func (s *RTMPConn) SetID(val OptString) {
+func (s *RTMPConn) SetID(val OptUUID) {
 	s.ID = val
 }
 
@@ -3505,13 +6751,33 @@ func (s *RTMPConn) SetQuery(val OptString) {
 	s.Query = val
 }
 
+// SetUser sets the value of User.
+func (s *RTMPConn) SetUser(val OptString) {
+	s.User = val
+}
+
+// SetInboundBytes sets the value of InboundBytes.
+func (s *RTMPConn) SetInboundBytes(val OptUint64) {
+	s.InboundBytes = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *RTMPConn) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+// SetOutboundFramesDiscarded sets the value of OutboundFramesDiscarded.
+func (s *RTMPConn) SetOutboundFramesDiscarded(val OptUint64) {
+	s.OutboundFramesDiscarded = val
+}
+
 // SetBytesReceived sets the value of BytesReceived.
-func (s *RTMPConn) SetBytesReceived(val OptInt64) {
+func (s *RTMPConn) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *RTMPConn) SetBytesSent(val OptInt64) {
+func (s *RTMPConn) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
 }
 
@@ -3520,18 +6786,18 @@ func (*RTMPConn) rtmpsConnectionsGetRes() {}
 
 // Ref: #/components/schemas/RTMPConnList
 type RTMPConnList struct {
-	PageCount OptInt     `json:"pageCount"`
-	ItemCount OptInt     `json:"itemCount"`
+	PageCount OptInt64   `json:"pageCount"`
+	ItemCount OptInt64   `json:"itemCount"`
 	Items     []RTMPConn `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *RTMPConnList) GetPageCount() OptInt {
+func (s *RTMPConnList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *RTMPConnList) GetItemCount() OptInt {
+func (s *RTMPConnList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -3541,12 +6807,12 @@ func (s *RTMPConnList) GetItems() []RTMPConn {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *RTMPConnList) SetPageCount(val OptInt) {
+func (s *RTMPConnList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *RTMPConnList) SetItemCount(val OptInt) {
+func (s *RTMPConnList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -3558,6 +6824,7 @@ func (s *RTMPConnList) SetItems(val []RTMPConn) {
 func (*RTMPConnList) rtmpConnsListRes()  {}
 func (*RTMPConnList) rtmpsConnsListRes() {}
 
+// Ref: #/components/schemas/RTMPConnState
 type RTMPConnState string
 
 const (
@@ -3606,18 +6873,65 @@ func (s *RTMPConnState) UnmarshalText(data []byte) error {
 	}
 }
 
+// Ref: #/components/schemas/RTSPAuthMethod
+type RTSPAuthMethod string
+
+const (
+	RTSPAuthMethodBasic  RTSPAuthMethod = "basic"
+	RTSPAuthMethodDigest RTSPAuthMethod = "digest"
+)
+
+// AllValues returns all RTSPAuthMethod values.
+func (RTSPAuthMethod) AllValues() []RTSPAuthMethod {
+	return []RTSPAuthMethod{
+		RTSPAuthMethodBasic,
+		RTSPAuthMethodDigest,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s RTSPAuthMethod) MarshalText() ([]byte, error) {
+	switch s {
+	case RTSPAuthMethodBasic:
+		return []byte(s), nil
+	case RTSPAuthMethodDigest:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *RTSPAuthMethod) UnmarshalText(data []byte) error {
+	switch RTSPAuthMethod(data) {
+	case RTSPAuthMethodBasic:
+		*s = RTSPAuthMethodBasic
+		return nil
+	case RTSPAuthMethodDigest:
+		*s = RTSPAuthMethodDigest
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
 // Ref: #/components/schemas/RTSPConn
 type RTSPConn struct {
-	ID            OptString    `json:"id"`
-	Created       OptString    `json:"created"`
-	RemoteAddr    OptString    `json:"remoteAddr"`
-	BytesReceived OptInt64     `json:"bytesReceived"`
-	BytesSent     OptInt64     `json:"bytesSent"`
-	Session       OptNilString `json:"session"`
+	ID            OptUUID    `json:"id"`
+	Created       OptString  `json:"created"`
+	RemoteAddr    OptString  `json:"remoteAddr"`
+	Session       OptNilUUID `json:"session"`
+	Tunnel        OptString  `json:"tunnel"`
+	InboundBytes  OptUint64  `json:"inboundBytes"`
+	OutboundBytes OptUint64  `json:"outboundBytes"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesReceived OptUint64 `json:"bytesReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64 `json:"bytesSent"`
 }
 
 // GetID returns the value of ID.
-func (s *RTSPConn) GetID() OptString {
+func (s *RTSPConn) GetID() OptUUID {
 	return s.ID
 }
 
@@ -3631,23 +6945,38 @@ func (s *RTSPConn) GetRemoteAddr() OptString {
 	return s.RemoteAddr
 }
 
+// GetSession returns the value of Session.
+func (s *RTSPConn) GetSession() OptNilUUID {
+	return s.Session
+}
+
+// GetTunnel returns the value of Tunnel.
+func (s *RTSPConn) GetTunnel() OptString {
+	return s.Tunnel
+}
+
+// GetInboundBytes returns the value of InboundBytes.
+func (s *RTSPConn) GetInboundBytes() OptUint64 {
+	return s.InboundBytes
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *RTSPConn) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
 // GetBytesReceived returns the value of BytesReceived.
-func (s *RTSPConn) GetBytesReceived() OptInt64 {
+func (s *RTSPConn) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *RTSPConn) GetBytesSent() OptInt64 {
+func (s *RTSPConn) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
-// GetSession returns the value of Session.
-func (s *RTSPConn) GetSession() OptNilString {
-	return s.Session
-}
-
 // SetID sets the value of ID.
-func (s *RTSPConn) SetID(val OptString) {
+func (s *RTSPConn) SetID(val OptUUID) {
 	s.ID = val
 }
 
@@ -3661,19 +6990,34 @@ func (s *RTSPConn) SetRemoteAddr(val OptString) {
 	s.RemoteAddr = val
 }
 
+// SetSession sets the value of Session.
+func (s *RTSPConn) SetSession(val OptNilUUID) {
+	s.Session = val
+}
+
+// SetTunnel sets the value of Tunnel.
+func (s *RTSPConn) SetTunnel(val OptString) {
+	s.Tunnel = val
+}
+
+// SetInboundBytes sets the value of InboundBytes.
+func (s *RTSPConn) SetInboundBytes(val OptUint64) {
+	s.InboundBytes = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *RTSPConn) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
 // SetBytesReceived sets the value of BytesReceived.
-func (s *RTSPConn) SetBytesReceived(val OptInt64) {
+func (s *RTSPConn) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *RTSPConn) SetBytesSent(val OptInt64) {
+func (s *RTSPConn) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
-}
-
-// SetSession sets the value of Session.
-func (s *RTSPConn) SetSession(val OptNilString) {
-	s.Session = val
 }
 
 func (*RTSPConn) rtspConnsGetRes()  {}
@@ -3681,18 +7025,18 @@ func (*RTSPConn) rtspsConnsGetRes() {}
 
 // Ref: #/components/schemas/RTSPConnList
 type RTSPConnList struct {
-	PageCount OptInt     `json:"pageCount"`
-	ItemCount OptInt     `json:"itemCount"`
+	PageCount OptInt64   `json:"pageCount"`
+	ItemCount OptInt64   `json:"itemCount"`
 	Items     []RTSPConn `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *RTSPConnList) GetPageCount() OptInt {
+func (s *RTSPConnList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *RTSPConnList) GetItemCount() OptInt {
+func (s *RTSPConnList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -3702,12 +7046,12 @@ func (s *RTSPConnList) GetItems() []RTSPConn {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *RTSPConnList) SetPageCount(val OptInt) {
+func (s *RTSPConnList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *RTSPConnList) SetItemCount(val OptInt) {
+func (s *RTSPConnList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -3719,29 +7063,110 @@ func (s *RTSPConnList) SetItems(val []RTSPConn) {
 func (*RTSPConnList) rtspConnsListRes()  {}
 func (*RTSPConnList) rtspsConnsListRes() {}
 
+// Ref: #/components/schemas/RTSPRangeType
+type RTSPRangeType string
+
+const (
+	RTSPRangeTypeEmpty RTSPRangeType = ""
+	RTSPRangeTypeClock RTSPRangeType = "clock"
+	RTSPRangeTypeNpt   RTSPRangeType = "npt"
+	RTSPRangeTypeSmpte RTSPRangeType = "smpte"
+)
+
+// AllValues returns all RTSPRangeType values.
+func (RTSPRangeType) AllValues() []RTSPRangeType {
+	return []RTSPRangeType{
+		RTSPRangeTypeEmpty,
+		RTSPRangeTypeClock,
+		RTSPRangeTypeNpt,
+		RTSPRangeTypeSmpte,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s RTSPRangeType) MarshalText() ([]byte, error) {
+	switch s {
+	case RTSPRangeTypeEmpty:
+		return []byte(s), nil
+	case RTSPRangeTypeClock:
+		return []byte(s), nil
+	case RTSPRangeTypeNpt:
+		return []byte(s), nil
+	case RTSPRangeTypeSmpte:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *RTSPRangeType) UnmarshalText(data []byte) error {
+	switch RTSPRangeType(data) {
+	case RTSPRangeTypeEmpty:
+		*s = RTSPRangeTypeEmpty
+		return nil
+	case RTSPRangeTypeClock:
+		*s = RTSPRangeTypeClock
+		return nil
+	case RTSPRangeTypeNpt:
+		*s = RTSPRangeTypeNpt
+		return nil
+	case RTSPRangeTypeSmpte:
+		*s = RTSPRangeTypeSmpte
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
 // Ref: #/components/schemas/RTSPSession
 type RTSPSession struct {
-	ID                  OptString           `json:"id"`
-	Created             OptString           `json:"created"`
-	RemoteAddr          OptString           `json:"remoteAddr"`
-	State               OptRTSPSessionState `json:"state"`
-	Path                OptString           `json:"path"`
-	Query               OptString           `json:"query"`
-	Transport           OptNilString        `json:"transport"`
-	BytesReceived       OptInt64            `json:"bytesReceived"`
-	BytesSent           OptInt64            `json:"bytesSent"`
-	RtpPacketsReceived  OptInt64            `json:"rtpPacketsReceived"`
-	RtpPacketsSent      OptInt64            `json:"rtpPacketsSent"`
-	RtpPacketsLost      OptInt64            `json:"rtpPacketsLost"`
-	RtpPacketsInError   OptInt64            `json:"rtpPacketsInError"`
-	RtpPacketsJitter    OptFloat64          `json:"rtpPacketsJitter"`
-	RtcpPacketsReceived OptInt64            `json:"rtcpPacketsReceived"`
-	RtcpPacketsSent     OptInt64            `json:"rtcpPacketsSent"`
-	RtcpPacketsInError  OptInt64            `json:"rtcpPacketsInError"`
+	ID                             OptUUID             `json:"id"`
+	Created                        OptString           `json:"created"`
+	RemoteAddr                     OptString           `json:"remoteAddr"`
+	State                          OptRTSPSessionState `json:"state"`
+	Path                           OptString           `json:"path"`
+	Query                          OptString           `json:"query"`
+	User                           OptString           `json:"user"`
+	Transport                      OptNilString        `json:"transport"`
+	Profile                        OptNilString        `json:"profile"`
+	Conns                          []uuid.UUID         `json:"conns"`
+	InboundBytes                   OptUint64           `json:"inboundBytes"`
+	InboundRTPPackets              OptUint64           `json:"inboundRTPPackets"`
+	InboundRTPPacketsLost          OptUint64           `json:"inboundRTPPacketsLost"`
+	InboundRTPPacketsInError       OptUint64           `json:"inboundRTPPacketsInError"`
+	InboundRTPPacketsJitter        OptFloat64          `json:"inboundRTPPacketsJitter"`
+	InboundRTCPPackets             OptUint64           `json:"inboundRTCPPackets"`
+	InboundRTCPPacketsInError      OptUint64           `json:"inboundRTCPPacketsInError"`
+	OutboundBytes                  OptUint64           `json:"outboundBytes"`
+	OutboundRTPPackets             OptUint64           `json:"outboundRTPPackets"`
+	OutboundRTPPacketsReportedLost OptUint64           `json:"outboundRTPPacketsReportedLost"`
+	OutboundRTPPacketsDiscarded    OptUint64           `json:"outboundRTPPacketsDiscarded"`
+	OutboundRTCPPackets            OptUint64           `json:"outboundRTCPPackets"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesReceived OptUint64 `json:"bytesReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64 `json:"bytesSent"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsReceived OptUint64 `json:"rtpPacketsReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsSent OptUint64 `json:"rtpPacketsSent"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsLost OptUint64 `json:"rtpPacketsLost"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsInError OptUint64 `json:"rtpPacketsInError"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsJitter OptFloat64 `json:"rtpPacketsJitter"`
+	// Deprecated: schema marks this property as deprecated.
+	RtcpPacketsReceived OptUint64 `json:"rtcpPacketsReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	RtcpPacketsSent OptUint64 `json:"rtcpPacketsSent"`
+	// Deprecated: schema marks this property as deprecated.
+	RtcpPacketsInError OptUint64 `json:"rtcpPacketsInError"`
 }
 
 // GetID returns the value of ID.
-func (s *RTSPSession) GetID() OptString {
+func (s *RTSPSession) GetID() OptUUID {
 	return s.ID
 }
 
@@ -3770,38 +7195,113 @@ func (s *RTSPSession) GetQuery() OptString {
 	return s.Query
 }
 
+// GetUser returns the value of User.
+func (s *RTSPSession) GetUser() OptString {
+	return s.User
+}
+
 // GetTransport returns the value of Transport.
 func (s *RTSPSession) GetTransport() OptNilString {
 	return s.Transport
 }
 
+// GetProfile returns the value of Profile.
+func (s *RTSPSession) GetProfile() OptNilString {
+	return s.Profile
+}
+
+// GetConns returns the value of Conns.
+func (s *RTSPSession) GetConns() []uuid.UUID {
+	return s.Conns
+}
+
+// GetInboundBytes returns the value of InboundBytes.
+func (s *RTSPSession) GetInboundBytes() OptUint64 {
+	return s.InboundBytes
+}
+
+// GetInboundRTPPackets returns the value of InboundRTPPackets.
+func (s *RTSPSession) GetInboundRTPPackets() OptUint64 {
+	return s.InboundRTPPackets
+}
+
+// GetInboundRTPPacketsLost returns the value of InboundRTPPacketsLost.
+func (s *RTSPSession) GetInboundRTPPacketsLost() OptUint64 {
+	return s.InboundRTPPacketsLost
+}
+
+// GetInboundRTPPacketsInError returns the value of InboundRTPPacketsInError.
+func (s *RTSPSession) GetInboundRTPPacketsInError() OptUint64 {
+	return s.InboundRTPPacketsInError
+}
+
+// GetInboundRTPPacketsJitter returns the value of InboundRTPPacketsJitter.
+func (s *RTSPSession) GetInboundRTPPacketsJitter() OptFloat64 {
+	return s.InboundRTPPacketsJitter
+}
+
+// GetInboundRTCPPackets returns the value of InboundRTCPPackets.
+func (s *RTSPSession) GetInboundRTCPPackets() OptUint64 {
+	return s.InboundRTCPPackets
+}
+
+// GetInboundRTCPPacketsInError returns the value of InboundRTCPPacketsInError.
+func (s *RTSPSession) GetInboundRTCPPacketsInError() OptUint64 {
+	return s.InboundRTCPPacketsInError
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *RTSPSession) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// GetOutboundRTPPackets returns the value of OutboundRTPPackets.
+func (s *RTSPSession) GetOutboundRTPPackets() OptUint64 {
+	return s.OutboundRTPPackets
+}
+
+// GetOutboundRTPPacketsReportedLost returns the value of OutboundRTPPacketsReportedLost.
+func (s *RTSPSession) GetOutboundRTPPacketsReportedLost() OptUint64 {
+	return s.OutboundRTPPacketsReportedLost
+}
+
+// GetOutboundRTPPacketsDiscarded returns the value of OutboundRTPPacketsDiscarded.
+func (s *RTSPSession) GetOutboundRTPPacketsDiscarded() OptUint64 {
+	return s.OutboundRTPPacketsDiscarded
+}
+
+// GetOutboundRTCPPackets returns the value of OutboundRTCPPackets.
+func (s *RTSPSession) GetOutboundRTCPPackets() OptUint64 {
+	return s.OutboundRTCPPackets
+}
+
 // GetBytesReceived returns the value of BytesReceived.
-func (s *RTSPSession) GetBytesReceived() OptInt64 {
+func (s *RTSPSession) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *RTSPSession) GetBytesSent() OptInt64 {
+func (s *RTSPSession) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
 // GetRtpPacketsReceived returns the value of RtpPacketsReceived.
-func (s *RTSPSession) GetRtpPacketsReceived() OptInt64 {
+func (s *RTSPSession) GetRtpPacketsReceived() OptUint64 {
 	return s.RtpPacketsReceived
 }
 
 // GetRtpPacketsSent returns the value of RtpPacketsSent.
-func (s *RTSPSession) GetRtpPacketsSent() OptInt64 {
+func (s *RTSPSession) GetRtpPacketsSent() OptUint64 {
 	return s.RtpPacketsSent
 }
 
 // GetRtpPacketsLost returns the value of RtpPacketsLost.
-func (s *RTSPSession) GetRtpPacketsLost() OptInt64 {
+func (s *RTSPSession) GetRtpPacketsLost() OptUint64 {
 	return s.RtpPacketsLost
 }
 
 // GetRtpPacketsInError returns the value of RtpPacketsInError.
-func (s *RTSPSession) GetRtpPacketsInError() OptInt64 {
+func (s *RTSPSession) GetRtpPacketsInError() OptUint64 {
 	return s.RtpPacketsInError
 }
 
@@ -3811,22 +7311,22 @@ func (s *RTSPSession) GetRtpPacketsJitter() OptFloat64 {
 }
 
 // GetRtcpPacketsReceived returns the value of RtcpPacketsReceived.
-func (s *RTSPSession) GetRtcpPacketsReceived() OptInt64 {
+func (s *RTSPSession) GetRtcpPacketsReceived() OptUint64 {
 	return s.RtcpPacketsReceived
 }
 
 // GetRtcpPacketsSent returns the value of RtcpPacketsSent.
-func (s *RTSPSession) GetRtcpPacketsSent() OptInt64 {
+func (s *RTSPSession) GetRtcpPacketsSent() OptUint64 {
 	return s.RtcpPacketsSent
 }
 
 // GetRtcpPacketsInError returns the value of RtcpPacketsInError.
-func (s *RTSPSession) GetRtcpPacketsInError() OptInt64 {
+func (s *RTSPSession) GetRtcpPacketsInError() OptUint64 {
 	return s.RtcpPacketsInError
 }
 
 // SetID sets the value of ID.
-func (s *RTSPSession) SetID(val OptString) {
+func (s *RTSPSession) SetID(val OptUUID) {
 	s.ID = val
 }
 
@@ -3855,38 +7355,113 @@ func (s *RTSPSession) SetQuery(val OptString) {
 	s.Query = val
 }
 
+// SetUser sets the value of User.
+func (s *RTSPSession) SetUser(val OptString) {
+	s.User = val
+}
+
 // SetTransport sets the value of Transport.
 func (s *RTSPSession) SetTransport(val OptNilString) {
 	s.Transport = val
 }
 
+// SetProfile sets the value of Profile.
+func (s *RTSPSession) SetProfile(val OptNilString) {
+	s.Profile = val
+}
+
+// SetConns sets the value of Conns.
+func (s *RTSPSession) SetConns(val []uuid.UUID) {
+	s.Conns = val
+}
+
+// SetInboundBytes sets the value of InboundBytes.
+func (s *RTSPSession) SetInboundBytes(val OptUint64) {
+	s.InboundBytes = val
+}
+
+// SetInboundRTPPackets sets the value of InboundRTPPackets.
+func (s *RTSPSession) SetInboundRTPPackets(val OptUint64) {
+	s.InboundRTPPackets = val
+}
+
+// SetInboundRTPPacketsLost sets the value of InboundRTPPacketsLost.
+func (s *RTSPSession) SetInboundRTPPacketsLost(val OptUint64) {
+	s.InboundRTPPacketsLost = val
+}
+
+// SetInboundRTPPacketsInError sets the value of InboundRTPPacketsInError.
+func (s *RTSPSession) SetInboundRTPPacketsInError(val OptUint64) {
+	s.InboundRTPPacketsInError = val
+}
+
+// SetInboundRTPPacketsJitter sets the value of InboundRTPPacketsJitter.
+func (s *RTSPSession) SetInboundRTPPacketsJitter(val OptFloat64) {
+	s.InboundRTPPacketsJitter = val
+}
+
+// SetInboundRTCPPackets sets the value of InboundRTCPPackets.
+func (s *RTSPSession) SetInboundRTCPPackets(val OptUint64) {
+	s.InboundRTCPPackets = val
+}
+
+// SetInboundRTCPPacketsInError sets the value of InboundRTCPPacketsInError.
+func (s *RTSPSession) SetInboundRTCPPacketsInError(val OptUint64) {
+	s.InboundRTCPPacketsInError = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *RTSPSession) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+// SetOutboundRTPPackets sets the value of OutboundRTPPackets.
+func (s *RTSPSession) SetOutboundRTPPackets(val OptUint64) {
+	s.OutboundRTPPackets = val
+}
+
+// SetOutboundRTPPacketsReportedLost sets the value of OutboundRTPPacketsReportedLost.
+func (s *RTSPSession) SetOutboundRTPPacketsReportedLost(val OptUint64) {
+	s.OutboundRTPPacketsReportedLost = val
+}
+
+// SetOutboundRTPPacketsDiscarded sets the value of OutboundRTPPacketsDiscarded.
+func (s *RTSPSession) SetOutboundRTPPacketsDiscarded(val OptUint64) {
+	s.OutboundRTPPacketsDiscarded = val
+}
+
+// SetOutboundRTCPPackets sets the value of OutboundRTCPPackets.
+func (s *RTSPSession) SetOutboundRTCPPackets(val OptUint64) {
+	s.OutboundRTCPPackets = val
+}
+
 // SetBytesReceived sets the value of BytesReceived.
-func (s *RTSPSession) SetBytesReceived(val OptInt64) {
+func (s *RTSPSession) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *RTSPSession) SetBytesSent(val OptInt64) {
+func (s *RTSPSession) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
 }
 
 // SetRtpPacketsReceived sets the value of RtpPacketsReceived.
-func (s *RTSPSession) SetRtpPacketsReceived(val OptInt64) {
+func (s *RTSPSession) SetRtpPacketsReceived(val OptUint64) {
 	s.RtpPacketsReceived = val
 }
 
 // SetRtpPacketsSent sets the value of RtpPacketsSent.
-func (s *RTSPSession) SetRtpPacketsSent(val OptInt64) {
+func (s *RTSPSession) SetRtpPacketsSent(val OptUint64) {
 	s.RtpPacketsSent = val
 }
 
 // SetRtpPacketsLost sets the value of RtpPacketsLost.
-func (s *RTSPSession) SetRtpPacketsLost(val OptInt64) {
+func (s *RTSPSession) SetRtpPacketsLost(val OptUint64) {
 	s.RtpPacketsLost = val
 }
 
 // SetRtpPacketsInError sets the value of RtpPacketsInError.
-func (s *RTSPSession) SetRtpPacketsInError(val OptInt64) {
+func (s *RTSPSession) SetRtpPacketsInError(val OptUint64) {
 	s.RtpPacketsInError = val
 }
 
@@ -3896,17 +7471,17 @@ func (s *RTSPSession) SetRtpPacketsJitter(val OptFloat64) {
 }
 
 // SetRtcpPacketsReceived sets the value of RtcpPacketsReceived.
-func (s *RTSPSession) SetRtcpPacketsReceived(val OptInt64) {
+func (s *RTSPSession) SetRtcpPacketsReceived(val OptUint64) {
 	s.RtcpPacketsReceived = val
 }
 
 // SetRtcpPacketsSent sets the value of RtcpPacketsSent.
-func (s *RTSPSession) SetRtcpPacketsSent(val OptInt64) {
+func (s *RTSPSession) SetRtcpPacketsSent(val OptUint64) {
 	s.RtcpPacketsSent = val
 }
 
 // SetRtcpPacketsInError sets the value of RtcpPacketsInError.
-func (s *RTSPSession) SetRtcpPacketsInError(val OptInt64) {
+func (s *RTSPSession) SetRtcpPacketsInError(val OptUint64) {
 	s.RtcpPacketsInError = val
 }
 
@@ -3915,18 +7490,18 @@ func (*RTSPSession) rtspsSessionsGetRes() {}
 
 // Ref: #/components/schemas/RTSPSessionList
 type RTSPSessionList struct {
-	PageCount OptInt        `json:"pageCount"`
-	ItemCount OptInt        `json:"itemCount"`
+	PageCount OptInt64      `json:"pageCount"`
+	ItemCount OptInt64      `json:"itemCount"`
 	Items     []RTSPSession `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *RTSPSessionList) GetPageCount() OptInt {
+func (s *RTSPSessionList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *RTSPSessionList) GetItemCount() OptInt {
+func (s *RTSPSessionList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -3936,12 +7511,12 @@ func (s *RTSPSessionList) GetItems() []RTSPSession {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *RTSPSessionList) SetPageCount(val OptInt) {
+func (s *RTSPSessionList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *RTSPSessionList) SetItemCount(val OptInt) {
+func (s *RTSPSessionList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -3953,6 +7528,7 @@ func (s *RTSPSessionList) SetItems(val []RTSPSession) {
 func (*RTSPSessionList) rtspSessionsListRes()  {}
 func (*RTSPSessionList) rtspsSessionsListRes() {}
 
+// Ref: #/components/schemas/RTSPSessionState
 type RTSPSessionState string
 
 const (
@@ -4001,6 +7577,104 @@ func (s *RTSPSessionState) UnmarshalText(data []byte) error {
 	}
 }
 
+// Ref: #/components/schemas/RTSPTransport
+type RTSPTransport string
+
+const (
+	RTSPTransportUDP       RTSPTransport = "udp"
+	RTSPTransportMulticast RTSPTransport = "multicast"
+	RTSPTransportTCP       RTSPTransport = "tcp"
+	RTSPTransportAutomatic RTSPTransport = "automatic"
+)
+
+// AllValues returns all RTSPTransport values.
+func (RTSPTransport) AllValues() []RTSPTransport {
+	return []RTSPTransport{
+		RTSPTransportUDP,
+		RTSPTransportMulticast,
+		RTSPTransportTCP,
+		RTSPTransportAutomatic,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s RTSPTransport) MarshalText() ([]byte, error) {
+	switch s {
+	case RTSPTransportUDP:
+		return []byte(s), nil
+	case RTSPTransportMulticast:
+		return []byte(s), nil
+	case RTSPTransportTCP:
+		return []byte(s), nil
+	case RTSPTransportAutomatic:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *RTSPTransport) UnmarshalText(data []byte) error {
+	switch RTSPTransport(data) {
+	case RTSPTransportUDP:
+		*s = RTSPTransportUDP
+		return nil
+	case RTSPTransportMulticast:
+		*s = RTSPTransportMulticast
+		return nil
+	case RTSPTransportTCP:
+		*s = RTSPTransportTCP
+		return nil
+	case RTSPTransportAutomatic:
+		*s = RTSPTransportAutomatic
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
+// Ref: #/components/schemas/RecordFormat
+type RecordFormat string
+
+const (
+	RecordFormatFmp4   RecordFormat = "fmp4"
+	RecordFormatMpegts RecordFormat = "mpegts"
+)
+
+// AllValues returns all RecordFormat values.
+func (RecordFormat) AllValues() []RecordFormat {
+	return []RecordFormat{
+		RecordFormatFmp4,
+		RecordFormatMpegts,
+	}
+}
+
+// MarshalText implements encoding.TextMarshaler.
+func (s RecordFormat) MarshalText() ([]byte, error) {
+	switch s {
+	case RecordFormatFmp4:
+		return []byte(s), nil
+	case RecordFormatMpegts:
+		return []byte(s), nil
+	default:
+		return nil, errors.Errorf("invalid value: %q", s)
+	}
+}
+
+// UnmarshalText implements encoding.TextUnmarshaler.
+func (s *RecordFormat) UnmarshalText(data []byte) error {
+	switch RecordFormat(data) {
+	case RecordFormatFmp4:
+		*s = RecordFormatFmp4
+		return nil
+	case RecordFormatMpegts:
+		*s = RecordFormatMpegts
+		return nil
+	default:
+		return errors.Errorf("invalid value: %q", data)
+	}
+}
+
 // Ref: #/components/schemas/Recording
 type Recording struct {
 	Name     OptString          `json:"name"`
@@ -4031,18 +7705,18 @@ func (*Recording) recordingsGetRes() {}
 
 // Ref: #/components/schemas/RecordingList
 type RecordingList struct {
-	PageCount OptInt      `json:"pageCount"`
-	ItemCount OptInt      `json:"itemCount"`
+	PageCount OptInt64    `json:"pageCount"`
+	ItemCount OptInt64    `json:"itemCount"`
 	Items     []Recording `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *RecordingList) GetPageCount() OptInt {
+func (s *RecordingList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *RecordingList) GetItemCount() OptInt {
+func (s *RecordingList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -4052,12 +7726,12 @@ func (s *RecordingList) GetItems() []Recording {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *RecordingList) SetPageCount(val OptInt) {
+func (s *RecordingList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *RecordingList) SetItemCount(val OptInt) {
+func (s *RecordingList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -4094,11 +7768,6 @@ func (*RecordingsDeleteSegmentInternalServerError) recordingsDeleteSegmentRes() 
 type RecordingsDeleteSegmentNotFound Error
 
 func (*RecordingsDeleteSegmentNotFound) recordingsDeleteSegmentRes() {}
-
-// RecordingsDeleteSegmentOK is response for RecordingsDeleteSegment operation.
-type RecordingsDeleteSegmentOK struct{}
-
-func (*RecordingsDeleteSegmentOK) recordingsDeleteSegmentRes() {}
 
 type RecordingsGetBadRequest Error
 
@@ -4144,11 +7813,6 @@ type RtmpConnsKickNotFound Error
 
 func (*RtmpConnsKickNotFound) rtmpConnsKickRes() {}
 
-// RtmpConnsKickOK is response for RtmpConnsKick operation.
-type RtmpConnsKickOK struct{}
-
-func (*RtmpConnsKickOK) rtmpConnsKickRes() {}
-
 type RtmpConnsListBadRequest Error
 
 func (*RtmpConnsListBadRequest) rtmpConnsListRes() {}
@@ -4180,11 +7844,6 @@ func (*RtmpsConnsKickInternalServerError) rtmpsConnsKickRes() {}
 type RtmpsConnsKickNotFound Error
 
 func (*RtmpsConnsKickNotFound) rtmpsConnsKickRes() {}
-
-// RtmpsConnsKickOK is response for RtmpsConnsKick operation.
-type RtmpsConnsKickOK struct{}
-
-func (*RtmpsConnsKickOK) rtmpsConnsKickRes() {}
 
 type RtmpsConnsListBadRequest Error
 
@@ -4238,11 +7897,6 @@ type RtspSessionsKickNotFound Error
 
 func (*RtspSessionsKickNotFound) rtspSessionsKickRes() {}
 
-// RtspSessionsKickOK is response for RtspSessionsKick operation.
-type RtspSessionsKickOK struct{}
-
-func (*RtspSessionsKickOK) rtspSessionsKickRes() {}
-
 type RtspSessionsListBadRequest Error
 
 func (*RtspSessionsListBadRequest) rtspSessionsListRes() {}
@@ -4295,11 +7949,6 @@ type RtspsSessionsKickNotFound Error
 
 func (*RtspsSessionsKickNotFound) rtspsSessionsKickRes() {}
 
-// RtspsSessionsKickOK is response for RtspsSessionsKick operation.
-type RtspsSessionsKickOK struct{}
-
-func (*RtspsSessionsKickOK) rtspsSessionsKickRes() {}
-
 type RtspsSessionsListBadRequest Error
 
 func (*RtspsSessionsListBadRequest) rtspsSessionsListRes() {}
@@ -4310,93 +7959,94 @@ func (*RtspsSessionsListInternalServerError) rtspsSessionsListRes() {}
 
 // Ref: #/components/schemas/SRTConn
 type SRTConn struct {
-	ID         OptString       `json:"id"`
+	ID         OptUUID         `json:"id"`
 	Created    OptString       `json:"created"`
 	RemoteAddr OptString       `json:"remoteAddr"`
 	State      OptSRTConnState `json:"state"`
 	Path       OptString       `json:"path"`
 	Query      OptString       `json:"query"`
+	User       OptString       `json:"user"`
 	// The total number of sent DATA packets, including retransmitted packets.
-	PacketsSent OptInt64 `json:"packetsSent"`
+	PacketsSent OptUint64 `json:"packetsSent"`
 	// The total number of received DATA packets, including retransmitted packets.
-	PacketsReceived        OptInt64 `json:"packetsReceived"`
-	PacketsReceivedBelated OptInt64 `json:"packetsReceivedBelated"`
+	PacketsReceived        OptUint64 `json:"packetsReceived"`
+	PacketsReceivedBelated OptUint64 `json:"packetsReceivedBelated"`
 	// The total number of unique DATA packets sent by the SRT sender.
-	PacketsSentUnique OptInt64 `json:"packetsSentUnique"`
+	PacketsSentUnique OptUint64 `json:"packetsSentUnique"`
 	// The total number of unique original, retransmitted or recovered by the packet filter DATA packets
 	// received in time, decrypted without errors and, as a result, scheduled for delivery to the
 	// upstream application by the SRT receiver.
-	PacketsReceivedUnique OptInt64 `json:"packetsReceivedUnique"`
+	PacketsReceivedUnique OptUint64 `json:"packetsReceivedUnique"`
 	// The total number of data packets considered or reported as lost at the sender side. Does not
 	// correspond to the packets detected as lost at the receiver side.
-	PacketsSendLoss OptInt64 `json:"packetsSendLoss"`
+	PacketsSendLoss OptUint64 `json:"packetsSendLoss"`
 	// The total number of SRT DATA packets detected as presently missing (either reordered or lost) at
 	// the receiver side.
-	PacketsReceivedLoss OptInt64 `json:"packetsReceivedLoss"`
+	PacketsReceivedLoss OptUint64 `json:"packetsReceivedLoss"`
 	// The total number of retransmitted packets sent by the SRT sender.
-	PacketsRetrans OptInt64 `json:"packetsRetrans"`
+	PacketsRetrans OptUint64 `json:"packetsRetrans"`
 	// The total number of retransmitted packets registered at the receiver side.
-	PacketsReceivedRetrans OptInt64 `json:"packetsReceivedRetrans"`
+	PacketsReceivedRetrans OptUint64 `json:"packetsReceivedRetrans"`
 	// The total number of sent ACK (Acknowledgement) control packets.
-	PacketsSentACK OptInt64 `json:"packetsSentACK"`
+	PacketsSentACK OptUint64 `json:"packetsSentACK"`
 	// The total number of received ACK (Acknowledgement) control packets.
-	PacketsReceivedACK OptInt64 `json:"packetsReceivedACK"`
+	PacketsReceivedACK OptUint64 `json:"packetsReceivedACK"`
 	// The total number of sent NAK (Negative Acknowledgement) control packets.
-	PacketsSentNAK OptInt64 `json:"packetsSentNAK"`
+	PacketsSentNAK OptUint64 `json:"packetsSentNAK"`
 	// The total number of received NAK (Negative Acknowledgement) control packets.
-	PacketsReceivedNAK OptInt64 `json:"packetsReceivedNAK"`
+	PacketsReceivedNAK OptUint64 `json:"packetsReceivedNAK"`
 	// The total number of sent KM (Key Material) control packets.
-	PacketsSentKM OptInt64 `json:"packetsSentKM"`
+	PacketsSentKM OptUint64 `json:"packetsSentKM"`
 	// The total number of received KM (Key Material) control packets.
-	PacketsReceivedKM OptInt64 `json:"packetsReceivedKM"`
+	PacketsReceivedKM OptUint64 `json:"packetsReceivedKM"`
 	// The total accumulated time in microseconds, during which the SRT sender has some data to transmit,
 	// including packets that have been sent, but not yet acknowledged.
-	UsSndDuration OptInt64 `json:"usSndDuration"`
+	UsSndDuration OptUint64 `json:"usSndDuration"`
 	// The total number of dropped by the SRT sender DATA packets that have no chance to be delivered in
 	// time.
-	PacketsSendDrop OptInt64 `json:"packetsSendDrop"`
+	PacketsSendDrop OptUint64 `json:"packetsSendDrop"`
 	// The total number of dropped by the SRT receiver and, as a result, not delivered to the upstream
 	// application DATA packets.
-	PacketsReceivedDrop OptInt64 `json:"packetsReceivedDrop"`
+	PacketsReceivedDrop OptUint64 `json:"packetsReceivedDrop"`
 	// The total number of packets that failed to be decrypted at the receiver side.
-	PacketsReceivedUndecrypt OptInt64 `json:"packetsReceivedUndecrypt"`
+	PacketsReceivedUndecrypt OptUint64 `json:"packetsReceivedUndecrypt"`
 	// Same as packetsSent, but expressed in bytes, including payload and all the headers (IP, TCP, SRT).
-	BytesSent OptInt64 `json:"bytesSent"`
+	BytesSent OptUint64 `json:"bytesSent"`
 	// Same as packetsReceived, but expressed in bytes, including payload and all the headers (IP, TCP,
 	// SRT).
-	BytesReceived        OptInt64 `json:"bytesReceived"`
-	BytesReceivedBelated OptInt64 `json:"bytesReceivedBelated"`
+	BytesReceived        OptUint64 `json:"bytesReceived"`
+	BytesReceivedBelated OptUint64 `json:"bytesReceivedBelated"`
 	// Same as packetsSentUnique, but expressed in bytes, including payload and all the headers (IP, TCP,
 	// SRT).
-	BytesSentUnique OptInt64 `json:"bytesSentUnique"`
+	BytesSentUnique OptUint64 `json:"bytesSentUnique"`
 	// Same as packetsReceivedUnique, but expressed in bytes, including payload and all the headers (IP,
 	// TCP, SRT).
-	BytesReceivedUnique OptInt64 `json:"bytesReceivedUnique"`
+	BytesReceivedUnique OptUint64 `json:"bytesReceivedUnique"`
 	// Same as packetsReceivedLoss, but expressed in bytes, including payload and all the headers (IP,
 	// TCP, SRT), bytes for the presently missing (either reordered or lost) packets' payloads are
 	// estimated based on the average packet size.
-	BytesReceivedLoss OptInt64 `json:"bytesReceivedLoss"`
+	BytesReceivedLoss OptUint64 `json:"bytesReceivedLoss"`
 	// Same as packetsRetrans, but expressed in bytes, including payload and all the headers (IP, TCP,
 	// SRT).
-	BytesRetrans OptInt64 `json:"bytesRetrans"`
+	BytesRetrans OptUint64 `json:"bytesRetrans"`
 	// Same as packetsReceivedRetrans, but expressed in bytes, including payload and all the headers (IP,
 	// TCP, SRT).
-	BytesReceivedRetrans OptInt64 `json:"bytesReceivedRetrans"`
+	BytesReceivedRetrans OptUint64 `json:"bytesReceivedRetrans"`
 	// Same as packetsSendDrop, but expressed in bytes, including payload and all the headers (IP, TCP,
 	// SRT).
-	BytesSendDrop OptInt64 `json:"bytesSendDrop"`
+	BytesSendDrop OptUint64 `json:"bytesSendDrop"`
 	// Same as packetsReceivedDrop, but expressed in bytes, including payload and all the headers (IP,
 	// TCP, SRT).
-	BytesReceivedDrop OptInt64 `json:"bytesReceivedDrop"`
+	BytesReceivedDrop OptUint64 `json:"bytesReceivedDrop"`
 	// Same as packetsReceivedUndecrypt, but expressed in bytes, including payload and all the headers
 	// (IP, TCP, SRT).
-	BytesReceivedUndecrypt OptInt64 `json:"bytesReceivedUndecrypt"`
+	BytesReceivedUndecrypt OptUint64 `json:"bytesReceivedUndecrypt"`
 	// Current minimum time interval between which consecutive packets are sent, in microseconds.
 	UsPacketsSendPeriod OptFloat64 `json:"usPacketsSendPeriod"`
 	// The maximum number of packets that can be "in flight".
-	PacketsFlowWindow OptInt64 `json:"packetsFlowWindow"`
+	PacketsFlowWindow OptUint64 `json:"packetsFlowWindow"`
 	// The number of packets in flight.
-	PacketsFlightSize OptInt64 `json:"packetsFlightSize"`
+	PacketsFlightSize OptUint64 `json:"packetsFlightSize"`
 	// Smoothed round-trip time (SRTT), an exponentially-weighted moving average (EWMA) of an endpoint's
 	// RTT samples, in milliseconds.
 	MsRTT OptFloat64 `json:"msRTT"`
@@ -4407,45 +8057,46 @@ type SRTConn struct {
 	// Estimated capacity of the network link, in Mbps.
 	MbpsLinkCapacity OptFloat64 `json:"mbpsLinkCapacity"`
 	// The available space in the sender's buffer, in bytes.
-	BytesAvailSendBuf OptInt64 `json:"bytesAvailSendBuf"`
+	BytesAvailSendBuf OptUint64 `json:"bytesAvailSendBuf"`
 	// The available space in the receiver's buffer, in bytes.
-	BytesAvailReceiveBuf OptInt64 `json:"bytesAvailReceiveBuf"`
+	BytesAvailReceiveBuf OptUint64 `json:"bytesAvailReceiveBuf"`
 	// Transmission bandwidth limit, in Mbps.
 	MbpsMaxBW OptFloat64 `json:"mbpsMaxBW"`
 	// Maximum Segment Size (MSS), in bytes.
-	ByteMSS OptInt64 `json:"byteMSS"`
+	ByteMSS OptUint64 `json:"byteMSS"`
 	// The number of packets in the sender's buffer that are already scheduled for sending or even
 	// possibly sent, but not yet acknowledged.
-	PacketsSendBuf OptInt64 `json:"packetsSendBuf"`
+	PacketsSendBuf OptUint64 `json:"packetsSendBuf"`
 	// Instantaneous (current) value of packetsSndBuf, but expressed in bytes, including payload and all
 	// headers (IP, TCP, SRT).
-	BytesSendBuf OptInt64 `json:"bytesSendBuf"`
+	BytesSendBuf OptUint64 `json:"bytesSendBuf"`
 	// The timespan (msec) of packets in the sender's buffer (unacknowledged packets).
-	MsSendBuf OptInt64 `json:"msSendBuf"`
+	MsSendBuf OptUint64 `json:"msSendBuf"`
 	// Timestamp-based Packet Delivery Delay value of the peer.
-	MsSendTsbPdDelay OptInt64 `json:"msSendTsbPdDelay"`
+	MsSendTsbPdDelay OptUint64 `json:"msSendTsbPdDelay"`
 	// The number of acknowledged packets in receiver's buffer.
-	PacketsReceiveBuf OptInt64 `json:"packetsReceiveBuf"`
+	PacketsReceiveBuf OptUint64 `json:"packetsReceiveBuf"`
 	// Instantaneous (current) value of packetsRcvBuf, expressed in bytes, including payload and all
 	// headers (IP, TCP, SRT).
-	BytesReceiveBuf OptInt64 `json:"bytesReceiveBuf"`
+	BytesReceiveBuf OptUint64 `json:"bytesReceiveBuf"`
 	// The timespan (msec) of acknowledged packets in the receiver's buffer.
-	MsReceiveBuf OptInt64 `json:"msReceiveBuf"`
+	MsReceiveBuf OptUint64 `json:"msReceiveBuf"`
 	// Timestamp-based Packet Delivery Delay value set on the socket via SRTO_RCVLATENCY or SRTO_LATENCY.
-	MsReceiveTsbPdDelay OptInt64 `json:"msReceiveTsbPdDelay"`
+	MsReceiveTsbPdDelay OptUint64 `json:"msReceiveTsbPdDelay"`
 	// Instant value of the packet reorder tolerance.
-	PacketsReorderTolerance OptInt64 `json:"packetsReorderTolerance"`
+	PacketsReorderTolerance OptUint64 `json:"packetsReorderTolerance"`
 	// Accumulated difference between the current time and the time-to-play of a packet that is received
 	// late.
-	PacketsReceivedAvgBelatedTime OptInt64 `json:"packetsReceivedAvgBelatedTime"`
+	PacketsReceivedAvgBelatedTime OptUint64 `json:"packetsReceivedAvgBelatedTime"`
 	// Percentage of resent data vs. sent data.
 	PacketsSendLossRate OptFloat64 `json:"packetsSendLossRate"`
 	// Percentage of retransmitted data vs. received data.
 	PacketsReceivedLossRate OptFloat64 `json:"packetsReceivedLossRate"`
+	OutboundFramesDiscarded OptUint64  `json:"outboundFramesDiscarded"`
 }
 
 // GetID returns the value of ID.
-func (s *SRTConn) GetID() OptString {
+func (s *SRTConn) GetID() OptUUID {
 	return s.ID
 }
 
@@ -4474,153 +8125,158 @@ func (s *SRTConn) GetQuery() OptString {
 	return s.Query
 }
 
+// GetUser returns the value of User.
+func (s *SRTConn) GetUser() OptString {
+	return s.User
+}
+
 // GetPacketsSent returns the value of PacketsSent.
-func (s *SRTConn) GetPacketsSent() OptInt64 {
+func (s *SRTConn) GetPacketsSent() OptUint64 {
 	return s.PacketsSent
 }
 
 // GetPacketsReceived returns the value of PacketsReceived.
-func (s *SRTConn) GetPacketsReceived() OptInt64 {
+func (s *SRTConn) GetPacketsReceived() OptUint64 {
 	return s.PacketsReceived
 }
 
 // GetPacketsReceivedBelated returns the value of PacketsReceivedBelated.
-func (s *SRTConn) GetPacketsReceivedBelated() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedBelated() OptUint64 {
 	return s.PacketsReceivedBelated
 }
 
 // GetPacketsSentUnique returns the value of PacketsSentUnique.
-func (s *SRTConn) GetPacketsSentUnique() OptInt64 {
+func (s *SRTConn) GetPacketsSentUnique() OptUint64 {
 	return s.PacketsSentUnique
 }
 
 // GetPacketsReceivedUnique returns the value of PacketsReceivedUnique.
-func (s *SRTConn) GetPacketsReceivedUnique() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedUnique() OptUint64 {
 	return s.PacketsReceivedUnique
 }
 
 // GetPacketsSendLoss returns the value of PacketsSendLoss.
-func (s *SRTConn) GetPacketsSendLoss() OptInt64 {
+func (s *SRTConn) GetPacketsSendLoss() OptUint64 {
 	return s.PacketsSendLoss
 }
 
 // GetPacketsReceivedLoss returns the value of PacketsReceivedLoss.
-func (s *SRTConn) GetPacketsReceivedLoss() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedLoss() OptUint64 {
 	return s.PacketsReceivedLoss
 }
 
 // GetPacketsRetrans returns the value of PacketsRetrans.
-func (s *SRTConn) GetPacketsRetrans() OptInt64 {
+func (s *SRTConn) GetPacketsRetrans() OptUint64 {
 	return s.PacketsRetrans
 }
 
 // GetPacketsReceivedRetrans returns the value of PacketsReceivedRetrans.
-func (s *SRTConn) GetPacketsReceivedRetrans() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedRetrans() OptUint64 {
 	return s.PacketsReceivedRetrans
 }
 
 // GetPacketsSentACK returns the value of PacketsSentACK.
-func (s *SRTConn) GetPacketsSentACK() OptInt64 {
+func (s *SRTConn) GetPacketsSentACK() OptUint64 {
 	return s.PacketsSentACK
 }
 
 // GetPacketsReceivedACK returns the value of PacketsReceivedACK.
-func (s *SRTConn) GetPacketsReceivedACK() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedACK() OptUint64 {
 	return s.PacketsReceivedACK
 }
 
 // GetPacketsSentNAK returns the value of PacketsSentNAK.
-func (s *SRTConn) GetPacketsSentNAK() OptInt64 {
+func (s *SRTConn) GetPacketsSentNAK() OptUint64 {
 	return s.PacketsSentNAK
 }
 
 // GetPacketsReceivedNAK returns the value of PacketsReceivedNAK.
-func (s *SRTConn) GetPacketsReceivedNAK() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedNAK() OptUint64 {
 	return s.PacketsReceivedNAK
 }
 
 // GetPacketsSentKM returns the value of PacketsSentKM.
-func (s *SRTConn) GetPacketsSentKM() OptInt64 {
+func (s *SRTConn) GetPacketsSentKM() OptUint64 {
 	return s.PacketsSentKM
 }
 
 // GetPacketsReceivedKM returns the value of PacketsReceivedKM.
-func (s *SRTConn) GetPacketsReceivedKM() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedKM() OptUint64 {
 	return s.PacketsReceivedKM
 }
 
 // GetUsSndDuration returns the value of UsSndDuration.
-func (s *SRTConn) GetUsSndDuration() OptInt64 {
+func (s *SRTConn) GetUsSndDuration() OptUint64 {
 	return s.UsSndDuration
 }
 
 // GetPacketsSendDrop returns the value of PacketsSendDrop.
-func (s *SRTConn) GetPacketsSendDrop() OptInt64 {
+func (s *SRTConn) GetPacketsSendDrop() OptUint64 {
 	return s.PacketsSendDrop
 }
 
 // GetPacketsReceivedDrop returns the value of PacketsReceivedDrop.
-func (s *SRTConn) GetPacketsReceivedDrop() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedDrop() OptUint64 {
 	return s.PacketsReceivedDrop
 }
 
 // GetPacketsReceivedUndecrypt returns the value of PacketsReceivedUndecrypt.
-func (s *SRTConn) GetPacketsReceivedUndecrypt() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedUndecrypt() OptUint64 {
 	return s.PacketsReceivedUndecrypt
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *SRTConn) GetBytesSent() OptInt64 {
+func (s *SRTConn) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
 // GetBytesReceived returns the value of BytesReceived.
-func (s *SRTConn) GetBytesReceived() OptInt64 {
+func (s *SRTConn) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesReceivedBelated returns the value of BytesReceivedBelated.
-func (s *SRTConn) GetBytesReceivedBelated() OptInt64 {
+func (s *SRTConn) GetBytesReceivedBelated() OptUint64 {
 	return s.BytesReceivedBelated
 }
 
 // GetBytesSentUnique returns the value of BytesSentUnique.
-func (s *SRTConn) GetBytesSentUnique() OptInt64 {
+func (s *SRTConn) GetBytesSentUnique() OptUint64 {
 	return s.BytesSentUnique
 }
 
 // GetBytesReceivedUnique returns the value of BytesReceivedUnique.
-func (s *SRTConn) GetBytesReceivedUnique() OptInt64 {
+func (s *SRTConn) GetBytesReceivedUnique() OptUint64 {
 	return s.BytesReceivedUnique
 }
 
 // GetBytesReceivedLoss returns the value of BytesReceivedLoss.
-func (s *SRTConn) GetBytesReceivedLoss() OptInt64 {
+func (s *SRTConn) GetBytesReceivedLoss() OptUint64 {
 	return s.BytesReceivedLoss
 }
 
 // GetBytesRetrans returns the value of BytesRetrans.
-func (s *SRTConn) GetBytesRetrans() OptInt64 {
+func (s *SRTConn) GetBytesRetrans() OptUint64 {
 	return s.BytesRetrans
 }
 
 // GetBytesReceivedRetrans returns the value of BytesReceivedRetrans.
-func (s *SRTConn) GetBytesReceivedRetrans() OptInt64 {
+func (s *SRTConn) GetBytesReceivedRetrans() OptUint64 {
 	return s.BytesReceivedRetrans
 }
 
 // GetBytesSendDrop returns the value of BytesSendDrop.
-func (s *SRTConn) GetBytesSendDrop() OptInt64 {
+func (s *SRTConn) GetBytesSendDrop() OptUint64 {
 	return s.BytesSendDrop
 }
 
 // GetBytesReceivedDrop returns the value of BytesReceivedDrop.
-func (s *SRTConn) GetBytesReceivedDrop() OptInt64 {
+func (s *SRTConn) GetBytesReceivedDrop() OptUint64 {
 	return s.BytesReceivedDrop
 }
 
 // GetBytesReceivedUndecrypt returns the value of BytesReceivedUndecrypt.
-func (s *SRTConn) GetBytesReceivedUndecrypt() OptInt64 {
+func (s *SRTConn) GetBytesReceivedUndecrypt() OptUint64 {
 	return s.BytesReceivedUndecrypt
 }
 
@@ -4630,12 +8286,12 @@ func (s *SRTConn) GetUsPacketsSendPeriod() OptFloat64 {
 }
 
 // GetPacketsFlowWindow returns the value of PacketsFlowWindow.
-func (s *SRTConn) GetPacketsFlowWindow() OptInt64 {
+func (s *SRTConn) GetPacketsFlowWindow() OptUint64 {
 	return s.PacketsFlowWindow
 }
 
 // GetPacketsFlightSize returns the value of PacketsFlightSize.
-func (s *SRTConn) GetPacketsFlightSize() OptInt64 {
+func (s *SRTConn) GetPacketsFlightSize() OptUint64 {
 	return s.PacketsFlightSize
 }
 
@@ -4660,12 +8316,12 @@ func (s *SRTConn) GetMbpsLinkCapacity() OptFloat64 {
 }
 
 // GetBytesAvailSendBuf returns the value of BytesAvailSendBuf.
-func (s *SRTConn) GetBytesAvailSendBuf() OptInt64 {
+func (s *SRTConn) GetBytesAvailSendBuf() OptUint64 {
 	return s.BytesAvailSendBuf
 }
 
 // GetBytesAvailReceiveBuf returns the value of BytesAvailReceiveBuf.
-func (s *SRTConn) GetBytesAvailReceiveBuf() OptInt64 {
+func (s *SRTConn) GetBytesAvailReceiveBuf() OptUint64 {
 	return s.BytesAvailReceiveBuf
 }
 
@@ -4675,57 +8331,57 @@ func (s *SRTConn) GetMbpsMaxBW() OptFloat64 {
 }
 
 // GetByteMSS returns the value of ByteMSS.
-func (s *SRTConn) GetByteMSS() OptInt64 {
+func (s *SRTConn) GetByteMSS() OptUint64 {
 	return s.ByteMSS
 }
 
 // GetPacketsSendBuf returns the value of PacketsSendBuf.
-func (s *SRTConn) GetPacketsSendBuf() OptInt64 {
+func (s *SRTConn) GetPacketsSendBuf() OptUint64 {
 	return s.PacketsSendBuf
 }
 
 // GetBytesSendBuf returns the value of BytesSendBuf.
-func (s *SRTConn) GetBytesSendBuf() OptInt64 {
+func (s *SRTConn) GetBytesSendBuf() OptUint64 {
 	return s.BytesSendBuf
 }
 
 // GetMsSendBuf returns the value of MsSendBuf.
-func (s *SRTConn) GetMsSendBuf() OptInt64 {
+func (s *SRTConn) GetMsSendBuf() OptUint64 {
 	return s.MsSendBuf
 }
 
 // GetMsSendTsbPdDelay returns the value of MsSendTsbPdDelay.
-func (s *SRTConn) GetMsSendTsbPdDelay() OptInt64 {
+func (s *SRTConn) GetMsSendTsbPdDelay() OptUint64 {
 	return s.MsSendTsbPdDelay
 }
 
 // GetPacketsReceiveBuf returns the value of PacketsReceiveBuf.
-func (s *SRTConn) GetPacketsReceiveBuf() OptInt64 {
+func (s *SRTConn) GetPacketsReceiveBuf() OptUint64 {
 	return s.PacketsReceiveBuf
 }
 
 // GetBytesReceiveBuf returns the value of BytesReceiveBuf.
-func (s *SRTConn) GetBytesReceiveBuf() OptInt64 {
+func (s *SRTConn) GetBytesReceiveBuf() OptUint64 {
 	return s.BytesReceiveBuf
 }
 
 // GetMsReceiveBuf returns the value of MsReceiveBuf.
-func (s *SRTConn) GetMsReceiveBuf() OptInt64 {
+func (s *SRTConn) GetMsReceiveBuf() OptUint64 {
 	return s.MsReceiveBuf
 }
 
 // GetMsReceiveTsbPdDelay returns the value of MsReceiveTsbPdDelay.
-func (s *SRTConn) GetMsReceiveTsbPdDelay() OptInt64 {
+func (s *SRTConn) GetMsReceiveTsbPdDelay() OptUint64 {
 	return s.MsReceiveTsbPdDelay
 }
 
 // GetPacketsReorderTolerance returns the value of PacketsReorderTolerance.
-func (s *SRTConn) GetPacketsReorderTolerance() OptInt64 {
+func (s *SRTConn) GetPacketsReorderTolerance() OptUint64 {
 	return s.PacketsReorderTolerance
 }
 
 // GetPacketsReceivedAvgBelatedTime returns the value of PacketsReceivedAvgBelatedTime.
-func (s *SRTConn) GetPacketsReceivedAvgBelatedTime() OptInt64 {
+func (s *SRTConn) GetPacketsReceivedAvgBelatedTime() OptUint64 {
 	return s.PacketsReceivedAvgBelatedTime
 }
 
@@ -4739,8 +8395,13 @@ func (s *SRTConn) GetPacketsReceivedLossRate() OptFloat64 {
 	return s.PacketsReceivedLossRate
 }
 
+// GetOutboundFramesDiscarded returns the value of OutboundFramesDiscarded.
+func (s *SRTConn) GetOutboundFramesDiscarded() OptUint64 {
+	return s.OutboundFramesDiscarded
+}
+
 // SetID sets the value of ID.
-func (s *SRTConn) SetID(val OptString) {
+func (s *SRTConn) SetID(val OptUUID) {
 	s.ID = val
 }
 
@@ -4769,153 +8430,158 @@ func (s *SRTConn) SetQuery(val OptString) {
 	s.Query = val
 }
 
+// SetUser sets the value of User.
+func (s *SRTConn) SetUser(val OptString) {
+	s.User = val
+}
+
 // SetPacketsSent sets the value of PacketsSent.
-func (s *SRTConn) SetPacketsSent(val OptInt64) {
+func (s *SRTConn) SetPacketsSent(val OptUint64) {
 	s.PacketsSent = val
 }
 
 // SetPacketsReceived sets the value of PacketsReceived.
-func (s *SRTConn) SetPacketsReceived(val OptInt64) {
+func (s *SRTConn) SetPacketsReceived(val OptUint64) {
 	s.PacketsReceived = val
 }
 
 // SetPacketsReceivedBelated sets the value of PacketsReceivedBelated.
-func (s *SRTConn) SetPacketsReceivedBelated(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedBelated(val OptUint64) {
 	s.PacketsReceivedBelated = val
 }
 
 // SetPacketsSentUnique sets the value of PacketsSentUnique.
-func (s *SRTConn) SetPacketsSentUnique(val OptInt64) {
+func (s *SRTConn) SetPacketsSentUnique(val OptUint64) {
 	s.PacketsSentUnique = val
 }
 
 // SetPacketsReceivedUnique sets the value of PacketsReceivedUnique.
-func (s *SRTConn) SetPacketsReceivedUnique(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedUnique(val OptUint64) {
 	s.PacketsReceivedUnique = val
 }
 
 // SetPacketsSendLoss sets the value of PacketsSendLoss.
-func (s *SRTConn) SetPacketsSendLoss(val OptInt64) {
+func (s *SRTConn) SetPacketsSendLoss(val OptUint64) {
 	s.PacketsSendLoss = val
 }
 
 // SetPacketsReceivedLoss sets the value of PacketsReceivedLoss.
-func (s *SRTConn) SetPacketsReceivedLoss(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedLoss(val OptUint64) {
 	s.PacketsReceivedLoss = val
 }
 
 // SetPacketsRetrans sets the value of PacketsRetrans.
-func (s *SRTConn) SetPacketsRetrans(val OptInt64) {
+func (s *SRTConn) SetPacketsRetrans(val OptUint64) {
 	s.PacketsRetrans = val
 }
 
 // SetPacketsReceivedRetrans sets the value of PacketsReceivedRetrans.
-func (s *SRTConn) SetPacketsReceivedRetrans(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedRetrans(val OptUint64) {
 	s.PacketsReceivedRetrans = val
 }
 
 // SetPacketsSentACK sets the value of PacketsSentACK.
-func (s *SRTConn) SetPacketsSentACK(val OptInt64) {
+func (s *SRTConn) SetPacketsSentACK(val OptUint64) {
 	s.PacketsSentACK = val
 }
 
 // SetPacketsReceivedACK sets the value of PacketsReceivedACK.
-func (s *SRTConn) SetPacketsReceivedACK(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedACK(val OptUint64) {
 	s.PacketsReceivedACK = val
 }
 
 // SetPacketsSentNAK sets the value of PacketsSentNAK.
-func (s *SRTConn) SetPacketsSentNAK(val OptInt64) {
+func (s *SRTConn) SetPacketsSentNAK(val OptUint64) {
 	s.PacketsSentNAK = val
 }
 
 // SetPacketsReceivedNAK sets the value of PacketsReceivedNAK.
-func (s *SRTConn) SetPacketsReceivedNAK(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedNAK(val OptUint64) {
 	s.PacketsReceivedNAK = val
 }
 
 // SetPacketsSentKM sets the value of PacketsSentKM.
-func (s *SRTConn) SetPacketsSentKM(val OptInt64) {
+func (s *SRTConn) SetPacketsSentKM(val OptUint64) {
 	s.PacketsSentKM = val
 }
 
 // SetPacketsReceivedKM sets the value of PacketsReceivedKM.
-func (s *SRTConn) SetPacketsReceivedKM(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedKM(val OptUint64) {
 	s.PacketsReceivedKM = val
 }
 
 // SetUsSndDuration sets the value of UsSndDuration.
-func (s *SRTConn) SetUsSndDuration(val OptInt64) {
+func (s *SRTConn) SetUsSndDuration(val OptUint64) {
 	s.UsSndDuration = val
 }
 
 // SetPacketsSendDrop sets the value of PacketsSendDrop.
-func (s *SRTConn) SetPacketsSendDrop(val OptInt64) {
+func (s *SRTConn) SetPacketsSendDrop(val OptUint64) {
 	s.PacketsSendDrop = val
 }
 
 // SetPacketsReceivedDrop sets the value of PacketsReceivedDrop.
-func (s *SRTConn) SetPacketsReceivedDrop(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedDrop(val OptUint64) {
 	s.PacketsReceivedDrop = val
 }
 
 // SetPacketsReceivedUndecrypt sets the value of PacketsReceivedUndecrypt.
-func (s *SRTConn) SetPacketsReceivedUndecrypt(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedUndecrypt(val OptUint64) {
 	s.PacketsReceivedUndecrypt = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *SRTConn) SetBytesSent(val OptInt64) {
+func (s *SRTConn) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
 }
 
 // SetBytesReceived sets the value of BytesReceived.
-func (s *SRTConn) SetBytesReceived(val OptInt64) {
+func (s *SRTConn) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesReceivedBelated sets the value of BytesReceivedBelated.
-func (s *SRTConn) SetBytesReceivedBelated(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedBelated(val OptUint64) {
 	s.BytesReceivedBelated = val
 }
 
 // SetBytesSentUnique sets the value of BytesSentUnique.
-func (s *SRTConn) SetBytesSentUnique(val OptInt64) {
+func (s *SRTConn) SetBytesSentUnique(val OptUint64) {
 	s.BytesSentUnique = val
 }
 
 // SetBytesReceivedUnique sets the value of BytesReceivedUnique.
-func (s *SRTConn) SetBytesReceivedUnique(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedUnique(val OptUint64) {
 	s.BytesReceivedUnique = val
 }
 
 // SetBytesReceivedLoss sets the value of BytesReceivedLoss.
-func (s *SRTConn) SetBytesReceivedLoss(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedLoss(val OptUint64) {
 	s.BytesReceivedLoss = val
 }
 
 // SetBytesRetrans sets the value of BytesRetrans.
-func (s *SRTConn) SetBytesRetrans(val OptInt64) {
+func (s *SRTConn) SetBytesRetrans(val OptUint64) {
 	s.BytesRetrans = val
 }
 
 // SetBytesReceivedRetrans sets the value of BytesReceivedRetrans.
-func (s *SRTConn) SetBytesReceivedRetrans(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedRetrans(val OptUint64) {
 	s.BytesReceivedRetrans = val
 }
 
 // SetBytesSendDrop sets the value of BytesSendDrop.
-func (s *SRTConn) SetBytesSendDrop(val OptInt64) {
+func (s *SRTConn) SetBytesSendDrop(val OptUint64) {
 	s.BytesSendDrop = val
 }
 
 // SetBytesReceivedDrop sets the value of BytesReceivedDrop.
-func (s *SRTConn) SetBytesReceivedDrop(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedDrop(val OptUint64) {
 	s.BytesReceivedDrop = val
 }
 
 // SetBytesReceivedUndecrypt sets the value of BytesReceivedUndecrypt.
-func (s *SRTConn) SetBytesReceivedUndecrypt(val OptInt64) {
+func (s *SRTConn) SetBytesReceivedUndecrypt(val OptUint64) {
 	s.BytesReceivedUndecrypt = val
 }
 
@@ -4925,12 +8591,12 @@ func (s *SRTConn) SetUsPacketsSendPeriod(val OptFloat64) {
 }
 
 // SetPacketsFlowWindow sets the value of PacketsFlowWindow.
-func (s *SRTConn) SetPacketsFlowWindow(val OptInt64) {
+func (s *SRTConn) SetPacketsFlowWindow(val OptUint64) {
 	s.PacketsFlowWindow = val
 }
 
 // SetPacketsFlightSize sets the value of PacketsFlightSize.
-func (s *SRTConn) SetPacketsFlightSize(val OptInt64) {
+func (s *SRTConn) SetPacketsFlightSize(val OptUint64) {
 	s.PacketsFlightSize = val
 }
 
@@ -4955,12 +8621,12 @@ func (s *SRTConn) SetMbpsLinkCapacity(val OptFloat64) {
 }
 
 // SetBytesAvailSendBuf sets the value of BytesAvailSendBuf.
-func (s *SRTConn) SetBytesAvailSendBuf(val OptInt64) {
+func (s *SRTConn) SetBytesAvailSendBuf(val OptUint64) {
 	s.BytesAvailSendBuf = val
 }
 
 // SetBytesAvailReceiveBuf sets the value of BytesAvailReceiveBuf.
-func (s *SRTConn) SetBytesAvailReceiveBuf(val OptInt64) {
+func (s *SRTConn) SetBytesAvailReceiveBuf(val OptUint64) {
 	s.BytesAvailReceiveBuf = val
 }
 
@@ -4970,57 +8636,57 @@ func (s *SRTConn) SetMbpsMaxBW(val OptFloat64) {
 }
 
 // SetByteMSS sets the value of ByteMSS.
-func (s *SRTConn) SetByteMSS(val OptInt64) {
+func (s *SRTConn) SetByteMSS(val OptUint64) {
 	s.ByteMSS = val
 }
 
 // SetPacketsSendBuf sets the value of PacketsSendBuf.
-func (s *SRTConn) SetPacketsSendBuf(val OptInt64) {
+func (s *SRTConn) SetPacketsSendBuf(val OptUint64) {
 	s.PacketsSendBuf = val
 }
 
 // SetBytesSendBuf sets the value of BytesSendBuf.
-func (s *SRTConn) SetBytesSendBuf(val OptInt64) {
+func (s *SRTConn) SetBytesSendBuf(val OptUint64) {
 	s.BytesSendBuf = val
 }
 
 // SetMsSendBuf sets the value of MsSendBuf.
-func (s *SRTConn) SetMsSendBuf(val OptInt64) {
+func (s *SRTConn) SetMsSendBuf(val OptUint64) {
 	s.MsSendBuf = val
 }
 
 // SetMsSendTsbPdDelay sets the value of MsSendTsbPdDelay.
-func (s *SRTConn) SetMsSendTsbPdDelay(val OptInt64) {
+func (s *SRTConn) SetMsSendTsbPdDelay(val OptUint64) {
 	s.MsSendTsbPdDelay = val
 }
 
 // SetPacketsReceiveBuf sets the value of PacketsReceiveBuf.
-func (s *SRTConn) SetPacketsReceiveBuf(val OptInt64) {
+func (s *SRTConn) SetPacketsReceiveBuf(val OptUint64) {
 	s.PacketsReceiveBuf = val
 }
 
 // SetBytesReceiveBuf sets the value of BytesReceiveBuf.
-func (s *SRTConn) SetBytesReceiveBuf(val OptInt64) {
+func (s *SRTConn) SetBytesReceiveBuf(val OptUint64) {
 	s.BytesReceiveBuf = val
 }
 
 // SetMsReceiveBuf sets the value of MsReceiveBuf.
-func (s *SRTConn) SetMsReceiveBuf(val OptInt64) {
+func (s *SRTConn) SetMsReceiveBuf(val OptUint64) {
 	s.MsReceiveBuf = val
 }
 
 // SetMsReceiveTsbPdDelay sets the value of MsReceiveTsbPdDelay.
-func (s *SRTConn) SetMsReceiveTsbPdDelay(val OptInt64) {
+func (s *SRTConn) SetMsReceiveTsbPdDelay(val OptUint64) {
 	s.MsReceiveTsbPdDelay = val
 }
 
 // SetPacketsReorderTolerance sets the value of PacketsReorderTolerance.
-func (s *SRTConn) SetPacketsReorderTolerance(val OptInt64) {
+func (s *SRTConn) SetPacketsReorderTolerance(val OptUint64) {
 	s.PacketsReorderTolerance = val
 }
 
 // SetPacketsReceivedAvgBelatedTime sets the value of PacketsReceivedAvgBelatedTime.
-func (s *SRTConn) SetPacketsReceivedAvgBelatedTime(val OptInt64) {
+func (s *SRTConn) SetPacketsReceivedAvgBelatedTime(val OptUint64) {
 	s.PacketsReceivedAvgBelatedTime = val
 }
 
@@ -5034,22 +8700,27 @@ func (s *SRTConn) SetPacketsReceivedLossRate(val OptFloat64) {
 	s.PacketsReceivedLossRate = val
 }
 
+// SetOutboundFramesDiscarded sets the value of OutboundFramesDiscarded.
+func (s *SRTConn) SetOutboundFramesDiscarded(val OptUint64) {
+	s.OutboundFramesDiscarded = val
+}
+
 func (*SRTConn) srtConnsGetRes() {}
 
 // Ref: #/components/schemas/SRTConnList
 type SRTConnList struct {
-	PageCount OptInt    `json:"pageCount"`
-	ItemCount OptInt    `json:"itemCount"`
+	PageCount OptInt64  `json:"pageCount"`
+	ItemCount OptInt64  `json:"itemCount"`
 	Items     []SRTConn `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *SRTConnList) GetPageCount() OptInt {
+func (s *SRTConnList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *SRTConnList) GetItemCount() OptInt {
+func (s *SRTConnList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -5059,12 +8730,12 @@ func (s *SRTConnList) GetItems() []SRTConn {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *SRTConnList) SetPageCount(val OptInt) {
+func (s *SRTConnList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *SRTConnList) SetItemCount(val OptInt) {
+func (s *SRTConnList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -5075,6 +8746,7 @@ func (s *SRTConnList) SetItems(val []SRTConn) {
 
 func (*SRTConnList) srtConnsListRes() {}
 
+// Ref: #/components/schemas/SRTConnState
 type SRTConnState string
 
 const (
@@ -5147,11 +8819,6 @@ type SrtConnsKickNotFound Error
 
 func (*SrtConnsKickNotFound) srtConnsKickRes() {}
 
-// SrtConnsKickOK is response for SrtConnsKick operation.
-type SrtConnsKickOK struct{}
-
-func (*SrtConnsKickOK) srtConnsKickRes() {}
-
 type SrtConnsListBadRequest Error
 
 func (*SrtConnsListBadRequest) srtConnsListRes() {}
@@ -5160,9 +8827,57 @@ type SrtConnsListInternalServerError Error
 
 func (*SrtConnsListInternalServerError) srtConnsListRes() {}
 
+// Ref: #/components/schemas/WebRTCICEServer
+type WebRTCICEServer struct {
+	URL        OptString `json:"url"`
+	Username   OptString `json:"username"`
+	Password   OptString `json:"password"`
+	ClientOnly OptBool   `json:"clientOnly"`
+}
+
+// GetURL returns the value of URL.
+func (s *WebRTCICEServer) GetURL() OptString {
+	return s.URL
+}
+
+// GetUsername returns the value of Username.
+func (s *WebRTCICEServer) GetUsername() OptString {
+	return s.Username
+}
+
+// GetPassword returns the value of Password.
+func (s *WebRTCICEServer) GetPassword() OptString {
+	return s.Password
+}
+
+// GetClientOnly returns the value of ClientOnly.
+func (s *WebRTCICEServer) GetClientOnly() OptBool {
+	return s.ClientOnly
+}
+
+// SetURL sets the value of URL.
+func (s *WebRTCICEServer) SetURL(val OptString) {
+	s.URL = val
+}
+
+// SetUsername sets the value of Username.
+func (s *WebRTCICEServer) SetUsername(val OptString) {
+	s.Username = val
+}
+
+// SetPassword sets the value of Password.
+func (s *WebRTCICEServer) SetPassword(val OptString) {
+	s.Password = val
+}
+
+// SetClientOnly sets the value of ClientOnly.
+func (s *WebRTCICEServer) SetClientOnly(val OptBool) {
+	s.ClientOnly = val
+}
+
 // Ref: #/components/schemas/WebRTCSession
 type WebRTCSession struct {
-	ID                        OptString             `json:"id"`
+	ID                        OptUUID               `json:"id"`
 	Created                   OptString             `json:"created"`
 	RemoteAddr                OptString             `json:"remoteAddr"`
 	PeerConnectionEstablished OptBool               `json:"peerConnectionEstablished"`
@@ -5171,12 +8886,36 @@ type WebRTCSession struct {
 	State                     OptWebRTCSessionState `json:"state"`
 	Path                      OptString             `json:"path"`
 	Query                     OptString             `json:"query"`
-	BytesReceived             OptInt64              `json:"bytesReceived"`
-	BytesSent                 OptInt64              `json:"bytesSent"`
+	User                      OptString             `json:"user"`
+	InboundBytes              OptUint64             `json:"inboundBytes"`
+	InboundRTPPackets         OptUint64             `json:"inboundRTPPackets"`
+	InboundRTPPacketsLost     OptUint64             `json:"inboundRTPPacketsLost"`
+	InboundRTPPacketsJitter   OptFloat64            `json:"inboundRTPPacketsJitter"`
+	InboundRTCPPackets        OptUint64             `json:"inboundRTCPPackets"`
+	OutboundBytes             OptUint64             `json:"outboundBytes"`
+	OutboundRTPPackets        OptUint64             `json:"outboundRTPPackets"`
+	OutboundRTCPPackets       OptUint64             `json:"outboundRTCPPackets"`
+	OutboundFramesDiscarded   OptUint64             `json:"outboundFramesDiscarded"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesReceived OptUint64 `json:"bytesReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	BytesSent OptUint64 `json:"bytesSent"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsReceived OptUint64 `json:"rtpPacketsReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsSent OptUint64 `json:"rtpPacketsSent"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsLost OptUint64 `json:"rtpPacketsLost"`
+	// Deprecated: schema marks this property as deprecated.
+	RtpPacketsJitter OptFloat64 `json:"rtpPacketsJitter"`
+	// Deprecated: schema marks this property as deprecated.
+	RtcpPacketsReceived OptUint64 `json:"rtcpPacketsReceived"`
+	// Deprecated: schema marks this property as deprecated.
+	RtcpPacketsSent OptUint64 `json:"rtcpPacketsSent"`
 }
 
 // GetID returns the value of ID.
-func (s *WebRTCSession) GetID() OptString {
+func (s *WebRTCSession) GetID() OptUUID {
 	return s.ID
 }
 
@@ -5220,18 +8959,98 @@ func (s *WebRTCSession) GetQuery() OptString {
 	return s.Query
 }
 
+// GetUser returns the value of User.
+func (s *WebRTCSession) GetUser() OptString {
+	return s.User
+}
+
+// GetInboundBytes returns the value of InboundBytes.
+func (s *WebRTCSession) GetInboundBytes() OptUint64 {
+	return s.InboundBytes
+}
+
+// GetInboundRTPPackets returns the value of InboundRTPPackets.
+func (s *WebRTCSession) GetInboundRTPPackets() OptUint64 {
+	return s.InboundRTPPackets
+}
+
+// GetInboundRTPPacketsLost returns the value of InboundRTPPacketsLost.
+func (s *WebRTCSession) GetInboundRTPPacketsLost() OptUint64 {
+	return s.InboundRTPPacketsLost
+}
+
+// GetInboundRTPPacketsJitter returns the value of InboundRTPPacketsJitter.
+func (s *WebRTCSession) GetInboundRTPPacketsJitter() OptFloat64 {
+	return s.InboundRTPPacketsJitter
+}
+
+// GetInboundRTCPPackets returns the value of InboundRTCPPackets.
+func (s *WebRTCSession) GetInboundRTCPPackets() OptUint64 {
+	return s.InboundRTCPPackets
+}
+
+// GetOutboundBytes returns the value of OutboundBytes.
+func (s *WebRTCSession) GetOutboundBytes() OptUint64 {
+	return s.OutboundBytes
+}
+
+// GetOutboundRTPPackets returns the value of OutboundRTPPackets.
+func (s *WebRTCSession) GetOutboundRTPPackets() OptUint64 {
+	return s.OutboundRTPPackets
+}
+
+// GetOutboundRTCPPackets returns the value of OutboundRTCPPackets.
+func (s *WebRTCSession) GetOutboundRTCPPackets() OptUint64 {
+	return s.OutboundRTCPPackets
+}
+
+// GetOutboundFramesDiscarded returns the value of OutboundFramesDiscarded.
+func (s *WebRTCSession) GetOutboundFramesDiscarded() OptUint64 {
+	return s.OutboundFramesDiscarded
+}
+
 // GetBytesReceived returns the value of BytesReceived.
-func (s *WebRTCSession) GetBytesReceived() OptInt64 {
+func (s *WebRTCSession) GetBytesReceived() OptUint64 {
 	return s.BytesReceived
 }
 
 // GetBytesSent returns the value of BytesSent.
-func (s *WebRTCSession) GetBytesSent() OptInt64 {
+func (s *WebRTCSession) GetBytesSent() OptUint64 {
 	return s.BytesSent
 }
 
+// GetRtpPacketsReceived returns the value of RtpPacketsReceived.
+func (s *WebRTCSession) GetRtpPacketsReceived() OptUint64 {
+	return s.RtpPacketsReceived
+}
+
+// GetRtpPacketsSent returns the value of RtpPacketsSent.
+func (s *WebRTCSession) GetRtpPacketsSent() OptUint64 {
+	return s.RtpPacketsSent
+}
+
+// GetRtpPacketsLost returns the value of RtpPacketsLost.
+func (s *WebRTCSession) GetRtpPacketsLost() OptUint64 {
+	return s.RtpPacketsLost
+}
+
+// GetRtpPacketsJitter returns the value of RtpPacketsJitter.
+func (s *WebRTCSession) GetRtpPacketsJitter() OptFloat64 {
+	return s.RtpPacketsJitter
+}
+
+// GetRtcpPacketsReceived returns the value of RtcpPacketsReceived.
+func (s *WebRTCSession) GetRtcpPacketsReceived() OptUint64 {
+	return s.RtcpPacketsReceived
+}
+
+// GetRtcpPacketsSent returns the value of RtcpPacketsSent.
+func (s *WebRTCSession) GetRtcpPacketsSent() OptUint64 {
+	return s.RtcpPacketsSent
+}
+
 // SetID sets the value of ID.
-func (s *WebRTCSession) SetID(val OptString) {
+func (s *WebRTCSession) SetID(val OptUUID) {
 	s.ID = val
 }
 
@@ -5275,32 +9094,112 @@ func (s *WebRTCSession) SetQuery(val OptString) {
 	s.Query = val
 }
 
+// SetUser sets the value of User.
+func (s *WebRTCSession) SetUser(val OptString) {
+	s.User = val
+}
+
+// SetInboundBytes sets the value of InboundBytes.
+func (s *WebRTCSession) SetInboundBytes(val OptUint64) {
+	s.InboundBytes = val
+}
+
+// SetInboundRTPPackets sets the value of InboundRTPPackets.
+func (s *WebRTCSession) SetInboundRTPPackets(val OptUint64) {
+	s.InboundRTPPackets = val
+}
+
+// SetInboundRTPPacketsLost sets the value of InboundRTPPacketsLost.
+func (s *WebRTCSession) SetInboundRTPPacketsLost(val OptUint64) {
+	s.InboundRTPPacketsLost = val
+}
+
+// SetInboundRTPPacketsJitter sets the value of InboundRTPPacketsJitter.
+func (s *WebRTCSession) SetInboundRTPPacketsJitter(val OptFloat64) {
+	s.InboundRTPPacketsJitter = val
+}
+
+// SetInboundRTCPPackets sets the value of InboundRTCPPackets.
+func (s *WebRTCSession) SetInboundRTCPPackets(val OptUint64) {
+	s.InboundRTCPPackets = val
+}
+
+// SetOutboundBytes sets the value of OutboundBytes.
+func (s *WebRTCSession) SetOutboundBytes(val OptUint64) {
+	s.OutboundBytes = val
+}
+
+// SetOutboundRTPPackets sets the value of OutboundRTPPackets.
+func (s *WebRTCSession) SetOutboundRTPPackets(val OptUint64) {
+	s.OutboundRTPPackets = val
+}
+
+// SetOutboundRTCPPackets sets the value of OutboundRTCPPackets.
+func (s *WebRTCSession) SetOutboundRTCPPackets(val OptUint64) {
+	s.OutboundRTCPPackets = val
+}
+
+// SetOutboundFramesDiscarded sets the value of OutboundFramesDiscarded.
+func (s *WebRTCSession) SetOutboundFramesDiscarded(val OptUint64) {
+	s.OutboundFramesDiscarded = val
+}
+
 // SetBytesReceived sets the value of BytesReceived.
-func (s *WebRTCSession) SetBytesReceived(val OptInt64) {
+func (s *WebRTCSession) SetBytesReceived(val OptUint64) {
 	s.BytesReceived = val
 }
 
 // SetBytesSent sets the value of BytesSent.
-func (s *WebRTCSession) SetBytesSent(val OptInt64) {
+func (s *WebRTCSession) SetBytesSent(val OptUint64) {
 	s.BytesSent = val
+}
+
+// SetRtpPacketsReceived sets the value of RtpPacketsReceived.
+func (s *WebRTCSession) SetRtpPacketsReceived(val OptUint64) {
+	s.RtpPacketsReceived = val
+}
+
+// SetRtpPacketsSent sets the value of RtpPacketsSent.
+func (s *WebRTCSession) SetRtpPacketsSent(val OptUint64) {
+	s.RtpPacketsSent = val
+}
+
+// SetRtpPacketsLost sets the value of RtpPacketsLost.
+func (s *WebRTCSession) SetRtpPacketsLost(val OptUint64) {
+	s.RtpPacketsLost = val
+}
+
+// SetRtpPacketsJitter sets the value of RtpPacketsJitter.
+func (s *WebRTCSession) SetRtpPacketsJitter(val OptFloat64) {
+	s.RtpPacketsJitter = val
+}
+
+// SetRtcpPacketsReceived sets the value of RtcpPacketsReceived.
+func (s *WebRTCSession) SetRtcpPacketsReceived(val OptUint64) {
+	s.RtcpPacketsReceived = val
+}
+
+// SetRtcpPacketsSent sets the value of RtcpPacketsSent.
+func (s *WebRTCSession) SetRtcpPacketsSent(val OptUint64) {
+	s.RtcpPacketsSent = val
 }
 
 func (*WebRTCSession) webrtcSessionsGetRes() {}
 
 // Ref: #/components/schemas/WebRTCSessionList
 type WebRTCSessionList struct {
-	PageCount OptInt          `json:"pageCount"`
-	ItemCount OptInt          `json:"itemCount"`
+	PageCount OptInt64        `json:"pageCount"`
+	ItemCount OptInt64        `json:"itemCount"`
 	Items     []WebRTCSession `json:"items"`
 }
 
 // GetPageCount returns the value of PageCount.
-func (s *WebRTCSessionList) GetPageCount() OptInt {
+func (s *WebRTCSessionList) GetPageCount() OptInt64 {
 	return s.PageCount
 }
 
 // GetItemCount returns the value of ItemCount.
-func (s *WebRTCSessionList) GetItemCount() OptInt {
+func (s *WebRTCSessionList) GetItemCount() OptInt64 {
 	return s.ItemCount
 }
 
@@ -5310,12 +9209,12 @@ func (s *WebRTCSessionList) GetItems() []WebRTCSession {
 }
 
 // SetPageCount sets the value of PageCount.
-func (s *WebRTCSessionList) SetPageCount(val OptInt) {
+func (s *WebRTCSessionList) SetPageCount(val OptInt64) {
 	s.PageCount = val
 }
 
 // SetItemCount sets the value of ItemCount.
-func (s *WebRTCSessionList) SetItemCount(val OptInt) {
+func (s *WebRTCSessionList) SetItemCount(val OptInt64) {
 	s.ItemCount = val
 }
 
@@ -5326,6 +9225,7 @@ func (s *WebRTCSessionList) SetItems(val []WebRTCSession) {
 
 func (*WebRTCSessionList) webrtcSessionsListRes() {}
 
+// Ref: #/components/schemas/WebRTCSessionState
 type WebRTCSessionState string
 
 const (
@@ -5390,11 +9290,6 @@ func (*WebrtcSessionsKickInternalServerError) webrtcSessionsKickRes() {}
 type WebrtcSessionsKickNotFound Error
 
 func (*WebrtcSessionsKickNotFound) webrtcSessionsKickRes() {}
-
-// WebrtcSessionsKickOK is response for WebrtcSessionsKick operation.
-type WebrtcSessionsKickOK struct{}
-
-func (*WebrtcSessionsKickOK) webrtcSessionsKickRes() {}
 
 type WebrtcSessionsListBadRequest Error
 

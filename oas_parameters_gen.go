@@ -23,9 +23,9 @@ type ConfigPathsGetParams struct {
 // ConfigPathsListParams is parameters of configPathsList operation.
 type ConfigPathsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // ConfigPathsPatchParams is parameters of configPathsPatch operation.
@@ -49,9 +49,29 @@ type HlsMuxersGetParams struct {
 // HlsMuxersListParams is parameters of hlsMuxersList operation.
 type HlsMuxersListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
+}
+
+// HlssessionsGetParams is parameters of hlssessionsGet operation.
+type HlssessionsGetParams struct {
+	// ID of the session.
+	ID string
+}
+
+// HlssessionsKickParams is parameters of hlssessionsKick operation.
+type HlssessionsKickParams struct {
+	// ID of the session.
+	ID string
+}
+
+// HlssessionsListParams is parameters of hlssessionsList operation.
+type HlssessionsListParams struct {
+	// Page number.
+	Page OptInt `json:",omitempty,omitzero"`
+	// Items per page.
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // PathsGetParams is parameters of pathsGet operation.
@@ -63,9 +83,9 @@ type PathsGetParams struct {
 // PathsListParams is parameters of pathsList operation.
 type PathsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RecordingsDeleteSegmentParams is parameters of recordingsDeleteSegment operation.
@@ -85,9 +105,9 @@ type RecordingsGetParams struct {
 // RecordingsListParams is parameters of recordingsList operation.
 type RecordingsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtmpConnectionsGetParams is parameters of rtmpConnectionsGet operation.
@@ -105,9 +125,9 @@ type RtmpConnsKickParams struct {
 // RtmpConnsListParams is parameters of rtmpConnsList operation.
 type RtmpConnsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtmpsConnectionsGetParams is parameters of rtmpsConnectionsGet operation.
@@ -125,9 +145,9 @@ type RtmpsConnsKickParams struct {
 // RtmpsConnsListParams is parameters of rtmpsConnsList operation.
 type RtmpsConnsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtspConnsGetParams is parameters of rtspConnsGet operation.
@@ -139,9 +159,9 @@ type RtspConnsGetParams struct {
 // RtspConnsListParams is parameters of rtspConnsList operation.
 type RtspConnsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtspSessionsGetParams is parameters of rtspSessionsGet operation.
@@ -159,9 +179,9 @@ type RtspSessionsKickParams struct {
 // RtspSessionsListParams is parameters of rtspSessionsList operation.
 type RtspSessionsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtspsConnsGetParams is parameters of rtspsConnsGet operation.
@@ -173,9 +193,9 @@ type RtspsConnsGetParams struct {
 // RtspsConnsListParams is parameters of rtspsConnsList operation.
 type RtspsConnsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // RtspsSessionsGetParams is parameters of rtspsSessionsGet operation.
@@ -193,9 +213,9 @@ type RtspsSessionsKickParams struct {
 // RtspsSessionsListParams is parameters of rtspsSessionsList operation.
 type RtspsSessionsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // SrtConnsGetParams is parameters of srtConnsGet operation.
@@ -213,9 +233,9 @@ type SrtConnsKickParams struct {
 // SrtConnsListParams is parameters of srtConnsList operation.
 type SrtConnsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
 // WebrtcSessionsGetParams is parameters of webrtcSessionsGet operation.
@@ -233,7 +253,7 @@ type WebrtcSessionsKickParams struct {
 // WebrtcSessionsListParams is parameters of webrtcSessionsList operation.
 type WebrtcSessionsListParams struct {
 	// Page number.
-	Page OptInt
+	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
-	ItemsPerPage OptInt
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }

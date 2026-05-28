@@ -53,6 +53,22 @@ type HlsMuxersListRes interface {
 	hlsMuxersListRes()
 }
 
+type HlssessionsGetRes interface {
+	hlssessionsGetRes()
+}
+
+type HlssessionsKickRes interface {
+	hlssessionsKickRes()
+}
+
+type HlssessionsListRes interface {
+	hlssessionsListRes()
+}
+
+type InfoRes interface {
+	infoRes()
+}
+
 type PathsGetRes interface {
 	pathsGetRes()
 }
