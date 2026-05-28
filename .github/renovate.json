@@ -4,11 +4,19 @@
     "config:recommended",
     ":combinePatchMinorReleases",
     ":separateMultipleMajorReleases",
-    "customManagers:githubActionsVersions",
-    "customManagers:makefileVersions"
+    "customManagers:githubActionsVersions"
   ],
   "schedule": ["* 0-6 * * 1"],
   "enabledManagers": ["custom.regex", "github-actions", "gomod", "mise"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.config/mise/conf\\.d/.*\\.toml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s*[A-Z0-9_]+\\s*=\\s*\"(?<currentValue>[^\"]+)\""
+      ]
+    }
+  ],
   "packageRules": [
     {
       "description": ["Automerge non-major updates"],
@@ -39,6 +47,12 @@
       "matchManagers": ["gomod"],
       "matchCurrentVersion": "v0.0.0-00010101000000-000000000000",
       "enabled": false
+    },
+    {
+      "description": ["Force GitHub Releases Datasource for MediaMTX"],
+      "matchManagers": ["mise"],
+      "matchPackageNames": ["bluenviron/mediamtx"],
+      "overrideDatasource": "github-releases"
     }
   ]
 }
