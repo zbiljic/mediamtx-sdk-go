@@ -186,8 +186,8 @@ func main() {
 		Source:       mediamtx.NewOptString("publisher"),
 		Record:       mediamtx.NewOptBool(true),
 		RecordPath:   mediamtx.NewOptString("./recordings/%path/%Y-%m-%d_%H-%M-%S-%f"),
-		RecordFormat: mediamtx.NewOptString("fmp4"),
-		MaxReaders:   mediamtx.NewOptInt(50),
+		RecordFormat: mediamtx.NewOptRecordFormat(mediamtx.RecordFormatFmp4),
+		MaxReaders:   mediamtx.NewOptInt64(50),
 	}
 
 	// Add the path
