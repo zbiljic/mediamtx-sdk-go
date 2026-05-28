@@ -1,0 +1,17 @@
+[tasks."ogen:generate"]
+description = "Generate SDK code from the MediaMTX OpenAPI specification"
+depends = ["mediamtx:openapi"]
+run = '''
+  set -e
+  ogen \
+    -loglevel warn \
+    -clean \
+    -config .config/ogen.yml \
+    -package mediamtx \
+    -target . \
+    "tmp/mediamtx/${MEDIAMTX_VERSION}/openapi.yaml"
+'''
+
+[tasks."ogen:clean"]
+description = "Remove generated OpenAPI code"
+run = "rm -f oas_*_gen.go"

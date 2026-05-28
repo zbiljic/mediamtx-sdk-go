@@ -65,15 +65,15 @@ git clone https://github.com/zbiljic/mediamtx-sdk-go.git
 cd mediamtx-sdk-go
 
 # Generate code
-make generate
+mise run generate
 
 # Run linter
-make lint
+mise run go:lint
 ```
 
 ## Requirements
 
-- Go 1.24 or later
+- Go 1.25 or later
 - MediaMTX server with API enabled
 
 ## Contributing
@@ -88,12 +88,13 @@ The project uses `mise` to manage development tools. To install them, run:
 make bootstrap
 ```
 
-Common development tasks are available in the `Makefile`:
+Common development tasks are available through `mise`:
 
-- `make tidy`: Tidy Go modules.
-- `make gofmt`: Format Go code with `gofumpt`.
-- `make lint`: Lint the source code.
-- `make pre-commit`: Run formatters and linters.
+- `mise run go:mod:tidy`: Tidy Go modules.
+- `mise run go:fmt`: Format Go code with `gofumpt`.
+- `mise run go:lint`: Lint the source code.
+- `mise run generate`: Regenerate SDK code.
+- `mise run pre-commit`: Run formatters and linters.
 
 ## License
 

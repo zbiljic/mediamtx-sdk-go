@@ -1,0 +1,3 @@
+[tasks.clean]
+description = "Run all clean tasks"
+depends = ["*:*clean"]

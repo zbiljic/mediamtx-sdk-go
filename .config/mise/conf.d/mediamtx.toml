@@ -1,0 +1,21 @@
+[env]
+# renovate: datasource=github-releases depName=bluenviron/mediamtx
+MEDIAMTX_VERSION = "v1.18.2"
+
+[tasks."mediamtx:openapi"]
+description = "Download the MediaMTX OpenAPI specification"
+run = '''
+  set -e
+  spec_dir="tmp/mediamtx/${MEDIAMTX_VERSION}"
+  mkdir -p "${spec_dir}"
+  echo "Downloading MediaMTX '${MEDIAMTX_VERSION}' openapi.yaml"
+  curl -sSL \
+    "https://raw.githubusercontent.com/bluenviron/mediamtx/${MEDIAMTX_VERSION}/api/openapi.yaml" \
+    --output "${spec_dir}/openapi.yaml"
+  sed -i.bak 's/enum: \[no, optional, strict\]/enum: ["no", optional, strict]/' "${spec_dir}/openapi.yaml"
+  rm -f "${spec_dir}/openapi.yaml.bak"
+'''
+
+[tasks."mediamtx:clean"]
+description = "Remove downloaded MediaMTX artifacts"
+run = "rm -rf tmp/mediamtx"

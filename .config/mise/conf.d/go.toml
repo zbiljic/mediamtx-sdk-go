@@ -1,0 +1,88 @@
+[env]
+_.source = { path = ".config/mise/scripts/go-mod-env.sh", tools = true }
+
+[tasks."go:mod:tidy:relaxed"]
+description = "Run go mod tidy in relaxed mode for all modules"
+hide = true
+run = "bash .config/mise/scripts/go-mod-tidy.sh relaxed"
+
+[tasks."go:mod:tidy:strict"]
+description = "Run go mod tidy in strict mode for all modules"
+hide = true
+run = "bash .config/mise/scripts/go-mod-tidy.sh strict"
+
+[tasks."go:mod:tidy"]
+description = "Run go mod tidy for all modules"
+run = "bash .config/mise/scripts/go-mod-tidy.sh all"
+
+[tasks."go:mod:lint"]
+description = "Lint Go module files"
+depends = ["go:mod:tidy"]
+run = '''
+  set -e
+  if git status --porcelain -- go.mod go.sum example/go.mod example/go.sum | grep -q .; then
+    echo "go.mod or go.sum needs updating"
+    git --no-pager diff -- go.mod go.sum example/go.mod example/go.sum
+    exit 1
+  fi
+'''
+
+[tasks."go:fmt"]
+description = "Format Go code with gofumpt"
+run = "gofumpt -extra -l -w ."
+
+[tasks."go:lint"]
+description = "Lint Go source"
+run = "golangci-lint run --fix"
+
+[tasks."go:test"]
+description = "Run unit tests with coverage"
+usage = '''
+flag "--race" env="ENABLE_RACE" help="Enable the race detector"
+flag "-v --verbose" env="VERBOSE" help="Enable verbose output"
+flag "--timeout <duration>" help="Go test timeout" default="15m"
+flag "--coverprofile <file>" help="Coverage profile output file" default="unit.coverprofile"
+flag "--packages <packages>" help="Package pattern(s) passed to go test" default="./..."
+'''
+run = '''
+  set -e
+
+  test_packages="${usage_packages?}"
+  test_timeout="${usage_timeout?}"
+  test_coverprofile="${usage_coverprofile?}"
+  test_race="${usage_race:-false}"
+  test_verbose="${usage_verbose:-false}"
+
+  test_args="-cover -coverprofile=${test_coverprofile} -timeout=${test_timeout} ${test_packages}"
+
+  if [ "$test_race" = "true" ]; then
+    test_args="-race -covermode=atomic ${test_args}"
+    if [ -n "${GOPATH:-}" ] && [ -z "${GORACE:-}" ]; then
+      export GORACE="strip_path_prefix=${GOPATH}/src"
+    fi
+  else
+    test_args="-covermode=count ${test_args}"
+  fi
+
+  if [ "$test_verbose" = "true" ] || [ "${CI:-}" != "true" ]; then
+    test_args="-v ${test_args}"
+  fi
+
+  CGO_ENABLED=1 go test ${test_args}
+'''
+
+[tasks."go:compile"]
+description = "Compile packages as a build check"
+run = "CGO_ENABLED=0 go test -run='^$' ./..."
+
+[tasks."go:coverage"]
+description = "Open HTML coverage report"
+run = "go tool cover -html=unit.coverprofile"
+
+[tasks."go:coverage:total"]
+description = "Print total coverage percentage"
+run = "go tool cover -func unit.coverprofile | grep total | awk '{ printf \"total coverage: %s of statements\\n\", $3 }'"
+
+[tasks."go:test:clean"]
+description = "Remove Go test artifacts"
+run = "rm -f *.cover *.coverprofile coverage.* profile.cov"

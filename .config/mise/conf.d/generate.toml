@@ -1,0 +1,11 @@
+[tasks.generate]
+description = "Generate code"
+depends = ["ogen:generate"]
+
+[tasks."pre-commit"]
+description = "Run formatters and linters"
+run = [
+  { task = "go:fmt" },
+  { task = "go:lint" },
+  { task = "go:mod:lint" },
+]
