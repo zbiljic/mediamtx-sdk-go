@@ -16,6 +16,7 @@
 coverage.*
 *.coverprofile
 profile.cov
+junit.*
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
@@ -24,8 +25,12 @@ profile.cov
 go.work
 go.work.sum
 
-# env file
-.env
+# env files
+.env*
 
 # Directories
+**/.cache
+**/.xdg
+**/bin
+**/dist
 **/tmp
