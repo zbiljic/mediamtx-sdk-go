@@ -1,6 +1,6 @@
 [env]
 # renovate: datasource=github-releases depName=bluenviron/mediamtx
-MEDIAMTX_VERSION = "v1.18.2"
+MEDIAMTX_VERSION = "v1.19.0"
 
 [tasks."mediamtx:openapi"]
 description = "Download the MediaMTX OpenAPI specification"
