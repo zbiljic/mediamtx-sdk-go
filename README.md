@@ -48,6 +48,30 @@ func main() {
 
 See [example/main.go](example/main.go) to get started. Documentation is available at [pkg.go.dev](https://pkg.go.dev/github.com/zbiljic/mediamtx-sdk-go).
 
+### Playback server
+
+MediaMTX exposes recording playback through a separate HTTP server, outside the
+official control API OpenAPI specification. Use `NewPlaybackClient` with the
+playback server address:
+
+```go
+playback, err := mediamtx.NewPlaybackClient("http://localhost:9996")
+if err != nil {
+    log.Fatal(err)
+}
+
+items, err := playback.List(context.Background(), mediamtx.PlaybackListParams{
+    Path: "camera/front",
+})
+if err != nil {
+    log.Fatal(err)
+}
+
+for _, item := range items {
+    fmt.Println(item.Start, item.Duration, item.URL)
+}
+```
+
 ## API Coverage
 
 The SDK provides complete access to MediaMTX API v3:
@@ -56,6 +80,7 @@ The SDK provides complete access to MediaMTX API v3:
 - **Monitoring**: Active paths, sessions (RTSP, RTMP, WebRTC, SRT, HLS)
 - **Recordings**: List, inspect, and manage recorded content
 - **Authentication**: JWT JWKS refresh and session management
+- **Playback**: List and download recordings from the playback server
 
 ## Building and Development
 
