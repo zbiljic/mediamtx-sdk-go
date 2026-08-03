@@ -1,6 +1,6 @@
 [tools]
 "go:github.com/ogen-go/ogen/cmd/ogen" = "1.23.0"
-"gofumpt" = "0.10.0"
+"gofumpt" = "0.11.0"
 golangci-lint = "2.12.2"
 
 [settings]
