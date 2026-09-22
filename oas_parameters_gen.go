@@ -2,6 +2,10 @@
 
 package mediamtx
 
+import (
+	"github.com/google/uuid"
+)
+
 // ConfigPathsAddParams is parameters of configPathsAdd operation.
 type ConfigPathsAddParams struct {
 	// The name of the path.
@@ -74,6 +78,44 @@ type HlssessionsListParams struct {
 	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
+// MoqSessionsGetParams is parameters of moqSessionsGet operation.
+type MoqSessionsGetParams struct {
+	// ID of the session.
+	ID string
+}
+
+// MoqSessionsKickParams is parameters of moqSessionsKick operation.
+type MoqSessionsKickParams struct {
+	// ID of the session.
+	ID string
+}
+
+// MoqSessionsListParams is parameters of moqSessionsList operation.
+type MoqSessionsListParams struct {
+	// Page number.
+	Page OptInt `json:",omitempty,omitzero"`
+	// Items per page.
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
+}
+
+// PathsForwardDestsGetParams is parameters of pathsForwardDestsGet operation.
+type PathsForwardDestsGetParams struct {
+	// ID of the forward destination.
+	ID uuid.UUID
+	// Name of the path.
+	Path string
+}
+
+// PathsForwardDestsListParams is parameters of pathsForwardDestsList operation.
+type PathsForwardDestsListParams struct {
+	// Name of the path.
+	Path string
+	// Page number.
+	Page OptInt `json:",omitempty,omitzero"`
+	// Items per page.
+	ItemsPerPage OptInt `json:",omitempty,omitzero"`
+}
+
 // PathsGetParams is parameters of pathsGet operation.
 type PathsGetParams struct {
 	// Name of the path.
@@ -88,12 +130,10 @@ type PathsListParams struct {
 	ItemsPerPage OptInt `json:",omitempty,omitzero"`
 }
 
-// RecordingsDeleteSegmentParams is parameters of recordingsDeleteSegment operation.
-type RecordingsDeleteSegmentParams struct {
-	// Path.
-	Path string
-	// Starting date of the segment.
-	Start string
+// PathsStaticSourcesGetParams is parameters of pathsStaticSourcesGet operation.
+type PathsStaticSourcesGetParams struct {
+	// Name of the path.
+	Name string
 }
 
 // RecordingsGetParams is parameters of recordingsGet operation.
@@ -108,6 +148,14 @@ type RecordingsListParams struct {
 	Page OptInt `json:",omitempty,omitzero"`
 	// Items per page.
 	ItemsPerPage OptInt `json:",omitempty,omitzero"`
+}
+
+// RecordingsSegmentsDeleteParams is parameters of recordingsSegmentsDelete operation.
+type RecordingsSegmentsDeleteParams struct {
+	// Path.
+	Path string
+	// Starting date of the segment.
+	Start string
 }
 
 // RtmpConnectionsGetParams is parameters of rtmpConnectionsGet operation.

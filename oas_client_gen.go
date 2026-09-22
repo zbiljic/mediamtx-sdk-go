@@ -4,6 +4,7 @@ package mediamtx
 
 import (
 	"context"
+	"io"
 	"net/url"
 	"strings"
 
@@ -42,13 +43,13 @@ type Invoker interface {
 	//
 	// Returns the default path configuration.
 	//
-	// GET /v3/config/pathdefaults/get
+	// GET /v3/config/path-defaults/get
 	ConfigPathDefaultsGet(ctx context.Context) (ConfigPathDefaultsGetRes, error)
 	// ConfigPathDefaultsPatch invokes configPathDefaultsPatch operation.
 	//
 	// All fields are optional.
 	//
-	// PATCH /v3/config/pathdefaults/patch
+	// PATCH /v3/config/path-defaults/patch
 	ConfigPathDefaultsPatch(ctx context.Context, request *PathConf) (ConfigPathDefaultsPatchRes, error)
 	// ConfigPathsAdd invokes configPathsAdd operation.
 	//
@@ -90,31 +91,31 @@ type Invoker interface {
 	//
 	// Returns a HLS muxer.
 	//
-	// GET /v3/hlsmuxers/get/{name}
+	// GET /v3/hls/muxers/get/{name}
 	HlsMuxersGet(ctx context.Context, params HlsMuxersGetParams) (HlsMuxersGetRes, error)
 	// HlsMuxersList invokes hlsMuxersList operation.
 	//
 	// Returns all HLS muxers.
 	//
-	// GET /v3/hlsmuxers/list
+	// GET /v3/hls/muxers/list
 	HlsMuxersList(ctx context.Context, params HlsMuxersListParams) (HlsMuxersListRes, error)
 	// HlssessionsGet invokes hlssessionsGet operation.
 	//
 	// Returns a HLS session.
 	//
-	// GET /v3/hlssessions/get/{id}
+	// GET /v3/hls/sessions/get/{id}
 	HlssessionsGet(ctx context.Context, params HlssessionsGetParams) (HlssessionsGetRes, error)
 	// HlssessionsKick invokes hlssessionsKick operation.
 	//
 	// Kicks out a HLS session from the server.
 	//
-	// POST /v3/hlssessions/kick/{id}
+	// POST /v3/hls/sessions/kick/{id}
 	HlssessionsKick(ctx context.Context, params HlssessionsKickParams) (HlssessionsKickRes, error)
 	// HlssessionsList invokes hlssessionsList operation.
 	//
 	// Returns all HLS sessions.
 	//
-	// GET /v3/hlssessions/list
+	// GET /v3/hls/sessions/list
 	HlssessionsList(ctx context.Context, params HlssessionsListParams) (HlssessionsListRes, error)
 	// Info invokes info operation.
 	//
@@ -122,6 +123,36 @@ type Invoker interface {
 	//
 	// GET /v3/info
 	Info(ctx context.Context) (InfoRes, error)
+	// MoqSessionsGet invokes moqSessionsGet operation.
+	//
+	// Returns a MoQ session.
+	//
+	// GET /v3/moq/sessions/get/{id}
+	MoqSessionsGet(ctx context.Context, params MoqSessionsGetParams) (MoqSessionsGetRes, error)
+	// MoqSessionsKick invokes moqSessionsKick operation.
+	//
+	// Kicks out a MoQ session from the server.
+	//
+	// POST /v3/moq/sessions/kick/{id}
+	MoqSessionsKick(ctx context.Context, params MoqSessionsKickParams) (MoqSessionsKickRes, error)
+	// MoqSessionsList invokes moqSessionsList operation.
+	//
+	// Returns all MoQ sessions.
+	//
+	// GET /v3/moq/sessions/list
+	MoqSessionsList(ctx context.Context, params MoqSessionsListParams) (MoqSessionsListRes, error)
+	// PathsForwardDestsGet invokes pathsForwardDestsGet operation.
+	//
+	// Returns a forward destination.
+	//
+	// GET /v3/paths/forward-dests/get
+	PathsForwardDestsGet(ctx context.Context, params PathsForwardDestsGetParams) (PathsForwardDestsGetRes, error)
+	// PathsForwardDestsList invokes pathsForwardDestsList operation.
+	//
+	// Returns all forward destinations of a path.
+	//
+	// GET /v3/paths/forward-dests/list
+	PathsForwardDestsList(ctx context.Context, params PathsForwardDestsListParams) (PathsForwardDestsListRes, error)
 	// PathsGet invokes pathsGet operation.
 	//
 	// Returns a path.
@@ -134,12 +165,12 @@ type Invoker interface {
 	//
 	// GET /v3/paths/list
 	PathsList(ctx context.Context, params PathsListParams) (PathsListRes, error)
-	// RecordingsDeleteSegment invokes recordingsDeleteSegment operation.
+	// PathsStaticSourcesGet invokes pathsStaticSourcesGet operation.
 	//
-	// Deletes a recording segment.
+	// Returns the static source of a path.
 	//
-	// DELETE /v3/recordings/deletesegment
-	RecordingsDeleteSegment(ctx context.Context, params RecordingsDeleteSegmentParams) (RecordingsDeleteSegmentRes, error)
+	// GET /v3/paths/static-sources/get/{name}
+	PathsStaticSourcesGet(ctx context.Context, params PathsStaticSourcesGetParams) (PathsStaticSourcesGetRes, error)
 	// RecordingsGet invokes recordingsGet operation.
 	//
 	// Returns recordings of a path.
@@ -152,137 +183,143 @@ type Invoker interface {
 	//
 	// GET /v3/recordings/list
 	RecordingsList(ctx context.Context, params RecordingsListParams) (RecordingsListRes, error)
+	// RecordingsSegmentsDelete invokes recordingsSegmentsDelete operation.
+	//
+	// Deletes a recording segment.
+	//
+	// DELETE /v3/recordings/segments/delete
+	RecordingsSegmentsDelete(ctx context.Context, params RecordingsSegmentsDeleteParams) (RecordingsSegmentsDeleteRes, error)
 	// RtmpConnectionsGet invokes rtmpConnectionsGet operation.
 	//
 	// Returns a RTMP connection.
 	//
-	// GET /v3/rtmpconns/get/{id}
+	// GET /v3/rtmp/conns/get/{id}
 	RtmpConnectionsGet(ctx context.Context, params RtmpConnectionsGetParams) (RtmpConnectionsGetRes, error)
 	// RtmpConnsKick invokes rtmpConnsKick operation.
 	//
 	// Kicks out a RTMP connection from the server.
 	//
-	// POST /v3/rtmpconns/kick/{id}
+	// POST /v3/rtmp/conns/kick/{id}
 	RtmpConnsKick(ctx context.Context, params RtmpConnsKickParams) (RtmpConnsKickRes, error)
 	// RtmpConnsList invokes rtmpConnsList operation.
 	//
 	// Returns all RTMP connections.
 	//
-	// GET /v3/rtmpconns/list
+	// GET /v3/rtmp/conns/list
 	RtmpConnsList(ctx context.Context, params RtmpConnsListParams) (RtmpConnsListRes, error)
 	// RtmpsConnectionsGet invokes rtmpsConnectionsGet operation.
 	//
 	// Returns a RTMPS connection.
 	//
-	// GET /v3/rtmpsconns/get/{id}
+	// GET /v3/rtmps/conns/get/{id}
 	RtmpsConnectionsGet(ctx context.Context, params RtmpsConnectionsGetParams) (RtmpsConnectionsGetRes, error)
 	// RtmpsConnsKick invokes rtmpsConnsKick operation.
 	//
 	// Kicks out a RTMPS connection from the server.
 	//
-	// POST /v3/rtmpsconns/kick/{id}
+	// POST /v3/rtmps/conns/kick/{id}
 	RtmpsConnsKick(ctx context.Context, params RtmpsConnsKickParams) (RtmpsConnsKickRes, error)
 	// RtmpsConnsList invokes rtmpsConnsList operation.
 	//
 	// Returns all RTMPS connections.
 	//
-	// GET /v3/rtmpsconns/list
+	// GET /v3/rtmps/conns/list
 	RtmpsConnsList(ctx context.Context, params RtmpsConnsListParams) (RtmpsConnsListRes, error)
 	// RtspConnsGet invokes rtspConnsGet operation.
 	//
 	// Returns a RTSP connection.
 	//
-	// GET /v3/rtspconns/get/{id}
+	// GET /v3/rtsp/conns/get/{id}
 	RtspConnsGet(ctx context.Context, params RtspConnsGetParams) (RtspConnsGetRes, error)
 	// RtspConnsList invokes rtspConnsList operation.
 	//
 	// Returns all RTSP connections.
 	//
-	// GET /v3/rtspconns/list
+	// GET /v3/rtsp/conns/list
 	RtspConnsList(ctx context.Context, params RtspConnsListParams) (RtspConnsListRes, error)
 	// RtspSessionsGet invokes rtspSessionsGet operation.
 	//
 	// Returns a RTSP session.
 	//
-	// GET /v3/rtspsessions/get/{id}
+	// GET /v3/rtsp/sessions/get/{id}
 	RtspSessionsGet(ctx context.Context, params RtspSessionsGetParams) (RtspSessionsGetRes, error)
 	// RtspSessionsKick invokes rtspSessionsKick operation.
 	//
 	// Kicks out a RTSP session from the server.
 	//
-	// POST /v3/rtspsessions/kick/{id}
+	// POST /v3/rtsp/sessions/kick/{id}
 	RtspSessionsKick(ctx context.Context, params RtspSessionsKickParams) (RtspSessionsKickRes, error)
 	// RtspSessionsList invokes rtspSessionsList operation.
 	//
 	// Returns all RTSP sessions.
 	//
-	// GET /v3/rtspsessions/list
+	// GET /v3/rtsp/sessions/list
 	RtspSessionsList(ctx context.Context, params RtspSessionsListParams) (RtspSessionsListRes, error)
 	// RtspsConnsGet invokes rtspsConnsGet operation.
 	//
 	// Returns a RTSPS connection.
 	//
-	// GET /v3/rtspsconns/get/{id}
+	// GET /v3/rtsps/conns/get/{id}
 	RtspsConnsGet(ctx context.Context, params RtspsConnsGetParams) (RtspsConnsGetRes, error)
 	// RtspsConnsList invokes rtspsConnsList operation.
 	//
 	// Returns all RTSPS connections.
 	//
-	// GET /v3/rtspsconns/list
+	// GET /v3/rtsps/conns/list
 	RtspsConnsList(ctx context.Context, params RtspsConnsListParams) (RtspsConnsListRes, error)
 	// RtspsSessionsGet invokes rtspsSessionsGet operation.
 	//
 	// Returns a RTSPS session.
 	//
-	// GET /v3/rtspssessions/get/{id}
+	// GET /v3/rtsps/sessions/get/{id}
 	RtspsSessionsGet(ctx context.Context, params RtspsSessionsGetParams) (RtspsSessionsGetRes, error)
 	// RtspsSessionsKick invokes rtspsSessionsKick operation.
 	//
 	// Kicks out a RTSPS session from the server.
 	//
-	// POST /v3/rtspssessions/kick/{id}
+	// POST /v3/rtsps/sessions/kick/{id}
 	RtspsSessionsKick(ctx context.Context, params RtspsSessionsKickParams) (RtspsSessionsKickRes, error)
 	// RtspsSessionsList invokes rtspsSessionsList operation.
 	//
 	// Returns all RTSPS sessions.
 	//
-	// GET /v3/rtspssessions/list
+	// GET /v3/rtsps/sessions/list
 	RtspsSessionsList(ctx context.Context, params RtspsSessionsListParams) (RtspsSessionsListRes, error)
 	// SrtConnsGet invokes srtConnsGet operation.
 	//
 	// Returns a SRT connection.
 	//
-	// GET /v3/srtconns/get/{id}
+	// GET /v3/srt/conns/get/{id}
 	SrtConnsGet(ctx context.Context, params SrtConnsGetParams) (SrtConnsGetRes, error)
 	// SrtConnsKick invokes srtConnsKick operation.
 	//
 	// Kicks out a SRT connection from the server.
 	//
-	// POST /v3/srtconns/kick/{id}
+	// POST /v3/srt/conns/kick/{id}
 	SrtConnsKick(ctx context.Context, params SrtConnsKickParams) (SrtConnsKickRes, error)
 	// SrtConnsList invokes srtConnsList operation.
 	//
 	// Returns all SRT connections.
 	//
-	// GET /v3/srtconns/list
+	// GET /v3/srt/conns/list
 	SrtConnsList(ctx context.Context, params SrtConnsListParams) (SrtConnsListRes, error)
 	// WebrtcSessionsGet invokes webrtcSessionsGet operation.
 	//
 	// Returns a WebRTC session.
 	//
-	// GET /v3/webrtcsessions/get/{id}
+	// GET /v3/webrtc/sessions/get/{id}
 	WebrtcSessionsGet(ctx context.Context, params WebrtcSessionsGetParams) (WebrtcSessionsGetRes, error)
 	// WebrtcSessionsKick invokes webrtcSessionsKick operation.
 	//
 	// Kicks out a WebRTC session from the server.
 	//
-	// POST /v3/webrtcsessions/kick/{id}
+	// POST /v3/webrtc/sessions/kick/{id}
 	WebrtcSessionsKick(ctx context.Context, params WebrtcSessionsKickParams) (WebrtcSessionsKickRes, error)
 	// WebrtcSessionsList invokes webrtcSessionsList operation.
 	//
 	// Returns all WebRTC sessions.
 	//
-	// GET /v3/webrtcsessions/list
+	// GET /v3/webrtc/sessions/list
 	WebrtcSessionsList(ctx context.Context, params WebrtcSessionsListParams) (WebrtcSessionsListRes, error)
 }
 
@@ -352,7 +389,13 @@ func (c *Client) sendAuthJwksRefresh(ctx context.Context) (res AuthJwksRefreshRe
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeAuthJwksRefreshResponse(resp)
 	if err != nil {
@@ -389,7 +432,13 @@ func (c *Client) sendConfigGlobalGet(ctx context.Context) (res ConfigGlobalGetRe
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigGlobalGetResponse(resp)
 	if err != nil {
@@ -438,7 +487,13 @@ func (c *Client) sendConfigGlobalSet(ctx context.Context, request *GlobalConf) (
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigGlobalSetResponse(resp)
 	if err != nil {
@@ -452,7 +507,7 @@ func (c *Client) sendConfigGlobalSet(ctx context.Context, request *GlobalConf) (
 //
 // Returns the default path configuration.
 //
-// GET /v3/config/pathdefaults/get
+// GET /v3/config/path-defaults/get
 func (c *Client) ConfigPathDefaultsGet(ctx context.Context) (ConfigPathDefaultsGetRes, error) {
 	res, err := c.sendConfigPathDefaultsGet(ctx)
 	return res, err
@@ -462,7 +517,7 @@ func (c *Client) sendConfigPathDefaultsGet(ctx context.Context) (res ConfigPathD
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/config/pathdefaults/get"
+	pathParts[0] = "/v3/config/path-defaults/get"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	r, err := ht.NewRequest(ctx, "GET", u)
@@ -475,7 +530,13 @@ func (c *Client) sendConfigPathDefaultsGet(ctx context.Context) (res ConfigPathD
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathDefaultsGetResponse(resp)
 	if err != nil {
@@ -489,7 +550,7 @@ func (c *Client) sendConfigPathDefaultsGet(ctx context.Context) (res ConfigPathD
 //
 // All fields are optional.
 //
-// PATCH /v3/config/pathdefaults/patch
+// PATCH /v3/config/path-defaults/patch
 func (c *Client) ConfigPathDefaultsPatch(ctx context.Context, request *PathConf) (ConfigPathDefaultsPatchRes, error) {
 	res, err := c.sendConfigPathDefaultsPatch(ctx, request)
 	return res, err
@@ -508,7 +569,7 @@ func (c *Client) sendConfigPathDefaultsPatch(ctx context.Context, request *PathC
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/config/pathdefaults/patch"
+	pathParts[0] = "/v3/config/path-defaults/patch"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	r, err := ht.NewRequest(ctx, "PATCH", u)
@@ -524,7 +585,13 @@ func (c *Client) sendConfigPathDefaultsPatch(ctx context.Context, request *PathC
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathDefaultsPatchResponse(resp)
 	if err != nil {
@@ -591,7 +658,13 @@ func (c *Client) sendConfigPathsAdd(ctx context.Context, request *PathConf, para
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsAddResponse(resp)
 	if err != nil {
@@ -646,7 +719,13 @@ func (c *Client) sendConfigPathsDelete(ctx context.Context, params ConfigPathsDe
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsDeleteResponse(resp)
 	if err != nil {
@@ -701,7 +780,13 @@ func (c *Client) sendConfigPathsGet(ctx context.Context, params ConfigPathsGetPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsGetResponse(resp)
 	if err != nil {
@@ -775,7 +860,13 @@ func (c *Client) sendConfigPathsList(ctx context.Context, params ConfigPathsList
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsListResponse(resp)
 	if err != nil {
@@ -842,7 +933,13 @@ func (c *Client) sendConfigPathsPatch(ctx context.Context, request *PathConf, pa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsPatchResponse(resp)
 	if err != nil {
@@ -909,7 +1006,13 @@ func (c *Client) sendConfigPathsReplace(ctx context.Context, request *PathConf, 
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeConfigPathsReplaceResponse(resp)
 	if err != nil {
@@ -923,7 +1026,7 @@ func (c *Client) sendConfigPathsReplace(ctx context.Context, request *PathConf, 
 //
 // Returns a HLS muxer.
 //
-// GET /v3/hlsmuxers/get/{name}
+// GET /v3/hls/muxers/get/{name}
 func (c *Client) HlsMuxersGet(ctx context.Context, params HlsMuxersGetParams) (HlsMuxersGetRes, error) {
 	res, err := c.sendHlsMuxersGet(ctx, params)
 	return res, err
@@ -933,7 +1036,7 @@ func (c *Client) sendHlsMuxersGet(ctx context.Context, params HlsMuxersGetParams
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/hlsmuxers/get/"
+	pathParts[0] = "/v3/hls/muxers/get/"
 	{
 		// Encode "name" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -964,7 +1067,13 @@ func (c *Client) sendHlsMuxersGet(ctx context.Context, params HlsMuxersGetParams
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeHlsMuxersGetResponse(resp)
 	if err != nil {
@@ -978,7 +1087,7 @@ func (c *Client) sendHlsMuxersGet(ctx context.Context, params HlsMuxersGetParams
 //
 // Returns all HLS muxers.
 //
-// GET /v3/hlsmuxers/list
+// GET /v3/hls/muxers/list
 func (c *Client) HlsMuxersList(ctx context.Context, params HlsMuxersListParams) (HlsMuxersListRes, error) {
 	res, err := c.sendHlsMuxersList(ctx, params)
 	return res, err
@@ -988,7 +1097,7 @@ func (c *Client) sendHlsMuxersList(ctx context.Context, params HlsMuxersListPara
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/hlsmuxers/list"
+	pathParts[0] = "/v3/hls/muxers/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -1038,7 +1147,13 @@ func (c *Client) sendHlsMuxersList(ctx context.Context, params HlsMuxersListPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeHlsMuxersListResponse(resp)
 	if err != nil {
@@ -1052,7 +1167,7 @@ func (c *Client) sendHlsMuxersList(ctx context.Context, params HlsMuxersListPara
 //
 // Returns a HLS session.
 //
-// GET /v3/hlssessions/get/{id}
+// GET /v3/hls/sessions/get/{id}
 func (c *Client) HlssessionsGet(ctx context.Context, params HlssessionsGetParams) (HlssessionsGetRes, error) {
 	res, err := c.sendHlssessionsGet(ctx, params)
 	return res, err
@@ -1062,7 +1177,7 @@ func (c *Client) sendHlssessionsGet(ctx context.Context, params HlssessionsGetPa
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/hlssessions/get/"
+	pathParts[0] = "/v3/hls/sessions/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1093,7 +1208,13 @@ func (c *Client) sendHlssessionsGet(ctx context.Context, params HlssessionsGetPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeHlssessionsGetResponse(resp)
 	if err != nil {
@@ -1107,7 +1228,7 @@ func (c *Client) sendHlssessionsGet(ctx context.Context, params HlssessionsGetPa
 //
 // Kicks out a HLS session from the server.
 //
-// POST /v3/hlssessions/kick/{id}
+// POST /v3/hls/sessions/kick/{id}
 func (c *Client) HlssessionsKick(ctx context.Context, params HlssessionsKickParams) (HlssessionsKickRes, error) {
 	res, err := c.sendHlssessionsKick(ctx, params)
 	return res, err
@@ -1117,7 +1238,7 @@ func (c *Client) sendHlssessionsKick(ctx context.Context, params HlssessionsKick
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/hlssessions/kick/"
+	pathParts[0] = "/v3/hls/sessions/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1148,7 +1269,13 @@ func (c *Client) sendHlssessionsKick(ctx context.Context, params HlssessionsKick
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeHlssessionsKickResponse(resp)
 	if err != nil {
@@ -1162,7 +1289,7 @@ func (c *Client) sendHlssessionsKick(ctx context.Context, params HlssessionsKick
 //
 // Returns all HLS sessions.
 //
-// GET /v3/hlssessions/list
+// GET /v3/hls/sessions/list
 func (c *Client) HlssessionsList(ctx context.Context, params HlssessionsListParams) (HlssessionsListRes, error) {
 	res, err := c.sendHlssessionsList(ctx, params)
 	return res, err
@@ -1172,7 +1299,7 @@ func (c *Client) sendHlssessionsList(ctx context.Context, params HlssessionsList
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/hlssessions/list"
+	pathParts[0] = "/v3/hls/sessions/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -1222,7 +1349,13 @@ func (c *Client) sendHlssessionsList(ctx context.Context, params HlssessionsList
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeHlssessionsListResponse(resp)
 	if err != nil {
@@ -1259,9 +1392,385 @@ func (c *Client) sendInfo(ctx context.Context) (res InfoRes, err error) {
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeInfoResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// MoqSessionsGet invokes moqSessionsGet operation.
+//
+// Returns a MoQ session.
+//
+// GET /v3/moq/sessions/get/{id}
+func (c *Client) MoqSessionsGet(ctx context.Context, params MoqSessionsGetParams) (MoqSessionsGetRes, error) {
+	res, err := c.sendMoqSessionsGet(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendMoqSessionsGet(ctx context.Context, params MoqSessionsGetParams) (res MoqSessionsGetRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/v3/moq/sessions/get/"
+	{
+		// Encode "id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodeMoqSessionsGetResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// MoqSessionsKick invokes moqSessionsKick operation.
+//
+// Kicks out a MoQ session from the server.
+//
+// POST /v3/moq/sessions/kick/{id}
+func (c *Client) MoqSessionsKick(ctx context.Context, params MoqSessionsKickParams) (MoqSessionsKickRes, error) {
+	res, err := c.sendMoqSessionsKick(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendMoqSessionsKick(ctx context.Context, params MoqSessionsKickParams) (res MoqSessionsKickRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [2]string
+	pathParts[0] = "/v3/moq/sessions/kick/"
+	{
+		// Encode "id" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "id",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.ID))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
+	uri.AddPathParts(u, pathParts[:]...)
+
+	r, err := ht.NewRequest(ctx, "POST", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodeMoqSessionsKickResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// MoqSessionsList invokes moqSessionsList operation.
+//
+// Returns all MoQ sessions.
+//
+// GET /v3/moq/sessions/list
+func (c *Client) MoqSessionsList(ctx context.Context, params MoqSessionsListParams) (MoqSessionsListRes, error) {
+	res, err := c.sendMoqSessionsList(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendMoqSessionsList(ctx context.Context, params MoqSessionsListParams) (res MoqSessionsListRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/moq/sessions/list"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "page" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Page.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "itemsPerPage" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "itemsPerPage",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.ItemsPerPage.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodeMoqSessionsListResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// PathsForwardDestsGet invokes pathsForwardDestsGet operation.
+//
+// Returns a forward destination.
+//
+// GET /v3/paths/forward-dests/get
+func (c *Client) PathsForwardDestsGet(ctx context.Context, params PathsForwardDestsGetParams) (PathsForwardDestsGetRes, error) {
+	res, err := c.sendPathsForwardDestsGet(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendPathsForwardDestsGet(ctx context.Context, params PathsForwardDestsGetParams) (res PathsForwardDestsGetRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/paths/forward-dests/get"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "id" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "id",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.UUIDToString(params.ID))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "path" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "path",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Path))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodePathsForwardDestsGetResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// PathsForwardDestsList invokes pathsForwardDestsList operation.
+//
+// Returns all forward destinations of a path.
+//
+// GET /v3/paths/forward-dests/list
+func (c *Client) PathsForwardDestsList(ctx context.Context, params PathsForwardDestsListParams) (PathsForwardDestsListRes, error) {
+	res, err := c.sendPathsForwardDestsList(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendPathsForwardDestsList(ctx context.Context, params PathsForwardDestsListParams) (res PathsForwardDestsListRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/paths/forward-dests/list"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "path" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "path",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Path))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "page" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "page",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.Page.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "itemsPerPage" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "itemsPerPage",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			if val, ok := params.ItemsPerPage.Get(); ok {
+				return e.EncodeValue(conv.IntToString(val))
+			}
+			return nil
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	r, err := ht.NewRequest(ctx, "GET", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodePathsForwardDestsListResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -1314,7 +1823,13 @@ func (c *Client) sendPathsGet(ctx context.Context, params PathsGetParams) (res P
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodePathsGetResponse(resp)
 	if err != nil {
@@ -1388,7 +1903,13 @@ func (c *Client) sendPathsList(ctx context.Context, params PathsListParams) (res
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodePathsListResponse(resp)
 	if err != nil {
@@ -1398,55 +1919,42 @@ func (c *Client) sendPathsList(ctx context.Context, params PathsListParams) (res
 	return result, nil
 }
 
-// RecordingsDeleteSegment invokes recordingsDeleteSegment operation.
+// PathsStaticSourcesGet invokes pathsStaticSourcesGet operation.
 //
-// Deletes a recording segment.
+// Returns the static source of a path.
 //
-// DELETE /v3/recordings/deletesegment
-func (c *Client) RecordingsDeleteSegment(ctx context.Context, params RecordingsDeleteSegmentParams) (RecordingsDeleteSegmentRes, error) {
-	res, err := c.sendRecordingsDeleteSegment(ctx, params)
+// GET /v3/paths/static-sources/get/{name}
+func (c *Client) PathsStaticSourcesGet(ctx context.Context, params PathsStaticSourcesGetParams) (PathsStaticSourcesGetRes, error) {
+	res, err := c.sendPathsStaticSourcesGet(ctx, params)
 	return res, err
 }
 
-func (c *Client) sendRecordingsDeleteSegment(ctx context.Context, params RecordingsDeleteSegmentParams) (res RecordingsDeleteSegmentRes, err error) {
+func (c *Client) sendPathsStaticSourcesGet(ctx context.Context, params PathsStaticSourcesGetParams) (res PathsStaticSourcesGetRes, err error) {
 
 	u := uri.Clone(c.requestURL(ctx))
-	var pathParts [1]string
-	pathParts[0] = "/v3/recordings/deletesegment"
+	var pathParts [2]string
+	pathParts[0] = "/v3/paths/static-sources/get/"
+	{
+		// Encode "name" parameter.
+		e := uri.NewPathEncoder(uri.PathEncoderConfig{
+			Param:   "name",
+			Style:   uri.PathStyleSimple,
+			Explode: false,
+		})
+		if err := func() error {
+			return e.EncodeValue(conv.StringToString(params.Name))
+		}(); err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		encoded, err := e.Result()
+		if err != nil {
+			return res, errors.Wrap(err, "encode path")
+		}
+		pathParts[1] = encoded
+	}
 	uri.AddPathParts(u, pathParts[:]...)
 
-	q := uri.NewQueryEncoder()
-	{
-		// Encode "path" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "path",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(params.Path))
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	{
-		// Encode "start" parameter.
-		cfg := uri.QueryParameterEncodingConfig{
-			Name:    "start",
-			Style:   uri.QueryStyleForm,
-			Explode: true,
-		}
-
-		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
-			return e.EncodeValue(conv.StringToString(params.Start))
-		}); err != nil {
-			return res, errors.Wrap(err, "encode query")
-		}
-	}
-	u.RawQuery = q.Values().Encode()
-
-	r, err := ht.NewRequest(ctx, "DELETE", u)
+	r, err := ht.NewRequest(ctx, "GET", u)
 	if err != nil {
 		return res, errors.Wrap(err, "create request")
 	}
@@ -1456,9 +1964,15 @@ func (c *Client) sendRecordingsDeleteSegment(ctx context.Context, params Recordi
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
-	result, err := decodeRecordingsDeleteSegmentResponse(resp)
+	result, err := decodePathsStaticSourcesGetResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -1511,7 +2025,13 @@ func (c *Client) sendRecordingsGet(ctx context.Context, params RecordingsGetPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRecordingsGetResponse(resp)
 	if err != nil {
@@ -1585,9 +2105,89 @@ func (c *Client) sendRecordingsList(ctx context.Context, params RecordingsListPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRecordingsListResponse(resp)
+	if err != nil {
+		return res, errors.Wrap(err, "decode response")
+	}
+
+	return result, nil
+}
+
+// RecordingsSegmentsDelete invokes recordingsSegmentsDelete operation.
+//
+// Deletes a recording segment.
+//
+// DELETE /v3/recordings/segments/delete
+func (c *Client) RecordingsSegmentsDelete(ctx context.Context, params RecordingsSegmentsDeleteParams) (RecordingsSegmentsDeleteRes, error) {
+	res, err := c.sendRecordingsSegmentsDelete(ctx, params)
+	return res, err
+}
+
+func (c *Client) sendRecordingsSegmentsDelete(ctx context.Context, params RecordingsSegmentsDeleteParams) (res RecordingsSegmentsDeleteRes, err error) {
+
+	u := uri.Clone(c.requestURL(ctx))
+	var pathParts [1]string
+	pathParts[0] = "/v3/recordings/segments/delete"
+	uri.AddPathParts(u, pathParts[:]...)
+
+	q := uri.NewQueryEncoder()
+	{
+		// Encode "path" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "path",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Path))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	{
+		// Encode "start" parameter.
+		cfg := uri.QueryParameterEncodingConfig{
+			Name:    "start",
+			Style:   uri.QueryStyleForm,
+			Explode: true,
+		}
+
+		if err := q.EncodeParam(cfg, func(e uri.Encoder) error {
+			return e.EncodeValue(conv.StringToString(params.Start))
+		}); err != nil {
+			return res, errors.Wrap(err, "encode query")
+		}
+	}
+	u.RawQuery = q.Values().Encode()
+
+	r, err := ht.NewRequest(ctx, "DELETE", u)
+	if err != nil {
+		return res, errors.Wrap(err, "create request")
+	}
+
+	resp, err := c.cfg.Client.Do(r)
+	if err != nil {
+		return res, errors.Wrap(err, "do request")
+	}
+	body := resp.Body
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
+
+	result, err := decodeRecordingsSegmentsDeleteResponse(resp)
 	if err != nil {
 		return res, errors.Wrap(err, "decode response")
 	}
@@ -1599,7 +2199,7 @@ func (c *Client) sendRecordingsList(ctx context.Context, params RecordingsListPa
 //
 // Returns a RTMP connection.
 //
-// GET /v3/rtmpconns/get/{id}
+// GET /v3/rtmp/conns/get/{id}
 func (c *Client) RtmpConnectionsGet(ctx context.Context, params RtmpConnectionsGetParams) (RtmpConnectionsGetRes, error) {
 	res, err := c.sendRtmpConnectionsGet(ctx, params)
 	return res, err
@@ -1609,7 +2209,7 @@ func (c *Client) sendRtmpConnectionsGet(ctx context.Context, params RtmpConnecti
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtmpconns/get/"
+	pathParts[0] = "/v3/rtmp/conns/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1640,7 +2240,13 @@ func (c *Client) sendRtmpConnectionsGet(ctx context.Context, params RtmpConnecti
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpConnectionsGetResponse(resp)
 	if err != nil {
@@ -1654,7 +2260,7 @@ func (c *Client) sendRtmpConnectionsGet(ctx context.Context, params RtmpConnecti
 //
 // Kicks out a RTMP connection from the server.
 //
-// POST /v3/rtmpconns/kick/{id}
+// POST /v3/rtmp/conns/kick/{id}
 func (c *Client) RtmpConnsKick(ctx context.Context, params RtmpConnsKickParams) (RtmpConnsKickRes, error) {
 	res, err := c.sendRtmpConnsKick(ctx, params)
 	return res, err
@@ -1664,7 +2270,7 @@ func (c *Client) sendRtmpConnsKick(ctx context.Context, params RtmpConnsKickPara
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtmpconns/kick/"
+	pathParts[0] = "/v3/rtmp/conns/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1695,7 +2301,13 @@ func (c *Client) sendRtmpConnsKick(ctx context.Context, params RtmpConnsKickPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpConnsKickResponse(resp)
 	if err != nil {
@@ -1709,7 +2321,7 @@ func (c *Client) sendRtmpConnsKick(ctx context.Context, params RtmpConnsKickPara
 //
 // Returns all RTMP connections.
 //
-// GET /v3/rtmpconns/list
+// GET /v3/rtmp/conns/list
 func (c *Client) RtmpConnsList(ctx context.Context, params RtmpConnsListParams) (RtmpConnsListRes, error) {
 	res, err := c.sendRtmpConnsList(ctx, params)
 	return res, err
@@ -1719,7 +2331,7 @@ func (c *Client) sendRtmpConnsList(ctx context.Context, params RtmpConnsListPara
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtmpconns/list"
+	pathParts[0] = "/v3/rtmp/conns/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -1769,7 +2381,13 @@ func (c *Client) sendRtmpConnsList(ctx context.Context, params RtmpConnsListPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpConnsListResponse(resp)
 	if err != nil {
@@ -1783,7 +2401,7 @@ func (c *Client) sendRtmpConnsList(ctx context.Context, params RtmpConnsListPara
 //
 // Returns a RTMPS connection.
 //
-// GET /v3/rtmpsconns/get/{id}
+// GET /v3/rtmps/conns/get/{id}
 func (c *Client) RtmpsConnectionsGet(ctx context.Context, params RtmpsConnectionsGetParams) (RtmpsConnectionsGetRes, error) {
 	res, err := c.sendRtmpsConnectionsGet(ctx, params)
 	return res, err
@@ -1793,7 +2411,7 @@ func (c *Client) sendRtmpsConnectionsGet(ctx context.Context, params RtmpsConnec
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtmpsconns/get/"
+	pathParts[0] = "/v3/rtmps/conns/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1824,7 +2442,13 @@ func (c *Client) sendRtmpsConnectionsGet(ctx context.Context, params RtmpsConnec
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpsConnectionsGetResponse(resp)
 	if err != nil {
@@ -1838,7 +2462,7 @@ func (c *Client) sendRtmpsConnectionsGet(ctx context.Context, params RtmpsConnec
 //
 // Kicks out a RTMPS connection from the server.
 //
-// POST /v3/rtmpsconns/kick/{id}
+// POST /v3/rtmps/conns/kick/{id}
 func (c *Client) RtmpsConnsKick(ctx context.Context, params RtmpsConnsKickParams) (RtmpsConnsKickRes, error) {
 	res, err := c.sendRtmpsConnsKick(ctx, params)
 	return res, err
@@ -1848,7 +2472,7 @@ func (c *Client) sendRtmpsConnsKick(ctx context.Context, params RtmpsConnsKickPa
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtmpsconns/kick/"
+	pathParts[0] = "/v3/rtmps/conns/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -1879,7 +2503,13 @@ func (c *Client) sendRtmpsConnsKick(ctx context.Context, params RtmpsConnsKickPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpsConnsKickResponse(resp)
 	if err != nil {
@@ -1893,7 +2523,7 @@ func (c *Client) sendRtmpsConnsKick(ctx context.Context, params RtmpsConnsKickPa
 //
 // Returns all RTMPS connections.
 //
-// GET /v3/rtmpsconns/list
+// GET /v3/rtmps/conns/list
 func (c *Client) RtmpsConnsList(ctx context.Context, params RtmpsConnsListParams) (RtmpsConnsListRes, error) {
 	res, err := c.sendRtmpsConnsList(ctx, params)
 	return res, err
@@ -1903,7 +2533,7 @@ func (c *Client) sendRtmpsConnsList(ctx context.Context, params RtmpsConnsListPa
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtmpsconns/list"
+	pathParts[0] = "/v3/rtmps/conns/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -1953,7 +2583,13 @@ func (c *Client) sendRtmpsConnsList(ctx context.Context, params RtmpsConnsListPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtmpsConnsListResponse(resp)
 	if err != nil {
@@ -1967,7 +2603,7 @@ func (c *Client) sendRtmpsConnsList(ctx context.Context, params RtmpsConnsListPa
 //
 // Returns a RTSP connection.
 //
-// GET /v3/rtspconns/get/{id}
+// GET /v3/rtsp/conns/get/{id}
 func (c *Client) RtspConnsGet(ctx context.Context, params RtspConnsGetParams) (RtspConnsGetRes, error) {
 	res, err := c.sendRtspConnsGet(ctx, params)
 	return res, err
@@ -1977,7 +2613,7 @@ func (c *Client) sendRtspConnsGet(ctx context.Context, params RtspConnsGetParams
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspconns/get/"
+	pathParts[0] = "/v3/rtsp/conns/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2008,7 +2644,13 @@ func (c *Client) sendRtspConnsGet(ctx context.Context, params RtspConnsGetParams
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspConnsGetResponse(resp)
 	if err != nil {
@@ -2022,7 +2664,7 @@ func (c *Client) sendRtspConnsGet(ctx context.Context, params RtspConnsGetParams
 //
 // Returns all RTSP connections.
 //
-// GET /v3/rtspconns/list
+// GET /v3/rtsp/conns/list
 func (c *Client) RtspConnsList(ctx context.Context, params RtspConnsListParams) (RtspConnsListRes, error) {
 	res, err := c.sendRtspConnsList(ctx, params)
 	return res, err
@@ -2032,7 +2674,7 @@ func (c *Client) sendRtspConnsList(ctx context.Context, params RtspConnsListPara
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtspconns/list"
+	pathParts[0] = "/v3/rtsp/conns/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2082,7 +2724,13 @@ func (c *Client) sendRtspConnsList(ctx context.Context, params RtspConnsListPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspConnsListResponse(resp)
 	if err != nil {
@@ -2096,7 +2744,7 @@ func (c *Client) sendRtspConnsList(ctx context.Context, params RtspConnsListPara
 //
 // Returns a RTSP session.
 //
-// GET /v3/rtspsessions/get/{id}
+// GET /v3/rtsp/sessions/get/{id}
 func (c *Client) RtspSessionsGet(ctx context.Context, params RtspSessionsGetParams) (RtspSessionsGetRes, error) {
 	res, err := c.sendRtspSessionsGet(ctx, params)
 	return res, err
@@ -2106,7 +2754,7 @@ func (c *Client) sendRtspSessionsGet(ctx context.Context, params RtspSessionsGet
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspsessions/get/"
+	pathParts[0] = "/v3/rtsp/sessions/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2137,7 +2785,13 @@ func (c *Client) sendRtspSessionsGet(ctx context.Context, params RtspSessionsGet
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspSessionsGetResponse(resp)
 	if err != nil {
@@ -2151,7 +2805,7 @@ func (c *Client) sendRtspSessionsGet(ctx context.Context, params RtspSessionsGet
 //
 // Kicks out a RTSP session from the server.
 //
-// POST /v3/rtspsessions/kick/{id}
+// POST /v3/rtsp/sessions/kick/{id}
 func (c *Client) RtspSessionsKick(ctx context.Context, params RtspSessionsKickParams) (RtspSessionsKickRes, error) {
 	res, err := c.sendRtspSessionsKick(ctx, params)
 	return res, err
@@ -2161,7 +2815,7 @@ func (c *Client) sendRtspSessionsKick(ctx context.Context, params RtspSessionsKi
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspsessions/kick/"
+	pathParts[0] = "/v3/rtsp/sessions/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2192,7 +2846,13 @@ func (c *Client) sendRtspSessionsKick(ctx context.Context, params RtspSessionsKi
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspSessionsKickResponse(resp)
 	if err != nil {
@@ -2206,7 +2866,7 @@ func (c *Client) sendRtspSessionsKick(ctx context.Context, params RtspSessionsKi
 //
 // Returns all RTSP sessions.
 //
-// GET /v3/rtspsessions/list
+// GET /v3/rtsp/sessions/list
 func (c *Client) RtspSessionsList(ctx context.Context, params RtspSessionsListParams) (RtspSessionsListRes, error) {
 	res, err := c.sendRtspSessionsList(ctx, params)
 	return res, err
@@ -2216,7 +2876,7 @@ func (c *Client) sendRtspSessionsList(ctx context.Context, params RtspSessionsLi
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtspsessions/list"
+	pathParts[0] = "/v3/rtsp/sessions/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2266,7 +2926,13 @@ func (c *Client) sendRtspSessionsList(ctx context.Context, params RtspSessionsLi
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspSessionsListResponse(resp)
 	if err != nil {
@@ -2280,7 +2946,7 @@ func (c *Client) sendRtspSessionsList(ctx context.Context, params RtspSessionsLi
 //
 // Returns a RTSPS connection.
 //
-// GET /v3/rtspsconns/get/{id}
+// GET /v3/rtsps/conns/get/{id}
 func (c *Client) RtspsConnsGet(ctx context.Context, params RtspsConnsGetParams) (RtspsConnsGetRes, error) {
 	res, err := c.sendRtspsConnsGet(ctx, params)
 	return res, err
@@ -2290,7 +2956,7 @@ func (c *Client) sendRtspsConnsGet(ctx context.Context, params RtspsConnsGetPara
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspsconns/get/"
+	pathParts[0] = "/v3/rtsps/conns/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2321,7 +2987,13 @@ func (c *Client) sendRtspsConnsGet(ctx context.Context, params RtspsConnsGetPara
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspsConnsGetResponse(resp)
 	if err != nil {
@@ -2335,7 +3007,7 @@ func (c *Client) sendRtspsConnsGet(ctx context.Context, params RtspsConnsGetPara
 //
 // Returns all RTSPS connections.
 //
-// GET /v3/rtspsconns/list
+// GET /v3/rtsps/conns/list
 func (c *Client) RtspsConnsList(ctx context.Context, params RtspsConnsListParams) (RtspsConnsListRes, error) {
 	res, err := c.sendRtspsConnsList(ctx, params)
 	return res, err
@@ -2345,7 +3017,7 @@ func (c *Client) sendRtspsConnsList(ctx context.Context, params RtspsConnsListPa
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtspsconns/list"
+	pathParts[0] = "/v3/rtsps/conns/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2395,7 +3067,13 @@ func (c *Client) sendRtspsConnsList(ctx context.Context, params RtspsConnsListPa
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspsConnsListResponse(resp)
 	if err != nil {
@@ -2409,7 +3087,7 @@ func (c *Client) sendRtspsConnsList(ctx context.Context, params RtspsConnsListPa
 //
 // Returns a RTSPS session.
 //
-// GET /v3/rtspssessions/get/{id}
+// GET /v3/rtsps/sessions/get/{id}
 func (c *Client) RtspsSessionsGet(ctx context.Context, params RtspsSessionsGetParams) (RtspsSessionsGetRes, error) {
 	res, err := c.sendRtspsSessionsGet(ctx, params)
 	return res, err
@@ -2419,7 +3097,7 @@ func (c *Client) sendRtspsSessionsGet(ctx context.Context, params RtspsSessionsG
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspssessions/get/"
+	pathParts[0] = "/v3/rtsps/sessions/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2450,7 +3128,13 @@ func (c *Client) sendRtspsSessionsGet(ctx context.Context, params RtspsSessionsG
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspsSessionsGetResponse(resp)
 	if err != nil {
@@ -2464,7 +3148,7 @@ func (c *Client) sendRtspsSessionsGet(ctx context.Context, params RtspsSessionsG
 //
 // Kicks out a RTSPS session from the server.
 //
-// POST /v3/rtspssessions/kick/{id}
+// POST /v3/rtsps/sessions/kick/{id}
 func (c *Client) RtspsSessionsKick(ctx context.Context, params RtspsSessionsKickParams) (RtspsSessionsKickRes, error) {
 	res, err := c.sendRtspsSessionsKick(ctx, params)
 	return res, err
@@ -2474,7 +3158,7 @@ func (c *Client) sendRtspsSessionsKick(ctx context.Context, params RtspsSessions
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/rtspssessions/kick/"
+	pathParts[0] = "/v3/rtsps/sessions/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2505,7 +3189,13 @@ func (c *Client) sendRtspsSessionsKick(ctx context.Context, params RtspsSessions
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspsSessionsKickResponse(resp)
 	if err != nil {
@@ -2519,7 +3209,7 @@ func (c *Client) sendRtspsSessionsKick(ctx context.Context, params RtspsSessions
 //
 // Returns all RTSPS sessions.
 //
-// GET /v3/rtspssessions/list
+// GET /v3/rtsps/sessions/list
 func (c *Client) RtspsSessionsList(ctx context.Context, params RtspsSessionsListParams) (RtspsSessionsListRes, error) {
 	res, err := c.sendRtspsSessionsList(ctx, params)
 	return res, err
@@ -2529,7 +3219,7 @@ func (c *Client) sendRtspsSessionsList(ctx context.Context, params RtspsSessions
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/rtspssessions/list"
+	pathParts[0] = "/v3/rtsps/sessions/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2579,7 +3269,13 @@ func (c *Client) sendRtspsSessionsList(ctx context.Context, params RtspsSessions
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeRtspsSessionsListResponse(resp)
 	if err != nil {
@@ -2593,7 +3289,7 @@ func (c *Client) sendRtspsSessionsList(ctx context.Context, params RtspsSessions
 //
 // Returns a SRT connection.
 //
-// GET /v3/srtconns/get/{id}
+// GET /v3/srt/conns/get/{id}
 func (c *Client) SrtConnsGet(ctx context.Context, params SrtConnsGetParams) (SrtConnsGetRes, error) {
 	res, err := c.sendSrtConnsGet(ctx, params)
 	return res, err
@@ -2603,7 +3299,7 @@ func (c *Client) sendSrtConnsGet(ctx context.Context, params SrtConnsGetParams) 
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/srtconns/get/"
+	pathParts[0] = "/v3/srt/conns/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2634,7 +3330,13 @@ func (c *Client) sendSrtConnsGet(ctx context.Context, params SrtConnsGetParams) 
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeSrtConnsGetResponse(resp)
 	if err != nil {
@@ -2648,7 +3350,7 @@ func (c *Client) sendSrtConnsGet(ctx context.Context, params SrtConnsGetParams) 
 //
 // Kicks out a SRT connection from the server.
 //
-// POST /v3/srtconns/kick/{id}
+// POST /v3/srt/conns/kick/{id}
 func (c *Client) SrtConnsKick(ctx context.Context, params SrtConnsKickParams) (SrtConnsKickRes, error) {
 	res, err := c.sendSrtConnsKick(ctx, params)
 	return res, err
@@ -2658,7 +3360,7 @@ func (c *Client) sendSrtConnsKick(ctx context.Context, params SrtConnsKickParams
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/srtconns/kick/"
+	pathParts[0] = "/v3/srt/conns/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2689,7 +3391,13 @@ func (c *Client) sendSrtConnsKick(ctx context.Context, params SrtConnsKickParams
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeSrtConnsKickResponse(resp)
 	if err != nil {
@@ -2703,7 +3411,7 @@ func (c *Client) sendSrtConnsKick(ctx context.Context, params SrtConnsKickParams
 //
 // Returns all SRT connections.
 //
-// GET /v3/srtconns/list
+// GET /v3/srt/conns/list
 func (c *Client) SrtConnsList(ctx context.Context, params SrtConnsListParams) (SrtConnsListRes, error) {
 	res, err := c.sendSrtConnsList(ctx, params)
 	return res, err
@@ -2713,7 +3421,7 @@ func (c *Client) sendSrtConnsList(ctx context.Context, params SrtConnsListParams
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/srtconns/list"
+	pathParts[0] = "/v3/srt/conns/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2763,7 +3471,13 @@ func (c *Client) sendSrtConnsList(ctx context.Context, params SrtConnsListParams
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeSrtConnsListResponse(resp)
 	if err != nil {
@@ -2777,7 +3491,7 @@ func (c *Client) sendSrtConnsList(ctx context.Context, params SrtConnsListParams
 //
 // Returns a WebRTC session.
 //
-// GET /v3/webrtcsessions/get/{id}
+// GET /v3/webrtc/sessions/get/{id}
 func (c *Client) WebrtcSessionsGet(ctx context.Context, params WebrtcSessionsGetParams) (WebrtcSessionsGetRes, error) {
 	res, err := c.sendWebrtcSessionsGet(ctx, params)
 	return res, err
@@ -2787,7 +3501,7 @@ func (c *Client) sendWebrtcSessionsGet(ctx context.Context, params WebrtcSession
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/webrtcsessions/get/"
+	pathParts[0] = "/v3/webrtc/sessions/get/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2818,7 +3532,13 @@ func (c *Client) sendWebrtcSessionsGet(ctx context.Context, params WebrtcSession
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeWebrtcSessionsGetResponse(resp)
 	if err != nil {
@@ -2832,7 +3552,7 @@ func (c *Client) sendWebrtcSessionsGet(ctx context.Context, params WebrtcSession
 //
 // Kicks out a WebRTC session from the server.
 //
-// POST /v3/webrtcsessions/kick/{id}
+// POST /v3/webrtc/sessions/kick/{id}
 func (c *Client) WebrtcSessionsKick(ctx context.Context, params WebrtcSessionsKickParams) (WebrtcSessionsKickRes, error) {
 	res, err := c.sendWebrtcSessionsKick(ctx, params)
 	return res, err
@@ -2842,7 +3562,7 @@ func (c *Client) sendWebrtcSessionsKick(ctx context.Context, params WebrtcSessio
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [2]string
-	pathParts[0] = "/v3/webrtcsessions/kick/"
+	pathParts[0] = "/v3/webrtc/sessions/kick/"
 	{
 		// Encode "id" parameter.
 		e := uri.NewPathEncoder(uri.PathEncoderConfig{
@@ -2873,7 +3593,13 @@ func (c *Client) sendWebrtcSessionsKick(ctx context.Context, params WebrtcSessio
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeWebrtcSessionsKickResponse(resp)
 	if err != nil {
@@ -2887,7 +3613,7 @@ func (c *Client) sendWebrtcSessionsKick(ctx context.Context, params WebrtcSessio
 //
 // Returns all WebRTC sessions.
 //
-// GET /v3/webrtcsessions/list
+// GET /v3/webrtc/sessions/list
 func (c *Client) WebrtcSessionsList(ctx context.Context, params WebrtcSessionsListParams) (WebrtcSessionsListRes, error) {
 	res, err := c.sendWebrtcSessionsList(ctx, params)
 	return res, err
@@ -2897,7 +3623,7 @@ func (c *Client) sendWebrtcSessionsList(ctx context.Context, params WebrtcSessio
 
 	u := uri.Clone(c.requestURL(ctx))
 	var pathParts [1]string
-	pathParts[0] = "/v3/webrtcsessions/list"
+	pathParts[0] = "/v3/webrtc/sessions/list"
 	uri.AddPathParts(u, pathParts[:]...)
 
 	q := uri.NewQueryEncoder()
@@ -2947,7 +3673,13 @@ func (c *Client) sendWebrtcSessionsList(ctx context.Context, params WebrtcSessio
 		return res, errors.Wrap(err, "do request")
 	}
 	body := resp.Body
-	defer body.Close()
+	defer func() {
+		// Drain the body to EOF before closing, so the underlying
+		// connection can be reused by the Transport regardless of the
+		// response status code. See https://github.com/ogen-go/ogen/issues/1670.
+		_, _ = io.Copy(io.Discard, body)
+		_ = body.Close()
+	}()
 
 	result, err := decodeWebrtcSessionsListResponse(resp)
 	if err != nil {

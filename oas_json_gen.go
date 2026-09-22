@@ -21,21 +21,15 @@ func (s *AlwaysAvailableTrack) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *AlwaysAvailableTrack) encodeFields(e *jx.Encoder) {
 	{
-		if s.Codec.Set {
-			e.FieldStart("codec")
-			s.Codec.Encode(e)
-		}
-	}
-	{
-		if s.SampleRate.Set {
-			e.FieldStart("sampleRate")
-			s.SampleRate.Encode(e)
-		}
-	}
-	{
 		if s.ChannelCount.Set {
 			e.FieldStart("channelCount")
 			s.ChannelCount.Encode(e)
+		}
+	}
+	{
+		if s.Codec.Set {
+			e.FieldStart("codec")
+			s.Codec.Encode(e)
 		}
 	}
 	{
@@ -44,13 +38,19 @@ func (s *AlwaysAvailableTrack) encodeFields(e *jx.Encoder) {
 			s.MuLaw.Encode(e)
 		}
 	}
+	{
+		if s.SampleRate.Set {
+			e.FieldStart("sampleRate")
+			s.SampleRate.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfAlwaysAvailableTrack = [4]string{
-	0: "codec",
-	1: "sampleRate",
-	2: "channelCount",
-	3: "muLaw",
+	0: "channelCount",
+	1: "codec",
+	2: "muLaw",
+	3: "sampleRate",
 }
 
 // Decode decodes AlwaysAvailableTrack from json.
@@ -61,26 +61,6 @@ func (s *AlwaysAvailableTrack) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "codec":
-			if err := func() error {
-				s.Codec.Reset()
-				if err := s.Codec.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"codec\"")
-			}
-		case "sampleRate":
-			if err := func() error {
-				s.SampleRate.Reset()
-				if err := s.SampleRate.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sampleRate\"")
-			}
 		case "channelCount":
 			if err := func() error {
 				s.ChannelCount.Reset()
@@ -91,6 +71,16 @@ func (s *AlwaysAvailableTrack) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"channelCount\"")
 			}
+		case "codec":
+			if err := func() error {
+				s.Codec.Reset()
+				if err := s.Codec.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"codec\"")
+			}
 		case "muLaw":
 			if err := func() error {
 				s.MuLaw.Reset()
@@ -100,6 +90,16 @@ func (s *AlwaysAvailableTrack) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"muLaw\"")
+			}
+		case "sampleRate":
+			if err := func() error {
+				s.SampleRate.Reset()
+				if err := s.SampleRate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sampleRate\"")
 			}
 		default:
 			return d.Skip()
@@ -235,18 +235,6 @@ func (s *AuthInternalUser) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *AuthInternalUser) encodeFields(e *jx.Encoder) {
 	{
-		if s.User.Set {
-			e.FieldStart("user")
-			s.User.Encode(e)
-		}
-	}
-	{
-		if s.Pass.Set {
-			e.FieldStart("pass")
-			s.Pass.Encode(e)
-		}
-	}
-	{
 		if s.Ips != nil {
 			e.FieldStart("ips")
 			e.ArrStart()
@@ -254,6 +242,12 @@ func (s *AuthInternalUser) encodeFields(e *jx.Encoder) {
 				e.Str(elem)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.Pass.Set {
+			e.FieldStart("pass")
+			s.Pass.Encode(e)
 		}
 	}
 	{
@@ -266,13 +260,19 @@ func (s *AuthInternalUser) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfAuthInternalUser = [4]string{
-	0: "user",
+	0: "ips",
 	1: "pass",
-	2: "ips",
-	3: "permissions",
+	2: "permissions",
+	3: "user",
 }
 
 // Decode decodes AuthInternalUser from json.
@@ -283,26 +283,6 @@ func (s *AuthInternalUser) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "user":
-			if err := func() error {
-				s.User.Reset()
-				if err := s.User.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"user\"")
-			}
-		case "pass":
-			if err := func() error {
-				s.Pass.Reset()
-				if err := s.Pass.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pass\"")
-			}
 		case "ips":
 			if err := func() error {
 				s.Ips = make([]string, 0)
@@ -322,6 +302,16 @@ func (s *AuthInternalUser) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"ips\"")
 			}
+		case "pass":
+			if err := func() error {
+				s.Pass.Reset()
+				if err := s.Pass.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pass\"")
+			}
 		case "permissions":
 			if err := func() error {
 				s.Permissions = make([]AuthInternalUserPermission, 0)
@@ -338,6 +328,16 @@ func (s *AuthInternalUser) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"permissions\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
 			}
 		default:
 			return d.Skip()
@@ -1449,22 +1449,22 @@ func (s *Error) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *Error) encodeFields(e *jx.Encoder) {
 	{
-		if s.Status.Set {
-			e.FieldStart("status")
-			s.Status.Encode(e)
-		}
-	}
-	{
 		if s.Error.Set {
 			e.FieldStart("error")
 			s.Error.Encode(e)
 		}
 	}
+	{
+		if s.Status.Set {
+			e.FieldStart("status")
+			s.Status.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfError = [2]string{
-	0: "status",
-	1: "error",
+	0: "error",
+	1: "status",
 }
 
 // Decode decodes Error from json.
@@ -1475,16 +1475,6 @@ func (s *Error) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "status":
-			if err := func() error {
-				s.Status.Reset()
-				if err := s.Status.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"status\"")
-			}
 		case "error":
 			if err := func() error {
 				s.Error.Reset()
@@ -1494,6 +1484,16 @@ func (s *Error) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"error\"")
+			}
+		case "status":
+			if err := func() error {
+				s.Status.Reset()
+				if err := s.Status.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"status\"")
 			}
 		default:
 			return d.Skip()
@@ -1558,6 +1558,510 @@ func (s *ErrorStatus) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
+func (s *ForwardDest) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *ForwardDest) encodeFields(e *jx.Encoder) {
+	{
+		if s.Conf.Set {
+			e.FieldStart("conf")
+			s.Conf.Encode(e)
+		}
+	}
+	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.LastError.Set {
+			e.FieldStart("lastError")
+			s.LastError.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.Pos.Set {
+			e.FieldStart("pos")
+			s.Pos.Encode(e)
+		}
+	}
+	{
+		if s.Protocol.Set {
+			e.FieldStart("protocol")
+			s.Protocol.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.Type.Set {
+			e.FieldStart("type")
+			s.Type.Encode(e)
+		}
+	}
+	{
+		if s.TypeSpecific.Set {
+			e.FieldStart("typeSpecific")
+			s.TypeSpecific.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfForwardDest = [10]string{
+	0: "conf",
+	1: "created",
+	2: "id",
+	3: "lastError",
+	4: "outboundBytes",
+	5: "pos",
+	6: "protocol",
+	7: "state",
+	8: "type",
+	9: "typeSpecific",
+}
+
+// Decode decodes ForwardDest from json.
+func (s *ForwardDest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDest to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "conf":
+			if err := func() error {
+				s.Conf.Reset()
+				if err := s.Conf.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"conf\"")
+			}
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "lastError":
+			if err := func() error {
+				s.LastError.Reset()
+				if err := s.LastError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"lastError\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "pos":
+			if err := func() error {
+				s.Pos.Reset()
+				if err := s.Pos.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pos\"")
+			}
+		case "protocol":
+			if err := func() error {
+				s.Protocol.Reset()
+				if err := s.Protocol.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"protocol\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "type":
+			if err := func() error {
+				s.Type.Reset()
+				if err := s.Type.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"type\"")
+			}
+		case "typeSpecific":
+			if err := func() error {
+				s.TypeSpecific.Reset()
+				if err := s.TypeSpecific.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"typeSpecific\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode ForwardDest")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *ForwardDest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *ForwardDestList) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *ForwardDestList) encodeFields(e *jx.Encoder) {
+	{
+		if s.ItemCount.Set {
+			e.FieldStart("itemCount")
+			s.ItemCount.Encode(e)
+		}
+	}
+	{
+		if s.Items != nil {
+			e.FieldStart("items")
+			e.ArrStart()
+			for _, elem := range s.Items {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfForwardDestList = [3]string{
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
+}
+
+// Decode decodes ForwardDestList from json.
+func (s *ForwardDestList) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDestList to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "itemCount":
+			if err := func() error {
+				s.ItemCount.Reset()
+				if err := s.ItemCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"itemCount\"")
+			}
+		case "items":
+			if err := func() error {
+				s.Items = make([]ForwardDest, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem ForwardDest
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Items = append(s.Items, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode ForwardDestList")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *ForwardDestList) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDestList) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestProtocol as json.
+func (s ForwardDestProtocol) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes ForwardDestProtocol from json.
+func (s *ForwardDestProtocol) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDestProtocol to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch ForwardDestProtocol(v) {
+	case ForwardDestProtocolRtmp:
+		*s = ForwardDestProtocolRtmp
+	case ForwardDestProtocolRtmps:
+		*s = ForwardDestProtocolRtmps
+	case ForwardDestProtocolRtsp:
+		*s = ForwardDestProtocolRtsp
+	case ForwardDestProtocolRtsps:
+		*s = ForwardDestProtocolRtsps
+	case ForwardDestProtocolSrt:
+		*s = ForwardDestProtocolSrt
+	case ForwardDestProtocolMoq:
+		*s = ForwardDestProtocolMoq
+	case ForwardDestProtocolWhip:
+		*s = ForwardDestProtocolWhip
+	case ForwardDestProtocolWhips:
+		*s = ForwardDestProtocolWhips
+	default:
+		*s = ForwardDestProtocol(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s ForwardDestProtocol) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDestProtocol) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestState as json.
+func (s ForwardDestState) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes ForwardDestState from json.
+func (s *ForwardDestState) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDestState to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch ForwardDestState(v) {
+	case ForwardDestStateIdle:
+		*s = ForwardDestStateIdle
+	case ForwardDestStateForwarding:
+		*s = ForwardDestStateForwarding
+	case ForwardDestStateError:
+		*s = ForwardDestStateError
+	default:
+		*s = ForwardDestState(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s ForwardDestState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDestState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestType as json.
+func (s ForwardDestType) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes ForwardDestType from json.
+func (s *ForwardDestType) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDestType to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch ForwardDestType(v) {
+	case ForwardDestTypeRtmp:
+		*s = ForwardDestTypeRtmp
+	case ForwardDestTypeRtsp:
+		*s = ForwardDestTypeRtsp
+	case ForwardDestTypeSrt:
+		*s = ForwardDestTypeSrt
+	case ForwardDestTypeMoq:
+		*s = ForwardDestTypeMoq
+	case ForwardDestTypeWebRTC:
+		*s = ForwardDestTypeWebRTC
+	default:
+		*s = ForwardDestType(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s ForwardDestType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDestType) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestTypeSpecific as json.
+func (s ForwardDestTypeSpecific) Encode(e *jx.Encoder) {
+	unwrapped := json2.RawMessage(s)
+
+	json.EncodeJSON(e, unwrapped)
+}
+
+// Decode decodes ForwardDestTypeSpecific from json.
+func (s *ForwardDestTypeSpecific) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode ForwardDestTypeSpecific to nil")
+	}
+	var unwrapped json2.RawMessage
+	if err := func() error {
+		v, err := json.DecodeJSON[json2.RawMessage](d)
+		unwrapped = v
+		if err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = ForwardDestTypeSpecific(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s ForwardDestTypeSpecific) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *ForwardDestTypeSpecific) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s *GlobalConf) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -1567,9 +2071,283 @@ func (s *GlobalConf) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 	{
-		if s.LogLevel.Set {
-			e.FieldStart("logLevel")
-			s.LogLevel.Encode(e)
+		if s.API.Set {
+			e.FieldStart("api")
+			s.API.Encode(e)
+		}
+	}
+	{
+		if s.ApiAddress.Set {
+			e.FieldStart("apiAddress")
+			s.ApiAddress.Encode(e)
+		}
+	}
+	{
+		if s.ApiAllowOrigin.Set {
+			e.FieldStart("apiAllowOrigin")
+			s.ApiAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.ApiAllowOrigins != nil {
+			e.FieldStart("apiAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.ApiAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.ApiEncryption.Set {
+			e.FieldStart("apiEncryption")
+			s.ApiEncryption.Encode(e)
+		}
+	}
+	{
+		if s.ApiServerCert.Set {
+			e.FieldStart("apiServerCert")
+			s.ApiServerCert.Encode(e)
+		}
+	}
+	{
+		if s.ApiServerKey.Set {
+			e.FieldStart("apiServerKey")
+			s.ApiServerKey.Encode(e)
+		}
+	}
+	{
+		if s.ApiTrustedProxies != nil {
+			e.FieldStart("apiTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.ApiTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.AuthHTTPAddress.Set {
+			e.FieldStart("authHTTPAddress")
+			s.AuthHTTPAddress.Encode(e)
+		}
+	}
+	{
+		if s.AuthHTTPExclude != nil {
+			e.FieldStart("authHTTPExclude")
+			e.ArrStart()
+			for _, elem := range s.AuthHTTPExclude {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.AuthHTTPFingerprint.Set {
+			e.FieldStart("authHTTPFingerprint")
+			s.AuthHTTPFingerprint.Encode(e)
+		}
+	}
+	{
+		if s.AuthInternalUsers != nil {
+			e.FieldStart("authInternalUsers")
+			e.ArrStart()
+			for _, elem := range s.AuthInternalUsers {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.AuthJWTAudience.Set {
+			e.FieldStart("authJWTAudience")
+			s.AuthJWTAudience.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTClaimKey.Set {
+			e.FieldStart("authJWTClaimKey")
+			s.AuthJWTClaimKey.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTExclude != nil {
+			e.FieldStart("authJWTExclude")
+			e.ArrStart()
+			for _, elem := range s.AuthJWTExclude {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.AuthJWTInHTTPQuery.Set {
+			e.FieldStart("authJWTInHTTPQuery")
+			s.AuthJWTInHTTPQuery.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTIssuer.Set {
+			e.FieldStart("authJWTIssuer")
+			s.AuthJWTIssuer.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTJWKS.Set {
+			e.FieldStart("authJWTJWKS")
+			s.AuthJWTJWKS.Encode(e)
+		}
+	}
+	{
+		if s.AuthJWTJWKSFingerprint.Set {
+			e.FieldStart("authJWTJWKSFingerprint")
+			s.AuthJWTJWKSFingerprint.Encode(e)
+		}
+	}
+	{
+		if s.AuthMethod.Set {
+			e.FieldStart("authMethod")
+			s.AuthMethod.Encode(e)
+		}
+	}
+	{
+		if s.AuthMethods.Set {
+			e.FieldStart("authMethods")
+			s.AuthMethods.Encode(e)
+		}
+	}
+	{
+		if s.DumpPackets.Set {
+			e.FieldStart("dumpPackets")
+			s.DumpPackets.Encode(e)
+		}
+	}
+	{
+		if s.Encryption.Set {
+			e.FieldStart("encryption")
+			s.Encryption.Encode(e)
+		}
+	}
+	{
+		if s.ExternalAuthenticationURL.Set {
+			e.FieldStart("externalAuthenticationURL")
+			s.ExternalAuthenticationURL.Encode(e)
+		}
+	}
+	{
+		if s.Hls.Set {
+			e.FieldStart("hls")
+			s.Hls.Encode(e)
+		}
+	}
+	{
+		if s.HlsAddress.Set {
+			e.FieldStart("hlsAddress")
+			s.HlsAddress.Encode(e)
+		}
+	}
+	{
+		if s.HlsAllowOrigin.Set {
+			e.FieldStart("hlsAllowOrigin")
+			s.HlsAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.HlsAllowOrigins != nil {
+			e.FieldStart("hlsAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.HlsAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.HlsAlwaysRemux.Set {
+			e.FieldStart("hlsAlwaysRemux")
+			s.HlsAlwaysRemux.Encode(e)
+		}
+	}
+	{
+		if s.HlsCDNSecret.Set {
+			e.FieldStart("hlsCDNSecret")
+			s.HlsCDNSecret.Encode(e)
+		}
+	}
+	{
+		if s.HlsDirectory.Set {
+			e.FieldStart("hlsDirectory")
+			s.HlsDirectory.Encode(e)
+		}
+	}
+	{
+		if s.HlsDisable.Set {
+			e.FieldStart("hlsDisable")
+			s.HlsDisable.Encode(e)
+		}
+	}
+	{
+		if s.HlsEncryption.Set {
+			e.FieldStart("hlsEncryption")
+			s.HlsEncryption.Encode(e)
+		}
+	}
+	{
+		if s.HlsMuxerCloseAfter.Set {
+			e.FieldStart("hlsMuxerCloseAfter")
+			s.HlsMuxerCloseAfter.Encode(e)
+		}
+	}
+	{
+		if s.HlsPartDuration.Set {
+			e.FieldStart("hlsPartDuration")
+			s.HlsPartDuration.Encode(e)
+		}
+	}
+	{
+		if s.HlsSegmentCount.Set {
+			e.FieldStart("hlsSegmentCount")
+			s.HlsSegmentCount.Encode(e)
+		}
+	}
+	{
+		if s.HlsSegmentDuration.Set {
+			e.FieldStart("hlsSegmentDuration")
+			s.HlsSegmentDuration.Encode(e)
+		}
+	}
+	{
+		if s.HlsSegmentMaxSize.Set {
+			e.FieldStart("hlsSegmentMaxSize")
+			s.HlsSegmentMaxSize.Encode(e)
+		}
+	}
+	{
+		if s.HlsServerCert.Set {
+			e.FieldStart("hlsServerCert")
+			s.HlsServerCert.Encode(e)
+		}
+	}
+	{
+		if s.HlsServerKey.Set {
+			e.FieldStart("hlsServerKey")
+			s.HlsServerKey.Encode(e)
+		}
+	}
+	{
+		if s.HlsTrustedProxies != nil {
+			e.FieldStart("hlsTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.HlsTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.HlsVariant.Set {
+			e.FieldStart("hlsVariant")
+			s.HlsVariant.Encode(e)
 		}
 	}
 	{
@@ -1583,39 +2361,293 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.LogStructured.Set {
-			e.FieldStart("logStructured")
-			s.LogStructured.Encode(e)
-		}
-	}
-	{
 		if s.LogFile.Set {
 			e.FieldStart("logFile")
 			s.LogFile.Encode(e)
 		}
 	}
 	{
-		if s.SysLogPrefix.Set {
-			e.FieldStart("sysLogPrefix")
-			s.SysLogPrefix.Encode(e)
+		if s.LogLevel.Set {
+			e.FieldStart("logLevel")
+			s.LogLevel.Encode(e)
 		}
 	}
 	{
-		if s.DumpPackets.Set {
-			e.FieldStart("dumpPackets")
-			s.DumpPackets.Encode(e)
+		if s.LogStructured.Set {
+			e.FieldStart("logStructured")
+			s.LogStructured.Encode(e)
 		}
 	}
 	{
-		if s.ReadTimeout.Set {
-			e.FieldStart("readTimeout")
-			s.ReadTimeout.Encode(e)
+		if s.Metrics.Set {
+			e.FieldStart("metrics")
+			s.Metrics.Encode(e)
 		}
 	}
 	{
-		if s.WriteTimeout.Set {
-			e.FieldStart("writeTimeout")
-			s.WriteTimeout.Encode(e)
+		if s.MetricsAddress.Set {
+			e.FieldStart("metricsAddress")
+			s.MetricsAddress.Encode(e)
+		}
+	}
+	{
+		if s.MetricsAllowOrigin.Set {
+			e.FieldStart("metricsAllowOrigin")
+			s.MetricsAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.MetricsAllowOrigins != nil {
+			e.FieldStart("metricsAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.MetricsAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.MetricsEncryption.Set {
+			e.FieldStart("metricsEncryption")
+			s.MetricsEncryption.Encode(e)
+		}
+	}
+	{
+		if s.MetricsServerCert.Set {
+			e.FieldStart("metricsServerCert")
+			s.MetricsServerCert.Encode(e)
+		}
+	}
+	{
+		if s.MetricsServerKey.Set {
+			e.FieldStart("metricsServerKey")
+			s.MetricsServerKey.Encode(e)
+		}
+	}
+	{
+		if s.MetricsTrustedProxies != nil {
+			e.FieldStart("metricsTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.MetricsTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.Moq.Set {
+			e.FieldStart("moq")
+			s.Moq.Encode(e)
+		}
+	}
+	{
+		if s.MoqAllowOrigins != nil {
+			e.FieldStart("moqAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.MoqAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.MoqHTTP2Address.Set {
+			e.FieldStart("moqHTTP2Address")
+			s.MoqHTTP2Address.Encode(e)
+		}
+	}
+	{
+		if s.MoqHTTP3Address.Set {
+			e.FieldStart("moqHTTP3Address")
+			s.MoqHTTP3Address.Encode(e)
+		}
+	}
+	{
+		if s.MoqHTTPS2Address.Set {
+			e.FieldStart("moqHTTPS2Address")
+			s.MoqHTTPS2Address.Encode(e)
+		}
+	}
+	{
+		if s.MoqHTTPS3Address.Set {
+			e.FieldStart("moqHTTPS3Address")
+			s.MoqHTTPS3Address.Encode(e)
+		}
+	}
+	{
+		if s.MoqQUICAddress.Set {
+			e.FieldStart("moqQUICAddress")
+			s.MoqQUICAddress.Encode(e)
+		}
+	}
+	{
+		if s.MoqServerCert.Set {
+			e.FieldStart("moqServerCert")
+			s.MoqServerCert.Encode(e)
+		}
+	}
+	{
+		if s.MoqServerKey.Set {
+			e.FieldStart("moqServerKey")
+			s.MoqServerKey.Encode(e)
+		}
+	}
+	{
+		if s.MoqTrustedProxies != nil {
+			e.FieldStart("moqTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.MoqTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.MulticastIPRange.Set {
+			e.FieldStart("multicastIPRange")
+			s.MulticastIPRange.Encode(e)
+		}
+	}
+	{
+		if s.MulticastRTCPPort.Set {
+			e.FieldStart("multicastRTCPPort")
+			s.MulticastRTCPPort.Encode(e)
+		}
+	}
+	{
+		if s.MulticastRTPPort.Set {
+			e.FieldStart("multicastRTPPort")
+			s.MulticastRTPPort.Encode(e)
+		}
+	}
+	{
+		if s.MulticastSRTCPPort.Set {
+			e.FieldStart("multicastSRTCPPort")
+			s.MulticastSRTCPPort.Encode(e)
+		}
+	}
+	{
+		if s.MulticastSRTPPort.Set {
+			e.FieldStart("multicastSRTPPort")
+			s.MulticastSRTPPort.Encode(e)
+		}
+	}
+	{
+		if s.Playback.Set {
+			e.FieldStart("playback")
+			s.Playback.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackAddress.Set {
+			e.FieldStart("playbackAddress")
+			s.PlaybackAddress.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackAllowOrigin.Set {
+			e.FieldStart("playbackAllowOrigin")
+			s.PlaybackAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackAllowOrigins != nil {
+			e.FieldStart("playbackAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.PlaybackAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.PlaybackEncryption.Set {
+			e.FieldStart("playbackEncryption")
+			s.PlaybackEncryption.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackServerCert.Set {
+			e.FieldStart("playbackServerCert")
+			s.PlaybackServerCert.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackServerKey.Set {
+			e.FieldStart("playbackServerKey")
+			s.PlaybackServerKey.Encode(e)
+		}
+	}
+	{
+		if s.PlaybackTrustedProxies != nil {
+			e.FieldStart("playbackTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.PlaybackTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.Pprof.Set {
+			e.FieldStart("pprof")
+			s.Pprof.Encode(e)
+		}
+	}
+	{
+		if s.PprofAddress.Set {
+			e.FieldStart("pprofAddress")
+			s.PprofAddress.Encode(e)
+		}
+	}
+	{
+		if s.PprofAllowOrigin.Set {
+			e.FieldStart("pprofAllowOrigin")
+			s.PprofAllowOrigin.Encode(e)
+		}
+	}
+	{
+		if s.PprofAllowOrigins != nil {
+			e.FieldStart("pprofAllowOrigins")
+			e.ArrStart()
+			for _, elem := range s.PprofAllowOrigins {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.PprofEncryption.Set {
+			e.FieldStart("pprofEncryption")
+			s.PprofEncryption.Encode(e)
+		}
+	}
+	{
+		if s.PprofServerCert.Set {
+			e.FieldStart("pprofServerCert")
+			s.PprofServerCert.Encode(e)
+		}
+	}
+	{
+		if s.PprofServerKey.Set {
+			e.FieldStart("pprofServerKey")
+			s.PprofServerKey.Encode(e)
+		}
+	}
+	{
+		if s.PprofTrustedProxies != nil {
+			e.FieldStart("pprofTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.PprofTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.Protocols.Set {
+			e.FieldStart("protocols")
+			s.Protocols.Encode(e)
 		}
 	}
 	{
@@ -1625,21 +2657,187 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.WriteQueueSize.Set {
-			e.FieldStart("writeQueueSize")
-			s.WriteQueueSize.Encode(e)
+		if s.ReadTimeout.Set {
+			e.FieldStart("readTimeout")
+			s.ReadTimeout.Encode(e)
 		}
 	}
 	{
-		if s.UdpMaxPayloadSize.Set {
-			e.FieldStart("udpMaxPayloadSize")
-			s.UdpMaxPayloadSize.Encode(e)
+		if s.Record.Set {
+			e.FieldStart("record")
+			s.Record.Encode(e)
 		}
 	}
 	{
-		if s.UdpReadBufferSize.Set {
-			e.FieldStart("udpReadBufferSize")
-			s.UdpReadBufferSize.Encode(e)
+		if s.RecordDeleteAfter.Set {
+			e.FieldStart("recordDeleteAfter")
+			s.RecordDeleteAfter.Encode(e)
+		}
+	}
+	{
+		if s.RecordFormat.Set {
+			e.FieldStart("recordFormat")
+			s.RecordFormat.Encode(e)
+		}
+	}
+	{
+		if s.RecordPartDuration.Set {
+			e.FieldStart("recordPartDuration")
+			s.RecordPartDuration.Encode(e)
+		}
+	}
+	{
+		if s.RecordPath.Set {
+			e.FieldStart("recordPath")
+			s.RecordPath.Encode(e)
+		}
+	}
+	{
+		if s.RecordSegmentDuration.Set {
+			e.FieldStart("recordSegmentDuration")
+			s.RecordSegmentDuration.Encode(e)
+		}
+	}
+	{
+		if s.RtcpAddress.Set {
+			e.FieldStart("rtcpAddress")
+			s.RtcpAddress.Encode(e)
+		}
+	}
+	{
+		if s.Rtmp.Set {
+			e.FieldStart("rtmp")
+			s.Rtmp.Encode(e)
+		}
+	}
+	{
+		if s.RtmpAddress.Set {
+			e.FieldStart("rtmpAddress")
+			s.RtmpAddress.Encode(e)
+		}
+	}
+	{
+		if s.RtmpDisable.Set {
+			e.FieldStart("rtmpDisable")
+			s.RtmpDisable.Encode(e)
+		}
+	}
+	{
+		if s.RtmpEncryption.Set {
+			e.FieldStart("rtmpEncryption")
+			s.RtmpEncryption.Encode(e)
+		}
+	}
+	{
+		if s.RtmpServerCert.Set {
+			e.FieldStart("rtmpServerCert")
+			s.RtmpServerCert.Encode(e)
+		}
+	}
+	{
+		if s.RtmpServerKey.Set {
+			e.FieldStart("rtmpServerKey")
+			s.RtmpServerKey.Encode(e)
+		}
+	}
+	{
+		if s.RtmpTrustedProxies != nil {
+			e.FieldStart("rtmpTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.RtmpTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.RtmpsAddress.Set {
+			e.FieldStart("rtmpsAddress")
+			s.RtmpsAddress.Encode(e)
+		}
+	}
+	{
+		if s.RtpAddress.Set {
+			e.FieldStart("rtpAddress")
+			s.RtpAddress.Encode(e)
+		}
+	}
+	{
+		if s.Rtsp.Set {
+			e.FieldStart("rtsp")
+			s.Rtsp.Encode(e)
+		}
+	}
+	{
+		if s.RtspAddress.Set {
+			e.FieldStart("rtspAddress")
+			s.RtspAddress.Encode(e)
+		}
+	}
+	{
+		if s.RtspAuthMethods != nil {
+			e.FieldStart("rtspAuthMethods")
+			e.ArrStart()
+			for _, elem := range s.RtspAuthMethods {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.RtspDisable.Set {
+			e.FieldStart("rtspDisable")
+			s.RtspDisable.Encode(e)
+		}
+	}
+	{
+		if s.RtspEncryption.Set {
+			e.FieldStart("rtspEncryption")
+			s.RtspEncryption.Encode(e)
+		}
+	}
+	{
+		if s.RtspServerCert.Set {
+			e.FieldStart("rtspServerCert")
+			s.RtspServerCert.Encode(e)
+		}
+	}
+	{
+		if s.RtspServerKey.Set {
+			e.FieldStart("rtspServerKey")
+			s.RtspServerKey.Encode(e)
+		}
+	}
+	{
+		if s.RtspTransports != nil {
+			e.FieldStart("rtspTransports")
+			e.ArrStart()
+			for _, elem := range s.RtspTransports {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.RtspTrustedProxies != nil {
+			e.FieldStart("rtspTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.RtspTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.RtspUDPReadBufferSize.Set {
+			e.FieldStart("rtspUDPReadBufferSize")
+			s.RtspUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.RtspsAddress.Set {
+			e.FieldStart("rtspsAddress")
+			s.RtspsAddress.Encode(e)
 		}
 	}
 	{
@@ -1661,405 +2859,15 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.AuthMethod.Set {
-			e.FieldStart("authMethod")
-			s.AuthMethod.Encode(e)
+		if s.Srt.Set {
+			e.FieldStart("srt")
+			s.Srt.Encode(e)
 		}
 	}
 	{
-		if s.AuthInternalUsers != nil {
-			e.FieldStart("authInternalUsers")
-			e.ArrStart()
-			for _, elem := range s.AuthInternalUsers {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.AuthHTTPAddress.Set {
-			e.FieldStart("authHTTPAddress")
-			s.AuthHTTPAddress.Encode(e)
-		}
-	}
-	{
-		if s.ExternalAuthenticationURL.Set {
-			e.FieldStart("externalAuthenticationURL")
-			s.ExternalAuthenticationURL.Encode(e)
-		}
-	}
-	{
-		if s.AuthHTTPFingerprint.Set {
-			e.FieldStart("authHTTPFingerprint")
-			s.AuthHTTPFingerprint.Encode(e)
-		}
-	}
-	{
-		if s.AuthHTTPExclude != nil {
-			e.FieldStart("authHTTPExclude")
-			e.ArrStart()
-			for _, elem := range s.AuthHTTPExclude {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.AuthJWTJWKS.Set {
-			e.FieldStart("authJWTJWKS")
-			s.AuthJWTJWKS.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTJWKSFingerprint.Set {
-			e.FieldStart("authJWTJWKSFingerprint")
-			s.AuthJWTJWKSFingerprint.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTClaimKey.Set {
-			e.FieldStart("authJWTClaimKey")
-			s.AuthJWTClaimKey.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTInHTTPQuery.Set {
-			e.FieldStart("authJWTInHTTPQuery")
-			s.AuthJWTInHTTPQuery.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTIssuer.Set {
-			e.FieldStart("authJWTIssuer")
-			s.AuthJWTIssuer.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTAudience.Set {
-			e.FieldStart("authJWTAudience")
-			s.AuthJWTAudience.Encode(e)
-		}
-	}
-	{
-		if s.AuthJWTExclude != nil {
-			e.FieldStart("authJWTExclude")
-			e.ArrStart()
-			for _, elem := range s.AuthJWTExclude {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.API.Set {
-			e.FieldStart("api")
-			s.API.Encode(e)
-		}
-	}
-	{
-		if s.ApiAddress.Set {
-			e.FieldStart("apiAddress")
-			s.ApiAddress.Encode(e)
-		}
-	}
-	{
-		if s.ApiEncryption.Set {
-			e.FieldStart("apiEncryption")
-			s.ApiEncryption.Encode(e)
-		}
-	}
-	{
-		if s.ApiServerKey.Set {
-			e.FieldStart("apiServerKey")
-			s.ApiServerKey.Encode(e)
-		}
-	}
-	{
-		if s.ApiServerCert.Set {
-			e.FieldStart("apiServerCert")
-			s.ApiServerCert.Encode(e)
-		}
-	}
-	{
-		if s.ApiAllowOrigin.Set {
-			e.FieldStart("apiAllowOrigin")
-			s.ApiAllowOrigin.Encode(e)
-		}
-	}
-	{
-		if s.ApiAllowOrigins != nil {
-			e.FieldStart("apiAllowOrigins")
-			e.ArrStart()
-			for _, elem := range s.ApiAllowOrigins {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.ApiTrustedProxies != nil {
-			e.FieldStart("apiTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.ApiTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.Metrics.Set {
-			e.FieldStart("metrics")
-			s.Metrics.Encode(e)
-		}
-	}
-	{
-		if s.MetricsAddress.Set {
-			e.FieldStart("metricsAddress")
-			s.MetricsAddress.Encode(e)
-		}
-	}
-	{
-		if s.MetricsEncryption.Set {
-			e.FieldStart("metricsEncryption")
-			s.MetricsEncryption.Encode(e)
-		}
-	}
-	{
-		if s.MetricsServerKey.Set {
-			e.FieldStart("metricsServerKey")
-			s.MetricsServerKey.Encode(e)
-		}
-	}
-	{
-		if s.MetricsServerCert.Set {
-			e.FieldStart("metricsServerCert")
-			s.MetricsServerCert.Encode(e)
-		}
-	}
-	{
-		if s.MetricsAllowOrigin.Set {
-			e.FieldStart("metricsAllowOrigin")
-			s.MetricsAllowOrigin.Encode(e)
-		}
-	}
-	{
-		if s.MetricsAllowOrigins != nil {
-			e.FieldStart("metricsAllowOrigins")
-			e.ArrStart()
-			for _, elem := range s.MetricsAllowOrigins {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.MetricsTrustedProxies != nil {
-			e.FieldStart("metricsTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.MetricsTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.Pprof.Set {
-			e.FieldStart("pprof")
-			s.Pprof.Encode(e)
-		}
-	}
-	{
-		if s.PprofAddress.Set {
-			e.FieldStart("pprofAddress")
-			s.PprofAddress.Encode(e)
-		}
-	}
-	{
-		if s.PprofEncryption.Set {
-			e.FieldStart("pprofEncryption")
-			s.PprofEncryption.Encode(e)
-		}
-	}
-	{
-		if s.PprofServerKey.Set {
-			e.FieldStart("pprofServerKey")
-			s.PprofServerKey.Encode(e)
-		}
-	}
-	{
-		if s.PprofServerCert.Set {
-			e.FieldStart("pprofServerCert")
-			s.PprofServerCert.Encode(e)
-		}
-	}
-	{
-		if s.PprofAllowOrigin.Set {
-			e.FieldStart("pprofAllowOrigin")
-			s.PprofAllowOrigin.Encode(e)
-		}
-	}
-	{
-		if s.PprofAllowOrigins != nil {
-			e.FieldStart("pprofAllowOrigins")
-			e.ArrStart()
-			for _, elem := range s.PprofAllowOrigins {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.PprofTrustedProxies != nil {
-			e.FieldStart("pprofTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.PprofTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.Playback.Set {
-			e.FieldStart("playback")
-			s.Playback.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackAddress.Set {
-			e.FieldStart("playbackAddress")
-			s.PlaybackAddress.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackEncryption.Set {
-			e.FieldStart("playbackEncryption")
-			s.PlaybackEncryption.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackServerKey.Set {
-			e.FieldStart("playbackServerKey")
-			s.PlaybackServerKey.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackServerCert.Set {
-			e.FieldStart("playbackServerCert")
-			s.PlaybackServerCert.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackAllowOrigin.Set {
-			e.FieldStart("playbackAllowOrigin")
-			s.PlaybackAllowOrigin.Encode(e)
-		}
-	}
-	{
-		if s.PlaybackAllowOrigins != nil {
-			e.FieldStart("playbackAllowOrigins")
-			e.ArrStart()
-			for _, elem := range s.PlaybackAllowOrigins {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.PlaybackTrustedProxies != nil {
-			e.FieldStart("playbackTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.PlaybackTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.Rtsp.Set {
-			e.FieldStart("rtsp")
-			s.Rtsp.Encode(e)
-		}
-	}
-	{
-		if s.RtspDisable.Set {
-			e.FieldStart("rtspDisable")
-			s.RtspDisable.Encode(e)
-		}
-	}
-	{
-		if s.Protocols.Set {
-			e.FieldStart("protocols")
-			s.Protocols.Encode(e)
-		}
-	}
-	{
-		if s.RtspTransports != nil {
-			e.FieldStart("rtspTransports")
-			e.ArrStart()
-			for _, elem := range s.RtspTransports {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.Encryption.Set {
-			e.FieldStart("encryption")
-			s.Encryption.Encode(e)
-		}
-	}
-	{
-		if s.RtspEncryption.Set {
-			e.FieldStart("rtspEncryption")
-			s.RtspEncryption.Encode(e)
-		}
-	}
-	{
-		if s.RtspAddress.Set {
-			e.FieldStart("rtspAddress")
-			s.RtspAddress.Encode(e)
-		}
-	}
-	{
-		if s.RtspsAddress.Set {
-			e.FieldStart("rtspsAddress")
-			s.RtspsAddress.Encode(e)
-		}
-	}
-	{
-		if s.RtpAddress.Set {
-			e.FieldStart("rtpAddress")
-			s.RtpAddress.Encode(e)
-		}
-	}
-	{
-		if s.RtcpAddress.Set {
-			e.FieldStart("rtcpAddress")
-			s.RtcpAddress.Encode(e)
-		}
-	}
-	{
-		if s.MulticastIPRange.Set {
-			e.FieldStart("multicastIPRange")
-			s.MulticastIPRange.Encode(e)
-		}
-	}
-	{
-		if s.MulticastRTPPort.Set {
-			e.FieldStart("multicastRTPPort")
-			s.MulticastRTPPort.Encode(e)
-		}
-	}
-	{
-		if s.MulticastRTCPPort.Set {
-			e.FieldStart("multicastRTCPPort")
-			s.MulticastRTCPPort.Encode(e)
-		}
-	}
-	{
-		if s.SrtpAddress.Set {
-			e.FieldStart("srtpAddress")
-			s.SrtpAddress.Encode(e)
+		if s.SrtAddress.Set {
+			e.FieldStart("srtAddress")
+			s.SrtAddress.Encode(e)
 		}
 	}
 	{
@@ -2069,207 +2877,27 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.MulticastSRTPPort.Set {
-			e.FieldStart("multicastSRTPPort")
-			s.MulticastSRTPPort.Encode(e)
+		if s.SrtpAddress.Set {
+			e.FieldStart("srtpAddress")
+			s.SrtpAddress.Encode(e)
 		}
 	}
 	{
-		if s.MulticastSRTCPPort.Set {
-			e.FieldStart("multicastSRTCPPort")
-			s.MulticastSRTCPPort.Encode(e)
+		if s.SysLogPrefix.Set {
+			e.FieldStart("sysLogPrefix")
+			s.SysLogPrefix.Encode(e)
 		}
 	}
 	{
-		if s.RtspServerKey.Set {
-			e.FieldStart("rtspServerKey")
-			s.RtspServerKey.Encode(e)
+		if s.UdpMaxPayloadSize.Set {
+			e.FieldStart("udpMaxPayloadSize")
+			s.UdpMaxPayloadSize.Encode(e)
 		}
 	}
 	{
-		if s.RtspServerCert.Set {
-			e.FieldStart("rtspServerCert")
-			s.RtspServerCert.Encode(e)
-		}
-	}
-	{
-		if s.AuthMethods.Set {
-			e.FieldStart("authMethods")
-			s.AuthMethods.Encode(e)
-		}
-	}
-	{
-		if s.RtspAuthMethods != nil {
-			e.FieldStart("rtspAuthMethods")
-			e.ArrStart()
-			for _, elem := range s.RtspAuthMethods {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.RtspUDPReadBufferSize.Set {
-			e.FieldStart("rtspUDPReadBufferSize")
-			s.RtspUDPReadBufferSize.Encode(e)
-		}
-	}
-	{
-		if s.Rtmp.Set {
-			e.FieldStart("rtmp")
-			s.Rtmp.Encode(e)
-		}
-	}
-	{
-		if s.RtmpDisable.Set {
-			e.FieldStart("rtmpDisable")
-			s.RtmpDisable.Encode(e)
-		}
-	}
-	{
-		if s.RtmpEncryption.Set {
-			e.FieldStart("rtmpEncryption")
-			s.RtmpEncryption.Encode(e)
-		}
-	}
-	{
-		if s.RtmpAddress.Set {
-			e.FieldStart("rtmpAddress")
-			s.RtmpAddress.Encode(e)
-		}
-	}
-	{
-		if s.RtmpsAddress.Set {
-			e.FieldStart("rtmpsAddress")
-			s.RtmpsAddress.Encode(e)
-		}
-	}
-	{
-		if s.RtmpServerKey.Set {
-			e.FieldStart("rtmpServerKey")
-			s.RtmpServerKey.Encode(e)
-		}
-	}
-	{
-		if s.RtmpServerCert.Set {
-			e.FieldStart("rtmpServerCert")
-			s.RtmpServerCert.Encode(e)
-		}
-	}
-	{
-		if s.Hls.Set {
-			e.FieldStart("hls")
-			s.Hls.Encode(e)
-		}
-	}
-	{
-		if s.HlsDisable.Set {
-			e.FieldStart("hlsDisable")
-			s.HlsDisable.Encode(e)
-		}
-	}
-	{
-		if s.HlsAddress.Set {
-			e.FieldStart("hlsAddress")
-			s.HlsAddress.Encode(e)
-		}
-	}
-	{
-		if s.HlsEncryption.Set {
-			e.FieldStart("hlsEncryption")
-			s.HlsEncryption.Encode(e)
-		}
-	}
-	{
-		if s.HlsServerKey.Set {
-			e.FieldStart("hlsServerKey")
-			s.HlsServerKey.Encode(e)
-		}
-	}
-	{
-		if s.HlsServerCert.Set {
-			e.FieldStart("hlsServerCert")
-			s.HlsServerCert.Encode(e)
-		}
-	}
-	{
-		if s.HlsAllowOrigin.Set {
-			e.FieldStart("hlsAllowOrigin")
-			s.HlsAllowOrigin.Encode(e)
-		}
-	}
-	{
-		if s.HlsAllowOrigins != nil {
-			e.FieldStart("hlsAllowOrigins")
-			e.ArrStart()
-			for _, elem := range s.HlsAllowOrigins {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.HlsTrustedProxies != nil {
-			e.FieldStart("hlsTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.HlsTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.HlsAlwaysRemux.Set {
-			e.FieldStart("hlsAlwaysRemux")
-			s.HlsAlwaysRemux.Encode(e)
-		}
-	}
-	{
-		if s.HlsVariant.Set {
-			e.FieldStart("hlsVariant")
-			s.HlsVariant.Encode(e)
-		}
-	}
-	{
-		if s.HlsSegmentCount.Set {
-			e.FieldStart("hlsSegmentCount")
-			s.HlsSegmentCount.Encode(e)
-		}
-	}
-	{
-		if s.HlsSegmentDuration.Set {
-			e.FieldStart("hlsSegmentDuration")
-			s.HlsSegmentDuration.Encode(e)
-		}
-	}
-	{
-		if s.HlsPartDuration.Set {
-			e.FieldStart("hlsPartDuration")
-			s.HlsPartDuration.Encode(e)
-		}
-	}
-	{
-		if s.HlsSegmentMaxSize.Set {
-			e.FieldStart("hlsSegmentMaxSize")
-			s.HlsSegmentMaxSize.Encode(e)
-		}
-	}
-	{
-		if s.HlsDirectory.Set {
-			e.FieldStart("hlsDirectory")
-			s.HlsDirectory.Encode(e)
-		}
-	}
-	{
-		if s.HlsMuxerCloseAfter.Set {
-			e.FieldStart("hlsMuxerCloseAfter")
-			s.HlsMuxerCloseAfter.Encode(e)
-		}
-	}
-	{
-		if s.HlsCDNSecret.Set {
-			e.FieldStart("hlsCDNSecret")
-			s.HlsCDNSecret.Encode(e)
+		if s.UdpReadBufferSize.Set {
+			e.FieldStart("udpReadBufferSize")
+			s.UdpReadBufferSize.Encode(e)
 		}
 	}
 	{
@@ -2279,33 +2907,19 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.WebrtcDisable.Set {
-			e.FieldStart("webrtcDisable")
-			s.WebrtcDisable.Encode(e)
+		if s.WebrtcAdditionalHosts != nil {
+			e.FieldStart("webrtcAdditionalHosts")
+			e.ArrStart()
+			for _, elem := range s.WebrtcAdditionalHosts {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
 		if s.WebrtcAddress.Set {
 			e.FieldStart("webrtcAddress")
 			s.WebrtcAddress.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcEncryption.Set {
-			e.FieldStart("webrtcEncryption")
-			s.WebrtcEncryption.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcServerKey.Set {
-			e.FieldStart("webrtcServerKey")
-			s.WebrtcServerKey.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcServerCert.Set {
-			e.FieldStart("webrtcServerCert")
-			s.WebrtcServerCert.Encode(e)
 		}
 	}
 	{
@@ -2325,91 +2939,21 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.WebrtcTrustedProxies != nil {
-			e.FieldStart("webrtcTrustedProxies")
-			e.ArrStart()
-			for _, elem := range s.WebrtcTrustedProxies {
-				e.Str(elem)
-			}
-			e.ArrEnd()
+		if s.WebrtcDisable.Set {
+			e.FieldStart("webrtcDisable")
+			s.WebrtcDisable.Encode(e)
 		}
 	}
 	{
-		if s.WebrtcLocalUDPAddress.Set {
-			e.FieldStart("webrtcLocalUDPAddress")
-			s.WebrtcLocalUDPAddress.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcLocalTCPAddress.Set {
-			e.FieldStart("webrtcLocalTCPAddress")
-			s.WebrtcLocalTCPAddress.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcIPsFromInterfaces.Set {
-			e.FieldStart("webrtcIPsFromInterfaces")
-			s.WebrtcIPsFromInterfaces.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcIPsFromInterfacesList != nil {
-			e.FieldStart("webrtcIPsFromInterfacesList")
-			e.ArrStart()
-			for _, elem := range s.WebrtcIPsFromInterfacesList {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.WebrtcAdditionalHosts != nil {
-			e.FieldStart("webrtcAdditionalHosts")
-			e.ArrStart()
-			for _, elem := range s.WebrtcAdditionalHosts {
-				e.Str(elem)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.WebrtcICEServers2 != nil {
-			e.FieldStart("webrtcICEServers2")
-			e.ArrStart()
-			for _, elem := range s.WebrtcICEServers2 {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
-	{
-		if s.WebrtcSTUNGatherTimeout.Set {
-			e.FieldStart("webrtcSTUNGatherTimeout")
-			s.WebrtcSTUNGatherTimeout.Encode(e)
+		if s.WebrtcEncryption.Set {
+			e.FieldStart("webrtcEncryption")
+			s.WebrtcEncryption.Encode(e)
 		}
 	}
 	{
 		if s.WebrtcHandshakeTimeout.Set {
 			e.FieldStart("webrtcHandshakeTimeout")
 			s.WebrtcHandshakeTimeout.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcTrackGatherTimeout.Set {
-			e.FieldStart("webrtcTrackGatherTimeout")
-			s.WebrtcTrackGatherTimeout.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcICEUDPMuxAddress.Set {
-			e.FieldStart("webrtcICEUDPMuxAddress")
-			s.WebrtcICEUDPMuxAddress.Encode(e)
-		}
-	}
-	{
-		if s.WebrtcICETCPMuxAddress.Set {
-			e.FieldStart("webrtcICETCPMuxAddress")
-			s.WebrtcICETCPMuxAddress.Encode(e)
 		}
 	}
 	{
@@ -2425,193 +2969,264 @@ func (s *GlobalConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.Srt.Set {
-			e.FieldStart("srt")
-			s.Srt.Encode(e)
+		if s.WebrtcICEServers2 != nil {
+			e.FieldStart("webrtcICEServers2")
+			e.ArrStart()
+			for _, elem := range s.WebrtcICEServers2 {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
-		if s.SrtAddress.Set {
-			e.FieldStart("srtAddress")
-			s.SrtAddress.Encode(e)
+		if s.WebrtcICETCPMuxAddress.Set {
+			e.FieldStart("webrtcICETCPMuxAddress")
+			s.WebrtcICETCPMuxAddress.Encode(e)
 		}
 	}
 	{
-		if s.Record.Set {
-			e.FieldStart("record")
-			s.Record.Encode(e)
+		if s.WebrtcICEUDPMuxAddress.Set {
+			e.FieldStart("webrtcICEUDPMuxAddress")
+			s.WebrtcICEUDPMuxAddress.Encode(e)
 		}
 	}
 	{
-		if s.RecordPath.Set {
-			e.FieldStart("recordPath")
-			s.RecordPath.Encode(e)
+		if s.WebrtcIPsFromInterfaces.Set {
+			e.FieldStart("webrtcIPsFromInterfaces")
+			s.WebrtcIPsFromInterfaces.Encode(e)
 		}
 	}
 	{
-		if s.RecordFormat.Set {
-			e.FieldStart("recordFormat")
-			s.RecordFormat.Encode(e)
+		if s.WebrtcIPsFromInterfacesExcludeList != nil {
+			e.FieldStart("webrtcIPsFromInterfacesExcludeList")
+			e.ArrStart()
+			for _, elem := range s.WebrtcIPsFromInterfacesExcludeList {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
-		if s.RecordPartDuration.Set {
-			e.FieldStart("recordPartDuration")
-			s.RecordPartDuration.Encode(e)
+		if s.WebrtcIPsFromInterfacesList != nil {
+			e.FieldStart("webrtcIPsFromInterfacesList")
+			e.ArrStart()
+			for _, elem := range s.WebrtcIPsFromInterfacesList {
+				e.Str(elem)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
-		if s.RecordSegmentDuration.Set {
-			e.FieldStart("recordSegmentDuration")
-			s.RecordSegmentDuration.Encode(e)
+		if s.WebrtcLocalTCPAddress.Set {
+			e.FieldStart("webrtcLocalTCPAddress")
+			s.WebrtcLocalTCPAddress.Encode(e)
 		}
 	}
 	{
-		if s.RecordDeleteAfter.Set {
-			e.FieldStart("recordDeleteAfter")
-			s.RecordDeleteAfter.Encode(e)
+		if s.WebrtcLocalUDPAddress.Set {
+			e.FieldStart("webrtcLocalUDPAddress")
+			s.WebrtcLocalUDPAddress.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcSTUNGatherTimeout.Set {
+			e.FieldStart("webrtcSTUNGatherTimeout")
+			s.WebrtcSTUNGatherTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcServerCert.Set {
+			e.FieldStart("webrtcServerCert")
+			s.WebrtcServerCert.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcServerKey.Set {
+			e.FieldStart("webrtcServerKey")
+			s.WebrtcServerKey.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcTrackGatherTimeout.Set {
+			e.FieldStart("webrtcTrackGatherTimeout")
+			s.WebrtcTrackGatherTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WebrtcTrustedProxies != nil {
+			e.FieldStart("webrtcTrustedProxies")
+			e.ArrStart()
+			for _, elem := range s.WebrtcTrustedProxies {
+				e.Str(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.WriteQueueSize.Set {
+			e.FieldStart("writeQueueSize")
+			s.WriteQueueSize.Encode(e)
+		}
+	}
+	{
+		if s.WriteTimeout.Set {
+			e.FieldStart("writeTimeout")
+			s.WriteTimeout.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfGlobalConf = [137]string{
-	0:   "logLevel",
-	1:   "logDestinations",
-	2:   "logStructured",
-	3:   "logFile",
-	4:   "sysLogPrefix",
-	5:   "dumpPackets",
-	6:   "readTimeout",
-	7:   "writeTimeout",
-	8:   "readBufferCount",
-	9:   "writeQueueSize",
-	10:  "udpMaxPayloadSize",
-	11:  "udpReadBufferSize",
-	12:  "runOnConnect",
-	13:  "runOnConnectRestart",
-	14:  "runOnDisconnect",
-	15:  "authMethod",
-	16:  "authInternalUsers",
-	17:  "authHTTPAddress",
-	18:  "externalAuthenticationURL",
-	19:  "authHTTPFingerprint",
-	20:  "authHTTPExclude",
-	21:  "authJWTJWKS",
-	22:  "authJWTJWKSFingerprint",
-	23:  "authJWTClaimKey",
-	24:  "authJWTInHTTPQuery",
-	25:  "authJWTIssuer",
-	26:  "authJWTAudience",
-	27:  "authJWTExclude",
-	28:  "api",
-	29:  "apiAddress",
-	30:  "apiEncryption",
-	31:  "apiServerKey",
-	32:  "apiServerCert",
-	33:  "apiAllowOrigin",
-	34:  "apiAllowOrigins",
-	35:  "apiTrustedProxies",
-	36:  "metrics",
-	37:  "metricsAddress",
-	38:  "metricsEncryption",
-	39:  "metricsServerKey",
-	40:  "metricsServerCert",
-	41:  "metricsAllowOrigin",
-	42:  "metricsAllowOrigins",
-	43:  "metricsTrustedProxies",
-	44:  "pprof",
-	45:  "pprofAddress",
-	46:  "pprofEncryption",
-	47:  "pprofServerKey",
-	48:  "pprofServerCert",
-	49:  "pprofAllowOrigin",
-	50:  "pprofAllowOrigins",
-	51:  "pprofTrustedProxies",
-	52:  "playback",
-	53:  "playbackAddress",
-	54:  "playbackEncryption",
-	55:  "playbackServerKey",
-	56:  "playbackServerCert",
-	57:  "playbackAllowOrigin",
-	58:  "playbackAllowOrigins",
-	59:  "playbackTrustedProxies",
-	60:  "rtsp",
-	61:  "rtspDisable",
-	62:  "protocols",
-	63:  "rtspTransports",
-	64:  "encryption",
-	65:  "rtspEncryption",
-	66:  "rtspAddress",
-	67:  "rtspsAddress",
-	68:  "rtpAddress",
-	69:  "rtcpAddress",
-	70:  "multicastIPRange",
-	71:  "multicastRTPPort",
-	72:  "multicastRTCPPort",
-	73:  "srtpAddress",
-	74:  "srtcpAddress",
-	75:  "multicastSRTPPort",
-	76:  "multicastSRTCPPort",
-	77:  "rtspServerKey",
-	78:  "rtspServerCert",
-	79:  "authMethods",
-	80:  "rtspAuthMethods",
-	81:  "rtspUDPReadBufferSize",
-	82:  "rtmp",
-	83:  "rtmpDisable",
-	84:  "rtmpEncryption",
-	85:  "rtmpAddress",
-	86:  "rtmpsAddress",
-	87:  "rtmpServerKey",
-	88:  "rtmpServerCert",
-	89:  "hls",
-	90:  "hlsDisable",
-	91:  "hlsAddress",
-	92:  "hlsEncryption",
-	93:  "hlsServerKey",
-	94:  "hlsServerCert",
-	95:  "hlsAllowOrigin",
-	96:  "hlsAllowOrigins",
-	97:  "hlsTrustedProxies",
-	98:  "hlsAlwaysRemux",
-	99:  "hlsVariant",
-	100: "hlsSegmentCount",
-	101: "hlsSegmentDuration",
-	102: "hlsPartDuration",
-	103: "hlsSegmentMaxSize",
-	104: "hlsDirectory",
-	105: "hlsMuxerCloseAfter",
-	106: "hlsCDNSecret",
-	107: "webrtc",
-	108: "webrtcDisable",
-	109: "webrtcAddress",
-	110: "webrtcEncryption",
-	111: "webrtcServerKey",
-	112: "webrtcServerCert",
-	113: "webrtcAllowOrigin",
-	114: "webrtcAllowOrigins",
-	115: "webrtcTrustedProxies",
-	116: "webrtcLocalUDPAddress",
-	117: "webrtcLocalTCPAddress",
-	118: "webrtcIPsFromInterfaces",
-	119: "webrtcIPsFromInterfacesList",
-	120: "webrtcAdditionalHosts",
-	121: "webrtcICEServers2",
-	122: "webrtcSTUNGatherTimeout",
-	123: "webrtcHandshakeTimeout",
-	124: "webrtcTrackGatherTimeout",
-	125: "webrtcICEUDPMuxAddress",
-	126: "webrtcICETCPMuxAddress",
-	127: "webrtcICEHostNAT1To1IPs",
-	128: "webrtcICEServers",
-	129: "srt",
-	130: "srtAddress",
-	131: "record",
-	132: "recordPath",
-	133: "recordFormat",
-	134: "recordPartDuration",
-	135: "recordSegmentDuration",
-	136: "recordDeleteAfter",
+var jsonFieldsNameOfGlobalConf = [150]string{
+	0:   "api",
+	1:   "apiAddress",
+	2:   "apiAllowOrigin",
+	3:   "apiAllowOrigins",
+	4:   "apiEncryption",
+	5:   "apiServerCert",
+	6:   "apiServerKey",
+	7:   "apiTrustedProxies",
+	8:   "authHTTPAddress",
+	9:   "authHTTPExclude",
+	10:  "authHTTPFingerprint",
+	11:  "authInternalUsers",
+	12:  "authJWTAudience",
+	13:  "authJWTClaimKey",
+	14:  "authJWTExclude",
+	15:  "authJWTInHTTPQuery",
+	16:  "authJWTIssuer",
+	17:  "authJWTJWKS",
+	18:  "authJWTJWKSFingerprint",
+	19:  "authMethod",
+	20:  "authMethods",
+	21:  "dumpPackets",
+	22:  "encryption",
+	23:  "externalAuthenticationURL",
+	24:  "hls",
+	25:  "hlsAddress",
+	26:  "hlsAllowOrigin",
+	27:  "hlsAllowOrigins",
+	28:  "hlsAlwaysRemux",
+	29:  "hlsCDNSecret",
+	30:  "hlsDirectory",
+	31:  "hlsDisable",
+	32:  "hlsEncryption",
+	33:  "hlsMuxerCloseAfter",
+	34:  "hlsPartDuration",
+	35:  "hlsSegmentCount",
+	36:  "hlsSegmentDuration",
+	37:  "hlsSegmentMaxSize",
+	38:  "hlsServerCert",
+	39:  "hlsServerKey",
+	40:  "hlsTrustedProxies",
+	41:  "hlsVariant",
+	42:  "logDestinations",
+	43:  "logFile",
+	44:  "logLevel",
+	45:  "logStructured",
+	46:  "metrics",
+	47:  "metricsAddress",
+	48:  "metricsAllowOrigin",
+	49:  "metricsAllowOrigins",
+	50:  "metricsEncryption",
+	51:  "metricsServerCert",
+	52:  "metricsServerKey",
+	53:  "metricsTrustedProxies",
+	54:  "moq",
+	55:  "moqAllowOrigins",
+	56:  "moqHTTP2Address",
+	57:  "moqHTTP3Address",
+	58:  "moqHTTPS2Address",
+	59:  "moqHTTPS3Address",
+	60:  "moqQUICAddress",
+	61:  "moqServerCert",
+	62:  "moqServerKey",
+	63:  "moqTrustedProxies",
+	64:  "multicastIPRange",
+	65:  "multicastRTCPPort",
+	66:  "multicastRTPPort",
+	67:  "multicastSRTCPPort",
+	68:  "multicastSRTPPort",
+	69:  "playback",
+	70:  "playbackAddress",
+	71:  "playbackAllowOrigin",
+	72:  "playbackAllowOrigins",
+	73:  "playbackEncryption",
+	74:  "playbackServerCert",
+	75:  "playbackServerKey",
+	76:  "playbackTrustedProxies",
+	77:  "pprof",
+	78:  "pprofAddress",
+	79:  "pprofAllowOrigin",
+	80:  "pprofAllowOrigins",
+	81:  "pprofEncryption",
+	82:  "pprofServerCert",
+	83:  "pprofServerKey",
+	84:  "pprofTrustedProxies",
+	85:  "protocols",
+	86:  "readBufferCount",
+	87:  "readTimeout",
+	88:  "record",
+	89:  "recordDeleteAfter",
+	90:  "recordFormat",
+	91:  "recordPartDuration",
+	92:  "recordPath",
+	93:  "recordSegmentDuration",
+	94:  "rtcpAddress",
+	95:  "rtmp",
+	96:  "rtmpAddress",
+	97:  "rtmpDisable",
+	98:  "rtmpEncryption",
+	99:  "rtmpServerCert",
+	100: "rtmpServerKey",
+	101: "rtmpTrustedProxies",
+	102: "rtmpsAddress",
+	103: "rtpAddress",
+	104: "rtsp",
+	105: "rtspAddress",
+	106: "rtspAuthMethods",
+	107: "rtspDisable",
+	108: "rtspEncryption",
+	109: "rtspServerCert",
+	110: "rtspServerKey",
+	111: "rtspTransports",
+	112: "rtspTrustedProxies",
+	113: "rtspUDPReadBufferSize",
+	114: "rtspsAddress",
+	115: "runOnConnect",
+	116: "runOnConnectRestart",
+	117: "runOnDisconnect",
+	118: "srt",
+	119: "srtAddress",
+	120: "srtcpAddress",
+	121: "srtpAddress",
+	122: "sysLogPrefix",
+	123: "udpMaxPayloadSize",
+	124: "udpReadBufferSize",
+	125: "webrtc",
+	126: "webrtcAdditionalHosts",
+	127: "webrtcAddress",
+	128: "webrtcAllowOrigin",
+	129: "webrtcAllowOrigins",
+	130: "webrtcDisable",
+	131: "webrtcEncryption",
+	132: "webrtcHandshakeTimeout",
+	133: "webrtcICEHostNAT1To1IPs",
+	134: "webrtcICEServers",
+	135: "webrtcICEServers2",
+	136: "webrtcICETCPMuxAddress",
+	137: "webrtcICEUDPMuxAddress",
+	138: "webrtcIPsFromInterfaces",
+	139: "webrtcIPsFromInterfacesExcludeList",
+	140: "webrtcIPsFromInterfacesList",
+	141: "webrtcLocalTCPAddress",
+	142: "webrtcLocalUDPAddress",
+	143: "webrtcSTUNGatherTimeout",
+	144: "webrtcServerCert",
+	145: "webrtcServerKey",
+	146: "webrtcTrackGatherTimeout",
+	147: "webrtcTrustedProxies",
+	148: "writeQueueSize",
+	149: "writeTimeout",
 }
 
 // Decode decodes GlobalConf from json.
@@ -2622,15 +3237,482 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "logLevel":
+		case "api":
 			if err := func() error {
-				s.LogLevel.Reset()
-				if err := s.LogLevel.Decode(d); err != nil {
+				s.API.Reset()
+				if err := s.API.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"logLevel\"")
+				return errors.Wrap(err, "decode field \"api\"")
+			}
+		case "apiAddress":
+			if err := func() error {
+				s.ApiAddress.Reset()
+				if err := s.ApiAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiAddress\"")
+			}
+		case "apiAllowOrigin":
+			if err := func() error {
+				s.ApiAllowOrigin.Reset()
+				if err := s.ApiAllowOrigin.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiAllowOrigin\"")
+			}
+		case "apiAllowOrigins":
+			if err := func() error {
+				s.ApiAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.ApiAllowOrigins = append(s.ApiAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiAllowOrigins\"")
+			}
+		case "apiEncryption":
+			if err := func() error {
+				s.ApiEncryption.Reset()
+				if err := s.ApiEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiEncryption\"")
+			}
+		case "apiServerCert":
+			if err := func() error {
+				s.ApiServerCert.Reset()
+				if err := s.ApiServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiServerCert\"")
+			}
+		case "apiServerKey":
+			if err := func() error {
+				s.ApiServerKey.Reset()
+				if err := s.ApiServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiServerKey\"")
+			}
+		case "apiTrustedProxies":
+			if err := func() error {
+				s.ApiTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.ApiTrustedProxies = append(s.ApiTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"apiTrustedProxies\"")
+			}
+		case "authHTTPAddress":
+			if err := func() error {
+				s.AuthHTTPAddress.Reset()
+				if err := s.AuthHTTPAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authHTTPAddress\"")
+			}
+		case "authHTTPExclude":
+			if err := func() error {
+				s.AuthHTTPExclude = make([]AuthInternalUserPermission, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem AuthInternalUserPermission
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.AuthHTTPExclude = append(s.AuthHTTPExclude, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authHTTPExclude\"")
+			}
+		case "authHTTPFingerprint":
+			if err := func() error {
+				s.AuthHTTPFingerprint.Reset()
+				if err := s.AuthHTTPFingerprint.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authHTTPFingerprint\"")
+			}
+		case "authInternalUsers":
+			if err := func() error {
+				s.AuthInternalUsers = make([]AuthInternalUser, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem AuthInternalUser
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.AuthInternalUsers = append(s.AuthInternalUsers, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authInternalUsers\"")
+			}
+		case "authJWTAudience":
+			if err := func() error {
+				s.AuthJWTAudience.Reset()
+				if err := s.AuthJWTAudience.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTAudience\"")
+			}
+		case "authJWTClaimKey":
+			if err := func() error {
+				s.AuthJWTClaimKey.Reset()
+				if err := s.AuthJWTClaimKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTClaimKey\"")
+			}
+		case "authJWTExclude":
+			if err := func() error {
+				s.AuthJWTExclude = make([]AuthInternalUserPermission, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem AuthInternalUserPermission
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.AuthJWTExclude = append(s.AuthJWTExclude, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTExclude\"")
+			}
+		case "authJWTInHTTPQuery":
+			if err := func() error {
+				s.AuthJWTInHTTPQuery.Reset()
+				if err := s.AuthJWTInHTTPQuery.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTInHTTPQuery\"")
+			}
+		case "authJWTIssuer":
+			if err := func() error {
+				s.AuthJWTIssuer.Reset()
+				if err := s.AuthJWTIssuer.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTIssuer\"")
+			}
+		case "authJWTJWKS":
+			if err := func() error {
+				s.AuthJWTJWKS.Reset()
+				if err := s.AuthJWTJWKS.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTJWKS\"")
+			}
+		case "authJWTJWKSFingerprint":
+			if err := func() error {
+				s.AuthJWTJWKSFingerprint.Reset()
+				if err := s.AuthJWTJWKSFingerprint.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authJWTJWKSFingerprint\"")
+			}
+		case "authMethod":
+			if err := func() error {
+				s.AuthMethod.Reset()
+				if err := s.AuthMethod.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authMethod\"")
+			}
+		case "authMethods":
+			if err := func() error {
+				s.AuthMethods.Reset()
+				if err := s.AuthMethods.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"authMethods\"")
+			}
+		case "dumpPackets":
+			if err := func() error {
+				s.DumpPackets.Reset()
+				if err := s.DumpPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"dumpPackets\"")
+			}
+		case "encryption":
+			if err := func() error {
+				s.Encryption.Reset()
+				if err := s.Encryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"encryption\"")
+			}
+		case "externalAuthenticationURL":
+			if err := func() error {
+				s.ExternalAuthenticationURL.Reset()
+				if err := s.ExternalAuthenticationURL.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"externalAuthenticationURL\"")
+			}
+		case "hls":
+			if err := func() error {
+				s.Hls.Reset()
+				if err := s.Hls.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hls\"")
+			}
+		case "hlsAddress":
+			if err := func() error {
+				s.HlsAddress.Reset()
+				if err := s.HlsAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsAddress\"")
+			}
+		case "hlsAllowOrigin":
+			if err := func() error {
+				s.HlsAllowOrigin.Reset()
+				if err := s.HlsAllowOrigin.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsAllowOrigin\"")
+			}
+		case "hlsAllowOrigins":
+			if err := func() error {
+				s.HlsAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.HlsAllowOrigins = append(s.HlsAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsAllowOrigins\"")
+			}
+		case "hlsAlwaysRemux":
+			if err := func() error {
+				s.HlsAlwaysRemux.Reset()
+				if err := s.HlsAlwaysRemux.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsAlwaysRemux\"")
+			}
+		case "hlsCDNSecret":
+			if err := func() error {
+				s.HlsCDNSecret.Reset()
+				if err := s.HlsCDNSecret.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsCDNSecret\"")
+			}
+		case "hlsDirectory":
+			if err := func() error {
+				s.HlsDirectory.Reset()
+				if err := s.HlsDirectory.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsDirectory\"")
+			}
+		case "hlsDisable":
+			if err := func() error {
+				s.HlsDisable.Reset()
+				if err := s.HlsDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsDisable\"")
+			}
+		case "hlsEncryption":
+			if err := func() error {
+				s.HlsEncryption.Reset()
+				if err := s.HlsEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsEncryption\"")
+			}
+		case "hlsMuxerCloseAfter":
+			if err := func() error {
+				s.HlsMuxerCloseAfter.Reset()
+				if err := s.HlsMuxerCloseAfter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsMuxerCloseAfter\"")
+			}
+		case "hlsPartDuration":
+			if err := func() error {
+				s.HlsPartDuration.Reset()
+				if err := s.HlsPartDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsPartDuration\"")
+			}
+		case "hlsSegmentCount":
+			if err := func() error {
+				s.HlsSegmentCount.Reset()
+				if err := s.HlsSegmentCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsSegmentCount\"")
+			}
+		case "hlsSegmentDuration":
+			if err := func() error {
+				s.HlsSegmentDuration.Reset()
+				if err := s.HlsSegmentDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsSegmentDuration\"")
+			}
+		case "hlsSegmentMaxSize":
+			if err := func() error {
+				s.HlsSegmentMaxSize.Reset()
+				if err := s.HlsSegmentMaxSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsSegmentMaxSize\"")
+			}
+		case "hlsServerCert":
+			if err := func() error {
+				s.HlsServerCert.Reset()
+				if err := s.HlsServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsServerCert\"")
+			}
+		case "hlsServerKey":
+			if err := func() error {
+				s.HlsServerKey.Reset()
+				if err := s.HlsServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsServerKey\"")
+			}
+		case "hlsTrustedProxies":
+			if err := func() error {
+				s.HlsTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.HlsTrustedProxies = append(s.HlsTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsTrustedProxies\"")
+			}
+		case "hlsVariant":
+			if err := func() error {
+				s.HlsVariant.Reset()
+				if err := s.HlsVariant.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"hlsVariant\"")
 			}
 		case "logDestinations":
 			if err := func() error {
@@ -2649,16 +3731,6 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"logDestinations\"")
 			}
-		case "logStructured":
-			if err := func() error {
-				s.LogStructured.Reset()
-				if err := s.LogStructured.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"logStructured\"")
-			}
 		case "logFile":
 			if err := func() error {
 				s.LogFile.Reset()
@@ -2669,45 +3741,497 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"logFile\"")
 			}
-		case "sysLogPrefix":
+		case "logLevel":
 			if err := func() error {
-				s.SysLogPrefix.Reset()
-				if err := s.SysLogPrefix.Decode(d); err != nil {
+				s.LogLevel.Reset()
+				if err := s.LogLevel.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sysLogPrefix\"")
+				return errors.Wrap(err, "decode field \"logLevel\"")
 			}
-		case "dumpPackets":
+		case "logStructured":
 			if err := func() error {
-				s.DumpPackets.Reset()
-				if err := s.DumpPackets.Decode(d); err != nil {
+				s.LogStructured.Reset()
+				if err := s.LogStructured.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"dumpPackets\"")
+				return errors.Wrap(err, "decode field \"logStructured\"")
 			}
-		case "readTimeout":
+		case "metrics":
 			if err := func() error {
-				s.ReadTimeout.Reset()
-				if err := s.ReadTimeout.Decode(d); err != nil {
+				s.Metrics.Reset()
+				if err := s.Metrics.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"readTimeout\"")
+				return errors.Wrap(err, "decode field \"metrics\"")
 			}
-		case "writeTimeout":
+		case "metricsAddress":
 			if err := func() error {
-				s.WriteTimeout.Reset()
-				if err := s.WriteTimeout.Decode(d); err != nil {
+				s.MetricsAddress.Reset()
+				if err := s.MetricsAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"writeTimeout\"")
+				return errors.Wrap(err, "decode field \"metricsAddress\"")
+			}
+		case "metricsAllowOrigin":
+			if err := func() error {
+				s.MetricsAllowOrigin.Reset()
+				if err := s.MetricsAllowOrigin.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsAllowOrigin\"")
+			}
+		case "metricsAllowOrigins":
+			if err := func() error {
+				s.MetricsAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.MetricsAllowOrigins = append(s.MetricsAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsAllowOrigins\"")
+			}
+		case "metricsEncryption":
+			if err := func() error {
+				s.MetricsEncryption.Reset()
+				if err := s.MetricsEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsEncryption\"")
+			}
+		case "metricsServerCert":
+			if err := func() error {
+				s.MetricsServerCert.Reset()
+				if err := s.MetricsServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsServerCert\"")
+			}
+		case "metricsServerKey":
+			if err := func() error {
+				s.MetricsServerKey.Reset()
+				if err := s.MetricsServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsServerKey\"")
+			}
+		case "metricsTrustedProxies":
+			if err := func() error {
+				s.MetricsTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.MetricsTrustedProxies = append(s.MetricsTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"metricsTrustedProxies\"")
+			}
+		case "moq":
+			if err := func() error {
+				s.Moq.Reset()
+				if err := s.Moq.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moq\"")
+			}
+		case "moqAllowOrigins":
+			if err := func() error {
+				s.MoqAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.MoqAllowOrigins = append(s.MoqAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqAllowOrigins\"")
+			}
+		case "moqHTTP2Address":
+			if err := func() error {
+				s.MoqHTTP2Address.Reset()
+				if err := s.MoqHTTP2Address.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqHTTP2Address\"")
+			}
+		case "moqHTTP3Address":
+			if err := func() error {
+				s.MoqHTTP3Address.Reset()
+				if err := s.MoqHTTP3Address.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqHTTP3Address\"")
+			}
+		case "moqHTTPS2Address":
+			if err := func() error {
+				s.MoqHTTPS2Address.Reset()
+				if err := s.MoqHTTPS2Address.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqHTTPS2Address\"")
+			}
+		case "moqHTTPS3Address":
+			if err := func() error {
+				s.MoqHTTPS3Address.Reset()
+				if err := s.MoqHTTPS3Address.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqHTTPS3Address\"")
+			}
+		case "moqQUICAddress":
+			if err := func() error {
+				s.MoqQUICAddress.Reset()
+				if err := s.MoqQUICAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqQUICAddress\"")
+			}
+		case "moqServerCert":
+			if err := func() error {
+				s.MoqServerCert.Reset()
+				if err := s.MoqServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqServerCert\"")
+			}
+		case "moqServerKey":
+			if err := func() error {
+				s.MoqServerKey.Reset()
+				if err := s.MoqServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqServerKey\"")
+			}
+		case "moqTrustedProxies":
+			if err := func() error {
+				s.MoqTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.MoqTrustedProxies = append(s.MoqTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqTrustedProxies\"")
+			}
+		case "multicastIPRange":
+			if err := func() error {
+				s.MulticastIPRange.Reset()
+				if err := s.MulticastIPRange.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastIPRange\"")
+			}
+		case "multicastRTCPPort":
+			if err := func() error {
+				s.MulticastRTCPPort.Reset()
+				if err := s.MulticastRTCPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastRTCPPort\"")
+			}
+		case "multicastRTPPort":
+			if err := func() error {
+				s.MulticastRTPPort.Reset()
+				if err := s.MulticastRTPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastRTPPort\"")
+			}
+		case "multicastSRTCPPort":
+			if err := func() error {
+				s.MulticastSRTCPPort.Reset()
+				if err := s.MulticastSRTCPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastSRTCPPort\"")
+			}
+		case "multicastSRTPPort":
+			if err := func() error {
+				s.MulticastSRTPPort.Reset()
+				if err := s.MulticastSRTPPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"multicastSRTPPort\"")
+			}
+		case "playback":
+			if err := func() error {
+				s.Playback.Reset()
+				if err := s.Playback.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playback\"")
+			}
+		case "playbackAddress":
+			if err := func() error {
+				s.PlaybackAddress.Reset()
+				if err := s.PlaybackAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackAddress\"")
+			}
+		case "playbackAllowOrigin":
+			if err := func() error {
+				s.PlaybackAllowOrigin.Reset()
+				if err := s.PlaybackAllowOrigin.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackAllowOrigin\"")
+			}
+		case "playbackAllowOrigins":
+			if err := func() error {
+				s.PlaybackAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PlaybackAllowOrigins = append(s.PlaybackAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackAllowOrigins\"")
+			}
+		case "playbackEncryption":
+			if err := func() error {
+				s.PlaybackEncryption.Reset()
+				if err := s.PlaybackEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackEncryption\"")
+			}
+		case "playbackServerCert":
+			if err := func() error {
+				s.PlaybackServerCert.Reset()
+				if err := s.PlaybackServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackServerCert\"")
+			}
+		case "playbackServerKey":
+			if err := func() error {
+				s.PlaybackServerKey.Reset()
+				if err := s.PlaybackServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackServerKey\"")
+			}
+		case "playbackTrustedProxies":
+			if err := func() error {
+				s.PlaybackTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PlaybackTrustedProxies = append(s.PlaybackTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"playbackTrustedProxies\"")
+			}
+		case "pprof":
+			if err := func() error {
+				s.Pprof.Reset()
+				if err := s.Pprof.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprof\"")
+			}
+		case "pprofAddress":
+			if err := func() error {
+				s.PprofAddress.Reset()
+				if err := s.PprofAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofAddress\"")
+			}
+		case "pprofAllowOrigin":
+			if err := func() error {
+				s.PprofAllowOrigin.Reset()
+				if err := s.PprofAllowOrigin.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofAllowOrigin\"")
+			}
+		case "pprofAllowOrigins":
+			if err := func() error {
+				s.PprofAllowOrigins = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PprofAllowOrigins = append(s.PprofAllowOrigins, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofAllowOrigins\"")
+			}
+		case "pprofEncryption":
+			if err := func() error {
+				s.PprofEncryption.Reset()
+				if err := s.PprofEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofEncryption\"")
+			}
+		case "pprofServerCert":
+			if err := func() error {
+				s.PprofServerCert.Reset()
+				if err := s.PprofServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofServerCert\"")
+			}
+		case "pprofServerKey":
+			if err := func() error {
+				s.PprofServerKey.Reset()
+				if err := s.PprofServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofServerKey\"")
+			}
+		case "pprofTrustedProxies":
+			if err := func() error {
+				s.PprofTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.PprofTrustedProxies = append(s.PprofTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pprofTrustedProxies\"")
+			}
+		case "protocols":
+			if err := func() error {
+				s.Protocols.Reset()
+				if err := s.Protocols.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"protocols\"")
 			}
 		case "readBufferCount":
 			if err := func() error {
@@ -2719,35 +4243,317 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"readBufferCount\"")
 			}
-		case "writeQueueSize":
+		case "readTimeout":
 			if err := func() error {
-				s.WriteQueueSize.Reset()
-				if err := s.WriteQueueSize.Decode(d); err != nil {
+				s.ReadTimeout.Reset()
+				if err := s.ReadTimeout.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"writeQueueSize\"")
+				return errors.Wrap(err, "decode field \"readTimeout\"")
 			}
-		case "udpMaxPayloadSize":
+		case "record":
 			if err := func() error {
-				s.UdpMaxPayloadSize.Reset()
-				if err := s.UdpMaxPayloadSize.Decode(d); err != nil {
+				s.Record.Reset()
+				if err := s.Record.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"udpMaxPayloadSize\"")
+				return errors.Wrap(err, "decode field \"record\"")
 			}
-		case "udpReadBufferSize":
+		case "recordDeleteAfter":
 			if err := func() error {
-				s.UdpReadBufferSize.Reset()
-				if err := s.UdpReadBufferSize.Decode(d); err != nil {
+				s.RecordDeleteAfter.Reset()
+				if err := s.RecordDeleteAfter.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"udpReadBufferSize\"")
+				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
+			}
+		case "recordFormat":
+			if err := func() error {
+				s.RecordFormat.Reset()
+				if err := s.RecordFormat.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordFormat\"")
+			}
+		case "recordPartDuration":
+			if err := func() error {
+				s.RecordPartDuration.Reset()
+				if err := s.RecordPartDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordPartDuration\"")
+			}
+		case "recordPath":
+			if err := func() error {
+				s.RecordPath.Reset()
+				if err := s.RecordPath.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordPath\"")
+			}
+		case "recordSegmentDuration":
+			if err := func() error {
+				s.RecordSegmentDuration.Reset()
+				if err := s.RecordSegmentDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"recordSegmentDuration\"")
+			}
+		case "rtcpAddress":
+			if err := func() error {
+				s.RtcpAddress.Reset()
+				if err := s.RtcpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpAddress\"")
+			}
+		case "rtmp":
+			if err := func() error {
+				s.Rtmp.Reset()
+				if err := s.Rtmp.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmp\"")
+			}
+		case "rtmpAddress":
+			if err := func() error {
+				s.RtmpAddress.Reset()
+				if err := s.RtmpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpAddress\"")
+			}
+		case "rtmpDisable":
+			if err := func() error {
+				s.RtmpDisable.Reset()
+				if err := s.RtmpDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpDisable\"")
+			}
+		case "rtmpEncryption":
+			if err := func() error {
+				s.RtmpEncryption.Reset()
+				if err := s.RtmpEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpEncryption\"")
+			}
+		case "rtmpServerCert":
+			if err := func() error {
+				s.RtmpServerCert.Reset()
+				if err := s.RtmpServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpServerCert\"")
+			}
+		case "rtmpServerKey":
+			if err := func() error {
+				s.RtmpServerKey.Reset()
+				if err := s.RtmpServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpServerKey\"")
+			}
+		case "rtmpTrustedProxies":
+			if err := func() error {
+				s.RtmpTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.RtmpTrustedProxies = append(s.RtmpTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpTrustedProxies\"")
+			}
+		case "rtmpsAddress":
+			if err := func() error {
+				s.RtmpsAddress.Reset()
+				if err := s.RtmpsAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtmpsAddress\"")
+			}
+		case "rtpAddress":
+			if err := func() error {
+				s.RtpAddress.Reset()
+				if err := s.RtpAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpAddress\"")
+			}
+		case "rtsp":
+			if err := func() error {
+				s.Rtsp.Reset()
+				if err := s.Rtsp.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtsp\"")
+			}
+		case "rtspAddress":
+			if err := func() error {
+				s.RtspAddress.Reset()
+				if err := s.RtspAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspAddress\"")
+			}
+		case "rtspAuthMethods":
+			if err := func() error {
+				s.RtspAuthMethods = make([]RTSPAuthMethod, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem RTSPAuthMethod
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.RtspAuthMethods = append(s.RtspAuthMethods, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspAuthMethods\"")
+			}
+		case "rtspDisable":
+			if err := func() error {
+				s.RtspDisable.Reset()
+				if err := s.RtspDisable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspDisable\"")
+			}
+		case "rtspEncryption":
+			if err := func() error {
+				s.RtspEncryption.Reset()
+				if err := s.RtspEncryption.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspEncryption\"")
+			}
+		case "rtspServerCert":
+			if err := func() error {
+				s.RtspServerCert.Reset()
+				if err := s.RtspServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspServerCert\"")
+			}
+		case "rtspServerKey":
+			if err := func() error {
+				s.RtspServerKey.Reset()
+				if err := s.RtspServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspServerKey\"")
+			}
+		case "rtspTransports":
+			if err := func() error {
+				s.RtspTransports = make([]GlobalConfRtspTransportsItem, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem GlobalConfRtspTransportsItem
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.RtspTransports = append(s.RtspTransports, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspTransports\"")
+			}
+		case "rtspTrustedProxies":
+			if err := func() error {
+				s.RtspTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.RtspTrustedProxies = append(s.RtspTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspTrustedProxies\"")
+			}
+		case "rtspUDPReadBufferSize":
+			if err := func() error {
+				s.RtspUDPReadBufferSize.Reset()
+				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
+			}
+		case "rtspsAddress":
+			if err := func() error {
+				s.RtspsAddress.Reset()
+				if err := s.RtspsAddress.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspsAddress\"")
 			}
 		case "runOnConnect":
 			if err := func() error {
@@ -2779,695 +4585,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnDisconnect\"")
 			}
-		case "authMethod":
+		case "srt":
 			if err := func() error {
-				s.AuthMethod.Reset()
-				if err := s.AuthMethod.Decode(d); err != nil {
+				s.Srt.Reset()
+				if err := s.Srt.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authMethod\"")
+				return errors.Wrap(err, "decode field \"srt\"")
 			}
-		case "authInternalUsers":
+		case "srtAddress":
 			if err := func() error {
-				s.AuthInternalUsers = make([]AuthInternalUser, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem AuthInternalUser
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.AuthInternalUsers = append(s.AuthInternalUsers, elem)
-					return nil
-				}); err != nil {
+				s.SrtAddress.Reset()
+				if err := s.SrtAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authInternalUsers\"")
-			}
-		case "authHTTPAddress":
-			if err := func() error {
-				s.AuthHTTPAddress.Reset()
-				if err := s.AuthHTTPAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authHTTPAddress\"")
-			}
-		case "externalAuthenticationURL":
-			if err := func() error {
-				s.ExternalAuthenticationURL.Reset()
-				if err := s.ExternalAuthenticationURL.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"externalAuthenticationURL\"")
-			}
-		case "authHTTPFingerprint":
-			if err := func() error {
-				s.AuthHTTPFingerprint.Reset()
-				if err := s.AuthHTTPFingerprint.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authHTTPFingerprint\"")
-			}
-		case "authHTTPExclude":
-			if err := func() error {
-				s.AuthHTTPExclude = make([]AuthInternalUserPermission, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem AuthInternalUserPermission
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.AuthHTTPExclude = append(s.AuthHTTPExclude, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authHTTPExclude\"")
-			}
-		case "authJWTJWKS":
-			if err := func() error {
-				s.AuthJWTJWKS.Reset()
-				if err := s.AuthJWTJWKS.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTJWKS\"")
-			}
-		case "authJWTJWKSFingerprint":
-			if err := func() error {
-				s.AuthJWTJWKSFingerprint.Reset()
-				if err := s.AuthJWTJWKSFingerprint.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTJWKSFingerprint\"")
-			}
-		case "authJWTClaimKey":
-			if err := func() error {
-				s.AuthJWTClaimKey.Reset()
-				if err := s.AuthJWTClaimKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTClaimKey\"")
-			}
-		case "authJWTInHTTPQuery":
-			if err := func() error {
-				s.AuthJWTInHTTPQuery.Reset()
-				if err := s.AuthJWTInHTTPQuery.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTInHTTPQuery\"")
-			}
-		case "authJWTIssuer":
-			if err := func() error {
-				s.AuthJWTIssuer.Reset()
-				if err := s.AuthJWTIssuer.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTIssuer\"")
-			}
-		case "authJWTAudience":
-			if err := func() error {
-				s.AuthJWTAudience.Reset()
-				if err := s.AuthJWTAudience.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTAudience\"")
-			}
-		case "authJWTExclude":
-			if err := func() error {
-				s.AuthJWTExclude = make([]AuthInternalUserPermission, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem AuthInternalUserPermission
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.AuthJWTExclude = append(s.AuthJWTExclude, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authJWTExclude\"")
-			}
-		case "api":
-			if err := func() error {
-				s.API.Reset()
-				if err := s.API.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"api\"")
-			}
-		case "apiAddress":
-			if err := func() error {
-				s.ApiAddress.Reset()
-				if err := s.ApiAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiAddress\"")
-			}
-		case "apiEncryption":
-			if err := func() error {
-				s.ApiEncryption.Reset()
-				if err := s.ApiEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiEncryption\"")
-			}
-		case "apiServerKey":
-			if err := func() error {
-				s.ApiServerKey.Reset()
-				if err := s.ApiServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiServerKey\"")
-			}
-		case "apiServerCert":
-			if err := func() error {
-				s.ApiServerCert.Reset()
-				if err := s.ApiServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiServerCert\"")
-			}
-		case "apiAllowOrigin":
-			if err := func() error {
-				s.ApiAllowOrigin.Reset()
-				if err := s.ApiAllowOrigin.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiAllowOrigin\"")
-			}
-		case "apiAllowOrigins":
-			if err := func() error {
-				s.ApiAllowOrigins = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.ApiAllowOrigins = append(s.ApiAllowOrigins, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiAllowOrigins\"")
-			}
-		case "apiTrustedProxies":
-			if err := func() error {
-				s.ApiTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.ApiTrustedProxies = append(s.ApiTrustedProxies, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"apiTrustedProxies\"")
-			}
-		case "metrics":
-			if err := func() error {
-				s.Metrics.Reset()
-				if err := s.Metrics.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metrics\"")
-			}
-		case "metricsAddress":
-			if err := func() error {
-				s.MetricsAddress.Reset()
-				if err := s.MetricsAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsAddress\"")
-			}
-		case "metricsEncryption":
-			if err := func() error {
-				s.MetricsEncryption.Reset()
-				if err := s.MetricsEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsEncryption\"")
-			}
-		case "metricsServerKey":
-			if err := func() error {
-				s.MetricsServerKey.Reset()
-				if err := s.MetricsServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsServerKey\"")
-			}
-		case "metricsServerCert":
-			if err := func() error {
-				s.MetricsServerCert.Reset()
-				if err := s.MetricsServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsServerCert\"")
-			}
-		case "metricsAllowOrigin":
-			if err := func() error {
-				s.MetricsAllowOrigin.Reset()
-				if err := s.MetricsAllowOrigin.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsAllowOrigin\"")
-			}
-		case "metricsAllowOrigins":
-			if err := func() error {
-				s.MetricsAllowOrigins = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.MetricsAllowOrigins = append(s.MetricsAllowOrigins, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsAllowOrigins\"")
-			}
-		case "metricsTrustedProxies":
-			if err := func() error {
-				s.MetricsTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.MetricsTrustedProxies = append(s.MetricsTrustedProxies, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"metricsTrustedProxies\"")
-			}
-		case "pprof":
-			if err := func() error {
-				s.Pprof.Reset()
-				if err := s.Pprof.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprof\"")
-			}
-		case "pprofAddress":
-			if err := func() error {
-				s.PprofAddress.Reset()
-				if err := s.PprofAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofAddress\"")
-			}
-		case "pprofEncryption":
-			if err := func() error {
-				s.PprofEncryption.Reset()
-				if err := s.PprofEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofEncryption\"")
-			}
-		case "pprofServerKey":
-			if err := func() error {
-				s.PprofServerKey.Reset()
-				if err := s.PprofServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofServerKey\"")
-			}
-		case "pprofServerCert":
-			if err := func() error {
-				s.PprofServerCert.Reset()
-				if err := s.PprofServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofServerCert\"")
-			}
-		case "pprofAllowOrigin":
-			if err := func() error {
-				s.PprofAllowOrigin.Reset()
-				if err := s.PprofAllowOrigin.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofAllowOrigin\"")
-			}
-		case "pprofAllowOrigins":
-			if err := func() error {
-				s.PprofAllowOrigins = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.PprofAllowOrigins = append(s.PprofAllowOrigins, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofAllowOrigins\"")
-			}
-		case "pprofTrustedProxies":
-			if err := func() error {
-				s.PprofTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.PprofTrustedProxies = append(s.PprofTrustedProxies, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pprofTrustedProxies\"")
-			}
-		case "playback":
-			if err := func() error {
-				s.Playback.Reset()
-				if err := s.Playback.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playback\"")
-			}
-		case "playbackAddress":
-			if err := func() error {
-				s.PlaybackAddress.Reset()
-				if err := s.PlaybackAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackAddress\"")
-			}
-		case "playbackEncryption":
-			if err := func() error {
-				s.PlaybackEncryption.Reset()
-				if err := s.PlaybackEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackEncryption\"")
-			}
-		case "playbackServerKey":
-			if err := func() error {
-				s.PlaybackServerKey.Reset()
-				if err := s.PlaybackServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackServerKey\"")
-			}
-		case "playbackServerCert":
-			if err := func() error {
-				s.PlaybackServerCert.Reset()
-				if err := s.PlaybackServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackServerCert\"")
-			}
-		case "playbackAllowOrigin":
-			if err := func() error {
-				s.PlaybackAllowOrigin.Reset()
-				if err := s.PlaybackAllowOrigin.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackAllowOrigin\"")
-			}
-		case "playbackAllowOrigins":
-			if err := func() error {
-				s.PlaybackAllowOrigins = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.PlaybackAllowOrigins = append(s.PlaybackAllowOrigins, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackAllowOrigins\"")
-			}
-		case "playbackTrustedProxies":
-			if err := func() error {
-				s.PlaybackTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.PlaybackTrustedProxies = append(s.PlaybackTrustedProxies, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playbackTrustedProxies\"")
-			}
-		case "rtsp":
-			if err := func() error {
-				s.Rtsp.Reset()
-				if err := s.Rtsp.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtsp\"")
-			}
-		case "rtspDisable":
-			if err := func() error {
-				s.RtspDisable.Reset()
-				if err := s.RtspDisable.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspDisable\"")
-			}
-		case "protocols":
-			if err := func() error {
-				s.Protocols.Reset()
-				if err := s.Protocols.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"protocols\"")
-			}
-		case "rtspTransports":
-			if err := func() error {
-				s.RtspTransports = make([]GlobalConfRtspTransportsItem, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem GlobalConfRtspTransportsItem
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.RtspTransports = append(s.RtspTransports, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspTransports\"")
-			}
-		case "encryption":
-			if err := func() error {
-				s.Encryption.Reset()
-				if err := s.Encryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"encryption\"")
-			}
-		case "rtspEncryption":
-			if err := func() error {
-				s.RtspEncryption.Reset()
-				if err := s.RtspEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspEncryption\"")
-			}
-		case "rtspAddress":
-			if err := func() error {
-				s.RtspAddress.Reset()
-				if err := s.RtspAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspAddress\"")
-			}
-		case "rtspsAddress":
-			if err := func() error {
-				s.RtspsAddress.Reset()
-				if err := s.RtspsAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspsAddress\"")
-			}
-		case "rtpAddress":
-			if err := func() error {
-				s.RtpAddress.Reset()
-				if err := s.RtpAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpAddress\"")
-			}
-		case "rtcpAddress":
-			if err := func() error {
-				s.RtcpAddress.Reset()
-				if err := s.RtcpAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtcpAddress\"")
-			}
-		case "multicastIPRange":
-			if err := func() error {
-				s.MulticastIPRange.Reset()
-				if err := s.MulticastIPRange.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"multicastIPRange\"")
-			}
-		case "multicastRTPPort":
-			if err := func() error {
-				s.MulticastRTPPort.Reset()
-				if err := s.MulticastRTPPort.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"multicastRTPPort\"")
-			}
-		case "multicastRTCPPort":
-			if err := func() error {
-				s.MulticastRTCPPort.Reset()
-				if err := s.MulticastRTCPPort.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"multicastRTCPPort\"")
-			}
-		case "srtpAddress":
-			if err := func() error {
-				s.SrtpAddress.Reset()
-				if err := s.SrtpAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"srtpAddress\"")
+				return errors.Wrap(err, "decode field \"srtAddress\"")
 			}
 		case "srtcpAddress":
 			if err := func() error {
@@ -3479,350 +4615,45 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"srtcpAddress\"")
 			}
-		case "multicastSRTPPort":
+		case "srtpAddress":
 			if err := func() error {
-				s.MulticastSRTPPort.Reset()
-				if err := s.MulticastSRTPPort.Decode(d); err != nil {
+				s.SrtpAddress.Reset()
+				if err := s.SrtpAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"multicastSRTPPort\"")
+				return errors.Wrap(err, "decode field \"srtpAddress\"")
 			}
-		case "multicastSRTCPPort":
+		case "sysLogPrefix":
 			if err := func() error {
-				s.MulticastSRTCPPort.Reset()
-				if err := s.MulticastSRTCPPort.Decode(d); err != nil {
+				s.SysLogPrefix.Reset()
+				if err := s.SysLogPrefix.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"multicastSRTCPPort\"")
+				return errors.Wrap(err, "decode field \"sysLogPrefix\"")
 			}
-		case "rtspServerKey":
+		case "udpMaxPayloadSize":
 			if err := func() error {
-				s.RtspServerKey.Reset()
-				if err := s.RtspServerKey.Decode(d); err != nil {
+				s.UdpMaxPayloadSize.Reset()
+				if err := s.UdpMaxPayloadSize.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspServerKey\"")
+				return errors.Wrap(err, "decode field \"udpMaxPayloadSize\"")
 			}
-		case "rtspServerCert":
+		case "udpReadBufferSize":
 			if err := func() error {
-				s.RtspServerCert.Reset()
-				if err := s.RtspServerCert.Decode(d); err != nil {
+				s.UdpReadBufferSize.Reset()
+				if err := s.UdpReadBufferSize.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspServerCert\"")
-			}
-		case "authMethods":
-			if err := func() error {
-				s.AuthMethods.Reset()
-				if err := s.AuthMethods.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"authMethods\"")
-			}
-		case "rtspAuthMethods":
-			if err := func() error {
-				s.RtspAuthMethods = make([]RTSPAuthMethod, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem RTSPAuthMethod
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.RtspAuthMethods = append(s.RtspAuthMethods, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspAuthMethods\"")
-			}
-		case "rtspUDPReadBufferSize":
-			if err := func() error {
-				s.RtspUDPReadBufferSize.Reset()
-				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
-			}
-		case "rtmp":
-			if err := func() error {
-				s.Rtmp.Reset()
-				if err := s.Rtmp.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmp\"")
-			}
-		case "rtmpDisable":
-			if err := func() error {
-				s.RtmpDisable.Reset()
-				if err := s.RtmpDisable.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpDisable\"")
-			}
-		case "rtmpEncryption":
-			if err := func() error {
-				s.RtmpEncryption.Reset()
-				if err := s.RtmpEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpEncryption\"")
-			}
-		case "rtmpAddress":
-			if err := func() error {
-				s.RtmpAddress.Reset()
-				if err := s.RtmpAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpAddress\"")
-			}
-		case "rtmpsAddress":
-			if err := func() error {
-				s.RtmpsAddress.Reset()
-				if err := s.RtmpsAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpsAddress\"")
-			}
-		case "rtmpServerKey":
-			if err := func() error {
-				s.RtmpServerKey.Reset()
-				if err := s.RtmpServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpServerKey\"")
-			}
-		case "rtmpServerCert":
-			if err := func() error {
-				s.RtmpServerCert.Reset()
-				if err := s.RtmpServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtmpServerCert\"")
-			}
-		case "hls":
-			if err := func() error {
-				s.Hls.Reset()
-				if err := s.Hls.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hls\"")
-			}
-		case "hlsDisable":
-			if err := func() error {
-				s.HlsDisable.Reset()
-				if err := s.HlsDisable.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsDisable\"")
-			}
-		case "hlsAddress":
-			if err := func() error {
-				s.HlsAddress.Reset()
-				if err := s.HlsAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsAddress\"")
-			}
-		case "hlsEncryption":
-			if err := func() error {
-				s.HlsEncryption.Reset()
-				if err := s.HlsEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsEncryption\"")
-			}
-		case "hlsServerKey":
-			if err := func() error {
-				s.HlsServerKey.Reset()
-				if err := s.HlsServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsServerKey\"")
-			}
-		case "hlsServerCert":
-			if err := func() error {
-				s.HlsServerCert.Reset()
-				if err := s.HlsServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsServerCert\"")
-			}
-		case "hlsAllowOrigin":
-			if err := func() error {
-				s.HlsAllowOrigin.Reset()
-				if err := s.HlsAllowOrigin.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsAllowOrigin\"")
-			}
-		case "hlsAllowOrigins":
-			if err := func() error {
-				s.HlsAllowOrigins = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.HlsAllowOrigins = append(s.HlsAllowOrigins, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsAllowOrigins\"")
-			}
-		case "hlsTrustedProxies":
-			if err := func() error {
-				s.HlsTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.HlsTrustedProxies = append(s.HlsTrustedProxies, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsTrustedProxies\"")
-			}
-		case "hlsAlwaysRemux":
-			if err := func() error {
-				s.HlsAlwaysRemux.Reset()
-				if err := s.HlsAlwaysRemux.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsAlwaysRemux\"")
-			}
-		case "hlsVariant":
-			if err := func() error {
-				s.HlsVariant.Reset()
-				if err := s.HlsVariant.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsVariant\"")
-			}
-		case "hlsSegmentCount":
-			if err := func() error {
-				s.HlsSegmentCount.Reset()
-				if err := s.HlsSegmentCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsSegmentCount\"")
-			}
-		case "hlsSegmentDuration":
-			if err := func() error {
-				s.HlsSegmentDuration.Reset()
-				if err := s.HlsSegmentDuration.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsSegmentDuration\"")
-			}
-		case "hlsPartDuration":
-			if err := func() error {
-				s.HlsPartDuration.Reset()
-				if err := s.HlsPartDuration.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsPartDuration\"")
-			}
-		case "hlsSegmentMaxSize":
-			if err := func() error {
-				s.HlsSegmentMaxSize.Reset()
-				if err := s.HlsSegmentMaxSize.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsSegmentMaxSize\"")
-			}
-		case "hlsDirectory":
-			if err := func() error {
-				s.HlsDirectory.Reset()
-				if err := s.HlsDirectory.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsDirectory\"")
-			}
-		case "hlsMuxerCloseAfter":
-			if err := func() error {
-				s.HlsMuxerCloseAfter.Reset()
-				if err := s.HlsMuxerCloseAfter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsMuxerCloseAfter\"")
-			}
-		case "hlsCDNSecret":
-			if err := func() error {
-				s.HlsCDNSecret.Reset()
-				if err := s.HlsCDNSecret.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"hlsCDNSecret\"")
+				return errors.Wrap(err, "decode field \"udpReadBufferSize\"")
 			}
 		case "webrtc":
 			if err := func() error {
@@ -3834,15 +4665,24 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtc\"")
 			}
-		case "webrtcDisable":
+		case "webrtcAdditionalHosts":
 			if err := func() error {
-				s.WebrtcDisable.Reset()
-				if err := s.WebrtcDisable.Decode(d); err != nil {
+				s.WebrtcAdditionalHosts = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.WebrtcAdditionalHosts = append(s.WebrtcAdditionalHosts, elem)
+					return nil
+				}); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcDisable\"")
+				return errors.Wrap(err, "decode field \"webrtcAdditionalHosts\"")
 			}
 		case "webrtcAddress":
 			if err := func() error {
@@ -3853,36 +4693,6 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcAddress\"")
-			}
-		case "webrtcEncryption":
-			if err := func() error {
-				s.WebrtcEncryption.Reset()
-				if err := s.WebrtcEncryption.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcEncryption\"")
-			}
-		case "webrtcServerKey":
-			if err := func() error {
-				s.WebrtcServerKey.Reset()
-				if err := s.WebrtcServerKey.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcServerKey\"")
-			}
-		case "webrtcServerCert":
-			if err := func() error {
-				s.WebrtcServerCert.Reset()
-				if err := s.WebrtcServerCert.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcServerCert\"")
 			}
 		case "webrtcAllowOrigin":
 			if err := func() error {
@@ -3913,119 +4723,25 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcAllowOrigins\"")
 			}
-		case "webrtcTrustedProxies":
+		case "webrtcDisable":
 			if err := func() error {
-				s.WebrtcTrustedProxies = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.WebrtcTrustedProxies = append(s.WebrtcTrustedProxies, elem)
-					return nil
-				}); err != nil {
+				s.WebrtcDisable.Reset()
+				if err := s.WebrtcDisable.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcTrustedProxies\"")
+				return errors.Wrap(err, "decode field \"webrtcDisable\"")
 			}
-		case "webrtcLocalUDPAddress":
+		case "webrtcEncryption":
 			if err := func() error {
-				s.WebrtcLocalUDPAddress.Reset()
-				if err := s.WebrtcLocalUDPAddress.Decode(d); err != nil {
+				s.WebrtcEncryption.Reset()
+				if err := s.WebrtcEncryption.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcLocalUDPAddress\"")
-			}
-		case "webrtcLocalTCPAddress":
-			if err := func() error {
-				s.WebrtcLocalTCPAddress.Reset()
-				if err := s.WebrtcLocalTCPAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcLocalTCPAddress\"")
-			}
-		case "webrtcIPsFromInterfaces":
-			if err := func() error {
-				s.WebrtcIPsFromInterfaces.Reset()
-				if err := s.WebrtcIPsFromInterfaces.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcIPsFromInterfaces\"")
-			}
-		case "webrtcIPsFromInterfacesList":
-			if err := func() error {
-				s.WebrtcIPsFromInterfacesList = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.WebrtcIPsFromInterfacesList = append(s.WebrtcIPsFromInterfacesList, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcIPsFromInterfacesList\"")
-			}
-		case "webrtcAdditionalHosts":
-			if err := func() error {
-				s.WebrtcAdditionalHosts = make([]string, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem string
-					v, err := d.Str()
-					elem = string(v)
-					if err != nil {
-						return err
-					}
-					s.WebrtcAdditionalHosts = append(s.WebrtcAdditionalHosts, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcAdditionalHosts\"")
-			}
-		case "webrtcICEServers2":
-			if err := func() error {
-				s.WebrtcICEServers2 = make([]WebRTCICEServer, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem WebRTCICEServer
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.WebrtcICEServers2 = append(s.WebrtcICEServers2, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcICEServers2\"")
-			}
-		case "webrtcSTUNGatherTimeout":
-			if err := func() error {
-				s.WebrtcSTUNGatherTimeout.Reset()
-				if err := s.WebrtcSTUNGatherTimeout.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcSTUNGatherTimeout\"")
+				return errors.Wrap(err, "decode field \"webrtcEncryption\"")
 			}
 		case "webrtcHandshakeTimeout":
 			if err := func() error {
@@ -4036,36 +4752,6 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcHandshakeTimeout\"")
-			}
-		case "webrtcTrackGatherTimeout":
-			if err := func() error {
-				s.WebrtcTrackGatherTimeout.Reset()
-				if err := s.WebrtcTrackGatherTimeout.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcTrackGatherTimeout\"")
-			}
-		case "webrtcICEUDPMuxAddress":
-			if err := func() error {
-				s.WebrtcICEUDPMuxAddress.Reset()
-				if err := s.WebrtcICEUDPMuxAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcICEUDPMuxAddress\"")
-			}
-		case "webrtcICETCPMuxAddress":
-			if err := func() error {
-				s.WebrtcICETCPMuxAddress.Reset()
-				if err := s.WebrtcICETCPMuxAddress.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"webrtcICETCPMuxAddress\"")
 			}
 		case "webrtcICEHostNAT1To1IPs":
 			if err := func() error {
@@ -4087,85 +4773,189 @@ func (s *GlobalConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"webrtcICEServers\"")
 			}
-		case "srt":
+		case "webrtcICEServers2":
 			if err := func() error {
-				s.Srt.Reset()
-				if err := s.Srt.Decode(d); err != nil {
+				s.WebrtcICEServers2 = make([]WebRTCICEServer, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem WebRTCICEServer
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.WebrtcICEServers2 = append(s.WebrtcICEServers2, elem)
+					return nil
+				}); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"srt\"")
+				return errors.Wrap(err, "decode field \"webrtcICEServers2\"")
 			}
-		case "srtAddress":
+		case "webrtcICETCPMuxAddress":
 			if err := func() error {
-				s.SrtAddress.Reset()
-				if err := s.SrtAddress.Decode(d); err != nil {
+				s.WebrtcICETCPMuxAddress.Reset()
+				if err := s.WebrtcICETCPMuxAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"srtAddress\"")
+				return errors.Wrap(err, "decode field \"webrtcICETCPMuxAddress\"")
 			}
-		case "record":
+		case "webrtcICEUDPMuxAddress":
 			if err := func() error {
-				s.Record.Reset()
-				if err := s.Record.Decode(d); err != nil {
+				s.WebrtcICEUDPMuxAddress.Reset()
+				if err := s.WebrtcICEUDPMuxAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"record\"")
+				return errors.Wrap(err, "decode field \"webrtcICEUDPMuxAddress\"")
 			}
-		case "recordPath":
+		case "webrtcIPsFromInterfaces":
 			if err := func() error {
-				s.RecordPath.Reset()
-				if err := s.RecordPath.Decode(d); err != nil {
+				s.WebrtcIPsFromInterfaces.Reset()
+				if err := s.WebrtcIPsFromInterfaces.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordPath\"")
+				return errors.Wrap(err, "decode field \"webrtcIPsFromInterfaces\"")
 			}
-		case "recordFormat":
+		case "webrtcIPsFromInterfacesExcludeList":
 			if err := func() error {
-				s.RecordFormat.Reset()
-				if err := s.RecordFormat.Decode(d); err != nil {
+				s.WebrtcIPsFromInterfacesExcludeList = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.WebrtcIPsFromInterfacesExcludeList = append(s.WebrtcIPsFromInterfacesExcludeList, elem)
+					return nil
+				}); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordFormat\"")
+				return errors.Wrap(err, "decode field \"webrtcIPsFromInterfacesExcludeList\"")
 			}
-		case "recordPartDuration":
+		case "webrtcIPsFromInterfacesList":
 			if err := func() error {
-				s.RecordPartDuration.Reset()
-				if err := s.RecordPartDuration.Decode(d); err != nil {
+				s.WebrtcIPsFromInterfacesList = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.WebrtcIPsFromInterfacesList = append(s.WebrtcIPsFromInterfacesList, elem)
+					return nil
+				}); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordPartDuration\"")
+				return errors.Wrap(err, "decode field \"webrtcIPsFromInterfacesList\"")
 			}
-		case "recordSegmentDuration":
+		case "webrtcLocalTCPAddress":
 			if err := func() error {
-				s.RecordSegmentDuration.Reset()
-				if err := s.RecordSegmentDuration.Decode(d); err != nil {
+				s.WebrtcLocalTCPAddress.Reset()
+				if err := s.WebrtcLocalTCPAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordSegmentDuration\"")
+				return errors.Wrap(err, "decode field \"webrtcLocalTCPAddress\"")
 			}
-		case "recordDeleteAfter":
+		case "webrtcLocalUDPAddress":
 			if err := func() error {
-				s.RecordDeleteAfter.Reset()
-				if err := s.RecordDeleteAfter.Decode(d); err != nil {
+				s.WebrtcLocalUDPAddress.Reset()
+				if err := s.WebrtcLocalUDPAddress.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
+				return errors.Wrap(err, "decode field \"webrtcLocalUDPAddress\"")
+			}
+		case "webrtcSTUNGatherTimeout":
+			if err := func() error {
+				s.WebrtcSTUNGatherTimeout.Reset()
+				if err := s.WebrtcSTUNGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcSTUNGatherTimeout\"")
+			}
+		case "webrtcServerCert":
+			if err := func() error {
+				s.WebrtcServerCert.Reset()
+				if err := s.WebrtcServerCert.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcServerCert\"")
+			}
+		case "webrtcServerKey":
+			if err := func() error {
+				s.WebrtcServerKey.Reset()
+				if err := s.WebrtcServerKey.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcServerKey\"")
+			}
+		case "webrtcTrackGatherTimeout":
+			if err := func() error {
+				s.WebrtcTrackGatherTimeout.Reset()
+				if err := s.WebrtcTrackGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcTrackGatherTimeout\"")
+			}
+		case "webrtcTrustedProxies":
+			if err := func() error {
+				s.WebrtcTrustedProxies = make([]string, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem string
+					v, err := d.Str()
+					elem = string(v)
+					if err != nil {
+						return err
+					}
+					s.WebrtcTrustedProxies = append(s.WebrtcTrustedProxies, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"webrtcTrustedProxies\"")
+			}
+		case "writeQueueSize":
+			if err := func() error {
+				s.WriteQueueSize.Reset()
+				if err := s.WriteQueueSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"writeQueueSize\"")
+			}
+		case "writeTimeout":
+			if err := func() error {
+				s.WriteTimeout.Reset()
+				if err := s.WriteTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"writeTimeout\"")
 			}
 		default:
 			return d.Skip()
@@ -4285,9 +5075,9 @@ func (s *HLSMuxer) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *HLSMuxer) encodeFields(e *jx.Encoder) {
 	{
-		if s.Path.Set {
-			e.FieldStart("path")
-			s.Path.Encode(e)
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
@@ -4315,20 +5105,20 @@ func (s *HLSMuxer) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
 		}
 	}
 }
 
 var jsonFieldsNameOfHLSMuxer = [6]string{
-	0: "path",
+	0: "bytesSent",
 	1: "created",
 	2: "lastRequest",
 	3: "outboundBytes",
 	4: "outboundFramesDiscarded",
-	5: "bytesSent",
+	5: "path",
 }
 
 // Decode decodes HLSMuxer from json.
@@ -4339,15 +5129,15 @@ func (s *HLSMuxer) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "path":
+		case "bytesSent":
 			if err := func() error {
-				s.Path.Reset()
-				if err := s.Path.Decode(d); err != nil {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"path\"")
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		case "created":
 			if err := func() error {
@@ -4389,15 +5179,15 @@ func (s *HLSMuxer) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
 			}
-		case "bytesSent":
+		case "path":
 			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
+				return errors.Wrap(err, "decode field \"path\"")
 			}
 		default:
 			return d.Skip()
@@ -4433,12 +5223,6 @@ func (s *HLSMuxerList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *HLSMuxerList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -4454,12 +5238,18 @@ func (s *HLSMuxerList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfHLSMuxerList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes HLSMuxerList from json.
@@ -4470,16 +5260,6 @@ func (s *HLSMuxerList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -4506,6 +5286,16 @@ func (s *HLSMuxerList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -4541,21 +5331,27 @@ func (s *HLSSession) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *HLSSession) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
-		}
-	}
-	{
 		if s.Created.Set {
 			e.FieldStart("created")
 			s.Created.Encode(e)
 		}
 	}
 	{
-		if s.RemoteAddr.Set {
-			e.FieldStart("remoteAddr")
-			s.RemoteAddr.Encode(e)
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.IsCDN.Set {
+			e.FieldStart("isCDN")
+			s.IsCDN.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
 		}
 	}
 	{
@@ -4571,34 +5367,35 @@ func (s *HLSSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
 		if s.User.Set {
 			e.FieldStart("user")
 			s.User.Encode(e)
 		}
 	}
 	{
-		if s.IsCDN.Set {
-			e.FieldStart("isCDN")
-			s.IsCDN.Encode(e)
-		}
-	}
-	{
-		if s.OutboundBytes.Set {
-			e.FieldStart("outboundBytes")
-			s.OutboundBytes.Encode(e)
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfHLSSession = [8]string{
-	0: "id",
-	1: "created",
-	2: "remoteAddr",
-	3: "path",
-	4: "query",
-	5: "user",
-	6: "isCDN",
-	7: "outboundBytes",
+var jsonFieldsNameOfHLSSession = [9]string{
+	0: "created",
+	1: "id",
+	2: "isCDN",
+	3: "outboundBytes",
+	4: "path",
+	5: "query",
+	6: "remoteAddr",
+	7: "user",
+	8: "userAgent",
 }
 
 // Decode decodes HLSSession from json.
@@ -4609,16 +5406,6 @@ func (s *HLSSession) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
-			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
-			}
 		case "created":
 			if err := func() error {
 				s.Created.Reset()
@@ -4629,15 +5416,35 @@ func (s *HLSSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"created\"")
 			}
-		case "remoteAddr":
+		case "id":
 			if err := func() error {
-				s.RemoteAddr.Reset()
-				if err := s.RemoteAddr.Decode(d); err != nil {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteAddr\"")
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "isCDN":
+			if err := func() error {
+				s.IsCDN.Reset()
+				if err := s.IsCDN.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"isCDN\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
 			}
 		case "path":
 			if err := func() error {
@@ -4659,6 +5466,16 @@ func (s *HLSSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"query\"")
 			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
 		case "user":
 			if err := func() error {
 				s.User.Reset()
@@ -4669,25 +5486,15 @@ func (s *HLSSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"user\"")
 			}
-		case "isCDN":
+		case "userAgent":
 			if err := func() error {
-				s.IsCDN.Reset()
-				if err := s.IsCDN.Decode(d); err != nil {
+				s.UserAgent.Reset()
+				if err := s.UserAgent.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"isCDN\"")
-			}
-		case "outboundBytes":
-			if err := func() error {
-				s.OutboundBytes.Reset()
-				if err := s.OutboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundBytes\"")
+				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		default:
 			return d.Skip()
@@ -4723,12 +5530,6 @@ func (s *HLSSessionList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *HLSSessionList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -4744,12 +5545,18 @@ func (s *HLSSessionList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfHLSSessionList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes HLSSessionList from json.
@@ -4760,16 +5567,6 @@ func (s *HLSSessionList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -4796,6 +5593,16 @@ func (s *HLSSessionList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -5367,22 +6174,22 @@ func (s *Info) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *Info) encodeFields(e *jx.Encoder) {
 	{
-		if s.Version.Set {
-			e.FieldStart("version")
-			s.Version.Encode(e)
-		}
-	}
-	{
 		if s.Started.Set {
 			e.FieldStart("started")
 			s.Started.Encode(e)
 		}
 	}
+	{
+		if s.Version.Set {
+			e.FieldStart("version")
+			s.Version.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfInfo = [2]string{
-	0: "version",
-	1: "started",
+	0: "started",
+	1: "version",
 }
 
 // Decode decodes Info from json.
@@ -5393,16 +6200,6 @@ func (s *Info) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "version":
-			if err := func() error {
-				s.Version.Reset()
-				if err := s.Version.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"version\"")
-			}
 		case "started":
 			if err := func() error {
 				s.Started.Reset()
@@ -5412,6 +6209,16 @@ func (s *Info) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"started\"")
+			}
+		case "version":
+			if err := func() error {
+				s.Version.Reset()
+				if err := s.Version.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"version\"")
 			}
 		default:
 			return d.Skip()
@@ -5519,6 +6326,737 @@ func (s LogLevel) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *LogLevel) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *MoQSession) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *MoQSession) encodeFields(e *jx.Encoder) {
+	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
+		}
+	}
+	{
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
+		}
+	}
+	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.Transport.Set {
+			e.FieldStart("transport")
+			s.Transport.Encode(e)
+		}
+	}
+	{
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
+		}
+	}
+	{
+		if s.Version.Set {
+			e.FieldStart("version")
+			s.Version.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfMoQSession = [11]string{
+	0:  "created",
+	1:  "id",
+	2:  "inboundBytes",
+	3:  "outboundBytes",
+	4:  "path",
+	5:  "query",
+	6:  "remoteAddr",
+	7:  "state",
+	8:  "transport",
+	9:  "userAgent",
+	10: "version",
+}
+
+// Decode decodes MoQSession from json.
+func (s *MoQSession) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoQSession to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "path":
+			if err := func() error {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"path\"")
+			}
+		case "query":
+			if err := func() error {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "transport":
+			if err := func() error {
+				s.Transport.Reset()
+				if err := s.Transport.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"transport\"")
+			}
+		case "userAgent":
+			if err := func() error {
+				s.UserAgent.Reset()
+				if err := s.UserAgent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"userAgent\"")
+			}
+		case "version":
+			if err := func() error {
+				s.Version.Reset()
+				if err := s.Version.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"version\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode MoQSession")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoQSession) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoQSession) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
+func (s *MoQSessionList) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *MoQSessionList) encodeFields(e *jx.Encoder) {
+	{
+		if s.ItemCount.Set {
+			e.FieldStart("itemCount")
+			s.ItemCount.Encode(e)
+		}
+	}
+	{
+		if s.Items != nil {
+			e.FieldStart("items")
+			e.ArrStart()
+			for _, elem := range s.Items {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfMoQSessionList = [3]string{
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
+}
+
+// Decode decodes MoQSessionList from json.
+func (s *MoQSessionList) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoQSessionList to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "itemCount":
+			if err := func() error {
+				s.ItemCount.Reset()
+				if err := s.ItemCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"itemCount\"")
+			}
+		case "items":
+			if err := func() error {
+				s.Items = make([]MoQSession, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem MoQSession
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Items = append(s.Items, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode MoQSessionList")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoQSessionList) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoQSessionList) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoQSessionState as json.
+func (s MoQSessionState) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes MoQSessionState from json.
+func (s *MoQSessionState) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoQSessionState to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch MoQSessionState(v) {
+	case MoQSessionStateIdle:
+		*s = MoQSessionStateIdle
+	case MoQSessionStateRead:
+		*s = MoQSessionStateRead
+	case MoQSessionStatePublish:
+		*s = MoQSessionStatePublish
+	default:
+		*s = MoQSessionState(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s MoQSessionState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoQSessionState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoQVersion as json.
+func (s MoQVersion) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes MoQVersion from json.
+func (s *MoQVersion) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoQVersion to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch MoQVersion(v) {
+	case MoQVersionMoqt16:
+		*s = MoQVersionMoqt16
+	case MoQVersionMoqt17:
+		*s = MoQVersionMoqt17
+	case MoQVersionMoqt18:
+		*s = MoQVersionMoqt18
+	case MoQVersionMoqt19:
+		*s = MoQVersionMoqt19
+	default:
+		*s = MoQVersion(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s MoQVersion) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoQVersion) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsGetBadRequest as json.
+func (s *MoqSessionsGetBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsGetBadRequest from json.
+func (s *MoqSessionsGetBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsGetBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsGetBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsGetBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsGetBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsGetInternalServerError as json.
+func (s *MoqSessionsGetInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsGetInternalServerError from json.
+func (s *MoqSessionsGetInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsGetInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsGetInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsGetInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsGetInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsGetNotFound as json.
+func (s *MoqSessionsGetNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsGetNotFound from json.
+func (s *MoqSessionsGetNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsGetNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsGetNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsGetNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsGetNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsKickBadRequest as json.
+func (s *MoqSessionsKickBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsKickBadRequest from json.
+func (s *MoqSessionsKickBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsKickBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsKickBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsKickBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsKickBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsKickInternalServerError as json.
+func (s *MoqSessionsKickInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsKickInternalServerError from json.
+func (s *MoqSessionsKickInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsKickInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsKickInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsKickInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsKickInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsKickNotFound as json.
+func (s *MoqSessionsKickNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsKickNotFound from json.
+func (s *MoqSessionsKickNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsKickNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsKickNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsKickNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsKickNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsListBadRequest as json.
+func (s *MoqSessionsListBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsListBadRequest from json.
+func (s *MoqSessionsListBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsListBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsListBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsListBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsListBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoqSessionsListInternalServerError as json.
+func (s *MoqSessionsListInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes MoqSessionsListInternalServerError from json.
+func (s *MoqSessionsListInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode MoqSessionsListInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = MoqSessionsListInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *MoqSessionsListInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *MoqSessionsListInternalServerError) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -5859,6 +7397,105 @@ func (s *OptFloat64) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes ForwardDestProtocol as json.
+func (o OptForwardDestProtocol) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes ForwardDestProtocol from json.
+func (o *OptForwardDestProtocol) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptForwardDestProtocol to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptForwardDestProtocol) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptForwardDestProtocol) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestState as json.
+func (o OptForwardDestState) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes ForwardDestState from json.
+func (o *OptForwardDestState) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptForwardDestState to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptForwardDestState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptForwardDestState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestType as json.
+func (o OptForwardDestType) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes ForwardDestType from json.
+func (o *OptForwardDestType) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptForwardDestType to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptForwardDestType) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptForwardDestType) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes HLSVariant as json.
 func (o OptHLSVariant) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -5960,6 +7597,72 @@ func (s *OptLogLevel) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes MoQSessionState as json.
+func (o OptMoQSessionState) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes MoQSessionState from json.
+func (o *OptMoQSessionState) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptMoQSessionState to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptMoQSessionState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptMoQSessionState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes MoQVersion as json.
+func (o OptMoQVersion) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes MoQVersion from json.
+func (o *OptMoQVersion) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptMoQVersion to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptMoQVersion) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptMoQVersion) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes bool as json.
 func (o OptNilBool) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -6056,6 +7759,55 @@ func (s OptNilEncryption) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptNilEncryption) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes ForwardDestTypeSpecific as json.
+func (o OptNilForwardDestTypeSpecific) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes ForwardDestTypeSpecific from json.
+func (o *OptNilForwardDestTypeSpecific) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilForwardDestTypeSpecific to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v ForwardDestTypeSpecific
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilForwardDestTypeSpecific) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilForwardDestTypeSpecific) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -6429,6 +8181,55 @@ func (s *OptNilRecordFormat) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes StaticSourceTypeSpecific as json.
+func (o OptNilStaticSourceTypeSpecific) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	if o.Null {
+		e.Null()
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes StaticSourceTypeSpecific from json.
+func (o *OptNilStaticSourceTypeSpecific) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptNilStaticSourceTypeSpecific to nil")
+	}
+	if d.Next() == jx.Null {
+		if err := d.Null(); err != nil {
+			return err
+		}
+
+		var v StaticSourceTypeSpecific
+		o.Value = v
+		o.Set = true
+		o.Null = true
+		return nil
+	}
+	o.Set = true
+	o.Null = false
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptNilStaticSourceTypeSpecific) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptNilStaticSourceTypeSpecific) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes string as json.
 func (o OptNilString) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -6674,6 +8475,39 @@ func (s OptOKStatus) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *OptOKStatus) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathConfForwardDest as json.
+func (o OptPathConfForwardDest) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	o.Value.Encode(e)
+}
+
+// Decode decodes PathConfForwardDest from json.
+func (o *OptPathConfForwardDest) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptPathConfForwardDest to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptPathConfForwardDest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptPathConfForwardDest) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -6975,6 +8809,39 @@ func (s *OptSRTConnState) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes StaticSourceState as json.
+func (o OptStaticSourceState) Encode(e *jx.Encoder) {
+	if !o.Set {
+		return
+	}
+	e.Str(string(o.Value))
+}
+
+// Decode decodes StaticSourceState from json.
+func (o *OptStaticSourceState) Decode(d *jx.Decoder) error {
+	if o == nil {
+		return errors.New("invalid: unable to decode OptStaticSourceState to nil")
+	}
+	o.Set = true
+	if err := o.Value.Decode(d); err != nil {
+		return err
+	}
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s OptStaticSourceState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *OptStaticSourceState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode encodes string as json.
 func (o OptString) Encode(e *jx.Encoder) {
 	if !o.Set {
@@ -7123,9 +8990,27 @@ func (s *Path) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *Path) encodeFields(e *jx.Encoder) {
 	{
-		if s.Name.Set {
-			e.FieldStart("name")
-			s.Name.Encode(e)
+		if s.Available.Set {
+			e.FieldStart("available")
+			s.Available.Encode(e)
+		}
+	}
+	{
+		if s.AvailableTime.Set {
+			e.FieldStart("availableTime")
+			s.AvailableTime.Encode(e)
+		}
+	}
+	{
+		if s.BytesReceived.Set {
+			e.FieldStart("bytesReceived")
+			s.BytesReceived.Encode(e)
+		}
+	}
+	{
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
@@ -7135,9 +9020,49 @@ func (s *Path) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.Source.Set {
-			e.FieldStart("source")
-			s.Source.Encode(e)
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.InboundFramesInError.Set {
+			e.FieldStart("inboundFramesInError")
+			s.InboundFramesInError.Encode(e)
+		}
+	}
+	{
+		if s.Name.Set {
+			e.FieldStart("name")
+			s.Name.Encode(e)
+		}
+	}
+	{
+		if s.Online.Set {
+			e.FieldStart("online")
+			s.Online.Encode(e)
+		}
+	}
+	{
+		if s.OnlineTime.Set {
+			e.FieldStart("onlineTime")
+			s.OnlineTime.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.Readers != nil {
+			e.FieldStart("readers")
+			e.ArrStart()
+			for _, elem := range s.Readers {
+				elem.Encode(e)
+			}
+			e.ArrEnd()
 		}
 	}
 	{
@@ -7153,27 +9078,9 @@ func (s *Path) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.Available.Set {
-			e.FieldStart("available")
-			s.Available.Encode(e)
-		}
-	}
-	{
-		if s.AvailableTime.Set {
-			e.FieldStart("availableTime")
-			s.AvailableTime.Encode(e)
-		}
-	}
-	{
-		if s.Online.Set {
-			e.FieldStart("online")
-			s.Online.Encode(e)
-		}
-	}
-	{
-		if s.OnlineTime.Set {
-			e.FieldStart("onlineTime")
-			s.OnlineTime.Encode(e)
+		if s.Source.Set {
+			e.FieldStart("source")
+			s.Source.Encode(e)
 		}
 	}
 	{
@@ -7196,66 +9103,26 @@ func (s *Path) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
-	{
-		if s.InboundBytes.Set {
-			e.FieldStart("inboundBytes")
-			s.InboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.OutboundBytes.Set {
-			e.FieldStart("outboundBytes")
-			s.OutboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.InboundFramesInError.Set {
-			e.FieldStart("inboundFramesInError")
-			s.InboundFramesInError.Encode(e)
-		}
-	}
-	{
-		if s.BytesReceived.Set {
-			e.FieldStart("bytesReceived")
-			s.BytesReceived.Encode(e)
-		}
-	}
-	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
-		}
-	}
-	{
-		if s.Readers != nil {
-			e.FieldStart("readers")
-			e.ArrStart()
-			for _, elem := range s.Readers {
-				elem.Encode(e)
-			}
-			e.ArrEnd()
-		}
-	}
 }
 
 var jsonFieldsNameOfPath = [17]string{
-	0:  "name",
-	1:  "confName",
-	2:  "source",
-	3:  "ready",
-	4:  "readyTime",
-	5:  "available",
-	6:  "availableTime",
-	7:  "online",
-	8:  "onlineTime",
-	9:  "tracks",
-	10: "tracks2",
-	11: "inboundBytes",
-	12: "outboundBytes",
-	13: "inboundFramesInError",
-	14: "bytesReceived",
-	15: "bytesSent",
-	16: "readers",
+	0:  "available",
+	1:  "availableTime",
+	2:  "bytesReceived",
+	3:  "bytesSent",
+	4:  "confName",
+	5:  "inboundBytes",
+	6:  "inboundFramesInError",
+	7:  "name",
+	8:  "online",
+	9:  "onlineTime",
+	10: "outboundBytes",
+	11: "readers",
+	12: "ready",
+	13: "readyTime",
+	14: "source",
+	15: "tracks",
+	16: "tracks2",
 }
 
 // Decode decodes Path from json.
@@ -7266,15 +9133,45 @@ func (s *Path) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "name":
+		case "available":
 			if err := func() error {
-				s.Name.Reset()
-				if err := s.Name.Decode(d); err != nil {
+				s.Available.Reset()
+				if err := s.Available.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"name\"")
+				return errors.Wrap(err, "decode field \"available\"")
+			}
+		case "availableTime":
+			if err := func() error {
+				s.AvailableTime.Reset()
+				if err := s.AvailableTime.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"availableTime\"")
+			}
+		case "bytesReceived":
+			if err := func() error {
+				s.BytesReceived.Reset()
+				if err := s.BytesReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"bytesReceived\"")
+			}
+		case "bytesSent":
+			if err := func() error {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		case "confName":
 			if err := func() error {
@@ -7286,15 +9183,82 @@ func (s *Path) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"confName\"")
 			}
-		case "source":
+		case "inboundBytes":
 			if err := func() error {
-				s.Source.Reset()
-				if err := s.Source.Decode(d); err != nil {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"source\"")
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "inboundFramesInError":
+			if err := func() error {
+				s.InboundFramesInError.Reset()
+				if err := s.InboundFramesInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundFramesInError\"")
+			}
+		case "name":
+			if err := func() error {
+				s.Name.Reset()
+				if err := s.Name.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"name\"")
+			}
+		case "online":
+			if err := func() error {
+				s.Online.Reset()
+				if err := s.Online.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"online\"")
+			}
+		case "onlineTime":
+			if err := func() error {
+				s.OnlineTime.Reset()
+				if err := s.OnlineTime.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"onlineTime\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "readers":
+			if err := func() error {
+				s.Readers = make([]PathReader, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem PathReader
+					if err := elem.Decode(d); err != nil {
+						return err
+					}
+					s.Readers = append(s.Readers, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"readers\"")
 			}
 		case "ready":
 			if err := func() error {
@@ -7316,45 +9280,15 @@ func (s *Path) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"readyTime\"")
 			}
-		case "available":
+		case "source":
 			if err := func() error {
-				s.Available.Reset()
-				if err := s.Available.Decode(d); err != nil {
+				s.Source.Reset()
+				if err := s.Source.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"available\"")
-			}
-		case "availableTime":
-			if err := func() error {
-				s.AvailableTime.Reset()
-				if err := s.AvailableTime.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"availableTime\"")
-			}
-		case "online":
-			if err := func() error {
-				s.Online.Reset()
-				if err := s.Online.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"online\"")
-			}
-		case "onlineTime":
-			if err := func() error {
-				s.OnlineTime.Reset()
-				if err := s.OnlineTime.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"onlineTime\"")
+				return errors.Wrap(err, "decode field \"source\"")
 			}
 		case "tracks":
 			if err := func() error {
@@ -7390,73 +9324,6 @@ func (s *Path) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"tracks2\"")
 			}
-		case "inboundBytes":
-			if err := func() error {
-				s.InboundBytes.Reset()
-				if err := s.InboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundBytes\"")
-			}
-		case "outboundBytes":
-			if err := func() error {
-				s.OutboundBytes.Reset()
-				if err := s.OutboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundBytes\"")
-			}
-		case "inboundFramesInError":
-			if err := func() error {
-				s.InboundFramesInError.Reset()
-				if err := s.InboundFramesInError.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundFramesInError\"")
-			}
-		case "bytesReceived":
-			if err := func() error {
-				s.BytesReceived.Reset()
-				if err := s.BytesReceived.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceived\"")
-			}
-		case "bytesSent":
-			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
-			}
-		case "readers":
-			if err := func() error {
-				s.Readers = make([]PathReader, 0)
-				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem PathReader
-					if err := elem.Decode(d); err != nil {
-						return err
-					}
-					s.Readers = append(s.Readers, elem)
-					return nil
-				}); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"readers\"")
-			}
 		default:
 			return d.Skip()
 		}
@@ -7491,69 +9358,21 @@ func (s *PathConf) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *PathConf) encodeFields(e *jx.Encoder) {
 	{
-		if s.Name.Set {
-			e.FieldStart("name")
-			s.Name.Encode(e)
-		}
-	}
-	{
-		if s.Source.Set {
-			e.FieldStart("source")
-			s.Source.Encode(e)
-		}
-	}
-	{
-		if s.SourceFingerprint.Set {
-			e.FieldStart("sourceFingerprint")
-			s.SourceFingerprint.Encode(e)
-		}
-	}
-	{
-		if s.SourceOnDemand.Set {
-			e.FieldStart("sourceOnDemand")
-			s.SourceOnDemand.Encode(e)
-		}
-	}
-	{
-		if s.SourceOnDemandStartTimeout.Set {
-			e.FieldStart("sourceOnDemandStartTimeout")
-			s.SourceOnDemandStartTimeout.Encode(e)
-		}
-	}
-	{
-		if s.SourceOnDemandCloseAfter.Set {
-			e.FieldStart("sourceOnDemandCloseAfter")
-			s.SourceOnDemandCloseAfter.Encode(e)
-		}
-	}
-	{
-		if s.MaxReaders.Set {
-			e.FieldStart("maxReaders")
-			s.MaxReaders.Encode(e)
-		}
-	}
-	{
-		if s.SrtReadPassphrase.Set {
-			e.FieldStart("srtReadPassphrase")
-			s.SrtReadPassphrase.Encode(e)
-		}
-	}
-	{
-		if s.Fallback.Set {
-			e.FieldStart("fallback")
-			s.Fallback.Encode(e)
-		}
-	}
-	{
-		if s.UseAbsoluteTimestamp.Set {
-			e.FieldStart("useAbsoluteTimestamp")
-			s.UseAbsoluteTimestamp.Encode(e)
-		}
-	}
-	{
 		if s.AlwaysAvailable.Set {
 			e.FieldStart("alwaysAvailable")
 			s.AlwaysAvailable.Encode(e)
+		}
+	}
+	{
+		if s.AlwaysAvailableFile.Set {
+			e.FieldStart("alwaysAvailableFile")
+			s.AlwaysAvailableFile.Encode(e)
+		}
+	}
+	{
+		if s.AlwaysAvailableRecorded.Set {
+			e.FieldStart("alwaysAvailableRecorded")
+			s.AlwaysAvailableRecorded.Encode(e)
 		}
 	}
 	{
@@ -7567,169 +9386,37 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.AlwaysAvailableFile.Set {
-			e.FieldStart("alwaysAvailableFile")
-			s.AlwaysAvailableFile.Encode(e)
-		}
-	}
-	{
-		if s.Record.Set {
-			e.FieldStart("record")
-			s.Record.Encode(e)
-		}
-	}
-	{
-		if s.Playback.Set {
-			e.FieldStart("playback")
-			s.Playback.Encode(e)
-		}
-	}
-	{
-		if s.RecordPath.Set {
-			e.FieldStart("recordPath")
-			s.RecordPath.Encode(e)
-		}
-	}
-	{
-		if s.RecordFormat.Set {
-			e.FieldStart("recordFormat")
-			s.RecordFormat.Encode(e)
-		}
-	}
-	{
-		if s.RecordPartDuration.Set {
-			e.FieldStart("recordPartDuration")
-			s.RecordPartDuration.Encode(e)
-		}
-	}
-	{
-		if s.RecordMaxPartSize.Set {
-			e.FieldStart("recordMaxPartSize")
-			s.RecordMaxPartSize.Encode(e)
-		}
-	}
-	{
-		if s.RecordSegmentDuration.Set {
-			e.FieldStart("recordSegmentDuration")
-			s.RecordSegmentDuration.Encode(e)
-		}
-	}
-	{
-		if s.RecordDeleteAfter.Set {
-			e.FieldStart("recordDeleteAfter")
-			s.RecordDeleteAfter.Encode(e)
-		}
-	}
-	{
-		if s.PublishUser.Set {
-			e.FieldStart("publishUser")
-			s.PublishUser.Encode(e)
-		}
-	}
-	{
-		if s.PublishPass.Set {
-			e.FieldStart("publishPass")
-			s.PublishPass.Encode(e)
-		}
-	}
-	{
-		if s.PublishIPs.Set {
-			e.FieldStart("publishIPs")
-			s.PublishIPs.Encode(e)
-		}
-	}
-	{
-		if s.ReadUser.Set {
-			e.FieldStart("readUser")
-			s.ReadUser.Encode(e)
-		}
-	}
-	{
-		if s.ReadPass.Set {
-			e.FieldStart("readPass")
-			s.ReadPass.Encode(e)
-		}
-	}
-	{
-		if s.ReadIPs.Set {
-			e.FieldStart("readIPs")
-			s.ReadIPs.Encode(e)
-		}
-	}
-	{
-		if s.OverridePublisher.Set {
-			e.FieldStart("overridePublisher")
-			s.OverridePublisher.Encode(e)
-		}
-	}
-	{
 		if s.DisablePublisherOverride.Set {
 			e.FieldStart("disablePublisherOverride")
 			s.DisablePublisherOverride.Encode(e)
 		}
 	}
 	{
-		if s.SrtPublishPassphrase.Set {
-			e.FieldStart("srtPublishPassphrase")
-			s.SrtPublishPassphrase.Encode(e)
+		if s.Fallback.Set {
+			e.FieldStart("fallback")
+			s.Fallback.Encode(e)
 		}
 	}
 	{
-		if s.RtspDemuxMpegts.Set {
-			e.FieldStart("rtspDemuxMpegts")
-			s.RtspDemuxMpegts.Encode(e)
-		}
-	}
-	{
-		if s.RtspTransport.Set {
-			e.FieldStart("rtspTransport")
-			s.RtspTransport.Encode(e)
-		}
-	}
-	{
-		if s.RtspAnyPort.Set {
-			e.FieldStart("rtspAnyPort")
-			s.RtspAnyPort.Encode(e)
-		}
-	}
-	{
-		if s.SourceProtocol.Set {
-			e.FieldStart("sourceProtocol")
-			s.SourceProtocol.Encode(e)
-		}
-	}
-	{
-		if s.SourceAnyPortEnable.Set {
-			e.FieldStart("sourceAnyPortEnable")
-			s.SourceAnyPortEnable.Encode(e)
-		}
-	}
-	{
-		if s.RtspRangeType.Set {
-			e.FieldStart("rtspRangeType")
-			s.RtspRangeType.Encode(e)
-		}
-	}
-	{
-		if s.RtspRangeStart.Set {
-			e.FieldStart("rtspRangeStart")
-			s.RtspRangeStart.Encode(e)
-		}
-	}
-	{
-		if s.RtspUDPReadBufferSize.Set {
-			e.FieldStart("rtspUDPReadBufferSize")
-			s.RtspUDPReadBufferSize.Encode(e)
-		}
-	}
-	{
-		if s.RtspUDPSourcePortRange != nil {
-			e.FieldStart("rtspUDPSourcePortRange")
+		if s.Forward != nil {
+			e.FieldStart("forward")
 			e.ArrStart()
-			for _, elem := range s.RtspUDPSourcePortRange {
-				e.UInt64(elem)
+			for _, elem := range s.Forward {
+				elem.Encode(e)
 			}
 			e.ArrEnd()
+		}
+	}
+	{
+		if s.MaxReaders.Set {
+			e.FieldStart("maxReaders")
+			s.MaxReaders.Encode(e)
+		}
+	}
+	{
+		if s.MoqTransport.Set {
+			e.FieldStart("moqTransport")
+			s.MoqTransport.Encode(e)
 		}
 	}
 	{
@@ -7739,111 +9426,99 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RtpSDP.Set {
-			e.FieldStart("rtpSDP")
-			s.RtpSDP.Encode(e)
+		if s.Name.Set {
+			e.FieldStart("name")
+			s.Name.Encode(e)
 		}
 	}
 	{
-		if s.RtpUDPReadBufferSize.Set {
-			e.FieldStart("rtpUDPReadBufferSize")
-			s.RtpUDPReadBufferSize.Encode(e)
+		if s.OverridePublisher.Set {
+			e.FieldStart("overridePublisher")
+			s.OverridePublisher.Encode(e)
 		}
 	}
 	{
-		if s.WhepBearerToken.Set {
-			e.FieldStart("whepBearerToken")
-			s.WhepBearerToken.Encode(e)
+		if s.Playback.Set {
+			e.FieldStart("playback")
+			s.Playback.Encode(e)
 		}
 	}
 	{
-		if s.WhepSTUNGatherTimeout.Set {
-			e.FieldStart("whepSTUNGatherTimeout")
-			s.WhepSTUNGatherTimeout.Encode(e)
+		if s.PublishIPs.Set {
+			e.FieldStart("publishIPs")
+			s.PublishIPs.Encode(e)
 		}
 	}
 	{
-		if s.WhepHandshakeTimeout.Set {
-			e.FieldStart("whepHandshakeTimeout")
-			s.WhepHandshakeTimeout.Encode(e)
+		if s.PublishPass.Set {
+			e.FieldStart("publishPass")
+			s.PublishPass.Encode(e)
 		}
 	}
 	{
-		if s.WhepTrackGatherTimeout.Set {
-			e.FieldStart("whepTrackGatherTimeout")
-			s.WhepTrackGatherTimeout.Encode(e)
+		if s.PublishUser.Set {
+			e.FieldStart("publishUser")
+			s.PublishUser.Encode(e)
 		}
 	}
 	{
-		if s.SourceRedirect.Set {
-			e.FieldStart("sourceRedirect")
-			s.SourceRedirect.Encode(e)
+		if s.ReadIPs.Set {
+			e.FieldStart("readIPs")
+			s.ReadIPs.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraCamID.Set {
-			e.FieldStart("rpiCameraCamID")
-			s.RpiCameraCamID.Encode(e)
+		if s.ReadPass.Set {
+			e.FieldStart("readPass")
+			s.ReadPass.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraSecondary.Set {
-			e.FieldStart("rpiCameraSecondary")
-			s.RpiCameraSecondary.Encode(e)
+		if s.ReadUser.Set {
+			e.FieldStart("readUser")
+			s.ReadUser.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraWidth.Set {
-			e.FieldStart("rpiCameraWidth")
-			s.RpiCameraWidth.Encode(e)
+		if s.Record.Set {
+			e.FieldStart("record")
+			s.Record.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraHeight.Set {
-			e.FieldStart("rpiCameraHeight")
-			s.RpiCameraHeight.Encode(e)
+		if s.RecordDeleteAfter.Set {
+			e.FieldStart("recordDeleteAfter")
+			s.RecordDeleteAfter.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraHFlip.Set {
-			e.FieldStart("rpiCameraHFlip")
-			s.RpiCameraHFlip.Encode(e)
+		if s.RecordFormat.Set {
+			e.FieldStart("recordFormat")
+			s.RecordFormat.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraVFlip.Set {
-			e.FieldStart("rpiCameraVFlip")
-			s.RpiCameraVFlip.Encode(e)
+		if s.RecordMaxPartSize.Set {
+			e.FieldStart("recordMaxPartSize")
+			s.RecordMaxPartSize.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraBrightness.Set {
-			e.FieldStart("rpiCameraBrightness")
-			s.RpiCameraBrightness.Encode(e)
+		if s.RecordPartDuration.Set {
+			e.FieldStart("recordPartDuration")
+			s.RecordPartDuration.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraContrast.Set {
-			e.FieldStart("rpiCameraContrast")
-			s.RpiCameraContrast.Encode(e)
+		if s.RecordPath.Set {
+			e.FieldStart("recordPath")
+			s.RecordPath.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraSaturation.Set {
-			e.FieldStart("rpiCameraSaturation")
-			s.RpiCameraSaturation.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraSharpness.Set {
-			e.FieldStart("rpiCameraSharpness")
-			s.RpiCameraSharpness.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraExposure.Set {
-			e.FieldStart("rpiCameraExposure")
-			s.RpiCameraExposure.Encode(e)
+		if s.RecordSegmentDuration.Set {
+			e.FieldStart("recordSegmentDuration")
+			s.RecordSegmentDuration.Encode(e)
 		}
 	}
 	{
@@ -7860,66 +9535,6 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 				e.Float64(elem)
 			}
 			e.ArrEnd()
-		}
-	}
-	{
-		if s.RpiCameraDenoise.Set {
-			e.FieldStart("rpiCameraDenoise")
-			s.RpiCameraDenoise.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraShutter.Set {
-			e.FieldStart("rpiCameraShutter")
-			s.RpiCameraShutter.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraMetering.Set {
-			e.FieldStart("rpiCameraMetering")
-			s.RpiCameraMetering.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraGain.Set {
-			e.FieldStart("rpiCameraGain")
-			s.RpiCameraGain.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraEV.Set {
-			e.FieldStart("rpiCameraEV")
-			s.RpiCameraEV.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraROI.Set {
-			e.FieldStart("rpiCameraROI")
-			s.RpiCameraROI.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraHDR.Set {
-			e.FieldStart("rpiCameraHDR")
-			s.RpiCameraHDR.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraTuningFile.Set {
-			e.FieldStart("rpiCameraTuningFile")
-			s.RpiCameraTuningFile.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraMode.Set {
-			e.FieldStart("rpiCameraMode")
-			s.RpiCameraMode.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraFPS.Set {
-			e.FieldStart("rpiCameraFPS")
-			s.RpiCameraFPS.Encode(e)
 		}
 	}
 	{
@@ -7941,45 +9556,9 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RpiCameraLensPosition.Set {
-			e.FieldStart("rpiCameraLensPosition")
-			s.RpiCameraLensPosition.Encode(e)
-		}
-	}
-	{
 		if s.RpiCameraAfWindow.Set {
 			e.FieldStart("rpiCameraAfWindow")
 			s.RpiCameraAfWindow.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraFlickerPeriod.Set {
-			e.FieldStart("rpiCameraFlickerPeriod")
-			s.RpiCameraFlickerPeriod.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraTextOverlayEnable.Set {
-			e.FieldStart("rpiCameraTextOverlayEnable")
-			s.RpiCameraTextOverlayEnable.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraTextOverlay.Set {
-			e.FieldStart("rpiCameraTextOverlay")
-			s.RpiCameraTextOverlay.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraCodec.Set {
-			e.FieldStart("rpiCameraCodec")
-			s.RpiCameraCodec.Encode(e)
-		}
-	}
-	{
-		if s.RpiCameraIDRPeriod.Set {
-			e.FieldStart("rpiCameraIDRPeriod")
-			s.RpiCameraIDRPeriod.Encode(e)
 		}
 	}
 	{
@@ -7989,21 +9568,87 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RpiCameraProfile.Set {
-			e.FieldStart("rpiCameraProfile")
-			s.RpiCameraProfile.Encode(e)
+		if s.RpiCameraBrightness.Set {
+			e.FieldStart("rpiCameraBrightness")
+			s.RpiCameraBrightness.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraLevel.Set {
-			e.FieldStart("rpiCameraLevel")
-			s.RpiCameraLevel.Encode(e)
+		if s.RpiCameraCamID.Set {
+			e.FieldStart("rpiCameraCamID")
+			s.RpiCameraCamID.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraHardwareH264Profile.Set {
-			e.FieldStart("rpiCameraHardwareH264Profile")
-			s.RpiCameraHardwareH264Profile.Encode(e)
+		if s.RpiCameraCodec.Set {
+			e.FieldStart("rpiCameraCodec")
+			s.RpiCameraCodec.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraContrast.Set {
+			e.FieldStart("rpiCameraContrast")
+			s.RpiCameraContrast.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraDenoise.Set {
+			e.FieldStart("rpiCameraDenoise")
+			s.RpiCameraDenoise.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraEV.Set {
+			e.FieldStart("rpiCameraEV")
+			s.RpiCameraEV.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraExposure.Set {
+			e.FieldStart("rpiCameraExposure")
+			s.RpiCameraExposure.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraFPS.Set {
+			e.FieldStart("rpiCameraFPS")
+			s.RpiCameraFPS.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraFlickerPeriod.Set {
+			e.FieldStart("rpiCameraFlickerPeriod")
+			s.RpiCameraFlickerPeriod.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraGain.Set {
+			e.FieldStart("rpiCameraGain")
+			s.RpiCameraGain.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraH264Level.Set {
+			e.FieldStart("rpiCameraH264Level")
+			s.RpiCameraH264Level.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraH264Profile.Set {
+			e.FieldStart("rpiCameraH264Profile")
+			s.RpiCameraH264Profile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraHDR.Set {
+			e.FieldStart("rpiCameraHDR")
+			s.RpiCameraHDR.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraHFlip.Set {
+			e.FieldStart("rpiCameraHFlip")
+			s.RpiCameraHFlip.Encode(e)
 		}
 	}
 	{
@@ -8013,15 +9658,21 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RpiCameraSoftwareH264Profile.Set {
-			e.FieldStart("rpiCameraSoftwareH264Profile")
-			s.RpiCameraSoftwareH264Profile.Encode(e)
+		if s.RpiCameraHardwareH264Profile.Set {
+			e.FieldStart("rpiCameraHardwareH264Profile")
+			s.RpiCameraHardwareH264Profile.Encode(e)
 		}
 	}
 	{
-		if s.RpiCameraSoftwareH264Level.Set {
-			e.FieldStart("rpiCameraSoftwareH264Level")
-			s.RpiCameraSoftwareH264Level.Encode(e)
+		if s.RpiCameraHeight.Set {
+			e.FieldStart("rpiCameraHeight")
+			s.RpiCameraHeight.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraIDRPeriod.Set {
+			e.FieldStart("rpiCameraIDRPeriod")
+			s.RpiCameraIDRPeriod.Encode(e)
 		}
 	}
 	{
@@ -8031,27 +9682,199 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.RpiCameraLensPosition.Set {
+			e.FieldStart("rpiCameraLensPosition")
+			s.RpiCameraLensPosition.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraLevel.Set {
+			e.FieldStart("rpiCameraLevel")
+			s.RpiCameraLevel.Encode(e)
+		}
+	}
+	{
 		if s.RpiCameraMJPEGQuality.Set {
 			e.FieldStart("rpiCameraMJPEGQuality")
 			s.RpiCameraMJPEGQuality.Encode(e)
 		}
 	}
 	{
-		if s.RunOnInit.Set {
-			e.FieldStart("runOnInit")
-			s.RunOnInit.Encode(e)
+		if s.RpiCameraMetering.Set {
+			e.FieldStart("rpiCameraMetering")
+			s.RpiCameraMetering.Encode(e)
 		}
 	}
 	{
-		if s.RunOnInitRestart.Set {
-			e.FieldStart("runOnInitRestart")
-			s.RunOnInitRestart.Encode(e)
+		if s.RpiCameraMode.Set {
+			e.FieldStart("rpiCameraMode")
+			s.RpiCameraMode.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraProfile.Set {
+			e.FieldStart("rpiCameraProfile")
+			s.RpiCameraProfile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraROI.Set {
+			e.FieldStart("rpiCameraROI")
+			s.RpiCameraROI.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSaturation.Set {
+			e.FieldStart("rpiCameraSaturation")
+			s.RpiCameraSaturation.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSecondary.Set {
+			e.FieldStart("rpiCameraSecondary")
+			s.RpiCameraSecondary.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSharpness.Set {
+			e.FieldStart("rpiCameraSharpness")
+			s.RpiCameraSharpness.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraShutter.Set {
+			e.FieldStart("rpiCameraShutter")
+			s.RpiCameraShutter.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSoftwareH264Level.Set {
+			e.FieldStart("rpiCameraSoftwareH264Level")
+			s.RpiCameraSoftwareH264Level.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraSoftwareH264Profile.Set {
+			e.FieldStart("rpiCameraSoftwareH264Profile")
+			s.RpiCameraSoftwareH264Profile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraTextOverlay.Set {
+			e.FieldStart("rpiCameraTextOverlay")
+			s.RpiCameraTextOverlay.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraTextOverlayEnable.Set {
+			e.FieldStart("rpiCameraTextOverlayEnable")
+			s.RpiCameraTextOverlayEnable.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraTuningFile.Set {
+			e.FieldStart("rpiCameraTuningFile")
+			s.RpiCameraTuningFile.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraVFlip.Set {
+			e.FieldStart("rpiCameraVFlip")
+			s.RpiCameraVFlip.Encode(e)
+		}
+	}
+	{
+		if s.RpiCameraWidth.Set {
+			e.FieldStart("rpiCameraWidth")
+			s.RpiCameraWidth.Encode(e)
+		}
+	}
+	{
+		if s.RtpSDP.Set {
+			e.FieldStart("rtpSDP")
+			s.RtpSDP.Encode(e)
+		}
+	}
+	{
+		if s.RtpUDPReadBufferSize.Set {
+			e.FieldStart("rtpUDPReadBufferSize")
+			s.RtpUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.RtspAnyPort.Set {
+			e.FieldStart("rtspAnyPort")
+			s.RtspAnyPort.Encode(e)
+		}
+	}
+	{
+		if s.RtspDemuxMpegts.Set {
+			e.FieldStart("rtspDemuxMpegts")
+			s.RtspDemuxMpegts.Encode(e)
+		}
+	}
+	{
+		if s.RtspRangeStart.Set {
+			e.FieldStart("rtspRangeStart")
+			s.RtspRangeStart.Encode(e)
+		}
+	}
+	{
+		if s.RtspRangeType.Set {
+			e.FieldStart("rtspRangeType")
+			s.RtspRangeType.Encode(e)
+		}
+	}
+	{
+		if s.RtspScale.Set {
+			e.FieldStart("rtspScale")
+			s.RtspScale.Encode(e)
+		}
+	}
+	{
+		if s.RtspTransport.Set {
+			e.FieldStart("rtspTransport")
+			s.RtspTransport.Encode(e)
+		}
+	}
+	{
+		if s.RtspUDPReadBufferSize.Set {
+			e.FieldStart("rtspUDPReadBufferSize")
+			s.RtspUDPReadBufferSize.Encode(e)
+		}
+	}
+	{
+		if s.RtspUDPSourcePortRange != nil {
+			e.FieldStart("rtspUDPSourcePortRange")
+			e.ArrStart()
+			for _, elem := range s.RtspUDPSourcePortRange {
+				e.UInt64(elem)
+			}
+			e.ArrEnd()
+		}
+	}
+	{
+		if s.RunOnAvailable.Set {
+			e.FieldStart("runOnAvailable")
+			s.RunOnAvailable.Encode(e)
+		}
+	}
+	{
+		if s.RunOnAvailableRestart.Set {
+			e.FieldStart("runOnAvailableRestart")
+			s.RunOnAvailableRestart.Encode(e)
 		}
 	}
 	{
 		if s.RunOnDemand.Set {
 			e.FieldStart("runOnDemand")
 			s.RunOnDemand.Encode(e)
+		}
+	}
+	{
+		if s.RunOnDemandCloseAfter.Set {
+			e.FieldStart("runOnDemandCloseAfter")
+			s.RunOnDemandCloseAfter.Encode(e)
 		}
 	}
 	{
@@ -8067,33 +9890,39 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RunOnDemandCloseAfter.Set {
-			e.FieldStart("runOnDemandCloseAfter")
-			s.RunOnDemandCloseAfter.Encode(e)
+		if s.RunOnInit.Set {
+			e.FieldStart("runOnInit")
+			s.RunOnInit.Encode(e)
 		}
 	}
 	{
-		if s.RunOnUnDemand.Set {
-			e.FieldStart("runOnUnDemand")
-			s.RunOnUnDemand.Encode(e)
-		}
-	}
-	{
-		if s.RunOnReady.Set {
-			e.FieldStart("runOnReady")
-			s.RunOnReady.Encode(e)
-		}
-	}
-	{
-		if s.RunOnReadyRestart.Set {
-			e.FieldStart("runOnReadyRestart")
-			s.RunOnReadyRestart.Encode(e)
+		if s.RunOnInitRestart.Set {
+			e.FieldStart("runOnInitRestart")
+			s.RunOnInitRestart.Encode(e)
 		}
 	}
 	{
 		if s.RunOnNotReady.Set {
 			e.FieldStart("runOnNotReady")
 			s.RunOnNotReady.Encode(e)
+		}
+	}
+	{
+		if s.RunOnOffline.Set {
+			e.FieldStart("runOnOffline")
+			s.RunOnOffline.Encode(e)
+		}
+	}
+	{
+		if s.RunOnOnline.Set {
+			e.FieldStart("runOnOnline")
+			s.RunOnOnline.Encode(e)
+		}
+	}
+	{
+		if s.RunOnOnlineRestart.Set {
+			e.FieldStart("runOnOnlineRestart")
+			s.RunOnOnlineRestart.Encode(e)
 		}
 	}
 	{
@@ -8109,9 +9938,21 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RunOnUnread.Set {
-			e.FieldStart("runOnUnread")
-			s.RunOnUnread.Encode(e)
+		if s.RunOnReady.Set {
+			e.FieldStart("runOnReady")
+			s.RunOnReady.Encode(e)
+		}
+	}
+	{
+		if s.RunOnReadyRestart.Set {
+			e.FieldStart("runOnReadyRestart")
+			s.RunOnReadyRestart.Encode(e)
+		}
+	}
+	{
+		if s.RunOnRecordSegmentComplete.Set {
+			e.FieldStart("runOnRecordSegmentComplete")
+			s.RunOnRecordSegmentComplete.Encode(e)
 		}
 	}
 	{
@@ -8121,118 +9962,232 @@ func (s *PathConf) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RunOnRecordSegmentComplete.Set {
-			e.FieldStart("runOnRecordSegmentComplete")
-			s.RunOnRecordSegmentComplete.Encode(e)
+		if s.RunOnUnDemand.Set {
+			e.FieldStart("runOnUnDemand")
+			s.RunOnUnDemand.Encode(e)
+		}
+	}
+	{
+		if s.RunOnUnavailable.Set {
+			e.FieldStart("runOnUnavailable")
+			s.RunOnUnavailable.Encode(e)
+		}
+	}
+	{
+		if s.RunOnUnread.Set {
+			e.FieldStart("runOnUnread")
+			s.RunOnUnread.Encode(e)
+		}
+	}
+	{
+		if s.Source.Set {
+			e.FieldStart("source")
+			s.Source.Encode(e)
+		}
+	}
+	{
+		if s.SourceAnyPortEnable.Set {
+			e.FieldStart("sourceAnyPortEnable")
+			s.SourceAnyPortEnable.Encode(e)
+		}
+	}
+	{
+		if s.SourceFingerprint.Set {
+			e.FieldStart("sourceFingerprint")
+			s.SourceFingerprint.Encode(e)
+		}
+	}
+	{
+		if s.SourceOnDemand.Set {
+			e.FieldStart("sourceOnDemand")
+			s.SourceOnDemand.Encode(e)
+		}
+	}
+	{
+		if s.SourceOnDemandCloseAfter.Set {
+			e.FieldStart("sourceOnDemandCloseAfter")
+			s.SourceOnDemandCloseAfter.Encode(e)
+		}
+	}
+	{
+		if s.SourceOnDemandStartTimeout.Set {
+			e.FieldStart("sourceOnDemandStartTimeout")
+			s.SourceOnDemandStartTimeout.Encode(e)
+		}
+	}
+	{
+		if s.SourceProtocol.Set {
+			e.FieldStart("sourceProtocol")
+			s.SourceProtocol.Encode(e)
+		}
+	}
+	{
+		if s.SourceRedirect.Set {
+			e.FieldStart("sourceRedirect")
+			s.SourceRedirect.Encode(e)
+		}
+	}
+	{
+		if s.SrtPublishPassphrase.Set {
+			e.FieldStart("srtPublishPassphrase")
+			s.SrtPublishPassphrase.Encode(e)
+		}
+	}
+	{
+		if s.SrtReadPassphrase.Set {
+			e.FieldStart("srtReadPassphrase")
+			s.SrtReadPassphrase.Encode(e)
+		}
+	}
+	{
+		if s.UseAbsoluteTimestamp.Set {
+			e.FieldStart("useAbsoluteTimestamp")
+			s.UseAbsoluteTimestamp.Encode(e)
+		}
+	}
+	{
+		if s.WhepBearerToken.Set {
+			e.FieldStart("whepBearerToken")
+			s.WhepBearerToken.Encode(e)
+		}
+	}
+	{
+		if s.WhepHandshakeTimeout.Set {
+			e.FieldStart("whepHandshakeTimeout")
+			s.WhepHandshakeTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WhepSTUNGatherTimeout.Set {
+			e.FieldStart("whepSTUNGatherTimeout")
+			s.WhepSTUNGatherTimeout.Encode(e)
+		}
+	}
+	{
+		if s.WhepTrackGatherTimeout.Set {
+			e.FieldStart("whepTrackGatherTimeout")
+			s.WhepTrackGatherTimeout.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfPathConf = [104]string{
-	0:   "name",
-	1:   "source",
-	2:   "sourceFingerprint",
-	3:   "sourceOnDemand",
-	4:   "sourceOnDemandStartTimeout",
-	5:   "sourceOnDemandCloseAfter",
-	6:   "maxReaders",
-	7:   "srtReadPassphrase",
-	8:   "fallback",
-	9:   "useAbsoluteTimestamp",
-	10:  "alwaysAvailable",
-	11:  "alwaysAvailableTracks",
-	12:  "alwaysAvailableFile",
-	13:  "record",
-	14:  "playback",
-	15:  "recordPath",
-	16:  "recordFormat",
-	17:  "recordPartDuration",
-	18:  "recordMaxPartSize",
-	19:  "recordSegmentDuration",
+var jsonFieldsNameOfPathConf = [116]string{
+	0:   "alwaysAvailable",
+	1:   "alwaysAvailableFile",
+	2:   "alwaysAvailableRecorded",
+	3:   "alwaysAvailableTracks",
+	4:   "disablePublisherOverride",
+	5:   "fallback",
+	6:   "forward",
+	7:   "maxReaders",
+	8:   "moqTransport",
+	9:   "mpegtsUDPReadBufferSize",
+	10:  "name",
+	11:  "overridePublisher",
+	12:  "playback",
+	13:  "publishIPs",
+	14:  "publishPass",
+	15:  "publishUser",
+	16:  "readIPs",
+	17:  "readPass",
+	18:  "readUser",
+	19:  "record",
 	20:  "recordDeleteAfter",
-	21:  "publishUser",
-	22:  "publishPass",
-	23:  "publishIPs",
-	24:  "readUser",
-	25:  "readPass",
-	26:  "readIPs",
-	27:  "overridePublisher",
-	28:  "disablePublisherOverride",
-	29:  "srtPublishPassphrase",
-	30:  "rtspDemuxMpegts",
-	31:  "rtspTransport",
-	32:  "rtspAnyPort",
-	33:  "sourceProtocol",
-	34:  "sourceAnyPortEnable",
-	35:  "rtspRangeType",
-	36:  "rtspRangeStart",
-	37:  "rtspUDPReadBufferSize",
-	38:  "rtspUDPSourcePortRange",
-	39:  "mpegtsUDPReadBufferSize",
-	40:  "rtpSDP",
-	41:  "rtpUDPReadBufferSize",
-	42:  "whepBearerToken",
-	43:  "whepSTUNGatherTimeout",
-	44:  "whepHandshakeTimeout",
-	45:  "whepTrackGatherTimeout",
-	46:  "sourceRedirect",
-	47:  "rpiCameraCamID",
-	48:  "rpiCameraSecondary",
-	49:  "rpiCameraWidth",
-	50:  "rpiCameraHeight",
-	51:  "rpiCameraHFlip",
-	52:  "rpiCameraVFlip",
-	53:  "rpiCameraBrightness",
-	54:  "rpiCameraContrast",
-	55:  "rpiCameraSaturation",
-	56:  "rpiCameraSharpness",
-	57:  "rpiCameraExposure",
-	58:  "rpiCameraAWB",
-	59:  "rpiCameraAWBGains",
-	60:  "rpiCameraDenoise",
-	61:  "rpiCameraShutter",
-	62:  "rpiCameraMetering",
-	63:  "rpiCameraGain",
-	64:  "rpiCameraEV",
-	65:  "rpiCameraROI",
-	66:  "rpiCameraHDR",
+	21:  "recordFormat",
+	22:  "recordMaxPartSize",
+	23:  "recordPartDuration",
+	24:  "recordPath",
+	25:  "recordSegmentDuration",
+	26:  "rpiCameraAWB",
+	27:  "rpiCameraAWBGains",
+	28:  "rpiCameraAfMode",
+	29:  "rpiCameraAfRange",
+	30:  "rpiCameraAfSpeed",
+	31:  "rpiCameraAfWindow",
+	32:  "rpiCameraBitrate",
+	33:  "rpiCameraBrightness",
+	34:  "rpiCameraCamID",
+	35:  "rpiCameraCodec",
+	36:  "rpiCameraContrast",
+	37:  "rpiCameraDenoise",
+	38:  "rpiCameraEV",
+	39:  "rpiCameraExposure",
+	40:  "rpiCameraFPS",
+	41:  "rpiCameraFlickerPeriod",
+	42:  "rpiCameraGain",
+	43:  "rpiCameraH264Level",
+	44:  "rpiCameraH264Profile",
+	45:  "rpiCameraHDR",
+	46:  "rpiCameraHFlip",
+	47:  "rpiCameraHardwareH264Level",
+	48:  "rpiCameraHardwareH264Profile",
+	49:  "rpiCameraHeight",
+	50:  "rpiCameraIDRPeriod",
+	51:  "rpiCameraJPEGQuality",
+	52:  "rpiCameraLensPosition",
+	53:  "rpiCameraLevel",
+	54:  "rpiCameraMJPEGQuality",
+	55:  "rpiCameraMetering",
+	56:  "rpiCameraMode",
+	57:  "rpiCameraProfile",
+	58:  "rpiCameraROI",
+	59:  "rpiCameraSaturation",
+	60:  "rpiCameraSecondary",
+	61:  "rpiCameraSharpness",
+	62:  "rpiCameraShutter",
+	63:  "rpiCameraSoftwareH264Level",
+	64:  "rpiCameraSoftwareH264Profile",
+	65:  "rpiCameraTextOverlay",
+	66:  "rpiCameraTextOverlayEnable",
 	67:  "rpiCameraTuningFile",
-	68:  "rpiCameraMode",
-	69:  "rpiCameraFPS",
-	70:  "rpiCameraAfMode",
-	71:  "rpiCameraAfRange",
-	72:  "rpiCameraAfSpeed",
-	73:  "rpiCameraLensPosition",
-	74:  "rpiCameraAfWindow",
-	75:  "rpiCameraFlickerPeriod",
-	76:  "rpiCameraTextOverlayEnable",
-	77:  "rpiCameraTextOverlay",
-	78:  "rpiCameraCodec",
-	79:  "rpiCameraIDRPeriod",
-	80:  "rpiCameraBitrate",
-	81:  "rpiCameraProfile",
-	82:  "rpiCameraLevel",
-	83:  "rpiCameraHardwareH264Profile",
-	84:  "rpiCameraHardwareH264Level",
-	85:  "rpiCameraSoftwareH264Profile",
-	86:  "rpiCameraSoftwareH264Level",
-	87:  "rpiCameraJPEGQuality",
-	88:  "rpiCameraMJPEGQuality",
-	89:  "runOnInit",
-	90:  "runOnInitRestart",
-	91:  "runOnDemand",
-	92:  "runOnDemandRestart",
-	93:  "runOnDemandStartTimeout",
-	94:  "runOnDemandCloseAfter",
-	95:  "runOnUnDemand",
-	96:  "runOnReady",
-	97:  "runOnReadyRestart",
-	98:  "runOnNotReady",
-	99:  "runOnRead",
-	100: "runOnReadRestart",
-	101: "runOnUnread",
-	102: "runOnRecordSegmentCreate",
-	103: "runOnRecordSegmentComplete",
+	68:  "rpiCameraVFlip",
+	69:  "rpiCameraWidth",
+	70:  "rtpSDP",
+	71:  "rtpUDPReadBufferSize",
+	72:  "rtspAnyPort",
+	73:  "rtspDemuxMpegts",
+	74:  "rtspRangeStart",
+	75:  "rtspRangeType",
+	76:  "rtspScale",
+	77:  "rtspTransport",
+	78:  "rtspUDPReadBufferSize",
+	79:  "rtspUDPSourcePortRange",
+	80:  "runOnAvailable",
+	81:  "runOnAvailableRestart",
+	82:  "runOnDemand",
+	83:  "runOnDemandCloseAfter",
+	84:  "runOnDemandRestart",
+	85:  "runOnDemandStartTimeout",
+	86:  "runOnInit",
+	87:  "runOnInitRestart",
+	88:  "runOnNotReady",
+	89:  "runOnOffline",
+	90:  "runOnOnline",
+	91:  "runOnOnlineRestart",
+	92:  "runOnRead",
+	93:  "runOnReadRestart",
+	94:  "runOnReady",
+	95:  "runOnReadyRestart",
+	96:  "runOnRecordSegmentComplete",
+	97:  "runOnRecordSegmentCreate",
+	98:  "runOnUnDemand",
+	99:  "runOnUnavailable",
+	100: "runOnUnread",
+	101: "source",
+	102: "sourceAnyPortEnable",
+	103: "sourceFingerprint",
+	104: "sourceOnDemand",
+	105: "sourceOnDemandCloseAfter",
+	106: "sourceOnDemandStartTimeout",
+	107: "sourceProtocol",
+	108: "sourceRedirect",
+	109: "srtPublishPassphrase",
+	110: "srtReadPassphrase",
+	111: "useAbsoluteTimestamp",
+	112: "whepBearerToken",
+	113: "whepHandshakeTimeout",
+	114: "whepSTUNGatherTimeout",
+	115: "whepTrackGatherTimeout",
 }
 
 // Decode decodes PathConf from json.
@@ -8243,106 +10198,6 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "name":
-			if err := func() error {
-				s.Name.Reset()
-				if err := s.Name.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"name\"")
-			}
-		case "source":
-			if err := func() error {
-				s.Source.Reset()
-				if err := s.Source.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"source\"")
-			}
-		case "sourceFingerprint":
-			if err := func() error {
-				s.SourceFingerprint.Reset()
-				if err := s.SourceFingerprint.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceFingerprint\"")
-			}
-		case "sourceOnDemand":
-			if err := func() error {
-				s.SourceOnDemand.Reset()
-				if err := s.SourceOnDemand.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceOnDemand\"")
-			}
-		case "sourceOnDemandStartTimeout":
-			if err := func() error {
-				s.SourceOnDemandStartTimeout.Reset()
-				if err := s.SourceOnDemandStartTimeout.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceOnDemandStartTimeout\"")
-			}
-		case "sourceOnDemandCloseAfter":
-			if err := func() error {
-				s.SourceOnDemandCloseAfter.Reset()
-				if err := s.SourceOnDemandCloseAfter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceOnDemandCloseAfter\"")
-			}
-		case "maxReaders":
-			if err := func() error {
-				s.MaxReaders.Reset()
-				if err := s.MaxReaders.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"maxReaders\"")
-			}
-		case "srtReadPassphrase":
-			if err := func() error {
-				s.SrtReadPassphrase.Reset()
-				if err := s.SrtReadPassphrase.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"srtReadPassphrase\"")
-			}
-		case "fallback":
-			if err := func() error {
-				s.Fallback.Reset()
-				if err := s.Fallback.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"fallback\"")
-			}
-		case "useAbsoluteTimestamp":
-			if err := func() error {
-				s.UseAbsoluteTimestamp.Reset()
-				if err := s.UseAbsoluteTimestamp.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"useAbsoluteTimestamp\"")
-			}
 		case "alwaysAvailable":
 			if err := func() error {
 				s.AlwaysAvailable.Reset()
@@ -8352,6 +10207,26 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"alwaysAvailable\"")
+			}
+		case "alwaysAvailableFile":
+			if err := func() error {
+				s.AlwaysAvailableFile.Reset()
+				if err := s.AlwaysAvailableFile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alwaysAvailableFile\"")
+			}
+		case "alwaysAvailableRecorded":
+			if err := func() error {
+				s.AlwaysAvailableRecorded.Reset()
+				if err := s.AlwaysAvailableRecorded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"alwaysAvailableRecorded\"")
 			}
 		case "alwaysAvailableTracks":
 			if err := func() error {
@@ -8370,166 +10245,6 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"alwaysAvailableTracks\"")
 			}
-		case "alwaysAvailableFile":
-			if err := func() error {
-				s.AlwaysAvailableFile.Reset()
-				if err := s.AlwaysAvailableFile.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"alwaysAvailableFile\"")
-			}
-		case "record":
-			if err := func() error {
-				s.Record.Reset()
-				if err := s.Record.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"record\"")
-			}
-		case "playback":
-			if err := func() error {
-				s.Playback.Reset()
-				if err := s.Playback.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"playback\"")
-			}
-		case "recordPath":
-			if err := func() error {
-				s.RecordPath.Reset()
-				if err := s.RecordPath.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordPath\"")
-			}
-		case "recordFormat":
-			if err := func() error {
-				s.RecordFormat.Reset()
-				if err := s.RecordFormat.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordFormat\"")
-			}
-		case "recordPartDuration":
-			if err := func() error {
-				s.RecordPartDuration.Reset()
-				if err := s.RecordPartDuration.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordPartDuration\"")
-			}
-		case "recordMaxPartSize":
-			if err := func() error {
-				s.RecordMaxPartSize.Reset()
-				if err := s.RecordMaxPartSize.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordMaxPartSize\"")
-			}
-		case "recordSegmentDuration":
-			if err := func() error {
-				s.RecordSegmentDuration.Reset()
-				if err := s.RecordSegmentDuration.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordSegmentDuration\"")
-			}
-		case "recordDeleteAfter":
-			if err := func() error {
-				s.RecordDeleteAfter.Reset()
-				if err := s.RecordDeleteAfter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
-			}
-		case "publishUser":
-			if err := func() error {
-				s.PublishUser.Reset()
-				if err := s.PublishUser.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"publishUser\"")
-			}
-		case "publishPass":
-			if err := func() error {
-				s.PublishPass.Reset()
-				if err := s.PublishPass.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"publishPass\"")
-			}
-		case "publishIPs":
-			if err := func() error {
-				s.PublishIPs.Reset()
-				if err := s.PublishIPs.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"publishIPs\"")
-			}
-		case "readUser":
-			if err := func() error {
-				s.ReadUser.Reset()
-				if err := s.ReadUser.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"readUser\"")
-			}
-		case "readPass":
-			if err := func() error {
-				s.ReadPass.Reset()
-				if err := s.ReadPass.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"readPass\"")
-			}
-		case "readIPs":
-			if err := func() error {
-				s.ReadIPs.Reset()
-				if err := s.ReadIPs.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"readIPs\"")
-			}
-		case "overridePublisher":
-			if err := func() error {
-				s.OverridePublisher.Reset()
-				if err := s.OverridePublisher.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"overridePublisher\"")
-			}
 		case "disablePublisherOverride":
 			if err := func() error {
 				s.DisablePublisherOverride.Reset()
@@ -8540,114 +10255,52 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"disablePublisherOverride\"")
 			}
-		case "srtPublishPassphrase":
+		case "fallback":
 			if err := func() error {
-				s.SrtPublishPassphrase.Reset()
-				if err := s.SrtPublishPassphrase.Decode(d); err != nil {
+				s.Fallback.Reset()
+				if err := s.Fallback.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"srtPublishPassphrase\"")
+				return errors.Wrap(err, "decode field \"fallback\"")
 			}
-		case "rtspDemuxMpegts":
+		case "forward":
 			if err := func() error {
-				s.RtspDemuxMpegts.Reset()
-				if err := s.RtspDemuxMpegts.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspDemuxMpegts\"")
-			}
-		case "rtspTransport":
-			if err := func() error {
-				s.RtspTransport.Reset()
-				if err := s.RtspTransport.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspTransport\"")
-			}
-		case "rtspAnyPort":
-			if err := func() error {
-				s.RtspAnyPort.Reset()
-				if err := s.RtspAnyPort.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspAnyPort\"")
-			}
-		case "sourceProtocol":
-			if err := func() error {
-				s.SourceProtocol.Reset()
-				if err := s.SourceProtocol.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceProtocol\"")
-			}
-		case "sourceAnyPortEnable":
-			if err := func() error {
-				s.SourceAnyPortEnable.Reset()
-				if err := s.SourceAnyPortEnable.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceAnyPortEnable\"")
-			}
-		case "rtspRangeType":
-			if err := func() error {
-				s.RtspRangeType.Reset()
-				if err := s.RtspRangeType.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspRangeType\"")
-			}
-		case "rtspRangeStart":
-			if err := func() error {
-				s.RtspRangeStart.Reset()
-				if err := s.RtspRangeStart.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspRangeStart\"")
-			}
-		case "rtspUDPReadBufferSize":
-			if err := func() error {
-				s.RtspUDPReadBufferSize.Reset()
-				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
-			}
-		case "rtspUDPSourcePortRange":
-			if err := func() error {
-				s.RtspUDPSourcePortRange = make([]uint64, 0)
+				s.Forward = make([]PathConfForwardDest, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
-					var elem uint64
-					v, err := d.UInt64()
-					elem = uint64(v)
-					if err != nil {
+					var elem PathConfForwardDest
+					if err := elem.Decode(d); err != nil {
 						return err
 					}
-					s.RtspUDPSourcePortRange = append(s.RtspUDPSourcePortRange, elem)
+					s.Forward = append(s.Forward, elem)
 					return nil
 				}); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtspUDPSourcePortRange\"")
+				return errors.Wrap(err, "decode field \"forward\"")
+			}
+		case "maxReaders":
+			if err := func() error {
+				s.MaxReaders.Reset()
+				if err := s.MaxReaders.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"maxReaders\"")
+			}
+		case "moqTransport":
+			if err := func() error {
+				s.MoqTransport.Reset()
+				if err := s.MoqTransport.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqTransport\"")
 			}
 		case "mpegtsUDPReadBufferSize":
 			if err := func() error {
@@ -8659,185 +10312,165 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"mpegtsUDPReadBufferSize\"")
 			}
-		case "rtpSDP":
+		case "name":
 			if err := func() error {
-				s.RtpSDP.Reset()
-				if err := s.RtpSDP.Decode(d); err != nil {
+				s.Name.Reset()
+				if err := s.Name.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpSDP\"")
+				return errors.Wrap(err, "decode field \"name\"")
 			}
-		case "rtpUDPReadBufferSize":
+		case "overridePublisher":
 			if err := func() error {
-				s.RtpUDPReadBufferSize.Reset()
-				if err := s.RtpUDPReadBufferSize.Decode(d); err != nil {
+				s.OverridePublisher.Reset()
+				if err := s.OverridePublisher.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpUDPReadBufferSize\"")
+				return errors.Wrap(err, "decode field \"overridePublisher\"")
 			}
-		case "whepBearerToken":
+		case "playback":
 			if err := func() error {
-				s.WhepBearerToken.Reset()
-				if err := s.WhepBearerToken.Decode(d); err != nil {
+				s.Playback.Reset()
+				if err := s.Playback.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"whepBearerToken\"")
+				return errors.Wrap(err, "decode field \"playback\"")
 			}
-		case "whepSTUNGatherTimeout":
+		case "publishIPs":
 			if err := func() error {
-				s.WhepSTUNGatherTimeout.Reset()
-				if err := s.WhepSTUNGatherTimeout.Decode(d); err != nil {
+				s.PublishIPs.Reset()
+				if err := s.PublishIPs.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"whepSTUNGatherTimeout\"")
+				return errors.Wrap(err, "decode field \"publishIPs\"")
 			}
-		case "whepHandshakeTimeout":
+		case "publishPass":
 			if err := func() error {
-				s.WhepHandshakeTimeout.Reset()
-				if err := s.WhepHandshakeTimeout.Decode(d); err != nil {
+				s.PublishPass.Reset()
+				if err := s.PublishPass.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"whepHandshakeTimeout\"")
+				return errors.Wrap(err, "decode field \"publishPass\"")
 			}
-		case "whepTrackGatherTimeout":
+		case "publishUser":
 			if err := func() error {
-				s.WhepTrackGatherTimeout.Reset()
-				if err := s.WhepTrackGatherTimeout.Decode(d); err != nil {
+				s.PublishUser.Reset()
+				if err := s.PublishUser.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"whepTrackGatherTimeout\"")
+				return errors.Wrap(err, "decode field \"publishUser\"")
 			}
-		case "sourceRedirect":
+		case "readIPs":
 			if err := func() error {
-				s.SourceRedirect.Reset()
-				if err := s.SourceRedirect.Decode(d); err != nil {
+				s.ReadIPs.Reset()
+				if err := s.ReadIPs.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"sourceRedirect\"")
+				return errors.Wrap(err, "decode field \"readIPs\"")
 			}
-		case "rpiCameraCamID":
+		case "readPass":
 			if err := func() error {
-				s.RpiCameraCamID.Reset()
-				if err := s.RpiCameraCamID.Decode(d); err != nil {
+				s.ReadPass.Reset()
+				if err := s.ReadPass.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraCamID\"")
+				return errors.Wrap(err, "decode field \"readPass\"")
 			}
-		case "rpiCameraSecondary":
+		case "readUser":
 			if err := func() error {
-				s.RpiCameraSecondary.Reset()
-				if err := s.RpiCameraSecondary.Decode(d); err != nil {
+				s.ReadUser.Reset()
+				if err := s.ReadUser.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraSecondary\"")
+				return errors.Wrap(err, "decode field \"readUser\"")
 			}
-		case "rpiCameraWidth":
+		case "record":
 			if err := func() error {
-				s.RpiCameraWidth.Reset()
-				if err := s.RpiCameraWidth.Decode(d); err != nil {
+				s.Record.Reset()
+				if err := s.Record.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraWidth\"")
+				return errors.Wrap(err, "decode field \"record\"")
 			}
-		case "rpiCameraHeight":
+		case "recordDeleteAfter":
 			if err := func() error {
-				s.RpiCameraHeight.Reset()
-				if err := s.RpiCameraHeight.Decode(d); err != nil {
+				s.RecordDeleteAfter.Reset()
+				if err := s.RecordDeleteAfter.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraHeight\"")
+				return errors.Wrap(err, "decode field \"recordDeleteAfter\"")
 			}
-		case "rpiCameraHFlip":
+		case "recordFormat":
 			if err := func() error {
-				s.RpiCameraHFlip.Reset()
-				if err := s.RpiCameraHFlip.Decode(d); err != nil {
+				s.RecordFormat.Reset()
+				if err := s.RecordFormat.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraHFlip\"")
+				return errors.Wrap(err, "decode field \"recordFormat\"")
 			}
-		case "rpiCameraVFlip":
+		case "recordMaxPartSize":
 			if err := func() error {
-				s.RpiCameraVFlip.Reset()
-				if err := s.RpiCameraVFlip.Decode(d); err != nil {
+				s.RecordMaxPartSize.Reset()
+				if err := s.RecordMaxPartSize.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraVFlip\"")
+				return errors.Wrap(err, "decode field \"recordMaxPartSize\"")
 			}
-		case "rpiCameraBrightness":
+		case "recordPartDuration":
 			if err := func() error {
-				s.RpiCameraBrightness.Reset()
-				if err := s.RpiCameraBrightness.Decode(d); err != nil {
+				s.RecordPartDuration.Reset()
+				if err := s.RecordPartDuration.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraBrightness\"")
+				return errors.Wrap(err, "decode field \"recordPartDuration\"")
 			}
-		case "rpiCameraContrast":
+		case "recordPath":
 			if err := func() error {
-				s.RpiCameraContrast.Reset()
-				if err := s.RpiCameraContrast.Decode(d); err != nil {
+				s.RecordPath.Reset()
+				if err := s.RecordPath.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraContrast\"")
+				return errors.Wrap(err, "decode field \"recordPath\"")
 			}
-		case "rpiCameraSaturation":
+		case "recordSegmentDuration":
 			if err := func() error {
-				s.RpiCameraSaturation.Reset()
-				if err := s.RpiCameraSaturation.Decode(d); err != nil {
+				s.RecordSegmentDuration.Reset()
+				if err := s.RecordSegmentDuration.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraSaturation\"")
-			}
-		case "rpiCameraSharpness":
-			if err := func() error {
-				s.RpiCameraSharpness.Reset()
-				if err := s.RpiCameraSharpness.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraSharpness\"")
-			}
-		case "rpiCameraExposure":
-			if err := func() error {
-				s.RpiCameraExposure.Reset()
-				if err := s.RpiCameraExposure.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraExposure\"")
+				return errors.Wrap(err, "decode field \"recordSegmentDuration\"")
 			}
 		case "rpiCameraAWB":
 			if err := func() error {
@@ -8867,106 +10500,6 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraAWBGains\"")
-			}
-		case "rpiCameraDenoise":
-			if err := func() error {
-				s.RpiCameraDenoise.Reset()
-				if err := s.RpiCameraDenoise.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraDenoise\"")
-			}
-		case "rpiCameraShutter":
-			if err := func() error {
-				s.RpiCameraShutter.Reset()
-				if err := s.RpiCameraShutter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraShutter\"")
-			}
-		case "rpiCameraMetering":
-			if err := func() error {
-				s.RpiCameraMetering.Reset()
-				if err := s.RpiCameraMetering.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraMetering\"")
-			}
-		case "rpiCameraGain":
-			if err := func() error {
-				s.RpiCameraGain.Reset()
-				if err := s.RpiCameraGain.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraGain\"")
-			}
-		case "rpiCameraEV":
-			if err := func() error {
-				s.RpiCameraEV.Reset()
-				if err := s.RpiCameraEV.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraEV\"")
-			}
-		case "rpiCameraROI":
-			if err := func() error {
-				s.RpiCameraROI.Reset()
-				if err := s.RpiCameraROI.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraROI\"")
-			}
-		case "rpiCameraHDR":
-			if err := func() error {
-				s.RpiCameraHDR.Reset()
-				if err := s.RpiCameraHDR.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraHDR\"")
-			}
-		case "rpiCameraTuningFile":
-			if err := func() error {
-				s.RpiCameraTuningFile.Reset()
-				if err := s.RpiCameraTuningFile.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraTuningFile\"")
-			}
-		case "rpiCameraMode":
-			if err := func() error {
-				s.RpiCameraMode.Reset()
-				if err := s.RpiCameraMode.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraMode\"")
-			}
-		case "rpiCameraFPS":
-			if err := func() error {
-				s.RpiCameraFPS.Reset()
-				if err := s.RpiCameraFPS.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraFPS\"")
 			}
 		case "rpiCameraAfMode":
 			if err := func() error {
@@ -8998,16 +10531,6 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraAfSpeed\"")
 			}
-		case "rpiCameraLensPosition":
-			if err := func() error {
-				s.RpiCameraLensPosition.Reset()
-				if err := s.RpiCameraLensPosition.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraLensPosition\"")
-			}
 		case "rpiCameraAfWindow":
 			if err := func() error {
 				s.RpiCameraAfWindow.Reset()
@@ -9017,56 +10540,6 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraAfWindow\"")
-			}
-		case "rpiCameraFlickerPeriod":
-			if err := func() error {
-				s.RpiCameraFlickerPeriod.Reset()
-				if err := s.RpiCameraFlickerPeriod.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraFlickerPeriod\"")
-			}
-		case "rpiCameraTextOverlayEnable":
-			if err := func() error {
-				s.RpiCameraTextOverlayEnable.Reset()
-				if err := s.RpiCameraTextOverlayEnable.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraTextOverlayEnable\"")
-			}
-		case "rpiCameraTextOverlay":
-			if err := func() error {
-				s.RpiCameraTextOverlay.Reset()
-				if err := s.RpiCameraTextOverlay.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraTextOverlay\"")
-			}
-		case "rpiCameraCodec":
-			if err := func() error {
-				s.RpiCameraCodec.Reset()
-				if err := s.RpiCameraCodec.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraCodec\"")
-			}
-		case "rpiCameraIDRPeriod":
-			if err := func() error {
-				s.RpiCameraIDRPeriod.Reset()
-				if err := s.RpiCameraIDRPeriod.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraIDRPeriod\"")
 			}
 		case "rpiCameraBitrate":
 			if err := func() error {
@@ -9078,35 +10551,145 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraBitrate\"")
 			}
-		case "rpiCameraProfile":
+		case "rpiCameraBrightness":
 			if err := func() error {
-				s.RpiCameraProfile.Reset()
-				if err := s.RpiCameraProfile.Decode(d); err != nil {
+				s.RpiCameraBrightness.Reset()
+				if err := s.RpiCameraBrightness.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraProfile\"")
+				return errors.Wrap(err, "decode field \"rpiCameraBrightness\"")
 			}
-		case "rpiCameraLevel":
+		case "rpiCameraCamID":
 			if err := func() error {
-				s.RpiCameraLevel.Reset()
-				if err := s.RpiCameraLevel.Decode(d); err != nil {
+				s.RpiCameraCamID.Reset()
+				if err := s.RpiCameraCamID.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraLevel\"")
+				return errors.Wrap(err, "decode field \"rpiCameraCamID\"")
 			}
-		case "rpiCameraHardwareH264Profile":
+		case "rpiCameraCodec":
 			if err := func() error {
-				s.RpiCameraHardwareH264Profile.Reset()
-				if err := s.RpiCameraHardwareH264Profile.Decode(d); err != nil {
+				s.RpiCameraCodec.Reset()
+				if err := s.RpiCameraCodec.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraHardwareH264Profile\"")
+				return errors.Wrap(err, "decode field \"rpiCameraCodec\"")
+			}
+		case "rpiCameraContrast":
+			if err := func() error {
+				s.RpiCameraContrast.Reset()
+				if err := s.RpiCameraContrast.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraContrast\"")
+			}
+		case "rpiCameraDenoise":
+			if err := func() error {
+				s.RpiCameraDenoise.Reset()
+				if err := s.RpiCameraDenoise.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraDenoise\"")
+			}
+		case "rpiCameraEV":
+			if err := func() error {
+				s.RpiCameraEV.Reset()
+				if err := s.RpiCameraEV.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraEV\"")
+			}
+		case "rpiCameraExposure":
+			if err := func() error {
+				s.RpiCameraExposure.Reset()
+				if err := s.RpiCameraExposure.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraExposure\"")
+			}
+		case "rpiCameraFPS":
+			if err := func() error {
+				s.RpiCameraFPS.Reset()
+				if err := s.RpiCameraFPS.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraFPS\"")
+			}
+		case "rpiCameraFlickerPeriod":
+			if err := func() error {
+				s.RpiCameraFlickerPeriod.Reset()
+				if err := s.RpiCameraFlickerPeriod.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraFlickerPeriod\"")
+			}
+		case "rpiCameraGain":
+			if err := func() error {
+				s.RpiCameraGain.Reset()
+				if err := s.RpiCameraGain.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraGain\"")
+			}
+		case "rpiCameraH264Level":
+			if err := func() error {
+				s.RpiCameraH264Level.Reset()
+				if err := s.RpiCameraH264Level.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraH264Level\"")
+			}
+		case "rpiCameraH264Profile":
+			if err := func() error {
+				s.RpiCameraH264Profile.Reset()
+				if err := s.RpiCameraH264Profile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraH264Profile\"")
+			}
+		case "rpiCameraHDR":
+			if err := func() error {
+				s.RpiCameraHDR.Reset()
+				if err := s.RpiCameraHDR.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraHDR\"")
+			}
+		case "rpiCameraHFlip":
+			if err := func() error {
+				s.RpiCameraHFlip.Reset()
+				if err := s.RpiCameraHFlip.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraHFlip\"")
 			}
 		case "rpiCameraHardwareH264Level":
 			if err := func() error {
@@ -9118,25 +10701,35 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraHardwareH264Level\"")
 			}
-		case "rpiCameraSoftwareH264Profile":
+		case "rpiCameraHardwareH264Profile":
 			if err := func() error {
-				s.RpiCameraSoftwareH264Profile.Reset()
-				if err := s.RpiCameraSoftwareH264Profile.Decode(d); err != nil {
+				s.RpiCameraHardwareH264Profile.Reset()
+				if err := s.RpiCameraHardwareH264Profile.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Profile\"")
+				return errors.Wrap(err, "decode field \"rpiCameraHardwareH264Profile\"")
 			}
-		case "rpiCameraSoftwareH264Level":
+		case "rpiCameraHeight":
 			if err := func() error {
-				s.RpiCameraSoftwareH264Level.Reset()
-				if err := s.RpiCameraSoftwareH264Level.Decode(d); err != nil {
+				s.RpiCameraHeight.Reset()
+				if err := s.RpiCameraHeight.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Level\"")
+				return errors.Wrap(err, "decode field \"rpiCameraHeight\"")
+			}
+		case "rpiCameraIDRPeriod":
+			if err := func() error {
+				s.RpiCameraIDRPeriod.Reset()
+				if err := s.RpiCameraIDRPeriod.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraIDRPeriod\"")
 			}
 		case "rpiCameraJPEGQuality":
 			if err := func() error {
@@ -9148,6 +10741,26 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraJPEGQuality\"")
 			}
+		case "rpiCameraLensPosition":
+			if err := func() error {
+				s.RpiCameraLensPosition.Reset()
+				if err := s.RpiCameraLensPosition.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraLensPosition\"")
+			}
+		case "rpiCameraLevel":
+			if err := func() error {
+				s.RpiCameraLevel.Reset()
+				if err := s.RpiCameraLevel.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraLevel\"")
+			}
 		case "rpiCameraMJPEGQuality":
 			if err := func() error {
 				s.RpiCameraMJPEGQuality.Reset()
@@ -9158,25 +10771,284 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rpiCameraMJPEGQuality\"")
 			}
-		case "runOnInit":
+		case "rpiCameraMetering":
 			if err := func() error {
-				s.RunOnInit.Reset()
-				if err := s.RunOnInit.Decode(d); err != nil {
+				s.RpiCameraMetering.Reset()
+				if err := s.RpiCameraMetering.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnInit\"")
+				return errors.Wrap(err, "decode field \"rpiCameraMetering\"")
 			}
-		case "runOnInitRestart":
+		case "rpiCameraMode":
 			if err := func() error {
-				s.RunOnInitRestart.Reset()
-				if err := s.RunOnInitRestart.Decode(d); err != nil {
+				s.RpiCameraMode.Reset()
+				if err := s.RpiCameraMode.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnInitRestart\"")
+				return errors.Wrap(err, "decode field \"rpiCameraMode\"")
+			}
+		case "rpiCameraProfile":
+			if err := func() error {
+				s.RpiCameraProfile.Reset()
+				if err := s.RpiCameraProfile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraProfile\"")
+			}
+		case "rpiCameraROI":
+			if err := func() error {
+				s.RpiCameraROI.Reset()
+				if err := s.RpiCameraROI.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraROI\"")
+			}
+		case "rpiCameraSaturation":
+			if err := func() error {
+				s.RpiCameraSaturation.Reset()
+				if err := s.RpiCameraSaturation.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSaturation\"")
+			}
+		case "rpiCameraSecondary":
+			if err := func() error {
+				s.RpiCameraSecondary.Reset()
+				if err := s.RpiCameraSecondary.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSecondary\"")
+			}
+		case "rpiCameraSharpness":
+			if err := func() error {
+				s.RpiCameraSharpness.Reset()
+				if err := s.RpiCameraSharpness.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSharpness\"")
+			}
+		case "rpiCameraShutter":
+			if err := func() error {
+				s.RpiCameraShutter.Reset()
+				if err := s.RpiCameraShutter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraShutter\"")
+			}
+		case "rpiCameraSoftwareH264Level":
+			if err := func() error {
+				s.RpiCameraSoftwareH264Level.Reset()
+				if err := s.RpiCameraSoftwareH264Level.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Level\"")
+			}
+		case "rpiCameraSoftwareH264Profile":
+			if err := func() error {
+				s.RpiCameraSoftwareH264Profile.Reset()
+				if err := s.RpiCameraSoftwareH264Profile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraSoftwareH264Profile\"")
+			}
+		case "rpiCameraTextOverlay":
+			if err := func() error {
+				s.RpiCameraTextOverlay.Reset()
+				if err := s.RpiCameraTextOverlay.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraTextOverlay\"")
+			}
+		case "rpiCameraTextOverlayEnable":
+			if err := func() error {
+				s.RpiCameraTextOverlayEnable.Reset()
+				if err := s.RpiCameraTextOverlayEnable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraTextOverlayEnable\"")
+			}
+		case "rpiCameraTuningFile":
+			if err := func() error {
+				s.RpiCameraTuningFile.Reset()
+				if err := s.RpiCameraTuningFile.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraTuningFile\"")
+			}
+		case "rpiCameraVFlip":
+			if err := func() error {
+				s.RpiCameraVFlip.Reset()
+				if err := s.RpiCameraVFlip.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraVFlip\"")
+			}
+		case "rpiCameraWidth":
+			if err := func() error {
+				s.RpiCameraWidth.Reset()
+				if err := s.RpiCameraWidth.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rpiCameraWidth\"")
+			}
+		case "rtpSDP":
+			if err := func() error {
+				s.RtpSDP.Reset()
+				if err := s.RtpSDP.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpSDP\"")
+			}
+		case "rtpUDPReadBufferSize":
+			if err := func() error {
+				s.RtpUDPReadBufferSize.Reset()
+				if err := s.RtpUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpUDPReadBufferSize\"")
+			}
+		case "rtspAnyPort":
+			if err := func() error {
+				s.RtspAnyPort.Reset()
+				if err := s.RtspAnyPort.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspAnyPort\"")
+			}
+		case "rtspDemuxMpegts":
+			if err := func() error {
+				s.RtspDemuxMpegts.Reset()
+				if err := s.RtspDemuxMpegts.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspDemuxMpegts\"")
+			}
+		case "rtspRangeStart":
+			if err := func() error {
+				s.RtspRangeStart.Reset()
+				if err := s.RtspRangeStart.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspRangeStart\"")
+			}
+		case "rtspRangeType":
+			if err := func() error {
+				s.RtspRangeType.Reset()
+				if err := s.RtspRangeType.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspRangeType\"")
+			}
+		case "rtspScale":
+			if err := func() error {
+				s.RtspScale.Reset()
+				if err := s.RtspScale.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspScale\"")
+			}
+		case "rtspTransport":
+			if err := func() error {
+				s.RtspTransport.Reset()
+				if err := s.RtspTransport.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspTransport\"")
+			}
+		case "rtspUDPReadBufferSize":
+			if err := func() error {
+				s.RtspUDPReadBufferSize.Reset()
+				if err := s.RtspUDPReadBufferSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPReadBufferSize\"")
+			}
+		case "rtspUDPSourcePortRange":
+			if err := func() error {
+				s.RtspUDPSourcePortRange = make([]uint64, 0)
+				if err := d.Arr(func(d *jx.Decoder) error {
+					var elem uint64
+					v, err := d.UInt64()
+					elem = uint64(v)
+					if err != nil {
+						return err
+					}
+					s.RtspUDPSourcePortRange = append(s.RtspUDPSourcePortRange, elem)
+					return nil
+				}); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtspUDPSourcePortRange\"")
+			}
+		case "runOnAvailable":
+			if err := func() error {
+				s.RunOnAvailable.Reset()
+				if err := s.RunOnAvailable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnAvailable\"")
+			}
+		case "runOnAvailableRestart":
+			if err := func() error {
+				s.RunOnAvailableRestart.Reset()
+				if err := s.RunOnAvailableRestart.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnAvailableRestart\"")
 			}
 		case "runOnDemand":
 			if err := func() error {
@@ -9187,6 +11059,16 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnDemand\"")
+			}
+		case "runOnDemandCloseAfter":
+			if err := func() error {
+				s.RunOnDemandCloseAfter.Reset()
+				if err := s.RunOnDemandCloseAfter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnDemandCloseAfter\"")
 			}
 		case "runOnDemandRestart":
 			if err := func() error {
@@ -9208,45 +11090,25 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnDemandStartTimeout\"")
 			}
-		case "runOnDemandCloseAfter":
+		case "runOnInit":
 			if err := func() error {
-				s.RunOnDemandCloseAfter.Reset()
-				if err := s.RunOnDemandCloseAfter.Decode(d); err != nil {
+				s.RunOnInit.Reset()
+				if err := s.RunOnInit.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnDemandCloseAfter\"")
+				return errors.Wrap(err, "decode field \"runOnInit\"")
 			}
-		case "runOnUnDemand":
+		case "runOnInitRestart":
 			if err := func() error {
-				s.RunOnUnDemand.Reset()
-				if err := s.RunOnUnDemand.Decode(d); err != nil {
+				s.RunOnInitRestart.Reset()
+				if err := s.RunOnInitRestart.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnUnDemand\"")
-			}
-		case "runOnReady":
-			if err := func() error {
-				s.RunOnReady.Reset()
-				if err := s.RunOnReady.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnReady\"")
-			}
-		case "runOnReadyRestart":
-			if err := func() error {
-				s.RunOnReadyRestart.Reset()
-				if err := s.RunOnReadyRestart.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnReadyRestart\"")
+				return errors.Wrap(err, "decode field \"runOnInitRestart\"")
 			}
 		case "runOnNotReady":
 			if err := func() error {
@@ -9257,6 +11119,36 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnNotReady\"")
+			}
+		case "runOnOffline":
+			if err := func() error {
+				s.RunOnOffline.Reset()
+				if err := s.RunOnOffline.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnOffline\"")
+			}
+		case "runOnOnline":
+			if err := func() error {
+				s.RunOnOnline.Reset()
+				if err := s.RunOnOnline.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnOnline\"")
+			}
+		case "runOnOnlineRestart":
+			if err := func() error {
+				s.RunOnOnlineRestart.Reset()
+				if err := s.RunOnOnlineRestart.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnOnlineRestart\"")
 			}
 		case "runOnRead":
 			if err := func() error {
@@ -9278,15 +11170,35 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnReadRestart\"")
 			}
-		case "runOnUnread":
+		case "runOnReady":
 			if err := func() error {
-				s.RunOnUnread.Reset()
-				if err := s.RunOnUnread.Decode(d); err != nil {
+				s.RunOnReady.Reset()
+				if err := s.RunOnReady.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnUnread\"")
+				return errors.Wrap(err, "decode field \"runOnReady\"")
+			}
+		case "runOnReadyRestart":
+			if err := func() error {
+				s.RunOnReadyRestart.Reset()
+				if err := s.RunOnReadyRestart.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnReadyRestart\"")
+			}
+		case "runOnRecordSegmentComplete":
+			if err := func() error {
+				s.RunOnRecordSegmentComplete.Reset()
+				if err := s.RunOnRecordSegmentComplete.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnRecordSegmentComplete\"")
 			}
 		case "runOnRecordSegmentCreate":
 			if err := func() error {
@@ -9298,15 +11210,185 @@ func (s *PathConf) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"runOnRecordSegmentCreate\"")
 			}
-		case "runOnRecordSegmentComplete":
+		case "runOnUnDemand":
 			if err := func() error {
-				s.RunOnRecordSegmentComplete.Reset()
-				if err := s.RunOnRecordSegmentComplete.Decode(d); err != nil {
+				s.RunOnUnDemand.Reset()
+				if err := s.RunOnUnDemand.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"runOnRecordSegmentComplete\"")
+				return errors.Wrap(err, "decode field \"runOnUnDemand\"")
+			}
+		case "runOnUnavailable":
+			if err := func() error {
+				s.RunOnUnavailable.Reset()
+				if err := s.RunOnUnavailable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnUnavailable\"")
+			}
+		case "runOnUnread":
+			if err := func() error {
+				s.RunOnUnread.Reset()
+				if err := s.RunOnUnread.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"runOnUnread\"")
+			}
+		case "source":
+			if err := func() error {
+				s.Source.Reset()
+				if err := s.Source.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"source\"")
+			}
+		case "sourceAnyPortEnable":
+			if err := func() error {
+				s.SourceAnyPortEnable.Reset()
+				if err := s.SourceAnyPortEnable.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceAnyPortEnable\"")
+			}
+		case "sourceFingerprint":
+			if err := func() error {
+				s.SourceFingerprint.Reset()
+				if err := s.SourceFingerprint.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceFingerprint\"")
+			}
+		case "sourceOnDemand":
+			if err := func() error {
+				s.SourceOnDemand.Reset()
+				if err := s.SourceOnDemand.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceOnDemand\"")
+			}
+		case "sourceOnDemandCloseAfter":
+			if err := func() error {
+				s.SourceOnDemandCloseAfter.Reset()
+				if err := s.SourceOnDemandCloseAfter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceOnDemandCloseAfter\"")
+			}
+		case "sourceOnDemandStartTimeout":
+			if err := func() error {
+				s.SourceOnDemandStartTimeout.Reset()
+				if err := s.SourceOnDemandStartTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceOnDemandStartTimeout\"")
+			}
+		case "sourceProtocol":
+			if err := func() error {
+				s.SourceProtocol.Reset()
+				if err := s.SourceProtocol.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceProtocol\"")
+			}
+		case "sourceRedirect":
+			if err := func() error {
+				s.SourceRedirect.Reset()
+				if err := s.SourceRedirect.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"sourceRedirect\"")
+			}
+		case "srtPublishPassphrase":
+			if err := func() error {
+				s.SrtPublishPassphrase.Reset()
+				if err := s.SrtPublishPassphrase.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"srtPublishPassphrase\"")
+			}
+		case "srtReadPassphrase":
+			if err := func() error {
+				s.SrtReadPassphrase.Reset()
+				if err := s.SrtReadPassphrase.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"srtReadPassphrase\"")
+			}
+		case "useAbsoluteTimestamp":
+			if err := func() error {
+				s.UseAbsoluteTimestamp.Reset()
+				if err := s.UseAbsoluteTimestamp.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"useAbsoluteTimestamp\"")
+			}
+		case "whepBearerToken":
+			if err := func() error {
+				s.WhepBearerToken.Reset()
+				if err := s.WhepBearerToken.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepBearerToken\"")
+			}
+		case "whepHandshakeTimeout":
+			if err := func() error {
+				s.WhepHandshakeTimeout.Reset()
+				if err := s.WhepHandshakeTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepHandshakeTimeout\"")
+			}
+		case "whepSTUNGatherTimeout":
+			if err := func() error {
+				s.WhepSTUNGatherTimeout.Reset()
+				if err := s.WhepSTUNGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepSTUNGatherTimeout\"")
+			}
+		case "whepTrackGatherTimeout":
+			if err := func() error {
+				s.WhepTrackGatherTimeout.Reset()
+				if err := s.WhepTrackGatherTimeout.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whepTrackGatherTimeout\"")
 			}
 		default:
 			return d.Skip()
@@ -9333,6 +11415,120 @@ func (s *PathConf) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
+func (s *PathConfForwardDest) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *PathConfForwardDest) encodeFields(e *jx.Encoder) {
+	{
+		if s.Dest.Set {
+			e.FieldStart("dest")
+			s.Dest.Encode(e)
+		}
+	}
+	{
+		if s.DestFingerprint.Set {
+			e.FieldStart("destFingerprint")
+			s.DestFingerprint.Encode(e)
+		}
+	}
+	{
+		if s.MoqTransport.Set {
+			e.FieldStart("moqTransport")
+			s.MoqTransport.Encode(e)
+		}
+	}
+	{
+		if s.WhipBearerToken.Set {
+			e.FieldStart("whipBearerToken")
+			s.WhipBearerToken.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfPathConfForwardDest = [4]string{
+	0: "dest",
+	1: "destFingerprint",
+	2: "moqTransport",
+	3: "whipBearerToken",
+}
+
+// Decode decodes PathConfForwardDest from json.
+func (s *PathConfForwardDest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathConfForwardDest to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "dest":
+			if err := func() error {
+				s.Dest.Reset()
+				if err := s.Dest.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"dest\"")
+			}
+		case "destFingerprint":
+			if err := func() error {
+				s.DestFingerprint.Reset()
+				if err := s.DestFingerprint.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"destFingerprint\"")
+			}
+		case "moqTransport":
+			if err := func() error {
+				s.MoqTransport.Reset()
+				if err := s.MoqTransport.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"moqTransport\"")
+			}
+		case "whipBearerToken":
+			if err := func() error {
+				s.WhipBearerToken.Reset()
+				if err := s.WhipBearerToken.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"whipBearerToken\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode PathConfForwardDest")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathConfForwardDest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathConfForwardDest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s *PathConfList) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -9341,12 +11537,6 @@ func (s *PathConfList) Encode(e *jx.Encoder) {
 
 // encodeFields encodes fields.
 func (s *PathConfList) encodeFields(e *jx.Encoder) {
-	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
 	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
@@ -9363,12 +11553,18 @@ func (s *PathConfList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfPathConfList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes PathConfList from json.
@@ -9379,16 +11575,6 @@ func (s *PathConfList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -9415,6 +11601,16 @@ func (s *PathConfList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -9450,12 +11646,6 @@ func (s *PathList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *PathList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -9471,12 +11661,18 @@ func (s *PathList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfPathList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes PathList from json.
@@ -9487,16 +11683,6 @@ func (s *PathList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -9523,6 +11709,16 @@ func (s *PathList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -9558,22 +11754,22 @@ func (s *PathReader) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *PathReader) encodeFields(e *jx.Encoder) {
 	{
-		if s.Type.Set {
-			e.FieldStart("type")
-			s.Type.Encode(e)
-		}
-	}
-	{
 		if s.ID.Set {
 			e.FieldStart("id")
 			s.ID.Encode(e)
 		}
 	}
+	{
+		if s.Type.Set {
+			e.FieldStart("type")
+			s.Type.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfPathReader = [2]string{
-	0: "type",
-	1: "id",
+	0: "id",
+	1: "type",
 }
 
 // Decode decodes PathReader from json.
@@ -9584,16 +11780,6 @@ func (s *PathReader) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "type":
-			if err := func() error {
-				s.Type.Reset()
-				if err := s.Type.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"type\"")
-			}
 		case "id":
 			if err := func() error {
 				s.ID.Reset()
@@ -9603,6 +11789,16 @@ func (s *PathReader) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "type":
+			if err := func() error {
+				s.Type.Reset()
+				if err := s.Type.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"type\"")
 			}
 		default:
 			return d.Skip()
@@ -9662,6 +11858,10 @@ func (s *PathReaderType) Decode(d *jx.Decoder) error {
 		*s = PathReaderTypeSrtConn
 	case PathReaderTypeWebRTCSession:
 		*s = PathReaderTypeWebRTCSession
+	case PathReaderTypeMoqSession:
+		*s = PathReaderTypeMoqSession
+	case PathReaderTypeHidden:
+		*s = PathReaderTypeHidden
 	default:
 		*s = PathReaderType(v)
 	}
@@ -9692,22 +11892,22 @@ func (s *PathSource) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *PathSource) encodeFields(e *jx.Encoder) {
 	{
-		if s.Type.Set {
-			e.FieldStart("type")
-			s.Type.Encode(e)
-		}
-	}
-	{
 		if s.ID.Set {
 			e.FieldStart("id")
 			s.ID.Encode(e)
 		}
 	}
+	{
+		if s.Type.Set {
+			e.FieldStart("type")
+			s.Type.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfPathSource = [2]string{
-	0: "type",
-	1: "id",
+	0: "id",
+	1: "type",
 }
 
 // Decode decodes PathSource from json.
@@ -9718,16 +11918,6 @@ func (s *PathSource) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "type":
-			if err := func() error {
-				s.Type.Reset()
-				if err := s.Type.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"type\"")
-			}
 		case "id":
 			if err := func() error {
 				s.ID.Reset()
@@ -9737,6 +11927,16 @@ func (s *PathSource) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "type":
+			if err := func() error {
+				s.Type.Reset()
+				if err := s.Type.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"type\"")
 			}
 		default:
 			return d.Skip()
@@ -9808,6 +12008,10 @@ func (s *PathSourceType) Decode(d *jx.Decoder) error {
 		*s = PathSourceTypeWebRTCSession
 	case PathSourceTypeWebRTCSource:
 		*s = PathSourceTypeWebRTCSource
+	case PathSourceTypeMoqSource:
+		*s = PathSourceTypeMoqSource
+	case PathSourceTypeMoqSession:
+		*s = PathSourceTypeMoqSession
 	default:
 		*s = PathSourceType(v)
 	}
@@ -9942,6 +12146,8 @@ func (s *PathTrackCodec) Decode(d *jx.Decoder) error {
 		*s = PathTrackCodecMJPEG
 	case PathTrackCodecOpus:
 		*s = PathTrackCodecOpus
+	case PathTrackCodecFLAC:
+		*s = PathTrackCodecFLAC
 	case PathTrackCodecVorbis:
 		*s = PathTrackCodecVorbis
 	case PathTrackCodecMPEG4Audio:
@@ -10024,6 +12230,234 @@ func (s PathTrackCodecProps) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *PathTrackCodecProps) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsGetBadRequest as json.
+func (s *PathsForwardDestsGetBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsGetBadRequest from json.
+func (s *PathsForwardDestsGetBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsGetBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsGetBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsGetBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsGetBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsGetInternalServerError as json.
+func (s *PathsForwardDestsGetInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsGetInternalServerError from json.
+func (s *PathsForwardDestsGetInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsGetInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsGetInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsGetInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsGetInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsGetNotFound as json.
+func (s *PathsForwardDestsGetNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsGetNotFound from json.
+func (s *PathsForwardDestsGetNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsGetNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsGetNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsGetNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsGetNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsListBadRequest as json.
+func (s *PathsForwardDestsListBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsListBadRequest from json.
+func (s *PathsForwardDestsListBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsListBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsListBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsListBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsListBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsListInternalServerError as json.
+func (s *PathsForwardDestsListInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsListInternalServerError from json.
+func (s *PathsForwardDestsListInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsListInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsListInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsListInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsListInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsForwardDestsListNotFound as json.
+func (s *PathsForwardDestsListNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsForwardDestsListNotFound from json.
+func (s *PathsForwardDestsListNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsForwardDestsListNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsForwardDestsListNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsForwardDestsListNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsForwardDestsListNotFound) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -10218,6 +12652,120 @@ func (s *PathsListInternalServerError) UnmarshalJSON(data []byte) error {
 	return s.Decode(d)
 }
 
+// Encode encodes PathsStaticSourcesGetBadRequest as json.
+func (s *PathsStaticSourcesGetBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsStaticSourcesGetBadRequest from json.
+func (s *PathsStaticSourcesGetBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsStaticSourcesGetBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsStaticSourcesGetBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsStaticSourcesGetBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsStaticSourcesGetBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsStaticSourcesGetInternalServerError as json.
+func (s *PathsStaticSourcesGetInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsStaticSourcesGetInternalServerError from json.
+func (s *PathsStaticSourcesGetInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsStaticSourcesGetInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsStaticSourcesGetInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsStaticSourcesGetInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsStaticSourcesGetInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes PathsStaticSourcesGetNotFound as json.
+func (s *PathsStaticSourcesGetNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes PathsStaticSourcesGetNotFound from json.
+func (s *PathsStaticSourcesGetNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode PathsStaticSourcesGetNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = PathsStaticSourcesGetNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *PathsStaticSourcesGetNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *PathsStaticSourcesGetNotFound) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
 // Encode implements json.Marshaler.
 func (s *RTMPConn) Encode(e *jx.Encoder) {
 	e.ObjStart()
@@ -10228,9 +12776,15 @@ func (s *RTMPConn) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTMPConn) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
+		if s.BytesReceived.Set {
+			e.FieldStart("bytesReceived")
+			s.BytesReceived.Encode(e)
+		}
+	}
+	{
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
@@ -10240,33 +12794,9 @@ func (s *RTMPConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RemoteAddr.Set {
-			e.FieldStart("remoteAddr")
-			s.RemoteAddr.Encode(e)
-		}
-	}
-	{
-		if s.State.Set {
-			e.FieldStart("state")
-			s.State.Encode(e)
-		}
-	}
-	{
-		if s.Path.Set {
-			e.FieldStart("path")
-			s.Path.Encode(e)
-		}
-	}
-	{
-		if s.Query.Set {
-			e.FieldStart("query")
-			s.Query.Encode(e)
-		}
-	}
-	{
-		if s.User.Set {
-			e.FieldStart("user")
-			s.User.Encode(e)
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
 		}
 	}
 	{
@@ -10288,32 +12818,57 @@ func (s *RTMPConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.BytesReceived.Set {
-			e.FieldStart("bytesReceived")
-			s.BytesReceived.Encode(e)
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
 		}
 	}
 	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
+		}
+	}
+	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfRTMPConn = [12]string{
-	0:  "id",
-	1:  "created",
-	2:  "remoteAddr",
-	3:  "state",
-	4:  "path",
-	5:  "query",
-	6:  "user",
-	7:  "inboundBytes",
-	8:  "outboundBytes",
-	9:  "outboundFramesDiscarded",
-	10: "bytesReceived",
-	11: "bytesSent",
+var jsonFieldsNameOfRTMPConn = [13]string{
+	0:  "bytesReceived",
+	1:  "bytesSent",
+	2:  "created",
+	3:  "id",
+	4:  "inboundBytes",
+	5:  "outboundBytes",
+	6:  "outboundFramesDiscarded",
+	7:  "path",
+	8:  "query",
+	9:  "remoteAddr",
+	10: "state",
+	11: "user",
+	12: "userAgent",
 }
 
 // Decode decodes RTMPConn from json.
@@ -10324,15 +12879,25 @@ func (s *RTMPConn) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
+		case "bytesReceived":
 			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
+				s.BytesReceived.Reset()
+				if err := s.BytesReceived.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
+				return errors.Wrap(err, "decode field \"bytesReceived\"")
+			}
+		case "bytesSent":
+			if err := func() error {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		case "created":
 			if err := func() error {
@@ -10344,55 +12909,15 @@ func (s *RTMPConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"created\"")
 			}
-		case "remoteAddr":
+		case "id":
 			if err := func() error {
-				s.RemoteAddr.Reset()
-				if err := s.RemoteAddr.Decode(d); err != nil {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteAddr\"")
-			}
-		case "state":
-			if err := func() error {
-				s.State.Reset()
-				if err := s.State.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"state\"")
-			}
-		case "path":
-			if err := func() error {
-				s.Path.Reset()
-				if err := s.Path.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"path\"")
-			}
-		case "query":
-			if err := func() error {
-				s.Query.Reset()
-				if err := s.Query.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"query\"")
-			}
-		case "user":
-			if err := func() error {
-				s.User.Reset()
-				if err := s.User.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"user\"")
+				return errors.Wrap(err, "decode field \"id\"")
 			}
 		case "inboundBytes":
 			if err := func() error {
@@ -10424,25 +12949,65 @@ func (s *RTMPConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
 			}
-		case "bytesReceived":
+		case "path":
 			if err := func() error {
-				s.BytesReceived.Reset()
-				if err := s.BytesReceived.Decode(d); err != nil {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceived\"")
+				return errors.Wrap(err, "decode field \"path\"")
 			}
-		case "bytesSent":
+		case "query":
 			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
+				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
+		case "userAgent":
+			if err := func() error {
+				s.UserAgent.Reset()
+				if err := s.UserAgent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		default:
 			return d.Skip()
@@ -10478,12 +13043,6 @@ func (s *RTMPConnList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTMPConnList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -10499,12 +13058,18 @@ func (s *RTMPConnList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfRTMPConnList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes RTMPConnList from json.
@@ -10515,16 +13080,6 @@ func (s *RTMPConnList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -10551,6 +13106,16 @@ func (s *RTMPConnList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -10668,15 +13233,39 @@ func (s *RTSPConn) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTSPConn) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
+		if s.BytesReceived.Set {
+			e.FieldStart("bytesReceived")
+			s.BytesReceived.Encode(e)
+		}
+	}
+	{
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
 		if s.Created.Set {
 			e.FieldStart("created")
 			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
 		}
 	}
 	{
@@ -10697,42 +13286,18 @@ func (s *RTSPConn) encodeFields(e *jx.Encoder) {
 			s.Tunnel.Encode(e)
 		}
 	}
-	{
-		if s.InboundBytes.Set {
-			e.FieldStart("inboundBytes")
-			s.InboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.OutboundBytes.Set {
-			e.FieldStart("outboundBytes")
-			s.OutboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.BytesReceived.Set {
-			e.FieldStart("bytesReceived")
-			s.BytesReceived.Encode(e)
-		}
-	}
-	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
-		}
-	}
 }
 
 var jsonFieldsNameOfRTSPConn = [9]string{
-	0: "id",
-	1: "created",
-	2: "remoteAddr",
-	3: "session",
-	4: "tunnel",
-	5: "inboundBytes",
-	6: "outboundBytes",
-	7: "bytesReceived",
-	8: "bytesSent",
+	0: "bytesReceived",
+	1: "bytesSent",
+	2: "created",
+	3: "id",
+	4: "inboundBytes",
+	5: "outboundBytes",
+	6: "remoteAddr",
+	7: "session",
+	8: "tunnel",
 }
 
 // Decode decodes RTSPConn from json.
@@ -10743,15 +13308,25 @@ func (s *RTSPConn) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
+		case "bytesReceived":
 			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
+				s.BytesReceived.Reset()
+				if err := s.BytesReceived.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
+				return errors.Wrap(err, "decode field \"bytesReceived\"")
+			}
+		case "bytesSent":
+			if err := func() error {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		case "created":
 			if err := func() error {
@@ -10762,6 +13337,36 @@ func (s *RTSPConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
 			}
 		case "remoteAddr":
 			if err := func() error {
@@ -10792,46 +13397,6 @@ func (s *RTSPConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"tunnel\"")
-			}
-		case "inboundBytes":
-			if err := func() error {
-				s.InboundBytes.Reset()
-				if err := s.InboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundBytes\"")
-			}
-		case "outboundBytes":
-			if err := func() error {
-				s.OutboundBytes.Reset()
-				if err := s.OutboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundBytes\"")
-			}
-		case "bytesReceived":
-			if err := func() error {
-				s.BytesReceived.Reset()
-				if err := s.BytesReceived.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceived\"")
-			}
-		case "bytesSent":
-			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		default:
 			return d.Skip()
@@ -10867,12 +13432,6 @@ func (s *RTSPConnList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTSPConnList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -10888,12 +13447,18 @@ func (s *RTSPConnList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfRTSPConnList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes RTSPConnList from json.
@@ -10904,16 +13469,6 @@ func (s *RTSPConnList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -10940,6 +13495,16 @@ func (s *RTSPConnList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -11019,57 +13584,15 @@ func (s *RTSPSession) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
+		if s.BytesReceived.Set {
+			e.FieldStart("bytesReceived")
+			s.BytesReceived.Encode(e)
 		}
 	}
 	{
-		if s.Created.Set {
-			e.FieldStart("created")
-			s.Created.Encode(e)
-		}
-	}
-	{
-		if s.RemoteAddr.Set {
-			e.FieldStart("remoteAddr")
-			s.RemoteAddr.Encode(e)
-		}
-	}
-	{
-		if s.State.Set {
-			e.FieldStart("state")
-			s.State.Encode(e)
-		}
-	}
-	{
-		if s.Path.Set {
-			e.FieldStart("path")
-			s.Path.Encode(e)
-		}
-	}
-	{
-		if s.Query.Set {
-			e.FieldStart("query")
-			s.Query.Encode(e)
-		}
-	}
-	{
-		if s.User.Set {
-			e.FieldStart("user")
-			s.User.Encode(e)
-		}
-	}
-	{
-		if s.Transport.Set {
-			e.FieldStart("transport")
-			s.Transport.Encode(e)
-		}
-	}
-	{
-		if s.Profile.Set {
-			e.FieldStart("profile")
-			s.Profile.Encode(e)
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
@@ -11083,33 +13606,21 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
 		if s.InboundBytes.Set {
 			e.FieldStart("inboundBytes")
 			s.InboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPackets.Set {
-			e.FieldStart("inboundRTPPackets")
-			s.InboundRTPPackets.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPacketsLost.Set {
-			e.FieldStart("inboundRTPPacketsLost")
-			s.InboundRTPPacketsLost.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPacketsInError.Set {
-			e.FieldStart("inboundRTPPacketsInError")
-			s.InboundRTPPacketsInError.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPacketsJitter.Set {
-			e.FieldStart("inboundRTPPacketsJitter")
-			s.InboundRTPPacketsJitter.Encode(e)
 		}
 	}
 	{
@@ -11125,27 +13636,33 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
+		if s.InboundRTPPackets.Set {
+			e.FieldStart("inboundRTPPackets")
+			s.InboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsInError.Set {
+			e.FieldStart("inboundRTPPacketsInError")
+			s.InboundRTPPacketsInError.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsJitter.Set {
+			e.FieldStart("inboundRTPPacketsJitter")
+			s.InboundRTPPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsLost.Set {
+			e.FieldStart("inboundRTPPacketsLost")
+			s.InboundRTPPacketsLost.Encode(e)
+		}
+	}
+	{
 		if s.OutboundBytes.Set {
 			e.FieldStart("outboundBytes")
 			s.OutboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.OutboundRTPPackets.Set {
-			e.FieldStart("outboundRTPPackets")
-			s.OutboundRTPPackets.Encode(e)
-		}
-	}
-	{
-		if s.OutboundRTPPacketsReportedLost.Set {
-			e.FieldStart("outboundRTPPacketsReportedLost")
-			s.OutboundRTPPacketsReportedLost.Encode(e)
-		}
-	}
-	{
-		if s.OutboundRTPPacketsDiscarded.Set {
-			e.FieldStart("outboundRTPPacketsDiscarded")
-			s.OutboundRTPPacketsDiscarded.Encode(e)
 		}
 	}
 	{
@@ -11155,45 +13672,51 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.BytesReceived.Set {
-			e.FieldStart("bytesReceived")
-			s.BytesReceived.Encode(e)
+		if s.OutboundRTPPackets.Set {
+			e.FieldStart("outboundRTPPackets")
+			s.OutboundRTPPackets.Encode(e)
 		}
 	}
 	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
+		if s.OutboundRTPPacketsDiscarded.Set {
+			e.FieldStart("outboundRTPPacketsDiscarded")
+			s.OutboundRTPPacketsDiscarded.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsReceived.Set {
-			e.FieldStart("rtpPacketsReceived")
-			s.RtpPacketsReceived.Encode(e)
+		if s.OutboundRTPPacketsReportedLost.Set {
+			e.FieldStart("outboundRTPPacketsReportedLost")
+			s.OutboundRTPPacketsReportedLost.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsSent.Set {
-			e.FieldStart("rtpPacketsSent")
-			s.RtpPacketsSent.Encode(e)
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsLost.Set {
-			e.FieldStart("rtpPacketsLost")
-			s.RtpPacketsLost.Encode(e)
+		if s.Profile.Set {
+			e.FieldStart("profile")
+			s.Profile.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsInError.Set {
-			e.FieldStart("rtpPacketsInError")
-			s.RtpPacketsInError.Encode(e)
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsJitter.Set {
-			e.FieldStart("rtpPacketsJitter")
-			s.RtpPacketsJitter.Encode(e)
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.RtcpPacketsInError.Set {
+			e.FieldStart("rtcpPacketsInError")
+			s.RtcpPacketsInError.Encode(e)
 		}
 	}
 	{
@@ -11209,46 +13732,95 @@ func (s *RTSPSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RtcpPacketsInError.Set {
-			e.FieldStart("rtcpPacketsInError")
-			s.RtcpPacketsInError.Encode(e)
+		if s.RtpPacketsInError.Set {
+			e.FieldStart("rtpPacketsInError")
+			s.RtpPacketsInError.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsJitter.Set {
+			e.FieldStart("rtpPacketsJitter")
+			s.RtpPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsLost.Set {
+			e.FieldStart("rtpPacketsLost")
+			s.RtpPacketsLost.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsReceived.Set {
+			e.FieldStart("rtpPacketsReceived")
+			s.RtpPacketsReceived.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsSent.Set {
+			e.FieldStart("rtpPacketsSent")
+			s.RtpPacketsSent.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.Transport.Set {
+			e.FieldStart("transport")
+			s.Transport.Encode(e)
+		}
+	}
+	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
+		}
+	}
+	{
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfRTSPSession = [32]string{
-	0:  "id",
-	1:  "created",
-	2:  "remoteAddr",
-	3:  "state",
-	4:  "path",
-	5:  "query",
-	6:  "user",
-	7:  "transport",
-	8:  "profile",
-	9:  "conns",
-	10: "inboundBytes",
-	11: "inboundRTPPackets",
-	12: "inboundRTPPacketsLost",
-	13: "inboundRTPPacketsInError",
-	14: "inboundRTPPacketsJitter",
-	15: "inboundRTCPPackets",
-	16: "inboundRTCPPacketsInError",
-	17: "outboundBytes",
-	18: "outboundRTPPackets",
-	19: "outboundRTPPacketsReportedLost",
-	20: "outboundRTPPacketsDiscarded",
-	21: "outboundRTCPPackets",
-	22: "bytesReceived",
-	23: "bytesSent",
-	24: "rtpPacketsReceived",
-	25: "rtpPacketsSent",
+var jsonFieldsNameOfRTSPSession = [33]string{
+	0:  "bytesReceived",
+	1:  "bytesSent",
+	2:  "conns",
+	3:  "created",
+	4:  "id",
+	5:  "inboundBytes",
+	6:  "inboundRTCPPackets",
+	7:  "inboundRTCPPacketsInError",
+	8:  "inboundRTPPackets",
+	9:  "inboundRTPPacketsInError",
+	10: "inboundRTPPacketsJitter",
+	11: "inboundRTPPacketsLost",
+	12: "outboundBytes",
+	13: "outboundRTCPPackets",
+	14: "outboundRTPPackets",
+	15: "outboundRTPPacketsDiscarded",
+	16: "outboundRTPPacketsReportedLost",
+	17: "path",
+	18: "profile",
+	19: "query",
+	20: "remoteAddr",
+	21: "rtcpPacketsInError",
+	22: "rtcpPacketsReceived",
+	23: "rtcpPacketsSent",
+	24: "rtpPacketsInError",
+	25: "rtpPacketsJitter",
 	26: "rtpPacketsLost",
-	27: "rtpPacketsInError",
-	28: "rtpPacketsJitter",
-	29: "rtcpPacketsReceived",
-	30: "rtcpPacketsSent",
-	31: "rtcpPacketsInError",
+	27: "rtpPacketsReceived",
+	28: "rtpPacketsSent",
+	29: "state",
+	30: "transport",
+	31: "user",
+	32: "userAgent",
 }
 
 // Decode decodes RTSPSession from json.
@@ -11259,95 +13831,25 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
+		case "bytesReceived":
 			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
+				s.BytesReceived.Reset()
+				if err := s.BytesReceived.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
+				return errors.Wrap(err, "decode field \"bytesReceived\"")
 			}
-		case "created":
+		case "bytesSent":
 			if err := func() error {
-				s.Created.Reset()
-				if err := s.Created.Decode(d); err != nil {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created\"")
-			}
-		case "remoteAddr":
-			if err := func() error {
-				s.RemoteAddr.Reset()
-				if err := s.RemoteAddr.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteAddr\"")
-			}
-		case "state":
-			if err := func() error {
-				s.State.Reset()
-				if err := s.State.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"state\"")
-			}
-		case "path":
-			if err := func() error {
-				s.Path.Reset()
-				if err := s.Path.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"path\"")
-			}
-		case "query":
-			if err := func() error {
-				s.Query.Reset()
-				if err := s.Query.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"query\"")
-			}
-		case "user":
-			if err := func() error {
-				s.User.Reset()
-				if err := s.User.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"user\"")
-			}
-		case "transport":
-			if err := func() error {
-				s.Transport.Reset()
-				if err := s.Transport.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"transport\"")
-			}
-		case "profile":
-			if err := func() error {
-				s.Profile.Reset()
-				if err := s.Profile.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"profile\"")
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
 		case "conns":
 			if err := func() error {
@@ -11368,6 +13870,26 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"conns\"")
 			}
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
 		case "inboundBytes":
 			if err := func() error {
 				s.InboundBytes.Reset()
@@ -11377,46 +13899,6 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"inboundBytes\"")
-			}
-		case "inboundRTPPackets":
-			if err := func() error {
-				s.InboundRTPPackets.Reset()
-				if err := s.InboundRTPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
-			}
-		case "inboundRTPPacketsLost":
-			if err := func() error {
-				s.InboundRTPPacketsLost.Reset()
-				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
-			}
-		case "inboundRTPPacketsInError":
-			if err := func() error {
-				s.InboundRTPPacketsInError.Reset()
-				if err := s.InboundRTPPacketsInError.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPacketsInError\"")
-			}
-		case "inboundRTPPacketsJitter":
-			if err := func() error {
-				s.InboundRTPPacketsJitter.Reset()
-				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
 			}
 		case "inboundRTCPPackets":
 			if err := func() error {
@@ -11438,6 +13920,46 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"inboundRTCPPacketsInError\"")
 			}
+		case "inboundRTPPackets":
+			if err := func() error {
+				s.InboundRTPPackets.Reset()
+				if err := s.InboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
+			}
+		case "inboundRTPPacketsInError":
+			if err := func() error {
+				s.InboundRTPPacketsInError.Reset()
+				if err := s.InboundRTPPacketsInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsInError\"")
+			}
+		case "inboundRTPPacketsJitter":
+			if err := func() error {
+				s.InboundRTPPacketsJitter.Reset()
+				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
+			}
+		case "inboundRTPPacketsLost":
+			if err := func() error {
+				s.InboundRTPPacketsLost.Reset()
+				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
+			}
 		case "outboundBytes":
 			if err := func() error {
 				s.OutboundBytes.Reset()
@@ -11447,36 +13969,6 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"outboundBytes\"")
-			}
-		case "outboundRTPPackets":
-			if err := func() error {
-				s.OutboundRTPPackets.Reset()
-				if err := s.OutboundRTPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
-			}
-		case "outboundRTPPacketsReportedLost":
-			if err := func() error {
-				s.OutboundRTPPacketsReportedLost.Reset()
-				if err := s.OutboundRTPPacketsReportedLost.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundRTPPacketsReportedLost\"")
-			}
-		case "outboundRTPPacketsDiscarded":
-			if err := func() error {
-				s.OutboundRTPPacketsDiscarded.Reset()
-				if err := s.OutboundRTPPacketsDiscarded.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundRTPPacketsDiscarded\"")
 			}
 		case "outboundRTCPPackets":
 			if err := func() error {
@@ -11488,75 +13980,85 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"outboundRTCPPackets\"")
 			}
-		case "bytesReceived":
+		case "outboundRTPPackets":
 			if err := func() error {
-				s.BytesReceived.Reset()
-				if err := s.BytesReceived.Decode(d); err != nil {
+				s.OutboundRTPPackets.Reset()
+				if err := s.OutboundRTPPackets.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceived\"")
+				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
 			}
-		case "bytesSent":
+		case "outboundRTPPacketsDiscarded":
 			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
+				s.OutboundRTPPacketsDiscarded.Reset()
+				if err := s.OutboundRTPPacketsDiscarded.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
+				return errors.Wrap(err, "decode field \"outboundRTPPacketsDiscarded\"")
 			}
-		case "rtpPacketsReceived":
+		case "outboundRTPPacketsReportedLost":
 			if err := func() error {
-				s.RtpPacketsReceived.Reset()
-				if err := s.RtpPacketsReceived.Decode(d); err != nil {
+				s.OutboundRTPPacketsReportedLost.Reset()
+				if err := s.OutboundRTPPacketsReportedLost.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsReceived\"")
+				return errors.Wrap(err, "decode field \"outboundRTPPacketsReportedLost\"")
 			}
-		case "rtpPacketsSent":
+		case "path":
 			if err := func() error {
-				s.RtpPacketsSent.Reset()
-				if err := s.RtpPacketsSent.Decode(d); err != nil {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsSent\"")
+				return errors.Wrap(err, "decode field \"path\"")
 			}
-		case "rtpPacketsLost":
+		case "profile":
 			if err := func() error {
-				s.RtpPacketsLost.Reset()
-				if err := s.RtpPacketsLost.Decode(d); err != nil {
+				s.Profile.Reset()
+				if err := s.Profile.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsLost\"")
+				return errors.Wrap(err, "decode field \"profile\"")
 			}
-		case "rtpPacketsInError":
+		case "query":
 			if err := func() error {
-				s.RtpPacketsInError.Reset()
-				if err := s.RtpPacketsInError.Decode(d); err != nil {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsInError\"")
+				return errors.Wrap(err, "decode field \"query\"")
 			}
-		case "rtpPacketsJitter":
+		case "remoteAddr":
 			if err := func() error {
-				s.RtpPacketsJitter.Reset()
-				if err := s.RtpPacketsJitter.Decode(d); err != nil {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsJitter\"")
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "rtcpPacketsInError":
+			if err := func() error {
+				s.RtcpPacketsInError.Reset()
+				if err := s.RtcpPacketsInError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpPacketsInError\"")
 			}
 		case "rtcpPacketsReceived":
 			if err := func() error {
@@ -11578,15 +14080,95 @@ func (s *RTSPSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtcpPacketsSent\"")
 			}
-		case "rtcpPacketsInError":
+		case "rtpPacketsInError":
 			if err := func() error {
-				s.RtcpPacketsInError.Reset()
-				if err := s.RtcpPacketsInError.Decode(d); err != nil {
+				s.RtpPacketsInError.Reset()
+				if err := s.RtpPacketsInError.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtcpPacketsInError\"")
+				return errors.Wrap(err, "decode field \"rtpPacketsInError\"")
+			}
+		case "rtpPacketsJitter":
+			if err := func() error {
+				s.RtpPacketsJitter.Reset()
+				if err := s.RtpPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsJitter\"")
+			}
+		case "rtpPacketsLost":
+			if err := func() error {
+				s.RtpPacketsLost.Reset()
+				if err := s.RtpPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsLost\"")
+			}
+		case "rtpPacketsReceived":
+			if err := func() error {
+				s.RtpPacketsReceived.Reset()
+				if err := s.RtpPacketsReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsReceived\"")
+			}
+		case "rtpPacketsSent":
+			if err := func() error {
+				s.RtpPacketsSent.Reset()
+				if err := s.RtpPacketsSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsSent\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "transport":
+			if err := func() error {
+				s.Transport.Reset()
+				if err := s.Transport.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"transport\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
+			}
+		case "userAgent":
+			if err := func() error {
+				s.UserAgent.Reset()
+				if err := s.UserAgent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		default:
 			return d.Skip()
@@ -11622,12 +14204,6 @@ func (s *RTSPSessionList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RTSPSessionList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -11643,12 +14219,18 @@ func (s *RTSPSessionList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfRTSPSessionList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes RTSPSessionList from json.
@@ -11659,16 +14241,6 @@ func (s *RTSPSessionList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -11695,6 +14267,16 @@ func (s *RTSPSessionList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -11947,12 +14529,6 @@ func (s *RecordingList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *RecordingList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -11968,12 +14544,18 @@ func (s *RecordingList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfRecordingList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes RecordingList from json.
@@ -11984,16 +14566,6 @@ func (s *RecordingList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -12020,6 +14592,16 @@ func (s *RecordingList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -12104,120 +14686,6 @@ func (s *RecordingSegment) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *RecordingSegment) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode encodes RecordingsDeleteSegmentBadRequest as json.
-func (s *RecordingsDeleteSegmentBadRequest) Encode(e *jx.Encoder) {
-	unwrapped := (*Error)(s)
-
-	unwrapped.Encode(e)
-}
-
-// Decode decodes RecordingsDeleteSegmentBadRequest from json.
-func (s *RecordingsDeleteSegmentBadRequest) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode RecordingsDeleteSegmentBadRequest to nil")
-	}
-	var unwrapped Error
-	if err := func() error {
-		if err := unwrapped.Decode(d); err != nil {
-			return err
-		}
-		return nil
-	}(); err != nil {
-		return errors.Wrap(err, "alias")
-	}
-	*s = RecordingsDeleteSegmentBadRequest(unwrapped)
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *RecordingsDeleteSegmentBadRequest) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *RecordingsDeleteSegmentBadRequest) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode encodes RecordingsDeleteSegmentInternalServerError as json.
-func (s *RecordingsDeleteSegmentInternalServerError) Encode(e *jx.Encoder) {
-	unwrapped := (*Error)(s)
-
-	unwrapped.Encode(e)
-}
-
-// Decode decodes RecordingsDeleteSegmentInternalServerError from json.
-func (s *RecordingsDeleteSegmentInternalServerError) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode RecordingsDeleteSegmentInternalServerError to nil")
-	}
-	var unwrapped Error
-	if err := func() error {
-		if err := unwrapped.Decode(d); err != nil {
-			return err
-		}
-		return nil
-	}(); err != nil {
-		return errors.Wrap(err, "alias")
-	}
-	*s = RecordingsDeleteSegmentInternalServerError(unwrapped)
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *RecordingsDeleteSegmentInternalServerError) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *RecordingsDeleteSegmentInternalServerError) UnmarshalJSON(data []byte) error {
-	d := jx.DecodeBytes(data)
-	return s.Decode(d)
-}
-
-// Encode encodes RecordingsDeleteSegmentNotFound as json.
-func (s *RecordingsDeleteSegmentNotFound) Encode(e *jx.Encoder) {
-	unwrapped := (*Error)(s)
-
-	unwrapped.Encode(e)
-}
-
-// Decode decodes RecordingsDeleteSegmentNotFound from json.
-func (s *RecordingsDeleteSegmentNotFound) Decode(d *jx.Decoder) error {
-	if s == nil {
-		return errors.New("invalid: unable to decode RecordingsDeleteSegmentNotFound to nil")
-	}
-	var unwrapped Error
-	if err := func() error {
-		if err := unwrapped.Decode(d); err != nil {
-			return err
-		}
-		return nil
-	}(); err != nil {
-		return errors.Wrap(err, "alias")
-	}
-	*s = RecordingsDeleteSegmentNotFound(unwrapped)
-	return nil
-}
-
-// MarshalJSON implements stdjson.Marshaler.
-func (s *RecordingsDeleteSegmentNotFound) MarshalJSON() ([]byte, error) {
-	e := jx.Encoder{}
-	s.Encode(&e)
-	return e.Bytes(), nil
-}
-
-// UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *RecordingsDeleteSegmentNotFound) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -12408,6 +14876,120 @@ func (s *RecordingsListInternalServerError) MarshalJSON() ([]byte, error) {
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
 func (s *RecordingsListInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordingsSegmentsDeleteBadRequest as json.
+func (s *RecordingsSegmentsDeleteBadRequest) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes RecordingsSegmentsDeleteBadRequest from json.
+func (s *RecordingsSegmentsDeleteBadRequest) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RecordingsSegmentsDeleteBadRequest to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = RecordingsSegmentsDeleteBadRequest(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *RecordingsSegmentsDeleteBadRequest) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RecordingsSegmentsDeleteBadRequest) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordingsSegmentsDeleteInternalServerError as json.
+func (s *RecordingsSegmentsDeleteInternalServerError) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes RecordingsSegmentsDeleteInternalServerError from json.
+func (s *RecordingsSegmentsDeleteInternalServerError) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RecordingsSegmentsDeleteInternalServerError to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = RecordingsSegmentsDeleteInternalServerError(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *RecordingsSegmentsDeleteInternalServerError) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RecordingsSegmentsDeleteInternalServerError) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes RecordingsSegmentsDeleteNotFound as json.
+func (s *RecordingsSegmentsDeleteNotFound) Encode(e *jx.Encoder) {
+	unwrapped := (*Error)(s)
+
+	unwrapped.Encode(e)
+}
+
+// Decode decodes RecordingsSegmentsDeleteNotFound from json.
+func (s *RecordingsSegmentsDeleteNotFound) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode RecordingsSegmentsDeleteNotFound to nil")
+	}
+	var unwrapped Error
+	if err := func() error {
+		if err := unwrapped.Decode(d); err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = RecordingsSegmentsDeleteNotFound(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *RecordingsSegmentsDeleteNotFound) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *RecordingsSegmentsDeleteNotFound) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
@@ -14018,165 +16600,27 @@ func (s *SRTConn) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *SRTConn) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
+		if s.ByteMSS.Set {
+			e.FieldStart("byteMSS")
+			s.ByteMSS.Encode(e)
 		}
 	}
 	{
-		if s.Created.Set {
-			e.FieldStart("created")
-			s.Created.Encode(e)
+		if s.BytesAvailReceiveBuf.Set {
+			e.FieldStart("bytesAvailReceiveBuf")
+			s.BytesAvailReceiveBuf.Encode(e)
 		}
 	}
 	{
-		if s.RemoteAddr.Set {
-			e.FieldStart("remoteAddr")
-			s.RemoteAddr.Encode(e)
+		if s.BytesAvailSendBuf.Set {
+			e.FieldStart("bytesAvailSendBuf")
+			s.BytesAvailSendBuf.Encode(e)
 		}
 	}
 	{
-		if s.State.Set {
-			e.FieldStart("state")
-			s.State.Encode(e)
-		}
-	}
-	{
-		if s.Path.Set {
-			e.FieldStart("path")
-			s.Path.Encode(e)
-		}
-	}
-	{
-		if s.Query.Set {
-			e.FieldStart("query")
-			s.Query.Encode(e)
-		}
-	}
-	{
-		if s.User.Set {
-			e.FieldStart("user")
-			s.User.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSent.Set {
-			e.FieldStart("packetsSent")
-			s.PacketsSent.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceived.Set {
-			e.FieldStart("packetsReceived")
-			s.PacketsReceived.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedBelated.Set {
-			e.FieldStart("packetsReceivedBelated")
-			s.PacketsReceivedBelated.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSentUnique.Set {
-			e.FieldStart("packetsSentUnique")
-			s.PacketsSentUnique.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedUnique.Set {
-			e.FieldStart("packetsReceivedUnique")
-			s.PacketsReceivedUnique.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSendLoss.Set {
-			e.FieldStart("packetsSendLoss")
-			s.PacketsSendLoss.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedLoss.Set {
-			e.FieldStart("packetsReceivedLoss")
-			s.PacketsReceivedLoss.Encode(e)
-		}
-	}
-	{
-		if s.PacketsRetrans.Set {
-			e.FieldStart("packetsRetrans")
-			s.PacketsRetrans.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedRetrans.Set {
-			e.FieldStart("packetsReceivedRetrans")
-			s.PacketsReceivedRetrans.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSentACK.Set {
-			e.FieldStart("packetsSentACK")
-			s.PacketsSentACK.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedACK.Set {
-			e.FieldStart("packetsReceivedACK")
-			s.PacketsReceivedACK.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSentNAK.Set {
-			e.FieldStart("packetsSentNAK")
-			s.PacketsSentNAK.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedNAK.Set {
-			e.FieldStart("packetsReceivedNAK")
-			s.PacketsReceivedNAK.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSentKM.Set {
-			e.FieldStart("packetsSentKM")
-			s.PacketsSentKM.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedKM.Set {
-			e.FieldStart("packetsReceivedKM")
-			s.PacketsReceivedKM.Encode(e)
-		}
-	}
-	{
-		if s.UsSndDuration.Set {
-			e.FieldStart("usSndDuration")
-			s.UsSndDuration.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSendDrop.Set {
-			e.FieldStart("packetsSendDrop")
-			s.PacketsSendDrop.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedDrop.Set {
-			e.FieldStart("packetsReceivedDrop")
-			s.PacketsReceivedDrop.Encode(e)
-		}
-	}
-	{
-		if s.PacketsReceivedUndecrypt.Set {
-			e.FieldStart("packetsReceivedUndecrypt")
-			s.PacketsReceivedUndecrypt.Encode(e)
-		}
-	}
-	{
-		if s.BytesSent.Set {
-			e.FieldStart("bytesSent")
-			s.BytesSent.Encode(e)
+		if s.BytesReceiveBuf.Set {
+			e.FieldStart("bytesReceiveBuf")
+			s.BytesReceiveBuf.Encode(e)
 		}
 	}
 	{
@@ -14192,15 +16636,9 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.BytesSentUnique.Set {
-			e.FieldStart("bytesSentUnique")
-			s.BytesSentUnique.Encode(e)
-		}
-	}
-	{
-		if s.BytesReceivedUnique.Set {
-			e.FieldStart("bytesReceivedUnique")
-			s.BytesReceivedUnique.Encode(e)
+		if s.BytesReceivedDrop.Set {
+			e.FieldStart("bytesReceivedDrop")
+			s.BytesReceivedDrop.Encode(e)
 		}
 	}
 	{
@@ -14210,27 +16648,9 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.BytesRetrans.Set {
-			e.FieldStart("bytesRetrans")
-			s.BytesRetrans.Encode(e)
-		}
-	}
-	{
 		if s.BytesReceivedRetrans.Set {
 			e.FieldStart("bytesReceivedRetrans")
 			s.BytesReceivedRetrans.Encode(e)
-		}
-	}
-	{
-		if s.BytesSendDrop.Set {
-			e.FieldStart("bytesSendDrop")
-			s.BytesSendDrop.Encode(e)
-		}
-	}
-	{
-		if s.BytesReceivedDrop.Set {
-			e.FieldStart("bytesReceivedDrop")
-			s.BytesReceivedDrop.Encode(e)
 		}
 	}
 	{
@@ -14240,75 +16660,15 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.UsPacketsSendPeriod.Set {
-			e.FieldStart("usPacketsSendPeriod")
-			s.UsPacketsSendPeriod.Encode(e)
+		if s.BytesReceivedUnique.Set {
+			e.FieldStart("bytesReceivedUnique")
+			s.BytesReceivedUnique.Encode(e)
 		}
 	}
 	{
-		if s.PacketsFlowWindow.Set {
-			e.FieldStart("packetsFlowWindow")
-			s.PacketsFlowWindow.Encode(e)
-		}
-	}
-	{
-		if s.PacketsFlightSize.Set {
-			e.FieldStart("packetsFlightSize")
-			s.PacketsFlightSize.Encode(e)
-		}
-	}
-	{
-		if s.MsRTT.Set {
-			e.FieldStart("msRTT")
-			s.MsRTT.Encode(e)
-		}
-	}
-	{
-		if s.MbpsSendRate.Set {
-			e.FieldStart("mbpsSendRate")
-			s.MbpsSendRate.Encode(e)
-		}
-	}
-	{
-		if s.MbpsReceiveRate.Set {
-			e.FieldStart("mbpsReceiveRate")
-			s.MbpsReceiveRate.Encode(e)
-		}
-	}
-	{
-		if s.MbpsLinkCapacity.Set {
-			e.FieldStart("mbpsLinkCapacity")
-			s.MbpsLinkCapacity.Encode(e)
-		}
-	}
-	{
-		if s.BytesAvailSendBuf.Set {
-			e.FieldStart("bytesAvailSendBuf")
-			s.BytesAvailSendBuf.Encode(e)
-		}
-	}
-	{
-		if s.BytesAvailReceiveBuf.Set {
-			e.FieldStart("bytesAvailReceiveBuf")
-			s.BytesAvailReceiveBuf.Encode(e)
-		}
-	}
-	{
-		if s.MbpsMaxBW.Set {
-			e.FieldStart("mbpsMaxBW")
-			s.MbpsMaxBW.Encode(e)
-		}
-	}
-	{
-		if s.ByteMSS.Set {
-			e.FieldStart("byteMSS")
-			s.ByteMSS.Encode(e)
-		}
-	}
-	{
-		if s.PacketsSendBuf.Set {
-			e.FieldStart("packetsSendBuf")
-			s.PacketsSendBuf.Encode(e)
+		if s.BytesRetrans.Set {
+			e.FieldStart("bytesRetrans")
+			s.BytesRetrans.Encode(e)
 		}
 	}
 	{
@@ -14318,27 +16678,63 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.MsSendBuf.Set {
-			e.FieldStart("msSendBuf")
-			s.MsSendBuf.Encode(e)
+		if s.BytesSendDrop.Set {
+			e.FieldStart("bytesSendDrop")
+			s.BytesSendDrop.Encode(e)
 		}
 	}
 	{
-		if s.MsSendTsbPdDelay.Set {
-			e.FieldStart("msSendTsbPdDelay")
-			s.MsSendTsbPdDelay.Encode(e)
+		if s.BytesSent.Set {
+			e.FieldStart("bytesSent")
+			s.BytesSent.Encode(e)
 		}
 	}
 	{
-		if s.PacketsReceiveBuf.Set {
-			e.FieldStart("packetsReceiveBuf")
-			s.PacketsReceiveBuf.Encode(e)
+		if s.BytesSentUnique.Set {
+			e.FieldStart("bytesSentUnique")
+			s.BytesSentUnique.Encode(e)
 		}
 	}
 	{
-		if s.BytesReceiveBuf.Set {
-			e.FieldStart("bytesReceiveBuf")
-			s.BytesReceiveBuf.Encode(e)
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.MbpsLinkCapacity.Set {
+			e.FieldStart("mbpsLinkCapacity")
+			s.MbpsLinkCapacity.Encode(e)
+		}
+	}
+	{
+		if s.MbpsMaxBW.Set {
+			e.FieldStart("mbpsMaxBW")
+			s.MbpsMaxBW.Encode(e)
+		}
+	}
+	{
+		if s.MbpsReceiveRate.Set {
+			e.FieldStart("mbpsReceiveRate")
+			s.MbpsReceiveRate.Encode(e)
+		}
+	}
+	{
+		if s.MbpsSendRate.Set {
+			e.FieldStart("mbpsSendRate")
+			s.MbpsSendRate.Encode(e)
+		}
+	}
+	{
+		if s.MsRTT.Set {
+			e.FieldStart("msRTT")
+			s.MsRTT.Encode(e)
 		}
 	}
 	{
@@ -14354,9 +16750,51 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.PacketsReorderTolerance.Set {
-			e.FieldStart("packetsReorderTolerance")
-			s.PacketsReorderTolerance.Encode(e)
+		if s.MsSendBuf.Set {
+			e.FieldStart("msSendBuf")
+			s.MsSendBuf.Encode(e)
+		}
+	}
+	{
+		if s.MsSendTsbPdDelay.Set {
+			e.FieldStart("msSendTsbPdDelay")
+			s.MsSendTsbPdDelay.Encode(e)
+		}
+	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
+	{
+		if s.PacketsFlightSize.Set {
+			e.FieldStart("packetsFlightSize")
+			s.PacketsFlightSize.Encode(e)
+		}
+	}
+	{
+		if s.PacketsFlowWindow.Set {
+			e.FieldStart("packetsFlowWindow")
+			s.PacketsFlowWindow.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceiveBuf.Set {
+			e.FieldStart("packetsReceiveBuf")
+			s.PacketsReceiveBuf.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceived.Set {
+			e.FieldStart("packetsReceived")
+			s.PacketsReceived.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedACK.Set {
+			e.FieldStart("packetsReceivedACK")
+			s.PacketsReceivedACK.Encode(e)
 		}
 	}
 	{
@@ -14366,9 +16804,27 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.PacketsSendLossRate.Set {
-			e.FieldStart("packetsSendLossRate")
-			s.PacketsSendLossRate.Encode(e)
+		if s.PacketsReceivedBelated.Set {
+			e.FieldStart("packetsReceivedBelated")
+			s.PacketsReceivedBelated.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedDrop.Set {
+			e.FieldStart("packetsReceivedDrop")
+			s.PacketsReceivedDrop.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedKM.Set {
+			e.FieldStart("packetsReceivedKM")
+			s.PacketsReceivedKM.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedLoss.Set {
+			e.FieldStart("packetsReceivedLoss")
+			s.PacketsReceivedLoss.Encode(e)
 		}
 	}
 	{
@@ -14378,75 +16834,201 @@ func (s *SRTConn) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.OutboundFramesDiscarded.Set {
-			e.FieldStart("outboundFramesDiscarded")
-			s.OutboundFramesDiscarded.Encode(e)
+		if s.PacketsReceivedNAK.Set {
+			e.FieldStart("packetsReceivedNAK")
+			s.PacketsReceivedNAK.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedRetrans.Set {
+			e.FieldStart("packetsReceivedRetrans")
+			s.PacketsReceivedRetrans.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedUndecrypt.Set {
+			e.FieldStart("packetsReceivedUndecrypt")
+			s.PacketsReceivedUndecrypt.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReceivedUnique.Set {
+			e.FieldStart("packetsReceivedUnique")
+			s.PacketsReceivedUnique.Encode(e)
+		}
+	}
+	{
+		if s.PacketsReorderTolerance.Set {
+			e.FieldStart("packetsReorderTolerance")
+			s.PacketsReorderTolerance.Encode(e)
+		}
+	}
+	{
+		if s.PacketsRetrans.Set {
+			e.FieldStart("packetsRetrans")
+			s.PacketsRetrans.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSendBuf.Set {
+			e.FieldStart("packetsSendBuf")
+			s.PacketsSendBuf.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSendDrop.Set {
+			e.FieldStart("packetsSendDrop")
+			s.PacketsSendDrop.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSendLoss.Set {
+			e.FieldStart("packetsSendLoss")
+			s.PacketsSendLoss.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSendLossRate.Set {
+			e.FieldStart("packetsSendLossRate")
+			s.PacketsSendLossRate.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSent.Set {
+			e.FieldStart("packetsSent")
+			s.PacketsSent.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSentACK.Set {
+			e.FieldStart("packetsSentACK")
+			s.PacketsSentACK.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSentKM.Set {
+			e.FieldStart("packetsSentKM")
+			s.PacketsSentKM.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSentNAK.Set {
+			e.FieldStart("packetsSentNAK")
+			s.PacketsSentNAK.Encode(e)
+		}
+	}
+	{
+		if s.PacketsSentUnique.Set {
+			e.FieldStart("packetsSentUnique")
+			s.PacketsSentUnique.Encode(e)
+		}
+	}
+	{
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
+		}
+	}
+	{
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
+		}
+	}
+	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.UsPacketsSendPeriod.Set {
+			e.FieldStart("usPacketsSendPeriod")
+			s.UsPacketsSendPeriod.Encode(e)
+		}
+	}
+	{
+		if s.UsSndDuration.Set {
+			e.FieldStart("usSndDuration")
+			s.UsSndDuration.Encode(e)
+		}
+	}
+	{
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
 		}
 	}
 }
 
 var jsonFieldsNameOfSRTConn = [61]string{
-	0:  "id",
-	1:  "created",
-	2:  "remoteAddr",
-	3:  "state",
-	4:  "path",
-	5:  "query",
-	6:  "user",
-	7:  "packetsSent",
-	8:  "packetsReceived",
-	9:  "packetsReceivedBelated",
-	10: "packetsSentUnique",
-	11: "packetsReceivedUnique",
-	12: "packetsSendLoss",
-	13: "packetsReceivedLoss",
-	14: "packetsRetrans",
-	15: "packetsReceivedRetrans",
-	16: "packetsSentACK",
-	17: "packetsReceivedACK",
-	18: "packetsSentNAK",
-	19: "packetsReceivedNAK",
-	20: "packetsSentKM",
-	21: "packetsReceivedKM",
-	22: "usSndDuration",
-	23: "packetsSendDrop",
-	24: "packetsReceivedDrop",
-	25: "packetsReceivedUndecrypt",
-	26: "bytesSent",
-	27: "bytesReceived",
-	28: "bytesReceivedBelated",
-	29: "bytesSentUnique",
-	30: "bytesReceivedUnique",
-	31: "bytesReceivedLoss",
-	32: "bytesRetrans",
-	33: "bytesReceivedRetrans",
-	34: "bytesSendDrop",
-	35: "bytesReceivedDrop",
-	36: "bytesReceivedUndecrypt",
-	37: "usPacketsSendPeriod",
-	38: "packetsFlowWindow",
-	39: "packetsFlightSize",
-	40: "msRTT",
-	41: "mbpsSendRate",
-	42: "mbpsReceiveRate",
-	43: "mbpsLinkCapacity",
-	44: "bytesAvailSendBuf",
-	45: "bytesAvailReceiveBuf",
-	46: "mbpsMaxBW",
-	47: "byteMSS",
-	48: "packetsSendBuf",
-	49: "bytesSendBuf",
-	50: "msSendBuf",
-	51: "msSendTsbPdDelay",
-	52: "packetsReceiveBuf",
-	53: "bytesReceiveBuf",
-	54: "msReceiveBuf",
-	55: "msReceiveTsbPdDelay",
-	56: "packetsReorderTolerance",
-	57: "packetsReceivedAvgBelatedTime",
-	58: "packetsSendLossRate",
-	59: "packetsReceivedLossRate",
-	60: "outboundFramesDiscarded",
+	0:  "byteMSS",
+	1:  "bytesAvailReceiveBuf",
+	2:  "bytesAvailSendBuf",
+	3:  "bytesReceiveBuf",
+	4:  "bytesReceived",
+	5:  "bytesReceivedBelated",
+	6:  "bytesReceivedDrop",
+	7:  "bytesReceivedLoss",
+	8:  "bytesReceivedRetrans",
+	9:  "bytesReceivedUndecrypt",
+	10: "bytesReceivedUnique",
+	11: "bytesRetrans",
+	12: "bytesSendBuf",
+	13: "bytesSendDrop",
+	14: "bytesSent",
+	15: "bytesSentUnique",
+	16: "created",
+	17: "id",
+	18: "mbpsLinkCapacity",
+	19: "mbpsMaxBW",
+	20: "mbpsReceiveRate",
+	21: "mbpsSendRate",
+	22: "msRTT",
+	23: "msReceiveBuf",
+	24: "msReceiveTsbPdDelay",
+	25: "msSendBuf",
+	26: "msSendTsbPdDelay",
+	27: "outboundFramesDiscarded",
+	28: "packetsFlightSize",
+	29: "packetsFlowWindow",
+	30: "packetsReceiveBuf",
+	31: "packetsReceived",
+	32: "packetsReceivedACK",
+	33: "packetsReceivedAvgBelatedTime",
+	34: "packetsReceivedBelated",
+	35: "packetsReceivedDrop",
+	36: "packetsReceivedKM",
+	37: "packetsReceivedLoss",
+	38: "packetsReceivedLossRate",
+	39: "packetsReceivedNAK",
+	40: "packetsReceivedRetrans",
+	41: "packetsReceivedUndecrypt",
+	42: "packetsReceivedUnique",
+	43: "packetsReorderTolerance",
+	44: "packetsRetrans",
+	45: "packetsSendBuf",
+	46: "packetsSendDrop",
+	47: "packetsSendLoss",
+	48: "packetsSendLossRate",
+	49: "packetsSent",
+	50: "packetsSentACK",
+	51: "packetsSentKM",
+	52: "packetsSentNAK",
+	53: "packetsSentUnique",
+	54: "path",
+	55: "query",
+	56: "remoteAddr",
+	57: "state",
+	58: "usPacketsSendPeriod",
+	59: "usSndDuration",
+	60: "user",
 }
 
 // Decode decodes SRTConn from json.
@@ -14457,275 +17039,45 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
+		case "byteMSS":
 			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
+				s.ByteMSS.Reset()
+				if err := s.ByteMSS.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
+				return errors.Wrap(err, "decode field \"byteMSS\"")
 			}
-		case "created":
+		case "bytesAvailReceiveBuf":
 			if err := func() error {
-				s.Created.Reset()
-				if err := s.Created.Decode(d); err != nil {
+				s.BytesAvailReceiveBuf.Reset()
+				if err := s.BytesAvailReceiveBuf.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created\"")
+				return errors.Wrap(err, "decode field \"bytesAvailReceiveBuf\"")
 			}
-		case "remoteAddr":
+		case "bytesAvailSendBuf":
 			if err := func() error {
-				s.RemoteAddr.Reset()
-				if err := s.RemoteAddr.Decode(d); err != nil {
+				s.BytesAvailSendBuf.Reset()
+				if err := s.BytesAvailSendBuf.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteAddr\"")
+				return errors.Wrap(err, "decode field \"bytesAvailSendBuf\"")
 			}
-		case "state":
+		case "bytesReceiveBuf":
 			if err := func() error {
-				s.State.Reset()
-				if err := s.State.Decode(d); err != nil {
+				s.BytesReceiveBuf.Reset()
+				if err := s.BytesReceiveBuf.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"state\"")
-			}
-		case "path":
-			if err := func() error {
-				s.Path.Reset()
-				if err := s.Path.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"path\"")
-			}
-		case "query":
-			if err := func() error {
-				s.Query.Reset()
-				if err := s.Query.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"query\"")
-			}
-		case "user":
-			if err := func() error {
-				s.User.Reset()
-				if err := s.User.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"user\"")
-			}
-		case "packetsSent":
-			if err := func() error {
-				s.PacketsSent.Reset()
-				if err := s.PacketsSent.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSent\"")
-			}
-		case "packetsReceived":
-			if err := func() error {
-				s.PacketsReceived.Reset()
-				if err := s.PacketsReceived.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceived\"")
-			}
-		case "packetsReceivedBelated":
-			if err := func() error {
-				s.PacketsReceivedBelated.Reset()
-				if err := s.PacketsReceivedBelated.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedBelated\"")
-			}
-		case "packetsSentUnique":
-			if err := func() error {
-				s.PacketsSentUnique.Reset()
-				if err := s.PacketsSentUnique.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSentUnique\"")
-			}
-		case "packetsReceivedUnique":
-			if err := func() error {
-				s.PacketsReceivedUnique.Reset()
-				if err := s.PacketsReceivedUnique.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedUnique\"")
-			}
-		case "packetsSendLoss":
-			if err := func() error {
-				s.PacketsSendLoss.Reset()
-				if err := s.PacketsSendLoss.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSendLoss\"")
-			}
-		case "packetsReceivedLoss":
-			if err := func() error {
-				s.PacketsReceivedLoss.Reset()
-				if err := s.PacketsReceivedLoss.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedLoss\"")
-			}
-		case "packetsRetrans":
-			if err := func() error {
-				s.PacketsRetrans.Reset()
-				if err := s.PacketsRetrans.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsRetrans\"")
-			}
-		case "packetsReceivedRetrans":
-			if err := func() error {
-				s.PacketsReceivedRetrans.Reset()
-				if err := s.PacketsReceivedRetrans.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedRetrans\"")
-			}
-		case "packetsSentACK":
-			if err := func() error {
-				s.PacketsSentACK.Reset()
-				if err := s.PacketsSentACK.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSentACK\"")
-			}
-		case "packetsReceivedACK":
-			if err := func() error {
-				s.PacketsReceivedACK.Reset()
-				if err := s.PacketsReceivedACK.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedACK\"")
-			}
-		case "packetsSentNAK":
-			if err := func() error {
-				s.PacketsSentNAK.Reset()
-				if err := s.PacketsSentNAK.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSentNAK\"")
-			}
-		case "packetsReceivedNAK":
-			if err := func() error {
-				s.PacketsReceivedNAK.Reset()
-				if err := s.PacketsReceivedNAK.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedNAK\"")
-			}
-		case "packetsSentKM":
-			if err := func() error {
-				s.PacketsSentKM.Reset()
-				if err := s.PacketsSentKM.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSentKM\"")
-			}
-		case "packetsReceivedKM":
-			if err := func() error {
-				s.PacketsReceivedKM.Reset()
-				if err := s.PacketsReceivedKM.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedKM\"")
-			}
-		case "usSndDuration":
-			if err := func() error {
-				s.UsSndDuration.Reset()
-				if err := s.UsSndDuration.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"usSndDuration\"")
-			}
-		case "packetsSendDrop":
-			if err := func() error {
-				s.PacketsSendDrop.Reset()
-				if err := s.PacketsSendDrop.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSendDrop\"")
-			}
-		case "packetsReceivedDrop":
-			if err := func() error {
-				s.PacketsReceivedDrop.Reset()
-				if err := s.PacketsReceivedDrop.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedDrop\"")
-			}
-		case "packetsReceivedUndecrypt":
-			if err := func() error {
-				s.PacketsReceivedUndecrypt.Reset()
-				if err := s.PacketsReceivedUndecrypt.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceivedUndecrypt\"")
-			}
-		case "bytesSent":
-			if err := func() error {
-				s.BytesSent.Reset()
-				if err := s.BytesSent.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSent\"")
+				return errors.Wrap(err, "decode field \"bytesReceiveBuf\"")
 			}
 		case "bytesReceived":
 			if err := func() error {
@@ -14747,25 +17099,15 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesReceivedBelated\"")
 			}
-		case "bytesSentUnique":
+		case "bytesReceivedDrop":
 			if err := func() error {
-				s.BytesSentUnique.Reset()
-				if err := s.BytesSentUnique.Decode(d); err != nil {
+				s.BytesReceivedDrop.Reset()
+				if err := s.BytesReceivedDrop.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSentUnique\"")
-			}
-		case "bytesReceivedUnique":
-			if err := func() error {
-				s.BytesReceivedUnique.Reset()
-				if err := s.BytesReceivedUnique.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceivedUnique\"")
+				return errors.Wrap(err, "decode field \"bytesReceivedDrop\"")
 			}
 		case "bytesReceivedLoss":
 			if err := func() error {
@@ -14777,16 +17119,6 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesReceivedLoss\"")
 			}
-		case "bytesRetrans":
-			if err := func() error {
-				s.BytesRetrans.Reset()
-				if err := s.BytesRetrans.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesRetrans\"")
-			}
 		case "bytesReceivedRetrans":
 			if err := func() error {
 				s.BytesReceivedRetrans.Reset()
@@ -14796,26 +17128,6 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesReceivedRetrans\"")
-			}
-		case "bytesSendDrop":
-			if err := func() error {
-				s.BytesSendDrop.Reset()
-				if err := s.BytesSendDrop.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesSendDrop\"")
-			}
-		case "bytesReceivedDrop":
-			if err := func() error {
-				s.BytesReceivedDrop.Reset()
-				if err := s.BytesReceivedDrop.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceivedDrop\"")
 			}
 		case "bytesReceivedUndecrypt":
 			if err := func() error {
@@ -14827,125 +17139,25 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesReceivedUndecrypt\"")
 			}
-		case "usPacketsSendPeriod":
+		case "bytesReceivedUnique":
 			if err := func() error {
-				s.UsPacketsSendPeriod.Reset()
-				if err := s.UsPacketsSendPeriod.Decode(d); err != nil {
+				s.BytesReceivedUnique.Reset()
+				if err := s.BytesReceivedUnique.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"usPacketsSendPeriod\"")
+				return errors.Wrap(err, "decode field \"bytesReceivedUnique\"")
 			}
-		case "packetsFlowWindow":
+		case "bytesRetrans":
 			if err := func() error {
-				s.PacketsFlowWindow.Reset()
-				if err := s.PacketsFlowWindow.Decode(d); err != nil {
+				s.BytesRetrans.Reset()
+				if err := s.BytesRetrans.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsFlowWindow\"")
-			}
-		case "packetsFlightSize":
-			if err := func() error {
-				s.PacketsFlightSize.Reset()
-				if err := s.PacketsFlightSize.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsFlightSize\"")
-			}
-		case "msRTT":
-			if err := func() error {
-				s.MsRTT.Reset()
-				if err := s.MsRTT.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"msRTT\"")
-			}
-		case "mbpsSendRate":
-			if err := func() error {
-				s.MbpsSendRate.Reset()
-				if err := s.MbpsSendRate.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"mbpsSendRate\"")
-			}
-		case "mbpsReceiveRate":
-			if err := func() error {
-				s.MbpsReceiveRate.Reset()
-				if err := s.MbpsReceiveRate.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"mbpsReceiveRate\"")
-			}
-		case "mbpsLinkCapacity":
-			if err := func() error {
-				s.MbpsLinkCapacity.Reset()
-				if err := s.MbpsLinkCapacity.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"mbpsLinkCapacity\"")
-			}
-		case "bytesAvailSendBuf":
-			if err := func() error {
-				s.BytesAvailSendBuf.Reset()
-				if err := s.BytesAvailSendBuf.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesAvailSendBuf\"")
-			}
-		case "bytesAvailReceiveBuf":
-			if err := func() error {
-				s.BytesAvailReceiveBuf.Reset()
-				if err := s.BytesAvailReceiveBuf.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesAvailReceiveBuf\"")
-			}
-		case "mbpsMaxBW":
-			if err := func() error {
-				s.MbpsMaxBW.Reset()
-				if err := s.MbpsMaxBW.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"mbpsMaxBW\"")
-			}
-		case "byteMSS":
-			if err := func() error {
-				s.ByteMSS.Reset()
-				if err := s.ByteMSS.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"byteMSS\"")
-			}
-		case "packetsSendBuf":
-			if err := func() error {
-				s.PacketsSendBuf.Reset()
-				if err := s.PacketsSendBuf.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSendBuf\"")
+				return errors.Wrap(err, "decode field \"bytesRetrans\"")
 			}
 		case "bytesSendBuf":
 			if err := func() error {
@@ -14957,45 +17169,105 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesSendBuf\"")
 			}
-		case "msSendBuf":
+		case "bytesSendDrop":
 			if err := func() error {
-				s.MsSendBuf.Reset()
-				if err := s.MsSendBuf.Decode(d); err != nil {
+				s.BytesSendDrop.Reset()
+				if err := s.BytesSendDrop.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"msSendBuf\"")
+				return errors.Wrap(err, "decode field \"bytesSendDrop\"")
 			}
-		case "msSendTsbPdDelay":
+		case "bytesSent":
 			if err := func() error {
-				s.MsSendTsbPdDelay.Reset()
-				if err := s.MsSendTsbPdDelay.Decode(d); err != nil {
+				s.BytesSent.Reset()
+				if err := s.BytesSent.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"msSendTsbPdDelay\"")
+				return errors.Wrap(err, "decode field \"bytesSent\"")
 			}
-		case "packetsReceiveBuf":
+		case "bytesSentUnique":
 			if err := func() error {
-				s.PacketsReceiveBuf.Reset()
-				if err := s.PacketsReceiveBuf.Decode(d); err != nil {
+				s.BytesSentUnique.Reset()
+				if err := s.BytesSentUnique.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReceiveBuf\"")
+				return errors.Wrap(err, "decode field \"bytesSentUnique\"")
 			}
-		case "bytesReceiveBuf":
+		case "created":
 			if err := func() error {
-				s.BytesReceiveBuf.Reset()
-				if err := s.BytesReceiveBuf.Decode(d); err != nil {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"bytesReceiveBuf\"")
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "mbpsLinkCapacity":
+			if err := func() error {
+				s.MbpsLinkCapacity.Reset()
+				if err := s.MbpsLinkCapacity.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mbpsLinkCapacity\"")
+			}
+		case "mbpsMaxBW":
+			if err := func() error {
+				s.MbpsMaxBW.Reset()
+				if err := s.MbpsMaxBW.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mbpsMaxBW\"")
+			}
+		case "mbpsReceiveRate":
+			if err := func() error {
+				s.MbpsReceiveRate.Reset()
+				if err := s.MbpsReceiveRate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mbpsReceiveRate\"")
+			}
+		case "mbpsSendRate":
+			if err := func() error {
+				s.MbpsSendRate.Reset()
+				if err := s.MbpsSendRate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"mbpsSendRate\"")
+			}
+		case "msRTT":
+			if err := func() error {
+				s.MsRTT.Reset()
+				if err := s.MsRTT.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"msRTT\"")
 			}
 		case "msReceiveBuf":
 			if err := func() error {
@@ -15017,15 +17289,85 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"msReceiveTsbPdDelay\"")
 			}
-		case "packetsReorderTolerance":
+		case "msSendBuf":
 			if err := func() error {
-				s.PacketsReorderTolerance.Reset()
-				if err := s.PacketsReorderTolerance.Decode(d); err != nil {
+				s.MsSendBuf.Reset()
+				if err := s.MsSendBuf.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsReorderTolerance\"")
+				return errors.Wrap(err, "decode field \"msSendBuf\"")
+			}
+		case "msSendTsbPdDelay":
+			if err := func() error {
+				s.MsSendTsbPdDelay.Reset()
+				if err := s.MsSendTsbPdDelay.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"msSendTsbPdDelay\"")
+			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
+			}
+		case "packetsFlightSize":
+			if err := func() error {
+				s.PacketsFlightSize.Reset()
+				if err := s.PacketsFlightSize.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsFlightSize\"")
+			}
+		case "packetsFlowWindow":
+			if err := func() error {
+				s.PacketsFlowWindow.Reset()
+				if err := s.PacketsFlowWindow.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsFlowWindow\"")
+			}
+		case "packetsReceiveBuf":
+			if err := func() error {
+				s.PacketsReceiveBuf.Reset()
+				if err := s.PacketsReceiveBuf.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceiveBuf\"")
+			}
+		case "packetsReceived":
+			if err := func() error {
+				s.PacketsReceived.Reset()
+				if err := s.PacketsReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceived\"")
+			}
+		case "packetsReceivedACK":
+			if err := func() error {
+				s.PacketsReceivedACK.Reset()
+				if err := s.PacketsReceivedACK.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedACK\"")
 			}
 		case "packetsReceivedAvgBelatedTime":
 			if err := func() error {
@@ -15037,15 +17379,45 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"packetsReceivedAvgBelatedTime\"")
 			}
-		case "packetsSendLossRate":
+		case "packetsReceivedBelated":
 			if err := func() error {
-				s.PacketsSendLossRate.Reset()
-				if err := s.PacketsSendLossRate.Decode(d); err != nil {
+				s.PacketsReceivedBelated.Reset()
+				if err := s.PacketsReceivedBelated.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"packetsSendLossRate\"")
+				return errors.Wrap(err, "decode field \"packetsReceivedBelated\"")
+			}
+		case "packetsReceivedDrop":
+			if err := func() error {
+				s.PacketsReceivedDrop.Reset()
+				if err := s.PacketsReceivedDrop.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedDrop\"")
+			}
+		case "packetsReceivedKM":
+			if err := func() error {
+				s.PacketsReceivedKM.Reset()
+				if err := s.PacketsReceivedKM.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedKM\"")
+			}
+		case "packetsReceivedLoss":
+			if err := func() error {
+				s.PacketsReceivedLoss.Reset()
+				if err := s.PacketsReceivedLoss.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedLoss\"")
 			}
 		case "packetsReceivedLossRate":
 			if err := func() error {
@@ -15057,15 +17429,225 @@ func (s *SRTConn) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"packetsReceivedLossRate\"")
 			}
-		case "outboundFramesDiscarded":
+		case "packetsReceivedNAK":
 			if err := func() error {
-				s.OutboundFramesDiscarded.Reset()
-				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+				s.PacketsReceivedNAK.Reset()
+				if err := s.PacketsReceivedNAK.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
+				return errors.Wrap(err, "decode field \"packetsReceivedNAK\"")
+			}
+		case "packetsReceivedRetrans":
+			if err := func() error {
+				s.PacketsReceivedRetrans.Reset()
+				if err := s.PacketsReceivedRetrans.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedRetrans\"")
+			}
+		case "packetsReceivedUndecrypt":
+			if err := func() error {
+				s.PacketsReceivedUndecrypt.Reset()
+				if err := s.PacketsReceivedUndecrypt.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedUndecrypt\"")
+			}
+		case "packetsReceivedUnique":
+			if err := func() error {
+				s.PacketsReceivedUnique.Reset()
+				if err := s.PacketsReceivedUnique.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReceivedUnique\"")
+			}
+		case "packetsReorderTolerance":
+			if err := func() error {
+				s.PacketsReorderTolerance.Reset()
+				if err := s.PacketsReorderTolerance.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsReorderTolerance\"")
+			}
+		case "packetsRetrans":
+			if err := func() error {
+				s.PacketsRetrans.Reset()
+				if err := s.PacketsRetrans.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsRetrans\"")
+			}
+		case "packetsSendBuf":
+			if err := func() error {
+				s.PacketsSendBuf.Reset()
+				if err := s.PacketsSendBuf.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSendBuf\"")
+			}
+		case "packetsSendDrop":
+			if err := func() error {
+				s.PacketsSendDrop.Reset()
+				if err := s.PacketsSendDrop.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSendDrop\"")
+			}
+		case "packetsSendLoss":
+			if err := func() error {
+				s.PacketsSendLoss.Reset()
+				if err := s.PacketsSendLoss.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSendLoss\"")
+			}
+		case "packetsSendLossRate":
+			if err := func() error {
+				s.PacketsSendLossRate.Reset()
+				if err := s.PacketsSendLossRate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSendLossRate\"")
+			}
+		case "packetsSent":
+			if err := func() error {
+				s.PacketsSent.Reset()
+				if err := s.PacketsSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSent\"")
+			}
+		case "packetsSentACK":
+			if err := func() error {
+				s.PacketsSentACK.Reset()
+				if err := s.PacketsSentACK.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSentACK\"")
+			}
+		case "packetsSentKM":
+			if err := func() error {
+				s.PacketsSentKM.Reset()
+				if err := s.PacketsSentKM.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSentKM\"")
+			}
+		case "packetsSentNAK":
+			if err := func() error {
+				s.PacketsSentNAK.Reset()
+				if err := s.PacketsSentNAK.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSentNAK\"")
+			}
+		case "packetsSentUnique":
+			if err := func() error {
+				s.PacketsSentUnique.Reset()
+				if err := s.PacketsSentUnique.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"packetsSentUnique\"")
+			}
+		case "path":
+			if err := func() error {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"path\"")
+			}
+		case "query":
+			if err := func() error {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "usPacketsSendPeriod":
+			if err := func() error {
+				s.UsPacketsSendPeriod.Reset()
+				if err := s.UsPacketsSendPeriod.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"usPacketsSendPeriod\"")
+			}
+		case "usSndDuration":
+			if err := func() error {
+				s.UsSndDuration.Reset()
+				if err := s.UsSndDuration.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"usSndDuration\"")
+			}
+		case "user":
+			if err := func() error {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"user\"")
 			}
 		default:
 			return d.Skip()
@@ -15101,12 +17683,6 @@ func (s *SRTConnList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *SRTConnList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -15122,12 +17698,18 @@ func (s *SRTConnList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfSRTConnList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes SRTConnList from json.
@@ -15138,16 +17720,6 @@ func (s *SRTConnList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -15174,6 +17746,16 @@ func (s *SRTConnList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()
@@ -15546,6 +18128,219 @@ func (s *SrtConnsListInternalServerError) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
+func (s *StaticSource) Encode(e *jx.Encoder) {
+	e.ObjStart()
+	s.encodeFields(e)
+	e.ObjEnd()
+}
+
+// encodeFields encodes fields.
+func (s *StaticSource) encodeFields(e *jx.Encoder) {
+	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.LastError.Set {
+			e.FieldStart("lastError")
+			s.LastError.Encode(e)
+		}
+	}
+	{
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
+		}
+	}
+	{
+		if s.Type.Set {
+			e.FieldStart("type")
+			s.Type.Encode(e)
+		}
+	}
+	{
+		if s.TypeSpecific.Set {
+			e.FieldStart("typeSpecific")
+			s.TypeSpecific.Encode(e)
+		}
+	}
+}
+
+var jsonFieldsNameOfStaticSource = [5]string{
+	0: "created",
+	1: "lastError",
+	2: "state",
+	3: "type",
+	4: "typeSpecific",
+}
+
+// Decode decodes StaticSource from json.
+func (s *StaticSource) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode StaticSource to nil")
+	}
+
+	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
+		switch string(k) {
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "lastError":
+			if err := func() error {
+				s.LastError.Reset()
+				if err := s.LastError.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"lastError\"")
+			}
+		case "state":
+			if err := func() error {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"state\"")
+			}
+		case "type":
+			if err := func() error {
+				s.Type.Reset()
+				if err := s.Type.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"type\"")
+			}
+		case "typeSpecific":
+			if err := func() error {
+				s.TypeSpecific.Reset()
+				if err := s.TypeSpecific.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"typeSpecific\"")
+			}
+		default:
+			return d.Skip()
+		}
+		return nil
+	}); err != nil {
+		return errors.Wrap(err, "decode StaticSource")
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s *StaticSource) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *StaticSource) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes StaticSourceState as json.
+func (s StaticSourceState) Encode(e *jx.Encoder) {
+	e.Str(string(s))
+}
+
+// Decode decodes StaticSourceState from json.
+func (s *StaticSourceState) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode StaticSourceState to nil")
+	}
+	v, err := d.StrBytes()
+	if err != nil {
+		return err
+	}
+	// Try to use constant string.
+	switch StaticSourceState(v) {
+	case StaticSourceStateIdle:
+		*s = StaticSourceStateIdle
+	case StaticSourceStateRunning:
+		*s = StaticSourceStateRunning
+	case StaticSourceStateError:
+		*s = StaticSourceStateError
+	default:
+		*s = StaticSourceState(v)
+	}
+
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s StaticSourceState) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *StaticSourceState) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode encodes StaticSourceTypeSpecific as json.
+func (s StaticSourceTypeSpecific) Encode(e *jx.Encoder) {
+	unwrapped := json2.RawMessage(s)
+
+	json.EncodeJSON(e, unwrapped)
+}
+
+// Decode decodes StaticSourceTypeSpecific from json.
+func (s *StaticSourceTypeSpecific) Decode(d *jx.Decoder) error {
+	if s == nil {
+		return errors.New("invalid: unable to decode StaticSourceTypeSpecific to nil")
+	}
+	var unwrapped json2.RawMessage
+	if err := func() error {
+		v, err := json.DecodeJSON[json2.RawMessage](d)
+		unwrapped = v
+		if err != nil {
+			return err
+		}
+		return nil
+	}(); err != nil {
+		return errors.Wrap(err, "alias")
+	}
+	*s = StaticSourceTypeSpecific(unwrapped)
+	return nil
+}
+
+// MarshalJSON implements stdjson.Marshaler.
+func (s StaticSourceTypeSpecific) MarshalJSON() ([]byte, error) {
+	e := jx.Encoder{}
+	s.Encode(&e)
+	return e.Bytes(), nil
+}
+
+// UnmarshalJSON implements stdjson.Unmarshaler.
+func (s *StaticSourceTypeSpecific) UnmarshalJSON(data []byte) error {
+	d := jx.DecodeBytes(data)
+	return s.Decode(d)
+}
+
+// Encode implements json.Marshaler.
 func (s *WebRTCICEServer) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
@@ -15554,6 +18349,18 @@ func (s *WebRTCICEServer) Encode(e *jx.Encoder) {
 
 // encodeFields encodes fields.
 func (s *WebRTCICEServer) encodeFields(e *jx.Encoder) {
+	{
+		if s.ClientOnly.Set {
+			e.FieldStart("clientOnly")
+			s.ClientOnly.Encode(e)
+		}
+	}
+	{
+		if s.Password.Set {
+			e.FieldStart("password")
+			s.Password.Encode(e)
+		}
+	}
 	{
 		if s.URL.Set {
 			e.FieldStart("url")
@@ -15566,25 +18373,13 @@ func (s *WebRTCICEServer) encodeFields(e *jx.Encoder) {
 			s.Username.Encode(e)
 		}
 	}
-	{
-		if s.Password.Set {
-			e.FieldStart("password")
-			s.Password.Encode(e)
-		}
-	}
-	{
-		if s.ClientOnly.Set {
-			e.FieldStart("clientOnly")
-			s.ClientOnly.Encode(e)
-		}
-	}
 }
 
 var jsonFieldsNameOfWebRTCICEServer = [4]string{
-	0: "url",
-	1: "username",
-	2: "password",
-	3: "clientOnly",
+	0: "clientOnly",
+	1: "password",
+	2: "url",
+	3: "username",
 }
 
 // Decode decodes WebRTCICEServer from json.
@@ -15595,6 +18390,26 @@ func (s *WebRTCICEServer) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
+		case "clientOnly":
+			if err := func() error {
+				s.ClientOnly.Reset()
+				if err := s.ClientOnly.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"clientOnly\"")
+			}
+		case "password":
+			if err := func() error {
+				s.Password.Reset()
+				if err := s.Password.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"password\"")
+			}
 		case "url":
 			if err := func() error {
 				s.URL.Reset()
@@ -15614,26 +18429,6 @@ func (s *WebRTCICEServer) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"username\"")
-			}
-		case "password":
-			if err := func() error {
-				s.Password.Reset()
-				if err := s.Password.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"password\"")
-			}
-		case "clientOnly":
-			if err := func() error {
-				s.ClientOnly.Reset()
-				if err := s.ClientOnly.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"clientOnly\"")
 			}
 		default:
 			return d.Skip()
@@ -15669,120 +18464,6 @@ func (s *WebRTCSession) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *WebRTCSession) encodeFields(e *jx.Encoder) {
 	{
-		if s.ID.Set {
-			e.FieldStart("id")
-			s.ID.Encode(e)
-		}
-	}
-	{
-		if s.Created.Set {
-			e.FieldStart("created")
-			s.Created.Encode(e)
-		}
-	}
-	{
-		if s.RemoteAddr.Set {
-			e.FieldStart("remoteAddr")
-			s.RemoteAddr.Encode(e)
-		}
-	}
-	{
-		if s.PeerConnectionEstablished.Set {
-			e.FieldStart("peerConnectionEstablished")
-			s.PeerConnectionEstablished.Encode(e)
-		}
-	}
-	{
-		if s.LocalCandidate.Set {
-			e.FieldStart("localCandidate")
-			s.LocalCandidate.Encode(e)
-		}
-	}
-	{
-		if s.RemoteCandidate.Set {
-			e.FieldStart("remoteCandidate")
-			s.RemoteCandidate.Encode(e)
-		}
-	}
-	{
-		if s.State.Set {
-			e.FieldStart("state")
-			s.State.Encode(e)
-		}
-	}
-	{
-		if s.Path.Set {
-			e.FieldStart("path")
-			s.Path.Encode(e)
-		}
-	}
-	{
-		if s.Query.Set {
-			e.FieldStart("query")
-			s.Query.Encode(e)
-		}
-	}
-	{
-		if s.User.Set {
-			e.FieldStart("user")
-			s.User.Encode(e)
-		}
-	}
-	{
-		if s.InboundBytes.Set {
-			e.FieldStart("inboundBytes")
-			s.InboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPackets.Set {
-			e.FieldStart("inboundRTPPackets")
-			s.InboundRTPPackets.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPacketsLost.Set {
-			e.FieldStart("inboundRTPPacketsLost")
-			s.InboundRTPPacketsLost.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTPPacketsJitter.Set {
-			e.FieldStart("inboundRTPPacketsJitter")
-			s.InboundRTPPacketsJitter.Encode(e)
-		}
-	}
-	{
-		if s.InboundRTCPPackets.Set {
-			e.FieldStart("inboundRTCPPackets")
-			s.InboundRTCPPackets.Encode(e)
-		}
-	}
-	{
-		if s.OutboundBytes.Set {
-			e.FieldStart("outboundBytes")
-			s.OutboundBytes.Encode(e)
-		}
-	}
-	{
-		if s.OutboundRTPPackets.Set {
-			e.FieldStart("outboundRTPPackets")
-			s.OutboundRTPPackets.Encode(e)
-		}
-	}
-	{
-		if s.OutboundRTCPPackets.Set {
-			e.FieldStart("outboundRTCPPackets")
-			s.OutboundRTCPPackets.Encode(e)
-		}
-	}
-	{
-		if s.OutboundFramesDiscarded.Set {
-			e.FieldStart("outboundFramesDiscarded")
-			s.OutboundFramesDiscarded.Encode(e)
-		}
-	}
-	{
 		if s.BytesReceived.Set {
 			e.FieldStart("bytesReceived")
 			s.BytesReceived.Encode(e)
@@ -15792,6 +18473,132 @@ func (s *WebRTCSession) encodeFields(e *jx.Encoder) {
 		if s.BytesSent.Set {
 			e.FieldStart("bytesSent")
 			s.BytesSent.Encode(e)
+		}
+	}
+	{
+		if s.Created.Set {
+			e.FieldStart("created")
+			s.Created.Encode(e)
+		}
+	}
+	{
+		if s.ID.Set {
+			e.FieldStart("id")
+			s.ID.Encode(e)
+		}
+	}
+	{
+		if s.InboundBytes.Set {
+			e.FieldStart("inboundBytes")
+			s.InboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTCPPackets.Set {
+			e.FieldStart("inboundRTCPPackets")
+			s.InboundRTCPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPackets.Set {
+			e.FieldStart("inboundRTPPackets")
+			s.InboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsJitter.Set {
+			e.FieldStart("inboundRTPPacketsJitter")
+			s.InboundRTPPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.InboundRTPPacketsLost.Set {
+			e.FieldStart("inboundRTPPacketsLost")
+			s.InboundRTPPacketsLost.Encode(e)
+		}
+	}
+	{
+		if s.LocalCandidate.Set {
+			e.FieldStart("localCandidate")
+			s.LocalCandidate.Encode(e)
+		}
+	}
+	{
+		if s.OutboundBytes.Set {
+			e.FieldStart("outboundBytes")
+			s.OutboundBytes.Encode(e)
+		}
+	}
+	{
+		if s.OutboundFramesDiscarded.Set {
+			e.FieldStart("outboundFramesDiscarded")
+			s.OutboundFramesDiscarded.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTCPPackets.Set {
+			e.FieldStart("outboundRTCPPackets")
+			s.OutboundRTCPPackets.Encode(e)
+		}
+	}
+	{
+		if s.OutboundRTPPackets.Set {
+			e.FieldStart("outboundRTPPackets")
+			s.OutboundRTPPackets.Encode(e)
+		}
+	}
+	{
+		if s.Path.Set {
+			e.FieldStart("path")
+			s.Path.Encode(e)
+		}
+	}
+	{
+		if s.PeerConnectionEstablished.Set {
+			e.FieldStart("peerConnectionEstablished")
+			s.PeerConnectionEstablished.Encode(e)
+		}
+	}
+	{
+		if s.Query.Set {
+			e.FieldStart("query")
+			s.Query.Encode(e)
+		}
+	}
+	{
+		if s.RemoteAddr.Set {
+			e.FieldStart("remoteAddr")
+			s.RemoteAddr.Encode(e)
+		}
+	}
+	{
+		if s.RemoteCandidate.Set {
+			e.FieldStart("remoteCandidate")
+			s.RemoteCandidate.Encode(e)
+		}
+	}
+	{
+		if s.RtcpPacketsReceived.Set {
+			e.FieldStart("rtcpPacketsReceived")
+			s.RtcpPacketsReceived.Encode(e)
+		}
+	}
+	{
+		if s.RtcpPacketsSent.Set {
+			e.FieldStart("rtcpPacketsSent")
+			s.RtcpPacketsSent.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsJitter.Set {
+			e.FieldStart("rtpPacketsJitter")
+			s.RtpPacketsJitter.Encode(e)
+		}
+	}
+	{
+		if s.RtpPacketsLost.Set {
+			e.FieldStart("rtpPacketsLost")
+			s.RtpPacketsLost.Encode(e)
 		}
 	}
 	{
@@ -15807,59 +18614,54 @@ func (s *WebRTCSession) encodeFields(e *jx.Encoder) {
 		}
 	}
 	{
-		if s.RtpPacketsLost.Set {
-			e.FieldStart("rtpPacketsLost")
-			s.RtpPacketsLost.Encode(e)
+		if s.State.Set {
+			e.FieldStart("state")
+			s.State.Encode(e)
 		}
 	}
 	{
-		if s.RtpPacketsJitter.Set {
-			e.FieldStart("rtpPacketsJitter")
-			s.RtpPacketsJitter.Encode(e)
+		if s.User.Set {
+			e.FieldStart("user")
+			s.User.Encode(e)
 		}
 	}
 	{
-		if s.RtcpPacketsReceived.Set {
-			e.FieldStart("rtcpPacketsReceived")
-			s.RtcpPacketsReceived.Encode(e)
-		}
-	}
-	{
-		if s.RtcpPacketsSent.Set {
-			e.FieldStart("rtcpPacketsSent")
-			s.RtcpPacketsSent.Encode(e)
+		if s.UserAgent.Set {
+			e.FieldStart("userAgent")
+			s.UserAgent.Encode(e)
 		}
 	}
 }
 
-var jsonFieldsNameOfWebRTCSession = [27]string{
-	0:  "id",
-	1:  "created",
-	2:  "remoteAddr",
-	3:  "peerConnectionEstablished",
-	4:  "localCandidate",
-	5:  "remoteCandidate",
-	6:  "state",
-	7:  "path",
-	8:  "query",
-	9:  "user",
-	10: "inboundBytes",
-	11: "inboundRTPPackets",
-	12: "inboundRTPPacketsLost",
-	13: "inboundRTPPacketsJitter",
-	14: "inboundRTCPPackets",
-	15: "outboundBytes",
-	16: "outboundRTPPackets",
-	17: "outboundRTCPPackets",
-	18: "outboundFramesDiscarded",
-	19: "bytesReceived",
-	20: "bytesSent",
-	21: "rtpPacketsReceived",
-	22: "rtpPacketsSent",
-	23: "rtpPacketsLost",
-	24: "rtpPacketsJitter",
-	25: "rtcpPacketsReceived",
-	26: "rtcpPacketsSent",
+var jsonFieldsNameOfWebRTCSession = [28]string{
+	0:  "bytesReceived",
+	1:  "bytesSent",
+	2:  "created",
+	3:  "id",
+	4:  "inboundBytes",
+	5:  "inboundRTCPPackets",
+	6:  "inboundRTPPackets",
+	7:  "inboundRTPPacketsJitter",
+	8:  "inboundRTPPacketsLost",
+	9:  "localCandidate",
+	10: "outboundBytes",
+	11: "outboundFramesDiscarded",
+	12: "outboundRTCPPackets",
+	13: "outboundRTPPackets",
+	14: "path",
+	15: "peerConnectionEstablished",
+	16: "query",
+	17: "remoteAddr",
+	18: "remoteCandidate",
+	19: "rtcpPacketsReceived",
+	20: "rtcpPacketsSent",
+	21: "rtpPacketsJitter",
+	22: "rtpPacketsLost",
+	23: "rtpPacketsReceived",
+	24: "rtpPacketsSent",
+	25: "state",
+	26: "user",
+	27: "userAgent",
 }
 
 // Decode decodes WebRTCSession from json.
@@ -15870,196 +18672,6 @@ func (s *WebRTCSession) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "id":
-			if err := func() error {
-				s.ID.Reset()
-				if err := s.ID.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"id\"")
-			}
-		case "created":
-			if err := func() error {
-				s.Created.Reset()
-				if err := s.Created.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"created\"")
-			}
-		case "remoteAddr":
-			if err := func() error {
-				s.RemoteAddr.Reset()
-				if err := s.RemoteAddr.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteAddr\"")
-			}
-		case "peerConnectionEstablished":
-			if err := func() error {
-				s.PeerConnectionEstablished.Reset()
-				if err := s.PeerConnectionEstablished.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"peerConnectionEstablished\"")
-			}
-		case "localCandidate":
-			if err := func() error {
-				s.LocalCandidate.Reset()
-				if err := s.LocalCandidate.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"localCandidate\"")
-			}
-		case "remoteCandidate":
-			if err := func() error {
-				s.RemoteCandidate.Reset()
-				if err := s.RemoteCandidate.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"remoteCandidate\"")
-			}
-		case "state":
-			if err := func() error {
-				s.State.Reset()
-				if err := s.State.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"state\"")
-			}
-		case "path":
-			if err := func() error {
-				s.Path.Reset()
-				if err := s.Path.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"path\"")
-			}
-		case "query":
-			if err := func() error {
-				s.Query.Reset()
-				if err := s.Query.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"query\"")
-			}
-		case "user":
-			if err := func() error {
-				s.User.Reset()
-				if err := s.User.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"user\"")
-			}
-		case "inboundBytes":
-			if err := func() error {
-				s.InboundBytes.Reset()
-				if err := s.InboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundBytes\"")
-			}
-		case "inboundRTPPackets":
-			if err := func() error {
-				s.InboundRTPPackets.Reset()
-				if err := s.InboundRTPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
-			}
-		case "inboundRTPPacketsLost":
-			if err := func() error {
-				s.InboundRTPPacketsLost.Reset()
-				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
-			}
-		case "inboundRTPPacketsJitter":
-			if err := func() error {
-				s.InboundRTPPacketsJitter.Reset()
-				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
-			}
-		case "inboundRTCPPackets":
-			if err := func() error {
-				s.InboundRTCPPackets.Reset()
-				if err := s.InboundRTCPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"inboundRTCPPackets\"")
-			}
-		case "outboundBytes":
-			if err := func() error {
-				s.OutboundBytes.Reset()
-				if err := s.OutboundBytes.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundBytes\"")
-			}
-		case "outboundRTPPackets":
-			if err := func() error {
-				s.OutboundRTPPackets.Reset()
-				if err := s.OutboundRTPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
-			}
-		case "outboundRTCPPackets":
-			if err := func() error {
-				s.OutboundRTCPPackets.Reset()
-				if err := s.OutboundRTCPPackets.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundRTCPPackets\"")
-			}
-		case "outboundFramesDiscarded":
-			if err := func() error {
-				s.OutboundFramesDiscarded.Reset()
-				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
-			}
 		case "bytesReceived":
 			if err := func() error {
 				s.BytesReceived.Reset()
@@ -16079,6 +18691,216 @@ func (s *WebRTCSession) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"bytesSent\"")
+			}
+		case "created":
+			if err := func() error {
+				s.Created.Reset()
+				if err := s.Created.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"created\"")
+			}
+		case "id":
+			if err := func() error {
+				s.ID.Reset()
+				if err := s.ID.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"id\"")
+			}
+		case "inboundBytes":
+			if err := func() error {
+				s.InboundBytes.Reset()
+				if err := s.InboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundBytes\"")
+			}
+		case "inboundRTCPPackets":
+			if err := func() error {
+				s.InboundRTCPPackets.Reset()
+				if err := s.InboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTCPPackets\"")
+			}
+		case "inboundRTPPackets":
+			if err := func() error {
+				s.InboundRTPPackets.Reset()
+				if err := s.InboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPackets\"")
+			}
+		case "inboundRTPPacketsJitter":
+			if err := func() error {
+				s.InboundRTPPacketsJitter.Reset()
+				if err := s.InboundRTPPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsJitter\"")
+			}
+		case "inboundRTPPacketsLost":
+			if err := func() error {
+				s.InboundRTPPacketsLost.Reset()
+				if err := s.InboundRTPPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"inboundRTPPacketsLost\"")
+			}
+		case "localCandidate":
+			if err := func() error {
+				s.LocalCandidate.Reset()
+				if err := s.LocalCandidate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"localCandidate\"")
+			}
+		case "outboundBytes":
+			if err := func() error {
+				s.OutboundBytes.Reset()
+				if err := s.OutboundBytes.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundBytes\"")
+			}
+		case "outboundFramesDiscarded":
+			if err := func() error {
+				s.OutboundFramesDiscarded.Reset()
+				if err := s.OutboundFramesDiscarded.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundFramesDiscarded\"")
+			}
+		case "outboundRTCPPackets":
+			if err := func() error {
+				s.OutboundRTCPPackets.Reset()
+				if err := s.OutboundRTCPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTCPPackets\"")
+			}
+		case "outboundRTPPackets":
+			if err := func() error {
+				s.OutboundRTPPackets.Reset()
+				if err := s.OutboundRTPPackets.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"outboundRTPPackets\"")
+			}
+		case "path":
+			if err := func() error {
+				s.Path.Reset()
+				if err := s.Path.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"path\"")
+			}
+		case "peerConnectionEstablished":
+			if err := func() error {
+				s.PeerConnectionEstablished.Reset()
+				if err := s.PeerConnectionEstablished.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"peerConnectionEstablished\"")
+			}
+		case "query":
+			if err := func() error {
+				s.Query.Reset()
+				if err := s.Query.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"query\"")
+			}
+		case "remoteAddr":
+			if err := func() error {
+				s.RemoteAddr.Reset()
+				if err := s.RemoteAddr.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteAddr\"")
+			}
+		case "remoteCandidate":
+			if err := func() error {
+				s.RemoteCandidate.Reset()
+				if err := s.RemoteCandidate.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"remoteCandidate\"")
+			}
+		case "rtcpPacketsReceived":
+			if err := func() error {
+				s.RtcpPacketsReceived.Reset()
+				if err := s.RtcpPacketsReceived.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpPacketsReceived\"")
+			}
+		case "rtcpPacketsSent":
+			if err := func() error {
+				s.RtcpPacketsSent.Reset()
+				if err := s.RtcpPacketsSent.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtcpPacketsSent\"")
+			}
+		case "rtpPacketsJitter":
+			if err := func() error {
+				s.RtpPacketsJitter.Reset()
+				if err := s.RtpPacketsJitter.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsJitter\"")
+			}
+		case "rtpPacketsLost":
+			if err := func() error {
+				s.RtpPacketsLost.Reset()
+				if err := s.RtpPacketsLost.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"rtpPacketsLost\"")
 			}
 		case "rtpPacketsReceived":
 			if err := func() error {
@@ -16100,45 +18922,35 @@ func (s *WebRTCSession) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"rtpPacketsSent\"")
 			}
-		case "rtpPacketsLost":
+		case "state":
 			if err := func() error {
-				s.RtpPacketsLost.Reset()
-				if err := s.RtpPacketsLost.Decode(d); err != nil {
+				s.State.Reset()
+				if err := s.State.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsLost\"")
+				return errors.Wrap(err, "decode field \"state\"")
 			}
-		case "rtpPacketsJitter":
+		case "user":
 			if err := func() error {
-				s.RtpPacketsJitter.Reset()
-				if err := s.RtpPacketsJitter.Decode(d); err != nil {
+				s.User.Reset()
+				if err := s.User.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtpPacketsJitter\"")
+				return errors.Wrap(err, "decode field \"user\"")
 			}
-		case "rtcpPacketsReceived":
+		case "userAgent":
 			if err := func() error {
-				s.RtcpPacketsReceived.Reset()
-				if err := s.RtcpPacketsReceived.Decode(d); err != nil {
+				s.UserAgent.Reset()
+				if err := s.UserAgent.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtcpPacketsReceived\"")
-			}
-		case "rtcpPacketsSent":
-			if err := func() error {
-				s.RtcpPacketsSent.Reset()
-				if err := s.RtcpPacketsSent.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"rtcpPacketsSent\"")
+				return errors.Wrap(err, "decode field \"userAgent\"")
 			}
 		default:
 			return d.Skip()
@@ -16174,12 +18986,6 @@ func (s *WebRTCSessionList) Encode(e *jx.Encoder) {
 // encodeFields encodes fields.
 func (s *WebRTCSessionList) encodeFields(e *jx.Encoder) {
 	{
-		if s.PageCount.Set {
-			e.FieldStart("pageCount")
-			s.PageCount.Encode(e)
-		}
-	}
-	{
 		if s.ItemCount.Set {
 			e.FieldStart("itemCount")
 			s.ItemCount.Encode(e)
@@ -16195,12 +19001,18 @@ func (s *WebRTCSessionList) encodeFields(e *jx.Encoder) {
 			e.ArrEnd()
 		}
 	}
+	{
+		if s.PageCount.Set {
+			e.FieldStart("pageCount")
+			s.PageCount.Encode(e)
+		}
+	}
 }
 
 var jsonFieldsNameOfWebRTCSessionList = [3]string{
-	0: "pageCount",
-	1: "itemCount",
-	2: "items",
+	0: "itemCount",
+	1: "items",
+	2: "pageCount",
 }
 
 // Decode decodes WebRTCSessionList from json.
@@ -16211,16 +19023,6 @@ func (s *WebRTCSessionList) Decode(d *jx.Decoder) error {
 
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
 		switch string(k) {
-		case "pageCount":
-			if err := func() error {
-				s.PageCount.Reset()
-				if err := s.PageCount.Decode(d); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return errors.Wrap(err, "decode field \"pageCount\"")
-			}
 		case "itemCount":
 			if err := func() error {
 				s.ItemCount.Reset()
@@ -16247,6 +19049,16 @@ func (s *WebRTCSessionList) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"items\"")
+			}
+		case "pageCount":
+			if err := func() error {
+				s.PageCount.Reset()
+				if err := s.PageCount.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"pageCount\"")
 			}
 		default:
 			return d.Skip()

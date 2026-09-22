@@ -69,6 +69,26 @@ type InfoRes interface {
 	infoRes()
 }
 
+type MoqSessionsGetRes interface {
+	moqSessionsGetRes()
+}
+
+type MoqSessionsKickRes interface {
+	moqSessionsKickRes()
+}
+
+type MoqSessionsListRes interface {
+	moqSessionsListRes()
+}
+
+type PathsForwardDestsGetRes interface {
+	pathsForwardDestsGetRes()
+}
+
+type PathsForwardDestsListRes interface {
+	pathsForwardDestsListRes()
+}
+
 type PathsGetRes interface {
 	pathsGetRes()
 }
@@ -77,8 +97,8 @@ type PathsListRes interface {
 	pathsListRes()
 }
 
-type RecordingsDeleteSegmentRes interface {
-	recordingsDeleteSegmentRes()
+type PathsStaticSourcesGetRes interface {
+	pathsStaticSourcesGetRes()
 }
 
 type RecordingsGetRes interface {
@@ -87,6 +107,10 @@ type RecordingsGetRes interface {
 
 type RecordingsListRes interface {
 	recordingsListRes()
+}
+
+type RecordingsSegmentsDeleteRes interface {
+	recordingsSegmentsDeleteRes()
 }
 
 type RtmpConnectionsGetRes interface {

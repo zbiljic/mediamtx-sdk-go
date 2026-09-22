@@ -405,14 +405,14 @@ func (s ErrorStatus) Validate() error {
 	}
 }
 
-func (s *GlobalConf) Validate() error {
+func (s *ForwardDest) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
 
 	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.LogLevel.Get(); ok {
+		if value, ok := s.Protocol.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -425,13 +425,61 @@ func (s *GlobalConf) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "logLevel",
+			Name:  "protocol",
 			Error: err,
 		})
 	}
 	if err := func() error {
+		if value, ok := s.State.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "state",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Type.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *ForwardDestList) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
 		var failures []validate.FieldError
-		for i, elem := range s.LogDestinations {
+		for i, elem := range s.Items {
 			if err := func() error {
 				if err := elem.Validate(); err != nil {
 					return err
@@ -450,25 +498,97 @@ func (s *GlobalConf) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "logDestinations",
+			Name:  "items",
 			Error: err,
 		})
 	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s ForwardDestProtocol) Validate() error {
+	switch s {
+	case "rtmp":
+		return nil
+	case "rtmps":
+		return nil
+	case "rtsp":
+		return nil
+	case "rtsps":
+		return nil
+	case "srt":
+		return nil
+	case "moq":
+		return nil
+	case "whip":
+		return nil
+	case "whips":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s ForwardDestState) Validate() error {
+	switch s {
+	case "idle":
+		return nil
+	case "forwarding":
+		return nil
+	case "error":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s ForwardDestType) Validate() error {
+	switch s {
+	case "rtmp":
+		return nil
+	case "rtsp":
+		return nil
+	case "srt":
+		return nil
+	case "moq":
+		return nil
+	case "webRTC":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *GlobalConf) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.AuthMethod.Get(); ok {
+		var failures []validate.FieldError
+		for i, elem := range s.AuthHTTPExclude {
 			if err := func() error {
-				if err := value.Validate(); err != nil {
+				if err := elem.Validate(); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return err
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
 			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "authMethod",
+			Name:  "authHTTPExclude",
 			Error: err,
 		})
 	}
@@ -499,31 +619,6 @@ func (s *GlobalConf) Validate() error {
 	}
 	if err := func() error {
 		var failures []validate.FieldError
-		for i, elem := range s.AuthHTTPExclude {
-			if err := func() error {
-				if err := elem.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				failures = append(failures, validate.FieldError{
-					Name:  fmt.Sprintf("[%d]", i),
-					Error: err,
-				})
-			}
-		}
-		if len(failures) > 0 {
-			return &validate.Error{Fields: failures}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "authHTTPExclude",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		var failures []validate.FieldError
 		for i, elem := range s.AuthJWTExclude {
 			if err := func() error {
 				if err := elem.Validate(); err != nil {
@@ -548,67 +643,7 @@ func (s *GlobalConf) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.Protocols.Get(); ok {
-			if err := func() error {
-				if value == nil {
-					return errors.New("nil is invalid value")
-				}
-				var failures []validate.FieldError
-				for i, elem := range value {
-					if err := func() error {
-						if err := elem.Validate(); err != nil {
-							return err
-						}
-						return nil
-					}(); err != nil {
-						failures = append(failures, validate.FieldError{
-							Name:  fmt.Sprintf("[%d]", i),
-							Error: err,
-						})
-					}
-				}
-				if len(failures) > 0 {
-					return &validate.Error{Fields: failures}
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "protocols",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		var failures []validate.FieldError
-		for i, elem := range s.RtspTransports {
-			if err := func() error {
-				if err := elem.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				failures = append(failures, validate.FieldError{
-					Name:  fmt.Sprintf("[%d]", i),
-					Error: err,
-				})
-			}
-		}
-		if len(failures) > 0 {
-			return &validate.Error{Fields: failures}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rtspTransports",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.Encryption.Get(); ok {
+		if value, ok := s.AuthMethod.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -621,25 +656,7 @@ func (s *GlobalConf) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "encryption",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RtspEncryption.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rtspEncryption",
+			Name:  "authMethod",
 			Error: err,
 		})
 	}
@@ -679,6 +696,156 @@ func (s *GlobalConf) Validate() error {
 		})
 	}
 	if err := func() error {
+		if value, ok := s.Encryption.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "encryption",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.HlsVariant.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "hlsVariant",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.LogDestinations {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "logDestinations",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.LogLevel.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "logLevel",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Protocols.Get(); ok {
+			if err := func() error {
+				if value == nil {
+					return errors.New("nil is invalid value")
+				}
+				var failures []validate.FieldError
+				for i, elem := range value {
+					if err := func() error {
+						if err := elem.Validate(); err != nil {
+							return err
+						}
+						return nil
+					}(); err != nil {
+						failures = append(failures, validate.FieldError{
+							Name:  fmt.Sprintf("[%d]", i),
+							Error: err,
+						})
+					}
+				}
+				if len(failures) > 0 {
+					return &validate.Error{Fields: failures}
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "protocols",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RecordFormat.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "recordFormat",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RtmpEncryption.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rtmpEncryption",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		var failures []validate.FieldError
 		for i, elem := range s.RtspAuthMethods {
 			if err := func() error {
@@ -704,7 +871,7 @@ func (s *GlobalConf) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.RtmpEncryption.Get(); ok {
+		if value, ok := s.RtspEncryption.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -717,25 +884,32 @@ func (s *GlobalConf) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "rtmpEncryption",
+			Name:  "rtspEncryption",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.HlsVariant.Get(); ok {
+		var failures []validate.FieldError
+		for i, elem := range s.RtspTransports {
 			if err := func() error {
-				if err := value.Validate(); err != nil {
+				if err := elem.Validate(); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return err
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
 			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "hlsVariant",
+			Name:  "rtspTransports",
 			Error: err,
 		})
 	}
@@ -772,24 +946,6 @@ func (s *GlobalConf) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "webrtcICEServers",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RecordFormat.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "recordFormat",
 			Error: err,
 		})
 	}
@@ -970,6 +1126,183 @@ func (s LogLevel) Validate() error {
 	}
 }
 
+func (s *MoQSession) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		if value, ok := s.State.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "state",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.Version.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "version",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s *MoQSessionList) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Items {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "items",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s MoQSessionState) Validate() error {
+	switch s {
+	case "idle":
+		return nil
+	case "read":
+		return nil
+	case "publish":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s MoQVersion) Validate() error {
+	switch s {
+	case "moqt-16":
+		return nil
+	case "moqt-17":
+		return nil
+	case "moqt-18":
+		return nil
+	case "moqt-19":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *MoqSessionsGetBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsGetInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsGetNotFound) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsKickBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsKickInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsKickNotFound) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsListBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *MoqSessionsListInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s *OK) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -1015,6 +1348,31 @@ func (s *Path) Validate() error {
 	}
 
 	var failures []validate.FieldError
+	if err := func() error {
+		var failures []validate.FieldError
+		for i, elem := range s.Readers {
+			if err := func() error {
+				if err := elem.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
+			}
+		}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "readers",
+			Error: err,
+		})
+	}
 	if err := func() error {
 		if value, ok := s.Source.Get(); ok {
 			if err := func() error {
@@ -1083,31 +1441,6 @@ func (s *Path) Validate() error {
 			Error: err,
 		})
 	}
-	if err := func() error {
-		var failures []validate.FieldError
-		for i, elem := range s.Readers {
-			if err := func() error {
-				if err := elem.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				failures = append(failures, validate.FieldError{
-					Name:  fmt.Sprintf("[%d]", i),
-					Error: err,
-				})
-			}
-		}
-		if len(failures) > 0 {
-			return &validate.Error{Fields: failures}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "readers",
-			Error: err,
-		})
-	}
 	if len(failures) > 0 {
 		return &validate.Error{Fields: failures}
 	}
@@ -1142,24 +1475,6 @@ func (s *PathConf) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "alwaysAvailableTracks",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RecordFormat.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "recordFormat",
 			Error: err,
 		})
 	}
@@ -1200,7 +1515,7 @@ func (s *PathConf) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.RtspTransport.Get(); ok {
+		if value, ok := s.RecordFormat.Get(); ok {
 			if err := func() error {
 				if err := value.Validate(); err != nil {
 					return err
@@ -1213,62 +1528,32 @@ func (s *PathConf) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "rtspTransport",
+			Name:  "recordFormat",
 			Error: err,
 		})
 	}
 	if err := func() error {
-		if value, ok := s.SourceProtocol.Get(); ok {
+		var failures []validate.FieldError
+		for i, elem := range s.RpiCameraAWBGains {
 			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
+				if err := (validate.Float{}).Validate(float64(elem)); err != nil {
+					return errors.Wrap(err, "float")
 				}
 				return nil
 			}(); err != nil {
-				return err
+				failures = append(failures, validate.FieldError{
+					Name:  fmt.Sprintf("[%d]", i),
+					Error: err,
+				})
 			}
 		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "sourceProtocol",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RtspRangeType.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
+		if len(failures) > 0 {
+			return &validate.Error{Fields: failures}
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "rtspRangeType",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if s.RtspUDPSourcePortRange == nil {
-			return nil // optional
-		}
-		if err := (validate.Array{
-			MinLength:    2,
-			MinLengthSet: true,
-			MaxLength:    2,
-			MaxLengthSet: true,
-		}).ValidateLength(len(s.RtspUDPSourcePortRange)); err != nil {
-			return errors.Wrap(err, "array")
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rtspUDPSourcePortRange",
+			Name:  "rpiCameraAWBGains",
 			Error: err,
 		})
 	}
@@ -1309,96 +1594,6 @@ func (s *PathConf) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.RpiCameraSaturation.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rpiCameraSaturation",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RpiCameraSharpness.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rpiCameraSharpness",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if s.RpiCameraAWBGains == nil {
-			return nil // optional
-		}
-		if err := (validate.Array{
-			MinLength:    2,
-			MinLengthSet: true,
-			MaxLength:    2,
-			MaxLengthSet: true,
-		}).ValidateLength(len(s.RpiCameraAWBGains)); err != nil {
-			return errors.Wrap(err, "array")
-		}
-		var failures []validate.FieldError
-		for i, elem := range s.RpiCameraAWBGains {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(elem)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				failures = append(failures, validate.FieldError{
-					Name:  fmt.Sprintf("[%d]", i),
-					Error: err,
-				})
-			}
-		}
-		if len(failures) > 0 {
-			return &validate.Error{Fields: failures}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rpiCameraAWBGains",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.RpiCameraGain.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "rpiCameraGain",
-			Error: err,
-		})
-	}
-	if err := func() error {
 		if value, ok := s.RpiCameraEV.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{}).Validate(float64(value)); err != nil {
@@ -1435,6 +1630,24 @@ func (s *PathConf) Validate() error {
 		})
 	}
 	if err := func() error {
+		if value, ok := s.RpiCameraGain.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rpiCameraGain",
+			Error: err,
+		})
+	}
+	if err := func() error {
 		if value, ok := s.RpiCameraLensPosition.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{}).Validate(float64(value)); err != nil {
@@ -1449,6 +1662,96 @@ func (s *PathConf) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "rpiCameraLensPosition",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RpiCameraSaturation.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rpiCameraSaturation",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RpiCameraSharpness.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rpiCameraSharpness",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RtspRangeType.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rtspRangeType",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.RtspTransport.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "rtspTransport",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.SourceProtocol.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "sourceProtocol",
 			Error: err,
 		})
 	}
@@ -1582,6 +1885,10 @@ func (s PathReaderType) Validate() error {
 		return nil
 	case "webRTCSession":
 		return nil
+	case "moqSession":
+		return nil
+	case "hidden":
+		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
 	}
@@ -1649,6 +1956,10 @@ func (s PathSourceType) Validate() error {
 		return nil
 	case "webRTCSource":
 		return nil
+	case "moqSource":
+		return nil
+	case "moqSession":
+		return nil
 	default:
 		return errors.Errorf("invalid value: %v", s)
 	}
@@ -1704,6 +2015,8 @@ func (s PathTrackCodec) Validate() error {
 		return nil
 	case "Opus":
 		return nil
+	case "FLAC":
+		return nil
 	case "Vorbis":
 		return nil
 	case "MPEG-4 Audio":
@@ -1733,6 +2046,54 @@ func (s PathTrackCodec) Validate() error {
 	default:
 		return errors.Errorf("invalid value: %v", s)
 	}
+}
+
+func (s *PathsForwardDestsGetBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsForwardDestsGetInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsForwardDestsGetNotFound) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsForwardDestsListBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsForwardDestsListInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsForwardDestsListNotFound) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *PathsGetBadRequest) Validate() error {
@@ -1768,6 +2129,30 @@ func (s *PathsListBadRequest) Validate() error {
 }
 
 func (s *PathsListInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsStaticSourcesGetBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsStaticSourcesGetInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *PathsStaticSourcesGetNotFound) Validate() error {
 	alias := (*Error)(s)
 	if err := alias.Validate(); err != nil {
 		return err
@@ -1888,24 +2273,6 @@ func (s *RTSPSession) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.State.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "state",
-			Error: err,
-		})
-	}
-	if err := func() error {
 		if value, ok := s.InboundRTPPacketsJitter.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{}).Validate(float64(value)); err != nil {
@@ -1938,6 +2305,24 @@ func (s *RTSPSession) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "rtpPacketsJitter",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.State.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "state",
 			Error: err,
 		})
 	}
@@ -2023,30 +2408,6 @@ func (s RecordFormat) Validate() error {
 	}
 }
 
-func (s *RecordingsDeleteSegmentBadRequest) Validate() error {
-	alias := (*Error)(s)
-	if err := alias.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *RecordingsDeleteSegmentInternalServerError) Validate() error {
-	alias := (*Error)(s)
-	if err := alias.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (s *RecordingsDeleteSegmentNotFound) Validate() error {
-	alias := (*Error)(s)
-	if err := alias.Validate(); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (s *RecordingsGetBadRequest) Validate() error {
 	alias := (*Error)(s)
 	if err := alias.Validate(); err != nil {
@@ -2080,6 +2441,30 @@ func (s *RecordingsListBadRequest) Validate() error {
 }
 
 func (s *RecordingsListInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *RecordingsSegmentsDeleteBadRequest) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *RecordingsSegmentsDeleteInternalServerError) Validate() error {
+	alias := (*Error)(s)
+	if err := alias.Validate(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *RecordingsSegmentsDeleteNotFound) Validate() error {
 	alias := (*Error)(s)
 	if err := alias.Validate(); err != nil {
 		return err
@@ -2430,96 +2815,6 @@ func (s *SRTConn) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.State.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "state",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.UsPacketsSendPeriod.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "usPacketsSendPeriod",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.MsRTT.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "msRTT",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.MbpsSendRate.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "mbpsSendRate",
-			Error: err,
-		})
-	}
-	if err := func() error {
-		if value, ok := s.MbpsReceiveRate.Get(); ok {
-			if err := func() error {
-				if err := (validate.Float{}).Validate(float64(value)); err != nil {
-					return errors.Wrap(err, "float")
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "mbpsReceiveRate",
-			Error: err,
-		})
-	}
-	if err := func() error {
 		if value, ok := s.MbpsLinkCapacity.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{}).Validate(float64(value)); err != nil {
@@ -2556,7 +2851,7 @@ func (s *SRTConn) Validate() error {
 		})
 	}
 	if err := func() error {
-		if value, ok := s.PacketsSendLossRate.Get(); ok {
+		if value, ok := s.MbpsReceiveRate.Get(); ok {
 			if err := func() error {
 				if err := (validate.Float{}).Validate(float64(value)); err != nil {
 					return errors.Wrap(err, "float")
@@ -2569,7 +2864,43 @@ func (s *SRTConn) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "packetsSendLossRate",
+			Name:  "mbpsReceiveRate",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.MbpsSendRate.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "mbpsSendRate",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.MsRTT.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "msRTT",
 			Error: err,
 		})
 	}
@@ -2588,6 +2919,60 @@ func (s *SRTConn) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "packetsReceivedLossRate",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.PacketsSendLossRate.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "packetsSendLossRate",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.State.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "state",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.UsPacketsSendPeriod.Get(); ok {
+			if err := func() error {
+				if err := (validate.Float{}).Validate(float64(value)); err != nil {
+					return errors.Wrap(err, "float")
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "usPacketsSendPeriod",
 			Error: err,
 		})
 	}
@@ -2711,7 +3096,7 @@ func (s *SrtConnsListInternalServerError) Validate() error {
 	return nil
 }
 
-func (s *WebRTCSession) Validate() error {
+func (s *StaticSource) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
 	}
@@ -2735,6 +3120,49 @@ func (s *WebRTCSession) Validate() error {
 			Error: err,
 		})
 	}
+	if err := func() error {
+		if value, ok := s.Type.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "type",
+			Error: err,
+		})
+	}
+	if len(failures) > 0 {
+		return &validate.Error{Fields: failures}
+	}
+	return nil
+}
+
+func (s StaticSourceState) Validate() error {
+	switch s {
+	case "idle":
+		return nil
+	case "running":
+		return nil
+	case "error":
+		return nil
+	default:
+		return errors.Errorf("invalid value: %v", s)
+	}
+}
+
+func (s *WebRTCSession) Validate() error {
+	if s == nil {
+		return validate.ErrNilPointer
+	}
+
+	var failures []validate.FieldError
 	if err := func() error {
 		if value, ok := s.InboundRTPPacketsJitter.Get(); ok {
 			if err := func() error {
@@ -2768,6 +3196,24 @@ func (s *WebRTCSession) Validate() error {
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
 			Name:  "rtpPacketsJitter",
+			Error: err,
+		})
+	}
+	if err := func() error {
+		if value, ok := s.State.Get(); ok {
+			if err := func() error {
+				if err := value.Validate(); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}(); err != nil {
+		failures = append(failures, validate.FieldError{
+			Name:  "state",
 			Error: err,
 		})
 	}
