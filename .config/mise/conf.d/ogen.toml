@@ -3,7 +3,8 @@ description = "Generate SDK code from the MediaMTX OpenAPI specification"
 depends = ["mediamtx:openapi"]
 run = '''
   set -e
-  ogen \
+  # Go 1.27 exposes json.RawMessage as an alias, which ogen cannot load.
+  GOTOOLCHAIN=go1.25.0 ogen \
     -loglevel warn \
     -clean \
     -config .config/ogen.yml \
